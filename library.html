@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="theme-color" content="#22487F"/>
+<title>TurnKey Library</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --navy:#22487F;--navy-dk:#1a3a6b;--navy-md:#2E60A8;--navy-lt:#3D86C8;
+  --red:#CC3340;--red-dk:#a82830;
+  --bg:#f0f3f8;--surf:#fff;--surf2:#f7f9fc;
+  --bdr:#dde3ed;--bdr2:#b0bdd4;
+  --tx:#1a2236;--mu:#6b7a99;--mu2:#9aa3b8;
+  --sel:#e8eef8;--cat:#eef2f8;
+  --ok:#1a6b3a;--ok-bg:#eafaf1;
+  --warn:#7a4f00;--warn-bg:#fff8e6;
+  --nav-h:58px;--top-h:52px;
+}
+html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:14px;color:var(--tx);background:var(--bg)}
+
+/* ── TOP BAR ── */
+.topbar{height:var(--top-h);background:var(--navy);display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;position:relative;z-index:10}
+.logo{font-size:18px;font-weight:800;letter-spacing:-0.4px;flex-shrink:0}
+.logo span:first-child{color:#e8b4b8}.logo span:last-child{color:#fff}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.5);font-weight:400;margin-left:8px;display:none}
+@media(min-width:768px){.logo-sub{display:inline}}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.sync-dot{width:9px;height:9px;border-radius:50%;background:#aaa;flex-shrink:0;cursor:pointer}
+.sync-dot.ok{background:#4caf50}.sync-dot.busy{background:#f0a500;animation:blink 1s infinite}.sync-dot.err{background:var(--red)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.tb-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:#fff;border-radius:6px;padding:5px 11px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px}
+.tb-btn:hover{background:rgba(255,255,255,0.22)}
+.sel-chip{background:var(--red);color:#fff;border-radius:99px;padding:2px 10px;font-size:11px;font-weight:700;display:none}
+
+/* ── APP SHELL ── */
+.shell{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.content-area{flex:1;overflow:hidden;display:flex;flex-direction:column}
+
+/* ── VIEWS ── */
+.view{display:none;flex-direction:column;flex:1;overflow:hidden}
+.view.active{display:flex}
+
+/* Mobile: bottom nav */
+.bottom-nav{height:var(--nav-h);background:var(--surf);border-top:1px solid var(--bdr);display:flex;flex-shrink:0}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--mu);user-select:none;position:relative;padding-top:2px}
+.bnav-item.active{color:var(--navy)}
+.bnav-item .bnav-icon{font-size:20px;line-height:1}
+.bnav-item .bnav-label{font-size:10px;font-weight:500}
+.bnav-badge{position:absolute;top:6px;right:calc(50% - 16px);background:var(--red);color:#fff;border-radius:99px;padding:1px 5px;font-size:9px;font-weight:700;display:none}
+.bnav-badge.show{display:block}
+
+/* Desktop: hide bottom nav, show split layout */
+@media(min-width:768px){
+  .bottom-nav{display:none}
+  .content-area{flex-direction:row}
+  .left-panel{width:55%;border-right:1px solid var(--bdr);display:flex;flex-direction:column;overflow:hidden}
+  .right-panel-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden}
+  .desktop-tabs{display:flex;border-bottom:1px solid var(--bdr);background:var(--surf2);flex-shrink:0}
+  .dtab{padding:10px 16px;font-size:12px;font-weight:500;cursor:pointer;color:var(--mu);border-bottom:2px solid transparent;user-select:none}
+  .dtab.active{color:var(--navy);border-bottom-color:var(--navy)}
+  .dtab:hover:not(.active){background:var(--cat);color:var(--tx)}
+  .view.desk-left{display:flex;flex-direction:column;flex:1;overflow:hidden}
+  .view.desk-right{display:flex;flex-direction:column;flex:1;overflow:hidden}
+}
+
+/* ── SEARCH AREA ── */
+.search-area{padding:10px 12px;border-bottom:1px solid var(--bdr);flex-shrink:0;background:var(--surf)}
+.search-wrap{display:flex;align-items:center;background:var(--surf2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:8px}
+.search-wrap:focus-within{border-color:var(--navy-lt)}
+.search-wrap input{flex:1;border:none;background:transparent;padding:9px 12px;font-size:14px;color:var(--tx);outline:none}
+.search-icon{padding:0 10px;color:var(--mu);font-size:16px}
+.cat-row{display:flex;gap:5px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+.cat-row::-webkit-scrollbar{display:none}
+.pill{padding:5px 13px;border-radius:99px;font-size:12px;font-weight:500;border:1px solid var(--bdr);background:var(--surf);color:var(--mu);cursor:pointer;white-space:nowrap;user-select:none;flex-shrink:0}
+.pill.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ── ITEM LIST ── */
+.item-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.cat-head{padding:6px 14px;background:var(--cat);font-size:10px;font-weight:700;color:var(--navy-md);text-transform:uppercase;letter-spacing:0.07em;border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:1}
+.item{display:grid;grid-template-columns:44px 1fr auto;align-items:center;padding:10px 12px;border-bottom:1px solid var(--bdr);cursor:pointer;user-select:none;min-height:60px}
+.item:active{background:var(--surf2)}
+.item.sel{background:var(--sel)}
+.chk-wrap{display:flex;align-items:center;justify-content:center}
+.chk{width:20px;height:20px;accent-color:var(--navy);cursor:pointer;flex-shrink:0}
+.item-info .scope{font-size:13px;line-height:1.35;margin-bottom:3px}
+.item-info .meta{font-size:11px;color:var(--mu)}
+.item-rv{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.item-rate{font-size:12px;font-weight:600;color:var(--navy-md);white-space:nowrap}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--mu2);font-size:16px;padding:4px 6px;border-radius:4px;line-height:1;min-height:32px;display:flex;align-items:center}
+.del-btn:active{color:var(--red);background:#fff0f1}
+.empty{padding:40px 20px;text-align:center;color:var(--mu);font-size:13px;line-height:1.9}
+.empty .ei{font-size:36px;display:block;margin-bottom:10px;opacity:0.3}
+
+/* ── SELECTED VIEW ── */
+.sel-header{padding:12px 14px;background:var(--surf2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.sel-header h2{font-size:14px;font-weight:600;flex:1}
+.count-badge{background:var(--red);color:#fff;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700}
+.sel-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.sel-item{padding:11px 14px;border-bottom:1px solid var(--bdr)}
+.sel-item-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.sel-scope{font-size:13px;font-weight:600;flex:1;line-height:1.35;color:var(--navy-dk)}
+.sel-cat-label{font-size:10px;color:var(--mu);margin-top:1px}
+.rem{background:none;border:none;cursor:pointer;color:var(--mu2);font-size:22px;line-height:1;padding:0 2px;flex-shrink:0}
+.rem:active{color:var(--red)}
+.sel-fields{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:4px}
+.sf label{display:block;font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em;margin-bottom:3px}
+.sf input{width:100%;padding:6px;border:1px solid var(--bdr);border-radius:5px;font-size:12px;color:var(--tx);background:var(--surf2);text-align:center;outline:none;min-height:34px}
+.sf input:focus{border-color:var(--navy-lt);background:#fff}
+.sel-val{text-align:right;font-size:12px;color:var(--mu)}
+.sel-val strong{color:var(--navy-dk);font-size:13px}
+
+/* ── FOOTER / EXPORT ── */
+.export-footer{padding:12px 14px;border-top:1px solid var(--bdr);background:var(--surf2);flex-shrink:0}
+.total-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:8px 12px;background:var(--cat);border-radius:8px;border:1px solid var(--bdr)}
+.total-label{font-size:11px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:0.03em}
+.total-val{font-size:16px;font-weight:700;color:var(--navy-dk)}
+.export-btns{display:flex;gap:8px}
+.export-status{font-size:11px;color:var(--mu);text-align:center;margin-top:8px;min-height:16px}
+
+/* ── ADD VIEW ── */
+.add-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px}
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:5px}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 12px;border:1px solid var(--bdr);border-radius:8px;font-size:14px;color:var(--tx);background:var(--surf);outline:none;-webkit-appearance:none;appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--navy-lt);box-shadow:0 0 0 3px rgba(61,134,200,0.1)}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fg-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.form-msg{font-size:12px;text-align:center;margin-top:8px;min-height:18px;padding:0 4px}
+.form-msg.ok{color:var(--ok)}.form-msg.err{color:var(--red)}
+.section-divider{border-top:1px solid var(--bdr);margin:18px 0;padding-top:14px}
+.section-title{font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px}
+
+/* ── JOBS VIEW ── */
+.jobs-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.save-job-bar{display:flex;gap:8px;padding:12px 14px;border-bottom:1px solid var(--bdr);background:var(--surf);flex-shrink:0}
+.save-job-bar input{flex:1;padding:10px 12px;border:1px solid var(--bdr);border-radius:8px;font-size:13px;outline:none;background:var(--surf2)}
+.save-job-bar input:focus{border-color:var(--navy-lt)}
+.job-row{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--bdr);min-height:64px}
+.job-row:active{background:var(--surf2)}
+.job-info{flex:1;min-width:0}
+.job-name{font-size:13px;font-weight:600;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.job-meta{font-size:11px;color:var(--mu)}
+.job-btns{display:flex;gap:5px;flex-shrink:0}
+
+/* ── SETTINGS VIEW ── */
+.settings-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px}
+.settings-card{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:16px;margin-bottom:14px}
+.settings-card h3{font-size:13px;font-weight:700;color:var(--navy-dk);margin-bottom:4px}
+.settings-card p{font-size:12px;color:var(--mu);line-height:1.6;margin-bottom:12px}
+.sync-status-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:7px;font-size:12px;margin-bottom:12px}
+.sync-status-bar.ok{background:var(--ok-bg);color:var(--ok)}
+.sync-status-bar.err{background:#fff0f0;color:var(--red)}
+.sync-status-bar.idle{background:var(--cat);color:var(--mu)}
+.token-input-wrap{display:flex;gap:8px;margin-bottom:10px}
+.token-input-wrap input{flex:1;padding:9px 12px;border:1px solid var(--bdr);border-radius:7px;font-size:13px;font-family:monospace;outline:none}
+.token-input-wrap input:focus{border-color:var(--navy-lt)}
+.how-steps{counter-reset:steps;padding:0}
+.how-steps li{counter-increment:steps;list-style:none;display:flex;gap:10px;margin-bottom:10px;font-size:12px;color:var(--tx);line-height:1.5}
+.how-steps li::before{content:counter(steps);min-width:22px;height:22px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.how-steps a{color:var(--navy-lt)}
+.gist-id-display{font-family:monospace;font-size:11px;background:var(--cat);padding:6px 10px;border-radius:5px;word-break:break-all;color:var(--navy-dk);margin-top:6px}
+.danger-zone{border-color:#ffd0d0}
+.danger-zone h3{color:var(--red)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--bdr);background:var(--surf);color:var(--tx);user-select:none;min-height:42px}
+.btn:active{transform:scale(0.97)}
+.btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn.primary:active{background:var(--navy-dk)}
+.btn.red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--mu)}
+.btn.ghost:active{background:var(--surf2)}
+.btn.sm{padding:7px 12px;font-size:12px;min-height:36px}
+.btn.lg{flex:1;padding:12px;font-size:14px;min-height:48px}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:flex-end;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity 0.2s}
+@media(min-width:768px){.modal-overlay{align-items:center}}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:16px 16px 0 0;padding:22px 20px 30px;width:100%;max-height:88vh;overflow-y:auto}
+@media(min-width:768px){.modal{border-radius:14px;max-width:480px;padding:24px;max-height:80vh}}
+.modal h2{font-size:16px;font-weight:700;margin-bottom:6px;color:var(--navy-dk)}
+.modal-close-row{display:flex;justify-content:flex-end;margin-bottom:12px}
+.modal-close{background:none;border:none;cursor:pointer;font-size:22px;color:var(--mu);padding:0;line-height:1}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:calc(var(--nav-h) + 12px);left:50%;transform:translateX(-50%) translateY(8px);background:var(--navy-dk);color:#fff;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:500;white-space:nowrap;opacity:0;pointer-events:none;transition:all 0.25s;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,0.22)}
+@media(min-width:768px){#toast{bottom:20px}}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.ok{background:var(--ok)}
+#toast.err{background:var(--red)}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:99px}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo"><span>Turn</span><span>Key</span></div>
+  <span class="logo-sub">Item Library</span>
+  <div class="tb-right">
+    <span class="sel-chip" id="sel-chip">0</span>
+    <div class="sync-dot idle" id="sync-dot" title="Sync status" onclick="showView('settings')"></div>
+    <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
+  </div>
+</div>
+
+<!-- CONTENT AREA (desktop: split, mobile: single view) -->
+<div class="content-area">
+
+  <!-- DESKTOP LEFT PANEL -->
+  <div class="left-panel" id="left-panel" style="display:none">
+    <div class="desktop-tabs">
+      <div class="dtab active" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
+      <div class="dtab" id="dtab-jobs"    onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
+      <div class="dtab" id="dtab-add"     onclick="switchDesktopLeft('add')">+ Add Item</div>
+      <div class="dtab" id="dtab-settings"onclick="switchDesktopLeft('settings')">⚙ Sync</div>
+    </div>
+    <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden"></div>
+  </div>
+
+  <!-- DESKTOP RIGHT PANEL -->
+  <div class="right-panel-wrap" id="right-panel" style="display:none"></div>
+
+  <!-- MOBILE VIEWS (one at a time) -->
+  <div id="mobile-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden"></div>
+
+</div>
+
+<!-- BOTTOM NAV (mobile only) -->
+<div class="bottom-nav">
+  <div class="bnav-item active" id="bnav-library" onclick="showView('library')">
+    <div class="bnav-icon">📋</div>
+    <div class="bnav-label">Library</div>
+  </div>
+  <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
+    <div class="bnav-icon">☑</div>
+    <div class="bnav-label">Selected</div>
+    <div class="bnav-badge" id="bnav-sel-badge">0</div>
+  </div>
+  <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
+    <div class="bnav-icon">💼</div>
+    <div class="bnav-label">Jobs</div>
+  </div>
+  <div class="bnav-item" id="bnav-add" onclick="showView('add')">
+    <div class="bnav-icon">＋</div>
+    <div class="bnav-label">Add</div>
+  </div>
+  <div class="bnav-item" id="bnav-settings" onclick="showView('settings')">
+    <div class="bnav-icon">⚙</div>
+    <div class="bnav-label">Sync</div>
+  </div>
+</div>
+
+</div><!-- /.shell -->
+
+<!-- PASTE FOR EXCEL MODAL -->
+<div class="modal-overlay" id="paste-modal" onclick="if(event.target===this)closeModal('paste-modal')">
+  <div class="modal">
+    <div class="modal-close-row"><button class="modal-close" onclick="closeModal('paste-modal')">✕</button></div>
+    <h2>📋 How to paste into Excel</h2>
+    <ol class="how-steps" style="margin-top:14px">
+      <li>Open your Capital Works <strong>.xlsm</strong> file in Excel</li>
+      <li>Go to <strong>Summary Page for Building Data</strong></li>
+      <li>Click cell <strong>A</strong> on your first empty row below existing items</li>
+      <li>Press <strong>Ctrl + V</strong> to paste</li>
+      <li>Column F (Value) will be blank — drag the <code>=C*E</code> formula down from the row above</li>
+      <li>Click your <strong>Run</strong> button to recalculate</li>
+    </ol>
+    <button class="btn primary" style="width:100%;margin-top:18px" onclick="closeModal('paste-modal')">Got it</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- VIEW TEMPLATES -->
+<template id="tmpl-library">
+  <div class="search-area">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search items..." oninput="renderLibrary()" autocomplete="off">
+    </div>
+    <div class="cat-row" id="cats-bar"></div>
+  </div>
+  <div class="item-list" id="item-list"></div>
+</template>
+
+<template id="tmpl-selected">
+  <div class="sel-header">
+    <h2>Selected items</h2>
+    <span class="count-badge" id="sel-count-badge">0</span>
+    <button class="btn ghost sm" onclick="clearAll()">Clear</button>
+  </div>
+  <div class="sel-list" id="sel-list"></div>
+  <div class="export-footer">
+    <div class="total-bar">
+      <span class="total-label">Total estimated value</span>
+      <span class="total-val" id="total-val">$0</span>
+    </div>
+    <div class="export-btns">
+      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()" disabled>📋 Copy for Excel</button>
+      <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
+    </div>
+    <div class="export-status" id="export-status"></div>
+  </div>
+</template>
+
+<template id="tmpl-jobs">
+  <div class="save-job-bar">
+    <input id="job-name-input" placeholder="Name this selection as a job..." maxlength="80">
+    <button class="btn primary sm" onclick="saveJob()">Save</button>
+  </div>
+  <div class="jobs-scroll" id="jobs-list-wrap">
+    <div id="jobs-list"></div>
+  </div>
+</template>
+
+<template id="tmpl-add">
+  <div class="add-scroll">
+    <div class="fg">
+      <label>Description *</label>
+      <input id="f-scope" placeholder="e.g. Repaint external balcony soffits / slab edges" autocomplete="off">
+    </div>
+    <div class="fg">
+      <label>Category *</label>
+      <select id="f-cat"></select>
+    </div>
+    <div class="fg-row3">
+      <div class="fg"><label>Qty</label><input id="f-qty" type="number" placeholder="1" min="0" step="any" inputmode="decimal"></div>
+      <div class="fg"><label>Unit</label><input id="f-unit" placeholder="m2" autocomplete="off"></div>
+      <div class="fg"><label>Rate ($)</label><input id="f-rate" type="number" placeholder="0" min="0" inputmode="decimal"></div>
+    </div>
+    <div class="fg-row">
+      <div class="fg"><label>Next due (yrs)</label><input id="f-nd" type="number" placeholder="3" min="1" inputmode="numeric"></div>
+      <div class="fg"><label>Total life (yrs)</label><input id="f-tl" type="number" placeholder="10" min="1" inputmode="numeric"></div>
+    </div>
+    <button class="btn primary" style="width:100%;min-height:48px;font-size:14px" onclick="addCustomItem()">Add to Library</button>
+    <div class="form-msg" id="add-msg"></div>
+    <div class="section-divider">
+      <div class="section-title">Import from a past Excel job</div>
+      <p style="font-size:12px;color:var(--mu);margin-bottom:10px;line-height:1.6">Select all data rows in a past Summary Page (cols A–H), copy with Ctrl+C, paste below.</p>
+      <div class="fg"><textarea id="paste-import" placeholder="Paste Excel rows here..." rows="4" style="resize:vertical;font-family:monospace;font-size:11px;min-height:80px"></textarea></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn primary" style="flex:1" onclick="importFromPaste()">Import rows</button>
+        <button class="btn ghost" onclick="document.getElementById('paste-import').value=''">Clear</button>
+      </div>
+      <div class="form-msg" id="import-msg"></div>
+    </div>
+  </div>
+</template>
+
+<template id="tmpl-settings">
+  <div class="settings-scroll">
+
+    <div class="settings-card">
+      <h3>☁ Cloud sync</h3>
+      <p>Your library syncs across all devices via a private GitHub Gist. Set it up once and every phone, tablet, and computer stays in sync automatically.</p>
+      <div class="sync-status-bar idle" id="sync-status-bar">○ Not configured</div>
+      <div class="token-input-wrap">
+        <input type="password" id="gh-token-input" placeholder="GitHub personal access token..." autocomplete="off" spellcheck="false">
+        <button class="btn primary sm" onclick="connectGist()">Connect</button>
+      </div>
+      <div style="font-size:11px;color:var(--mu)" id="gist-id-wrap" style="display:none">
+        Gist ID: <div class="gist-id-display" id="gist-id-display"></div>
+      </div>
+    </div>
+
+    <div class="settings-card">
+      <h3>📖 How to get a token (2 minutes)</h3>
+      <ol class="how-steps">
+        <li>Go to <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></li>
+        <li>Name it <strong>TurnKey Library</strong>, set expiration to <strong>No expiration</strong></li>
+        <li>Under scopes, tick only <strong>gist</strong></li>
+        <li>Click <strong>Generate token</strong> and copy the result</li>
+        <li>Paste it in the Connect field above and click <strong>Connect</strong></li>
+        <li>On your next device, repeat — use the <strong>same token</strong> and it will find and link to the same library automatically</li>
+      </ol>
+    </div>
+
+    <div class="settings-card">
+      <h3>ℹ About sync</h3>
+      <p>Changes sync when you tap the ⟳ Sync button or automatically after 5 seconds of inactivity. The coloured dot in the top bar shows sync status — green = all saved, orange = syncing, red = error.</p>
+      <p style="margin-top:8px">Works offline too — changes are stored locally and pushed when you're back online.</p>
+      <button class="btn primary" style="width:100%" onclick="syncNow()">⟳ Sync now</button>
+    </div>
+
+    <div class="settings-card danger-zone">
+      <h3>Reset</h3>
+      <p>Disconnect this device from sync, or reset the library to defaults.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn sm" onclick="disconnectSync()" style="border-color:#ffd0d0;color:var(--red)">Disconnect sync</button>
+        <button class="btn sm" onclick="resetLibrary()" style="border-color:#ffd0d0;color:var(--red)">Reset to defaults</button>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const CATS=["Structural","Exterior finishes","Doors & windows","Roofing","Electrical","Plumbing","HVAC","Fire safety","Lifts & escalators","Technology","Security","Accessibility","Landscaping","Amenities","Furnishings","Car parking","Waterproofing","Sustainability","Other"];
+const DEFAULT_ITEMS=[
+  {id:"d1",cat:"Structural",scope:"Repair and treatment of rendered facade",qty:48,unit:"m2",rate:125,nd:3,tl:3},
+  {id:"d2",cat:"Structural",scope:"Brick and mortar repairs to front facade",qty:8,unit:"m3",rate:1200,nd:5,tl:6},
+  {id:"d3",cat:"Exterior finishes",scope:"Repaint facades / hard surfaces",qty:265,unit:"m2",rate:90,nd:3,tl:3},
+  {id:"d4",cat:"Exterior finishes",scope:"Repaint external timber hardwood slats to gates",qty:4,unit:"m2",rate:325,nd:1,tl:2},
+  {id:"d5",cat:"Exterior finishes",scope:"Repaint external balcony soffits / slab edges",qty:175,unit:"m2",rate:15,nd:3,tl:3},
+  {id:"d6",cat:"Exterior finishes",scope:"Repaint internal stairwell walls / ceilings",qty:288,unit:"lm",rate:65,nd:4,tl:7},
+  {id:"d7",cat:"Exterior finishes",scope:"Repaint internal doors and frames",qty:45,unit:"lm",rate:125,nd:4,tl:7},
+  {id:"d8",cat:"Exterior finishes",scope:"Maintain glass / powdercoated internal balustrades to staircase",qty:121,unit:"lm",rate:39,nd:6,tl:6},
+  {id:"d9",cat:"Exterior finishes",scope:"Carpet and underlay replacement",qty:260,unit:"lm",rate:78,nd:3,tl:10},
+  {id:"d10",cat:"Doors & windows",scope:"Door frame / jamb replacement as needed",qty:6,unit:"m3",rate:1200,nd:5,tl:8},
+  {id:"d11",cat:"Doors & windows",scope:"Door and window hardware replacement",qty:1,unit:"lm",rate:3300,nd:2,tl:2},
+  {id:"d12",cat:"Roofing",scope:"Maintain metal roof / cappings and flashings",qty:120,unit:"m2",rate:88,nd:5,tl:7},
+  {id:"d13",cat:"Roofing",scope:"Flashings to roof mounted exhausts - repair as needed",qty:20,unit:"m3",rate:166,nd:3,tl:4},
+  {id:"d14",cat:"Roofing",scope:"Liquid membrane isolated repairs",qty:3252,unit:"item",rate:18,nd:4,tl:7},
+  {id:"d15",cat:"Roofing",scope:"Maintain glass roof and seals above centre stairwell",qty:15,unit:"lm",rate:225,nd:3,tl:4},
+  {id:"d16",cat:"Roofing",scope:"Roof condition assessment and reports",qty:8,unit:"lm",rate:325,nd:3,tl:5},
+  {id:"d17",cat:"Electrical",scope:"Emergency and exit lighting system replacement",qty:2,unit:"item",rate:1200,nd:5,tl:8},
+  {id:"d18",cat:"Electrical",scope:"Lighting to common areas - upgrades as needed",qty:1,unit:"lm",rate:3252,nd:4,tl:6},
+  {id:"d19",cat:"Plumbing",scope:"Hot water systems - gas heater tanks",qty:3,unit:"item",rate:5520,nd:3,tl:3},
+  {id:"d20",cat:"Plumbing",scope:"Hot water systems - dual circulator pumps",qty:2,unit:"item",rate:1245,nd:4,tl:6},
+  {id:"d21",cat:"Plumbing",scope:"Control panels to sewer/stormwater submersible pumps",qty:3,unit:"ea",rate:4800,nd:9,tl:10},
+  {id:"d22",cat:"Plumbing",scope:"Replace sump pumps - stormwater",qty:1,unit:"ea",rate:2216,nd:3,tl:3},
+  {id:"d23",cat:"Plumbing",scope:"Replace sump pumps - sewer",qty:1,unit:"ea",rate:1950,nd:3,tl:3},
+  {id:"d24",cat:"HVAC",scope:"Mechanical exhaust - supply/extraction plant",qty:2,unit:"item",rate:2154,nd:5,tl:7},
+  {id:"d25",cat:"HVAC",scope:"Replacement of ductwork serving common areas",qty:1,unit:"lm",rate:12000,nd:10,tl:10},
+  {id:"d26",cat:"Technology",scope:"Intercom system replacement or major upgrade",qty:1,unit:"item",rate:2500,nd:3,tl:10},
+  {id:"d27",cat:"Technology",scope:"Building access control system upgrades",qty:5,unit:"item",rate:1200,nd:8,tl:10},
+  {id:"d28",cat:"Security",scope:"Replacement of CCTV camera security systems",qty:1,unit:"item",rate:18500,nd:9,tl:10},
+  {id:"d29",cat:"Accessibility",scope:"Repaint of epoxy non-slip flooring",qty:2,unit:"m2",rate:2500,nd:1,tl:3},
+  {id:"d30",cat:"Accessibility",scope:"Accessibility self-closing door motors / sensors",qty:2,unit:"item",rate:1200,nd:4,tl:5},
+  {id:"d31",cat:"Landscaping",scope:"Rooftop planter boxes - membrane isolated repairs",qty:8,unit:"m2",rate:2500,nd:7,tl:7},
+  {id:"d32",cat:"Landscaping",scope:"Boundary walls / access gates",qty:4,unit:"m2",rate:1847,nd:8,tl:10},
+  {id:"d33",cat:"Furnishings",scope:"Bin room - 50 litre hot water tank",qty:1,unit:"item",rate:880,nd:4,tl:10},
+  {id:"d34",cat:"Car parking",scope:"Repainting of line marking",qty:12,unit:"m3",rate:425,nd:7,tl:10},
+  {id:"d35",cat:"Car parking",scope:"Repaint doors and frames to plant rooms",qty:2,unit:"m2",rate:2958,nd:6,tl:8},
+  {id:"d36",cat:"Waterproofing",scope:"Balcony waterproofing replacement works",qty:3,unit:"m2",rate:23250,nd:6,tl:8},
+  {id:"d37",cat:"Sustainability",scope:"Sustainability infrastructure upgrades",qty:2,unit:"ea",rate:3200,nd:6,tl:8},
+  {id:"d38",cat:"Other",scope:"Specialist reports required as per DPBA",qty:3,unit:"m2",rate:2500,nd:5,tl:6},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let library=[], selected=[], savedJobs=[], activeCat="All", currentView="library", desktopLeftView="library";
+let ghToken="", gistId="", syncTimer=null, isMobile=true;
+
+// ── LOCAL STORAGE ─────────────────────────────────────────────────────────────
+const LS={
+  load(k,def){try{return JSON.parse(localStorage.getItem(k))||def}catch{return def}},
+  save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
+};
+
+// ── GITHUB GIST SYNC ──────────────────────────────────────────────────────────
+const GIST_FILE="turnkey-library.json";
+
+async function gistFetch(method,path,body){
+  const r=await fetch(`https://api.github.com${path}`,{
+    method,headers:{"Authorization":`token ${ghToken}`,"Content-Type":"application/json","Accept":"application/vnd.github.v3+json"},
+    body:body?JSON.stringify(body):undefined
+  });
+  if(!r.ok)throw new Error(`GitHub API ${r.status}`);
+  return r.json();
+}
+
+async function connectGist(){
+  const tok=(document.getElementById("gh-token-input")||{}).value?.trim();
+  if(!tok){toast("Paste your GitHub token first","err");return;}
+  ghToken=tok;
+  setSyncStatus("busy","Connecting...");
+  try{
+    // Find existing TurnKey gist or create one
+    const gists=await gistFetch("GET","/gists");
+    const existing=gists.find(g=>g.files&&g.files[GIST_FILE]);
+    if(existing){
+      gistId=existing.id;
+      // Pull remote data
+      const data=await pullGist();
+      if(data){library=data.library||library;savedJobs=data.savedJobs||savedJobs;}
+      toast("Connected — library synced","ok");
+    } else {
+      // Create new gist
+      const newGist=await gistFetch("POST","/gists",{
+        description:"TurnKey Item Library",public:false,
+        files:{[GIST_FILE]:{content:JSON.stringify({library,savedJobs})}}
+      });
+      gistId=newGist.id;
+      toast("Connected — new library created","ok");
+    }
+    LS.save("tk_token",ghToken);
+    LS.save("tk_gist",gistId);
+    setSyncStatus("ok","Synced");
+    renderAll();
+    renderSettingsStatus();
+  }catch(e){
+    setSyncStatus("err","Connection failed — check your token");
+    toast("Could not connect: "+e.message,"err");
+    ghToken="";
+  }
+}
+
+async function pullGist(){
+  if(!ghToken||!gistId)return null;
+  const g=await gistFetch("GET",`/gists/${gistId}`);
+  return JSON.parse(g.files[GIST_FILE].content);
+}
+
+async function pushGist(){
+  if(!ghToken||!gistId)return;
+  await gistFetch("PATCH",`/gists/${gistId}`,{
+    files:{[GIST_FILE]:{content:JSON.stringify({library,savedJobs})}}
+  });
+}
+
+async function syncNow(){
+  if(!ghToken||!gistId){toast("Set up sync in the ⚙ Sync tab first");return;}
+  setSyncStatus("busy","Syncing...");
+  try{
+    const remote=await pullGist();
+    if(remote){library=remote.library||library;savedJobs=remote.savedJobs||savedJobs;}
+    await pushGist();
+    LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);
+    setSyncStatus("ok","Synced "+new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"}));
+    renderAll();toast("Synced","ok");
+  }catch(e){setSyncStatus("err","Sync failed");toast("Sync failed: "+e.message,"err");}
+}
+
+function scheduleSyncPush(){
+  LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);
+  if(!ghToken||!gistId)return;
+  clearTimeout(syncTimer);
+  setSyncStatus("busy","Pending...");
+  syncTimer=setTimeout(async()=>{
+    try{await pushGist();setSyncStatus("ok","Synced "+new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"}));}
+    catch(e){setSyncStatus("err","Sync failed");}
+  },5000);
+}
+
+function setSyncStatus(type,msg){
+  const dot=document.getElementById("sync-dot");
+  if(dot){dot.className="sync-dot "+type;dot.title=msg;}
+  renderSettingsStatus();
+}
+
+function renderSettingsStatus(){
+  const bar=document.getElementById("sync-status-bar");
+  if(!bar)return;
+  const dot=document.getElementById("sync-dot");
+  const cls=dot?dot.className.replace("sync-dot ",""):"idle";
+  const msgs={ok:"● Synced",busy:"● Syncing...",err:"● Error — check settings",idle:"○ Not configured"};
+  bar.className="sync-status-bar "+cls;
+  bar.textContent=msgs[cls]||msgs.idle;
+  const gidw=document.getElementById("gist-id-wrap");
+  const gidd=document.getElementById("gist-id-display");
+  if(gidw)gidw.style.display=gistId?"":"none";
+  if(gidd)gidd.textContent=gistId;
+  const inp=document.getElementById("gh-token-input");
+  if(inp&&ghToken)inp.value="••••••••••••••••••••";
+}
+
+function disconnectSync(){
+  if(!confirm("Disconnect this device from sync? Your local data stays."))return;
+  ghToken="";gistId="";
+  LS.save("tk_token","");LS.save("tk_gist","");
+  setSyncStatus("idle","Not configured");
+  toast("Disconnected from sync");
+}
+
+function resetLibrary(){
+  if(!confirm("Reset library to defaults? This cannot be undone."))return;
+  library=[...DEFAULT_ITEMS];scheduleSyncPush();renderAll();toast("Library reset to defaults");
+}
+
+// ── LAYOUT ────────────────────────────────────────────────────────────────────
+function detectLayout(){
+  isMobile=window.innerWidth<768;
+  document.getElementById("left-panel").style.display=isMobile?"none":"flex";
+  document.getElementById("right-panel").style.display=isMobile?"none":"flex";
+  document.getElementById("mobile-content").style.display=isMobile?"flex":"none";
+  if(!isMobile){
+    mountView("desk-left-content",desktopLeftView);
+    mountView("right-panel","selected");
+  } else {
+    mountView("mobile-content",currentView);
+  }
+}
+
+function mountView(containerId,viewName){
+  const container=document.getElementById(containerId);
+  if(!container)return;
+  const tmpl=document.getElementById("tmpl-"+viewName);
+  if(!tmpl)return;
+  container.innerHTML="";
+  container.appendChild(tmpl.content.cloneNode(true));
+  afterMount(viewName);
+}
+
+function afterMount(v){
+  if(v==="library"){renderLibrary();}
+  else if(v==="selected"){renderSelected();}
+  else if(v==="jobs"){renderJobs();}
+  else if(v==="add"){populateCatSelect();}
+  else if(v==="settings"){renderSettingsStatus();}
+}
+
+// ── SHOW VIEW ─────────────────────────────────────────────────────────────────
+function showView(v){
+  if(isMobile){
+    currentView=v;
+    mountView("mobile-content",v);
+    document.querySelectorAll(".bnav-item").forEach(el=>{
+      el.classList.toggle("active",el.id==="bnav-"+v);
+    });
+  } else {
+    desktopLeftView=v;
+    mountView("desk-left-content",v);
+    document.querySelectorAll(".dtab").forEach(el=>{
+      el.classList.toggle("active",el.id==="dtab-"+v);
+    });
+  }
+}
+
+function switchDesktopLeft(v){
+  desktopLeftView=v;
+  mountView("desk-left-content",v);
+  document.querySelectorAll(".dtab").forEach(el=>{el.classList.toggle("active",el.id==="dtab-"+v);});
+}
+
+// ── RENDER LIBRARY ────────────────────────────────────────────────────────────
+function renderLibrary(){
+  const qel=document.getElementById("search-input");
+  const q=qel?qel.value.toLowerCase().trim():"";
+  const usedCats=[...new Set(library.map(i=>i.cat))];
+  const allCats=["All",...CATS.filter(c=>usedCats.includes(c))];
+  const cbar=document.getElementById("cats-bar");
+  if(cbar)cbar.innerHTML=allCats.map(c=>
+    `<div class="pill${activeCat===c?" active":""}" onclick="setCat('${c.replace(/'/g,"\\'")}')">${c}</div>`
+  ).join("");
+  const filtered=library.filter(it=>{
+    const cok=activeCat==="All"||it.cat===activeCat;
+    const qok=!q||it.scope.toLowerCase().includes(q)||it.cat.toLowerCase().includes(q);
+    return cok&&qok;
+  });
+  const grouped={};filtered.forEach(it=>{if(!grouped[it.cat])grouped[it.cat]=[];grouped[it.cat].push(it);});
+  const selIds=new Set(selected.map(s=>s.id));
+  let html="";
+  CATS.forEach(cat=>{
+    if(!grouped[cat])return;
+    html+=`<div class="cat-head">${cat}</div>`;
+    grouped[cat].forEach(it=>{
+      const s=selIds.has(it.id);
+      html+=`<div class="item${s?" sel":""}" onclick="toggleItem('${it.id}')">
+        <div class="chk-wrap"><input type="checkbox" class="chk" ${s?"checked":""} onclick="event.stopPropagation();toggleItem('${it.id}')"></div>
+        <div class="item-info"><div class="scope">${it.scope}</div><div class="meta">${it.qty} ${it.unit} · $${it.rate.toLocaleString()}/${it.unit} · due yr ${it.nd}</div></div>
+        <div class="item-rv"><div class="item-rate">$${Math.round(it.qty*it.rate).toLocaleString()}</div><button class="del-btn" onclick="event.stopPropagation();removeLib('${it.id}')" title="Remove">✕</button></div>
+      </div>`;
+    });
+  });
+  const il=document.getElementById("item-list");
+  if(il)il.innerHTML=html||`<div class="empty"><span class="ei">🔍</span>No items match.<br>Try a different search or add items in the Add tab.</div>`;
+}
+
+// ── RENDER SELECTED ───────────────────────────────────────────────────────────
+function renderSelected(){
+  const el=document.getElementById("sel-list");
+  const cnt=document.getElementById("sel-count-badge");
+  const tv=document.getElementById("total-val");
+  const cb=document.getElementById("copy-btn");
+  if(cnt)cnt.textContent=selected.length;
+  if(cb)cb.disabled=selected.length===0;
+  if(!el)return;
+  if(selected.length===0){
+    el.innerHTML=`<div class="empty"><span class="ei">☑</span>No items selected.<br>Go to Library and tick items to add them here.</div>`;
+    if(tv)tv.textContent="$0";return;
+  }
+  let total=0,html="";
+  selected.forEach((it,i)=>{
+    const v=Math.round(Number(it.qty)*Number(it.rate));total+=v;
+    html+=`<div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">${it.scope}</div><div class="sel-cat-label">${it.cat}</div></div>
+        <button class="rem" onclick="deselect(${i})">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="${it.qty}" onchange="updateSel(${i},'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="${it.unit}" onchange="updateSel(${i},'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="${it.rate}" onchange="updateSel(${i},'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="${it.nd}" onchange="updateSel(${i},'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="${it.tl}" onchange="updateSel(${i},'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$${v.toLocaleString()}</strong></div>
+    </div>`;
+  });
+  el.innerHTML=html;
+  if(tv)tv.textContent="$"+total.toLocaleString();
+}
+
+// ── RENDER JOBS ───────────────────────────────────────────────────────────────
+function renderJobs(){
+  const el=document.getElementById("jobs-list");
+  if(!el)return;
+  if(savedJobs.length===0){el.innerHTML=`<div class="empty"><span class="ei">💼</span>No saved jobs yet.<br>Select items, enter a name above, and tap Save.</div>`;return;}
+  el.innerHTML=savedJobs.map((j,i)=>`
+    <div class="job-row">
+      <div class="job-info">
+        <div class="job-name">${j.name}</div>
+        <div class="job-meta">${j.date} · ${j.items.length} items · $${j.items.reduce((s,it)=>s+Math.round(it.qty*it.rate),0).toLocaleString()}</div>
+      </div>
+      <div class="job-btns">
+        <button class="btn primary sm" onclick="loadJob(${i})">Load</button>
+        <button class="btn sm" onclick="addJobToLib(${i})" title="Add items to library">+Lib</button>
+        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(${i})">✕</button>
+      </div>
+    </div>`).join("");
+}
+
+// ── RENDER ALL ────────────────────────────────────────────────────────────────
+function renderAll(){
+  renderLibrary();
+  renderSelected();
+  renderJobs();
+  updateBadges();
+}
+
+function updateBadges(){
+  const n=selected.length;
+  const chip=document.getElementById("sel-chip");
+  if(chip){chip.style.display=n>0?"":"none";chip.textContent=n+" selected";}
+  const bb=document.getElementById("bnav-sel-badge");
+  if(bb){bb.className="bnav-badge"+(n>0?" show":"");bb.textContent=n;}
+}
+
+// ── ITEM ACTIONS ──────────────────────────────────────────────────────────────
+function setCat(c){activeCat=c;renderLibrary();}
+function toggleItem(id){
+  const idx=selected.findIndex(s=>s.id===id);
+  if(idx>=0)selected.splice(idx,1);
+  else{const it=library.find(i=>i.id===id);if(it)selected.push({...it});}
+  renderLibrary();renderSelected();updateBadges();
+}
+function deselect(i){selected.splice(i,1);renderSelected();updateBadges();}
+function clearAll(){selected=[];renderSelected();updateBadges();}
+function updateSel(i,f,v){selected[i][f]=f==="unit"?v:(Number(v)||0);renderSelected();}
+function removeLib(id){library=library.filter(i=>i.id!==id);selected=selected.filter(i=>i.id!==id);scheduleSyncPush();renderAll();}
+
+function populateCatSelect(){
+  const el=document.getElementById("f-cat");
+  if(el)el.innerHTML=CATS.map(c=>`<option>${c}</option>`).join("");
+}
+
+function uid(){return "u"+Date.now()+Math.random().toString(36).slice(2,5);}
+
+function addCustomItem(){
+  const scope=(document.getElementById("f-scope")||{}).value?.trim();
+  if(!scope){showFMsg("add-msg","Please enter a description","err");return;}
+  library.push({
+    id:uid(),cat:document.getElementById("f-cat").value,scope,
+    qty:Number(document.getElementById("f-qty").value)||1,
+    unit:document.getElementById("f-unit").value||"item",
+    rate:Number(document.getElementById("f-rate").value)||0,
+    nd:Number(document.getElementById("f-nd").value)||1,
+    tl:Number(document.getElementById("f-tl").value)||10,
+  });
+  document.getElementById("f-scope").value="";
+  showFMsg("add-msg","✓ Added to library","ok");
+  scheduleSyncPush();renderLibrary();
+}
+
+function showFMsg(id,msg,type,dur=3500){
+  const el=document.getElementById(id);
+  if(!el)return;el.textContent=msg;el.className="form-msg "+(type||"");
+  setTimeout(()=>{el.textContent="";el.className="form-msg";},dur);
+}
+
+function importFromPaste(){
+  const raw=(document.getElementById("paste-import")||{}).value?.trim();
+  if(!raw){showFMsg("import-msg","Paste some rows first","err");return;}
+  let added=0,skipped=0;
+  raw.split(/\r?\n/).filter(l=>l.trim()).forEach(line=>{
+    const c=line.split("\t");if(c.length<5)return;
+    const scope=(c[1]||"").trim();if(!scope||scope.length<3){skipped++;return;}
+    if(library.find(l=>l.scope.toLowerCase()===scope.toLowerCase())){skipped++;return;}
+    const sl=scope.toLowerCase();
+    let cat="Other";
+    if(sl.includes("roof")||sl.includes("membrane")||sl.includes("flash"))cat="Roofing";
+    else if(sl.includes("paint")||sl.includes("carpet")||sl.includes("balustrade"))cat="Exterior finishes";
+    else if(sl.includes("pump")||sl.includes("hot water")||sl.includes("sump"))cat="Plumbing";
+    else if(sl.includes("electric")||sl.includes("light"))cat="Electrical";
+    else if(sl.includes("door")||sl.includes("window")||sl.includes("jamb"))cat="Doors & windows";
+    else if(sl.includes("hvac")||sl.includes("duct")||sl.includes("exhaust"))cat="HVAC";
+    else if(sl.includes("cctv")||sl.includes("camera")||sl.includes("security"))cat="Security";
+    else if(sl.includes("intercom")||sl.includes("access control"))cat="Technology";
+    else if(sl.includes("landscape")||sl.includes("planter")||sl.includes("boundary"))cat="Landscaping";
+    else if(sl.includes("park")||sl.includes("line mark"))cat="Car parking";
+    else if(sl.includes("waterproof"))cat="Waterproofing";
+    else if(sl.includes("facade")||sl.includes("render")||sl.includes("concrete"))cat="Structural";
+    else if(sl.includes("fire")||sl.includes("sprinkler"))cat="Fire safety";
+    library.push({id:uid(),cat,scope,qty:parseFloat(c[2])||1,unit:(c[3]||"item").trim(),rate:parseFloat(c[4])||0,nd:parseInt(c[6])||1,tl:parseInt(c[7])||10});
+    added++;
+  });
+  if(document.getElementById("paste-import"))document.getElementById("paste-import").value="";
+  showFMsg("import-msg",`✓ ${added} imported${skipped>0?`, ${skipped} skipped`:""}`,added>0?"ok":"err");
+  if(added>0){scheduleSyncPush();renderLibrary();}
+}
+
+// ── JOBS ──────────────────────────────────────────────────────────────────────
+function saveJob(){
+  if(selected.length===0){toast("Select items first");return;}
+  const inp=document.getElementById("job-name-input");
+  const name=inp?inp.value.trim():`Job ${new Date().toLocaleDateString("en-AU")}`;
+  savedJobs.unshift({id:uid(),name:name||`Job ${new Date().toLocaleDateString("en-AU")}`,date:new Date().toLocaleDateString("en-AU"),items:[...selected]});
+  if(inp)inp.value="";
+  scheduleSyncPush();renderJobs();
+  toast(`"${name||savedJobs[0].name}" saved`,"ok");
+}
+
+function loadJob(i){
+  selected=[...savedJobs[i].items];
+  if(isMobile)showView("selected");else{mountView("right-panel","selected");}
+  updateBadges();renderSelected();
+  toast(`Loaded "${savedJobs[i].name}"`);
+}
+
+function addJobToLib(i){
+  let added=0;
+  savedJobs[i].items.forEach(it=>{
+    if(!library.find(l=>l.scope===it.scope&&l.cat===it.cat)){library.push({...it,id:uid()});added++;}
+  });
+  if(added>0){scheduleSyncPush();renderLibrary();}
+  toast(added>0?`${added} items added to library`:"All already in library");
+}
+
+function deleteJob(i){
+  const name=savedJobs[i].name;savedJobs.splice(i,1);scheduleSyncPush();renderJobs();toast(`Deleted "${name}"`);
+}
+
+// ── COPY FOR EXCEL ────────────────────────────────────────────────────────────
+function copyForExcel(){
+  if(selected.length===0)return;
+  const grouped={};
+  selected.forEach(it=>{if(!grouped[it.cat])grouped[it.cat]=[];grouped[it.cat].push(it);});
+  const rows=[];let n=1;
+  CATS.forEach(cat=>{
+    if(!grouped[cat])return;
+    rows.push(`${n++}\t${cat}\t\t\t\t\t\t`);
+    grouped[cat].forEach(it=>{rows.push(`${n++}\t${it.scope}\t${it.qty}\t${it.unit}\t${it.rate}\t\t${it.nd}\t${it.tl}`);});
+  });
+  const text=rows.join("\n");
+  const finish=()=>{
+    const es=document.getElementById("export-status");
+    if(es)es.textContent=`✓ ${rows.length} rows ready — go to Excel, click cell A in your first empty row, press Ctrl+V`;
+    const cb=document.getElementById("copy-btn");
+    if(cb){const orig=cb.textContent;cb.textContent="✓ Copied!";setTimeout(()=>{cb.textContent=orig;if(es)es.textContent="";},4000);}
+    // Mobile: try Web Share API
+    if(navigator.share&&isMobile){
+      navigator.share({title:"TurnKey items",text:text}).catch(()=>{});
+    }
+    toast("Copied — paste into Excel with Ctrl+V","ok");
+  };
+  navigator.clipboard.writeText(text).then(finish).catch(()=>{
+    const ta=document.createElement("textarea");ta.value=text;ta.style.cssText="position:fixed;opacity:0;";
+    document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);finish();
+  });
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function openModal(id){document.getElementById(id).classList.add("open");}
+function closeModal(id){document.getElementById(id).classList.remove("open");}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+function toast(msg,type=""){
+  const el=document.getElementById("toast");
+  el.textContent=msg;el.className="toast show"+(type?" "+type:"");
+  setTimeout(()=>el.className="toast",3500);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+function init(){
+  // Load local data
+  library=LS.load("tk_lib",[...DEFAULT_ITEMS]);
+  savedJobs=LS.load("tk_jobs",[]);
+  // Restore sync config
+  ghToken=LS.load("tk_token","");
+  gistId=LS.load("tk_gist","");
+  if(ghToken&&gistId)setSyncStatus("ok","Synced previously");
+
+  // Layout
+  detectLayout();
+  window.addEventListener("resize",()=>{const was=isMobile;detectLayout();if(was!==isMobile)renderAll();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")["paste-modal"].forEach(closeModal);});
+
+  // Auto-sync on load if configured
+  if(ghToken&&gistId)syncNow();
+}
+
+init();
+</script>
+</body>
+</html>
