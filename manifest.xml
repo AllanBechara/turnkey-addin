@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+  xsi:type="TaskPaneApp">
+
+  <Id>7E4BEE9E-CF39-410F-A987-6163DAEF9A9F</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>TurnKey Property Inspections</ProviderName>
+  <DefaultLocale>en-AU</DefaultLocale>
+  <DisplayName DefaultValue="TurnKey Item Library"/>
+  <Description DefaultValue="Search and insert capital works line items directly into your Summary Page"/>
+  <IconUrl DefaultValue="https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io/turnkey-addin/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io/turnkey-addin/icon-80.png"/>
+  <SupportUrl DefaultValue="https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io/turnkey-addin"/>
+  <AppDomains>
+    <AppDomain>https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Workbook"/>
+  </Hosts>
+
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io/turnkey-addin/taskpane.html"/>
+  </DefaultSettings>
+
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <FunctionFile resid="Commands.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="TurnKeyGroup">
+                <Label resid="TurnKeyGroup.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                </Icon>
+                <Control xsi:type="Button" id="TaskpaneButton">
+                  <Label resid="TaskpaneButton.Label"/>
+                  <Supertip>
+                    <Title resid="TaskpaneButton.Label"/>
+                    <Description resid="TaskpaneButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>TurnKeyLibrary</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io/turnkey-addin/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io/turnkey-addin/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io/turnkey-addin/icon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io/turnkey-addin/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://REPLACE-WITH-YOUR-GITHUB-USERNAME.github.io/turnkey-addin/taskpane.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="TurnKeyGroup.Label" DefaultValue="TurnKey"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Item Library"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Open the TurnKey line item library to search and insert items into your Summary Page"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

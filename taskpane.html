@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TurnKey Item Library</title>
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#22487F;--red:#CC3340;--navy-light:#2E60A8;--bg:#f5f7fa;--surface:#ffffff;--border:#dde3ed;--text:#1a2236;--muted:#6b7a99;--sel-bg:#e8eef8}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;color:var(--text);background:var(--bg);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+/* Header */
+.header{background:var(--navy);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.header .logo{font-size:15px;font-weight:700;letter-spacing:-0.3px}
+.header .logo span{color:#e8b4b8}
+.header .sub{font-size:10px;opacity:0.7;margin-top:1px}
+.sel-badge{background:var(--red);color:#fff;border-radius:99px;padding:2px 8px;font-size:11px;font-weight:600;margin-left:auto}
+
+/* Tabs */
+.tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
+.tab{flex:1;padding:8px 4px;font-size:12px;text-align:center;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;user-select:none}
+.tab.active{color:var(--navy);border-bottom-color:var(--navy);font-weight:600}
+
+/* Search + filters */
+.search-area{padding:8px 10px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
+.search-box{display:flex;align-items:center;border:1px solid var(--border);border-radius:6px;background:#f9fafc;overflow:hidden;margin-bottom:6px}
+.search-box input{flex:1;border:none;background:transparent;padding:6px 10px;font-size:12px;color:var(--text);outline:none}
+.search-box input::placeholder{color:var(--muted)}
+.search-icon{padding:0 8px;color:var(--muted);font-size:14px}
+.cat-scroll{display:flex;gap:4px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.cat-scroll::-webkit-scrollbar{display:none}
+.pill{padding:3px 10px;border-radius:99px;font-size:11px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;white-space:nowrap;user-select:none;flex-shrink:0}
+.pill.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* Item list */
+.item-list{flex:1;overflow-y:auto;background:var(--surface)}
+.cat-header{padding:5px 12px;background:#eef2f8;font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1}
+.item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s}
+.item:hover{background:#f0f4fb}
+.item.sel{background:var(--sel-bg)}
+.item input[type=checkbox]{width:14px;height:14px;accent-color:var(--navy);cursor:pointer;flex-shrink:0}
+.item-info{flex:1;min-width:0}
+.item-scope{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.item-meta{font-size:10px;color:var(--muted)}
+.item-rate{font-size:11px;font-weight:600;color:var(--navy-light);flex-shrink:0}
+.item-del{padding:2px 5px;border:none;background:transparent;cursor:pointer;color:#ccc;font-size:13px;line-height:1;border-radius:3px}
+.item-del:hover{color:var(--red);background:#fff0f1}
+.empty-msg{padding:32px 16px;text-align:center;color:var(--muted);font-size:12px;line-height:1.7}
+
+/* Selected panel */
+.sel-panel{flex:1;overflow-y:auto;background:var(--surface)}
+.sel-item{padding:8px 12px;border-bottom:1px solid var(--border)}
+.sel-item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:6px}
+.sel-item-scope{font-size:12px;font-weight:500;line-height:1.3;flex:1}
+.sel-remove{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;line-height:1;padding:0 2px}
+.sel-remove:hover{color:var(--red)}
+.sel-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
+.sel-field label{display:block;font-size:10px;color:var(--muted);margin-bottom:2px}
+.sel-field input{width:100%;padding:4px 6px;border:1px solid var(--border);border-radius:4px;font-size:11px;color:var(--text);background:#fff}
+.sel-val{font-size:10px;color:var(--muted);padding-top:4px;text-align:right}
+
+/* Add item form */
+.form-panel{flex:1;overflow-y:auto;padding:12px}
+.form-group{margin-bottom:10px}
+.form-group label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.04em}
+.form-group input,.form-group select{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--text);background:#fff;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--navy);box-shadow:0 0 0 2px rgba(34,72,127,0.12)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+
+/* Jobs panel */
+.jobs-panel{flex:1;overflow-y:auto}
+.save-job-row{display:flex;gap:6px;padding:10px;border-bottom:1px solid var(--border);background:var(--surface)}
+.save-job-row input{flex:1;padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;outline:none}
+.save-job-row input:focus{border-color:var(--navy)}
+.job-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--border);background:var(--surface)}
+.job-row:hover{background:#f5f7fa}
+.job-info{flex:1;min-width:0}
+.job-name{font-size:12px;font-weight:600;margin-bottom:2px}
+.job-meta{font-size:10px;color:var(--muted)}
+.job-actions{display:flex;gap:4px;flex-shrink:0}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:7px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);transition:background 0.15s}
+.btn:hover{background:#eef2f8}
+.btn:active{transform:scale(0.98)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn.primary:hover{background:#1a3a6b}
+.btn.red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn.red:hover{background:#a82830}
+.btn.sm{padding:4px 8px;font-size:11px}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+
+/* Footer */
+.footer{padding:8px 10px;background:var(--surface);border-top:1px solid var(--border);display:flex;gap:6px;flex-shrink:0}
+.footer .btn{flex:1}
+
+/* Status bar */
+.statusbar{padding:5px 10px;background:#eef2f8;font-size:10px;color:var(--muted);border-top:1px solid var(--border);flex-shrink:0;min-height:22px}
+.statusbar.ok{color:#1a6b3a;background:#eafaf1}
+.statusbar.err{color:#7f0000;background:#fff0f0}
+.statusbar.loading{color:var(--navy)}
+
+/* Toast */
+#toast{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:7px 14px;border-radius:8px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.25s;z-index:100}
+#toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="logo"><span>Turn</span>Key</div>
+    <div class="sub">Item Library</div>
+  </div>
+  <div id="sel-badge" class="sel-badge" style="display:none">0 selected</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" id="tab-browse" onclick="switchTab('browse')">Library</div>
+  <div class="tab" id="tab-selected" onclick="switchTab('selected')">Selected</div>
+  <div class="tab" id="tab-jobs" onclick="switchTab('jobs')">Saved Jobs</div>
+  <div class="tab" id="tab-add" onclick="switchTab('add')">+ Add</div>
+</div>
+
+<!-- BROWSE TAB -->
+<div id="view-browse" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+  <div class="search-area">
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="search" placeholder="Search items..." oninput="renderList()">
+    </div>
+    <div class="cat-scroll" id="cats-bar"></div>
+  </div>
+  <div class="item-list" id="item-list"></div>
+</div>
+
+<!-- SELECTED TAB -->
+<div id="view-selected" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+  <div class="sel-panel" id="sel-list"></div>
+</div>
+
+<!-- JOBS TAB -->
+<div id="view-jobs" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+  <div class="jobs-panel" id="jobs-panel">
+    <div class="save-job-row">
+      <input id="job-name-input" placeholder="Name this selection as a job template..." maxlength="60">
+      <button class="btn primary sm" onclick="saveJob()">Save</button>
+    </div>
+    <div id="jobs-list"></div>
+  </div>
+</div>
+
+<!-- ADD ITEM TAB -->
+<div id="view-add" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+  <div class="form-panel">
+    <div class="form-group">
+      <label>Description *</label>
+      <input id="f-scope" placeholder="e.g. Repaint external balcony soffits">
+    </div>
+    <div class="form-group">
+      <label>Category *</label>
+      <select id="f-cat"></select>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Qty</label>
+        <input id="f-qty" type="number" placeholder="1" min="0">
+      </div>
+      <div class="form-group">
+        <label>Unit</label>
+        <input id="f-unit" placeholder="m2">
+      </div>
+      <div class="form-group">
+        <label>Rate ($)</label>
+        <input id="f-rate" type="number" placeholder="0" min="0">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Next due (yr)</label>
+        <input id="f-nd" type="number" placeholder="3" min="1">
+      </div>
+      <div class="form-group">
+        <label>Total life (yr)</label>
+        <input id="f-tl" type="number" placeholder="10" min="1">
+      </div>
+    </div>
+    <button class="btn primary" style="width:100%" onclick="addCustomItem()">Add to Library</button>
+    <div id="add-msg" style="font-size:11px;color:var(--muted);margin-top:8px;text-align:center"></div>
+  </div>
+</div>
+
+<!-- Footer (shown on browse + selected) -->
+<div class="footer" id="main-footer">
+  <button class="btn primary" id="insert-btn" onclick="insertIntoExcel()" disabled>
+    ↓ Insert into Summary Page
+  </button>
+  <button class="btn sm" onclick="clearAll()" title="Clear selection" style="flex:0;padding:7px 10px">✕</button>
+</div>
+
+<div class="statusbar" id="statusbar">Ready — open your Capital Works template first</div>
+<div id="toast"></div>
+
+<script>
+const CATS = ["Structural","Exterior finishes","Doors & windows","Roofing","Electrical","Plumbing","HVAC","Fire safety","Lifts & escalators","Technology","Security","Accessibility","Landscaping","Amenities","Furnishings","Car parking","Waterproofing","Sustainability","Other"];
+
+const DEFAULT_ITEMS = [
+  {id:"d1",cat:"Structural",scope:"Repair and treatment of rendered facade",qty:48,unit:"m2",rate:125,nd:3,tl:3},
+  {id:"d2",cat:"Structural",scope:"Brick and mortar repairs to front facade",qty:8,unit:"m3",rate:1200,nd:5,tl:6},
+  {id:"d3",cat:"Exterior finishes",scope:"Repaint facades / hard surfaces",qty:265,unit:"m2",rate:90,nd:3,tl:3},
+  {id:"d4",cat:"Exterior finishes",scope:"Repaint external timber hardwood slats to gates",qty:4,unit:"m2",rate:325,nd:1,tl:2},
+  {id:"d5",cat:"Exterior finishes",scope:"Repaint external balcony soffits / slab edges",qty:175,unit:"m2",rate:15,nd:3,tl:3},
+  {id:"d6",cat:"Exterior finishes",scope:"Repaint internal stairwell walls / ceilings",qty:288,unit:"lm",rate:65,nd:4,tl:7},
+  {id:"d7",cat:"Exterior finishes",scope:"Repaint internal doors and frames",qty:45,unit:"lm",rate:125,nd:4,tl:7},
+  {id:"d8",cat:"Exterior finishes",scope:"Maintain glass / powdercoated internal balustrades to staircase",qty:121,unit:"lm",rate:39,nd:6,tl:6},
+  {id:"d9",cat:"Exterior finishes",scope:"Carpet and underlay replacement",qty:260,unit:"lm",rate:78,nd:3,tl:10},
+  {id:"d10",cat:"Doors & windows",scope:"Door frame / jamb replacement as needed",qty:6,unit:"m3",rate:1200,nd:5,tl:8},
+  {id:"d11",cat:"Doors & windows",scope:"Door and window hardware replacement",qty:1,unit:"lm",rate:3300,nd:2,tl:2},
+  {id:"d12",cat:"Roofing",scope:"Maintain metal roof / cappings and flashings",qty:120,unit:"m2",rate:88,nd:5,tl:7},
+  {id:"d13",cat:"Roofing",scope:"Flashings to roof mounted exhausts - repair as needed",qty:20,unit:"m3",rate:166,nd:3,tl:4},
+  {id:"d14",cat:"Roofing",scope:"Liquid membrane isolated repairs",qty:3252,unit:"item",rate:18,nd:4,tl:7},
+  {id:"d15",cat:"Roofing",scope:"Maintain glass roof and seals above centre stairwell",qty:15,unit:"lm",rate:225,nd:3,tl:4},
+  {id:"d16",cat:"Roofing",scope:"Roof condition assessment and reports",qty:8,unit:"lm",rate:325,nd:3,tl:5},
+  {id:"d17",cat:"Electrical",scope:"Emergency and exit lighting system replacement",qty:2,unit:"item",rate:1200,nd:5,tl:8},
+  {id:"d18",cat:"Electrical",scope:"Lighting to common areas - upgrades as needed",qty:1,unit:"lm",rate:3252,nd:4,tl:6},
+  {id:"d19",cat:"Plumbing",scope:"Hot water systems - gas heater tanks",qty:3,unit:"item",rate:5520,nd:3,tl:3},
+  {id:"d20",cat:"Plumbing",scope:"Hot water systems - dual circulator pumps",qty:2,unit:"item",rate:1245,nd:4,tl:6},
+  {id:"d21",cat:"Plumbing",scope:"Control panels to sewer/stormwater submersible pumps",qty:3,unit:"ea",rate:4800,nd:9,tl:10},
+  {id:"d22",cat:"Plumbing",scope:"Replace sump pumps - stormwater",qty:1,unit:"ea",rate:2216,nd:3,tl:3},
+  {id:"d23",cat:"Plumbing",scope:"Replace sump pumps - sewer",qty:1,unit:"ea",rate:1950,nd:3,tl:3},
+  {id:"d24",cat:"HVAC",scope:"Mechanical exhaust - supply/extraction plant",qty:2,unit:"item",rate:2154,nd:5,tl:7},
+  {id:"d25",cat:"HVAC",scope:"Replacement of ductwork serving common areas",qty:1,unit:"lm",rate:12000,nd:10,tl:10},
+  {id:"d26",cat:"Technology",scope:"Intercom system replacement or major upgrade",qty:1,unit:"item",rate:2500,nd:3,tl:10},
+  {id:"d27",cat:"Technology",scope:"Building access control system upgrades",qty:5,unit:"item",rate:1200,nd:8,tl:10},
+  {id:"d28",cat:"Security",scope:"Replacement of CCTV camera security systems",qty:1,unit:"item",rate:18500,nd:9,tl:10},
+  {id:"d29",cat:"Accessibility",scope:"Repaint of epoxy non-slip flooring",qty:2,unit:"m2",rate:2500,nd:1,tl:3},
+  {id:"d30",cat:"Accessibility",scope:"Accessibility self-closing door motors / sensors",qty:2,unit:"item",rate:1200,nd:4,tl:5},
+  {id:"d31",cat:"Landscaping",scope:"Rooftop planter boxes - membrane isolated repairs",qty:8,unit:"m2",rate:2500,nd:7,tl:7},
+  {id:"d32",cat:"Landscaping",scope:"Boundary walls / access gates",qty:4,unit:"m2",rate:1847,nd:8,tl:10},
+  {id:"d33",cat:"Furnishings",scope:"Bin room - 50 litre hot water tank",qty:1,unit:"item",rate:880,nd:4,tl:10},
+  {id:"d34",cat:"Car parking",scope:"Repainting of line marking",qty:12,unit:"m3",rate:425,nd:7,tl:10},
+  {id:"d35",cat:"Car parking",scope:"Repaint doors and frames to plant rooms",qty:2,unit:"m2",rate:2958,nd:6,tl:8},
+  {id:"d36",cat:"Waterproofing",scope:"Balcony waterproofing replacement works",qty:3,unit:"m2",rate:23250,nd:6,tl:8},
+  {id:"d37",cat:"Sustainability",scope:"Sustainability infrastructure upgrades",qty:2,unit:"ea",rate:3200,nd:6,tl:8},
+  {id:"d38",cat:"Other",scope:"Specialist reports required as per DPBA",qty:3,unit:"m2",rate:2500,nd:5,tl:6},
+];
+
+let library = [], selected = [], savedJobs = [], activeCat = "All", currentTab = "browse";
+const LS_LIB = "tk_addin_library", LS_JOBS = "tk_addin_jobs";
+
+function loadData() {
+  try { library = JSON.parse(localStorage.getItem(LS_LIB)) || [...DEFAULT_ITEMS]; } catch(e) { library = [...DEFAULT_ITEMS]; }
+  try { savedJobs = JSON.parse(localStorage.getItem(LS_JOBS)) || []; } catch(e) { savedJobs = []; }
+  populateCatSelect();
+  renderAll();
+}
+
+function saveLibrary() { try { localStorage.setItem(LS_LIB, JSON.stringify(library)); } catch(e){} }
+function saveJobsStorage() { try { localStorage.setItem(LS_JOBS, JSON.stringify(savedJobs)); } catch(e){} }
+function uid() { return "u" + Date.now() + Math.random().toString(36).slice(2,5); }
+
+function populateCatSelect() {
+  const el = document.getElementById("f-cat");
+  if(el) el.innerHTML = CATS.map(c => `<option>${c}</option>`).join("");
+}
+
+function getFiltered() {
+  const q = (document.getElementById("search")||{}).value || "";
+  return library.filter(it => {
+    const catOk = activeCat === "All" || it.cat === activeCat;
+    const qOk = !q || it.scope.toLowerCase().includes(q.toLowerCase()) || it.cat.toLowerCase().includes(q.toLowerCase());
+    return catOk && qOk;
+  });
+}
+
+function renderAll() { renderList(); renderSelected(); renderJobs(); updateBadge(); }
+
+function renderList() {
+  const usedCats = [...new Set(library.map(i => i.cat))];
+  const allCats = ["All", ...CATS.filter(c => usedCats.includes(c))];
+  document.getElementById("cats-bar").innerHTML = allCats.map(c =>
+    `<div class="pill${activeCat===c?" active":""}" onclick="setCat('${c.replace(/'/g,"\\'")}')"> ${c}</div>`
+  ).join("");
+
+  const filtered = getFiltered();
+  const grouped = {};
+  filtered.forEach(it => { if(!grouped[it.cat]) grouped[it.cat]=[]; grouped[it.cat].push(it); });
+  const selIds = new Set(selected.map(s => s.id));
+  let html = "";
+
+  CATS.forEach(cat => {
+    if(!grouped[cat]) return;
+    html += `<div class="cat-header">${cat}</div>`;
+    grouped[cat].forEach(it => {
+      const sel = selIds.has(it.id);
+      html += `<div class="item${sel?" sel":""}" onclick="toggleItem('${it.id}')">
+        <input type="checkbox" ${sel?"checked":""} onclick="event.stopPropagation();toggleItem('${it.id}')">
+        <div class="item-info">
+          <div class="item-scope" title="${it.scope}">${it.scope}</div>
+          <div class="item-meta">${it.qty} ${it.unit} &middot; yr ${it.nd} &middot; life ${it.tl}yr</div>
+        </div>
+        <div class="item-rate">$${it.rate.toLocaleString()}</div>
+        <button class="item-del" onclick="event.stopPropagation();removeFromLib('${it.id}')" title="Remove">✕</button>
+      </div>`;
+    });
+  });
+
+  document.getElementById("item-list").innerHTML = html ||
+    `<div class="empty-msg">No items found.<br>Try a different search or category.</div>`;
+  document.getElementById("lib-count-badge") && (document.getElementById("lib-count-badge").textContent = library.length);
+}
+
+function renderSelected() {
+  const el = document.getElementById("sel-list");
+  if(selected.length === 0) {
+    el.innerHTML = `<div class="empty-msg">Nothing selected yet.<br>Check items in the Library tab to add them here.</div>`;
+    document.getElementById("insert-btn").disabled = true;
+    return;
+  }
+  document.getElementById("insert-btn").disabled = false;
+  let html = "";
+  selected.forEach((it, i) => {
+    const val = (Number(it.qty) * Number(it.rate)).toLocaleString();
+    html += `<div class="sel-item">
+      <div class="sel-item-head">
+        <div class="sel-item-scope">${it.scope}</div>
+        <button class="sel-remove" onclick="deselect(${i})" title="Remove">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sel-field"><label>Qty</label><input type="number" value="${it.qty}" onchange="updateSel(${i},'qty',this.value)"></div>
+        <div class="sel-field"><label>Unit</label><input type="text" value="${it.unit}" onchange="updateSel(${i},'unit',this.value)"></div>
+        <div class="sel-field"><label>Rate ($)</label><input type="number" value="${it.rate}" onchange="updateSel(${i},'rate',this.value)"></div>
+        <div class="sel-field"><label>Next due (yr)</label><input type="number" value="${it.nd}" onchange="updateSel(${i},'nd',this.value)"></div>
+        <div class="sel-field"><label>Total life (yr)</label><input type="number" value="${it.tl}" onchange="updateSel(${i},'tl',this.value)"></div>
+        <div class="sel-field" style="display:flex;align-items:flex-end">
+          <div class="sel-val">Value:<br><strong>$${val}</strong></div>
+        </div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+function renderJobs() {
+  const el = document.getElementById("jobs-list");
+  if(!el) return;
+  if(savedJobs.length === 0) {
+    el.innerHTML = `<div class="empty-msg">No saved jobs yet.<br>Select items and save them above as a named template.</div>`;
+    return;
+  }
+  el.innerHTML = savedJobs.map((j, i) => `
+    <div class="job-row">
+      <div class="job-info">
+        <div class="job-name">${j.name}</div>
+        <div class="job-meta">${j.date} &middot; ${j.items.length} items</div>
+      </div>
+      <div class="job-actions">
+        <button class="btn primary sm" onclick="loadJob(${i})" title="Load selection">Load</button>
+        <button class="btn sm" onclick="mergeJobToLib(${i})" title="Add items to library">+Lib</button>
+        <button class="btn sm" onclick="deleteJob(${i})" title="Delete" style="color:#CC3340">✕</button>
+      </div>
+    </div>`).join("");
+}
+
+function updateBadge() {
+  const n = selected.length;
+  const badge = document.getElementById("sel-badge");
+  if(n > 0) { badge.style.display=""; badge.textContent = n + " selected"; }
+  else { badge.style.display="none"; }
+  // Update selected tab label
+  document.getElementById("tab-selected").textContent = n > 0 ? `Selected (${n})` : "Selected";
+}
+
+function setCat(c) { activeCat = c; renderList(); }
+
+function toggleItem(id) {
+  const idx = selected.findIndex(s => s.id === id);
+  if(idx >= 0) selected.splice(idx, 1);
+  else { const it = library.find(i => i.id === id); if(it) selected.push({...it}); }
+  renderAll();
+}
+
+function deselect(i) { selected.splice(i, 1); renderAll(); }
+function updateSel(i, field, val) { selected[i][field] = isNaN(val) || field === "unit" ? val : Number(val); renderSelected(); }
+function clearAll() { selected = []; renderAll(); }
+
+function removeFromLib(id) {
+  library = library.filter(i => i.id !== id);
+  selected = selected.filter(i => i.id !== id);
+  saveLibrary(); renderAll();
+}
+
+function addCustomItem() {
+  const scope = document.getElementById("f-scope").value.trim();
+  if(!scope) { showAddMsg("Please enter a description"); return; }
+  library.push({
+    id: uid(),
+    cat: document.getElementById("f-cat").value,
+    scope,
+    qty: Number(document.getElementById("f-qty").value) || 1,
+    unit: document.getElementById("f-unit").value || "item",
+    rate: Number(document.getElementById("f-rate").value) || 0,
+    nd: Number(document.getElementById("f-nd").value) || 1,
+    tl: Number(document.getElementById("f-tl").value) || 10,
+  });
+  saveLibrary();
+  document.getElementById("f-scope").value = "";
+  showAddMsg("✓ Item added to library");
+  renderAll();
+}
+function showAddMsg(m) {
+  const el = document.getElementById("add-msg");
+  el.textContent = m;
+  setTimeout(() => el.textContent = "", 2500);
+}
+
+function saveJob() {
+  if(selected.length === 0) { toast("Select items first"); return; }
+  const name = document.getElementById("job-name-input").value.trim() || `Job ${new Date().toLocaleDateString("en-AU")}`;
+  savedJobs.unshift({ id: uid(), name, date: new Date().toLocaleDateString("en-AU"), items: [...selected] });
+  saveJobsStorage();
+  document.getElementById("job-name-input").value = "";
+  renderJobs();
+  toast(`Saved "${name}"`);
+}
+
+function loadJob(i) {
+  selected = [...savedJobs[i].items];
+  switchTab("selected");
+  renderAll();
+  toast(`Loaded "${savedJobs[i].name}" — ${selected.length} items`);
+}
+
+function mergeJobToLib(i) {
+  let added = 0;
+  savedJobs[i].items.forEach(it => {
+    if(!library.find(l => l.scope === it.scope && l.cat === it.cat)) {
+      library.push({...it, id: uid()});
+      added++;
+    }
+  });
+  saveLibrary(); renderAll();
+  toast(added > 0 ? `${added} items added to library` : "Items already in library");
+}
+
+function deleteJob(i) {
+  const name = savedJobs[i].name;
+  savedJobs.splice(i, 1);
+  saveJobsStorage(); renderJobs();
+  toast(`Deleted "${name}"`);
+}
+
+function switchTab(t) {
+  currentTab = t;
+  ["browse","selected","jobs","add"].forEach(n => {
+    document.getElementById("view-" + n).style.display = n === t ? "flex" : "none";
+    document.getElementById("tab-" + n).className = "tab" + (n === t ? " active" : "");
+  });
+  const showFooter = t === "browse" || t === "selected";
+  document.getElementById("main-footer").style.display = showFooter ? "flex" : "none";
+}
+
+// ─── OFFICE.JS EXCEL INTEGRATION ─────────────────────────────────────────────
+function setStatus(msg, type) {
+  const el = document.getElementById("statusbar");
+  el.textContent = msg;
+  el.className = "statusbar " + (type || "");
+}
+
+async function insertIntoExcel() {
+  if(selected.length === 0) { toast("Nothing selected"); return; }
+
+  setStatus("Finding Summary Page...", "loading");
+  document.getElementById("insert-btn").disabled = true;
+
+  try {
+    await Excel.run(async (context) => {
+      // Find the Summary Page sheet (flexible name matching)
+      const sheets = context.workbook.worksheets;
+      sheets.load("items/name");
+      await context.sync();
+
+      const sheet = sheets.items.find(s =>
+        s.name.toLowerCase().includes("summary page") ||
+        s.name.toLowerCase().includes("building data")
+      );
+
+      if(!sheet) {
+        throw new Error("Sheet 'Summary Page for Building Data' not found. Make sure the TurnKey template is open.");
+      }
+
+      // Load used range to find where data ends
+      const used = sheet.getUsedRange();
+      used.load(["rowCount"]);
+      await context.sync();
+
+      // Scan column B (index 1) from row 6 onwards to find last data row
+      // and detect "Subtotal" or "Total" marker rows
+      const scanRows = Math.max(1, used.rowCount - 5);
+      const colB = sheet.getRangeByIndexes(5, 1, scanRows, 1);
+      colB.load("values");
+      await context.sync();
+
+      let insertAt = 5; // default: row 6 (0-indexed 5) right after headers
+      let foundSubtotal = false;
+
+      for(let i = 0; i < colB.values.length; i++) {
+        const val = String(colB.values[i][0] || "").toLowerCase();
+        if(val.includes("subtotal") || val.includes("total estimated")) {
+          insertAt = 5 + i; // insert BEFORE this row
+          foundSubtotal = true;
+          break;
+        }
+        if(val !== "") insertAt = 5 + i + 1; // keep tracking last real data row
+      }
+
+      // Build the rows to insert, grouped by category
+      const grouped = {};
+      selected.forEach(it => { if(!grouped[it.cat]) grouped[it.cat]=[]; grouped[it.cat].push(it); });
+
+      const rows = [];
+      let rowNum = insertAt + 1; // 1-indexed display number (col A)
+
+      CATS.forEach(cat => {
+        if(!grouped[cat]) return;
+        // Category header row
+        rows.push([rowNum++, cat, "", "", "", "", "", ""]);
+        grouped[cat].forEach(it => {
+          rows.push([rowNum++, it.scope, it.qty, it.unit, it.rate, null, it.nd, it.tl]);
+        });
+      });
+
+      if(rows.length === 0) return;
+
+      // If there's a subtotal row, insert blank rows above it to push it down
+      if(foundSubtotal) {
+        const insertRange = sheet.getRangeByIndexes(insertAt, 0, rows.length, 1);
+        insertRange.getEntireRow().insert(Excel.InsertShiftDirection.down);
+        await context.sync();
+      }
+
+      // Write values
+      const target = sheet.getRangeByIndexes(insertAt, 0, rows.length, 8);
+      target.values = rows;
+
+      // Set Value formula (col F = col index 5) for data rows only
+      for(let i = 0; i < rows.length; i++) {
+        if(rows[i][2] !== "" && rows[i][2] !== null) {
+          const excelRow = insertAt + i + 1; // 1-indexed
+          sheet.getCell(insertAt + i, 5).formulas = [[`=C${excelRow}*E${excelRow}`]];
+        }
+      }
+
+      await context.sync();
+
+      const itemCount = rows.filter(r => r[2] !== "" && r[2] !== null).length;
+      setStatus(`✓ ${itemCount} items inserted into ${sheet.name}`, "ok");
+      toast(`${itemCount} items inserted — run your VBA to recalculate`);
+    });
+  } catch(err) {
+    setStatus("Error: " + err.message, "err");
+    toast("Insert failed — see status bar");
+  } finally {
+    document.getElementById("insert-btn").disabled = selected.length === 0;
+  }
+}
+
+// Toast helper
+function toast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), 3000);
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+Office.onReady((info) => {
+  if(info.host === Office.HostType.Excel) {
+    setStatus("Ready — select items and click Insert", "");
+  } else {
+    setStatus("Open this add-in inside Excel", "err");
+  }
+  loadData();
+});
+
+// Fallback if running outside Office (preview in browser)
+if(typeof Office === "undefined") {
+  window.addEventListener("load", () => {
+    setStatus("Preview mode — Office.js not available", "err");
+    loadData();
+  });
+}
+</script>
+</body>
+</html>
