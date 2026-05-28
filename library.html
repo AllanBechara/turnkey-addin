@@ -251,7 +251,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
     <span class="sel-chip" id="sel-chip" style="display: none;">0 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 12:00 pm" onclick="showView('settings')"></div>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 06:36 pm" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -262,92 +262,66 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <!-- DESKTOP LEFT PANEL -->
   <div class="left-panel" id="left-panel" style="display: flex;">
     <div class="desktop-tabs">
-      <div class="dtab active" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
+      <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
       <div class="dtab" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
       <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
-      <div class="dtab" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
+      <div class="dtab active" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
     </div>
     <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
-  <div class="search-area">
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="search-input" placeholder="Search items..." oninput="renderLibrary()" autocomplete="off">
+  <div class="settings-scroll">
+
+    <div class="settings-card">
+      <h3>☁ Cloud sync</h3>
+      <p>Your library syncs across all devices via a private GitHub Gist. Set it up once and every phone, tablet, and computer stays in sync automatically.</p>
+      <div class="sync-status-bar ok" id="sync-status-bar">● Synced</div>
+      <div class="token-input-wrap">
+        <input type="password" id="gh-token-input" placeholder="GitHub personal access token..." autocomplete="off" spellcheck="false">
+        <button class="btn primary sm" onclick="connectGist()">Connect</button>
+      </div>
+      <div style="font-size:11px;color:var(--mu)" id="gist-id-wrap">
+        Gist ID: <div class="gist-id-display" id="gist-id-display">8529c79a53285ec6f4db1adc04191c6a</div>
+      </div>
     </div>
-    <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
+
+    <div class="settings-card" style="border-color:var(--navy-lt)">
+      <h3>💾 Auto-save to HTML file</h3>
+      <p>Every time you add an item or save a job, the app automatically commits the updated HTML back to your GitHub repository. Your data is baked into the file itself — it can never be lost.</p>
+      <div class="sync-status-bar busy" id="repo-status-bar">● Saving to GitHub...</div>
+      <div class="fg" style="margin-bottom:8px">
+        <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:4px">GitHub username</label>
+        <input type="text" id="repo-owner-input" placeholder="e.g. allanbechara" autocomplete="off" spellcheck="false" style="width:100%;padding:9px 12px;border:1px solid var(--bdr);border-radius:7px;font-size:13px;outline:none;background:var(--surf2)">
+      </div>
+      <div class="fg" style="margin-bottom:8px">
+        <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:4px">Repository name</label>
+        <input type="text" id="repo-name-input" placeholder="turnkey-addin" value="turnkey-addin" autocomplete="off" spellcheck="false" style="width:100%;padding:9px 12px;border:1px solid var(--bdr);border-radius:7px;font-size:13px;outline:none;background:var(--surf2)">
+      </div>
+      <div class="token-input-wrap">
+        <input type="password" id="repo-token-input" placeholder="Token with repo contents write..." autocomplete="off" spellcheck="false">
+        <button class="btn primary sm" onclick="connectRepo()">Connect</button>
+      </div>
+      <p style="margin-top:10px;font-size:11px;color:var(--mu)">Token needs <strong>Contents: Read &amp; Write</strong> permission for your repository. Use a fine-grained token from <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" style="color:var(--navy-lt)">github.com/settings/personal-access-tokens/new</a> — select your repo, grant Contents read/write.</p>
+      <div style="margin-top: 8px; display: none;" id="repo-disconnect-wrap">
+        <button class="btn sm" onclick="disconnectRepo()" style="color:var(--red);border-color:#ffd0d0">Disconnect auto-save</button>
+      </div>
+    </div>
+
+    <div class="settings-card">
+      <h3>ℹ About sync</h3>
+      <p>Changes sync when you tap the ⟳ Sync button or automatically after 5 seconds of inactivity. The coloured dot in the top bar shows sync status — green = all saved, orange = syncing, red = error.</p>
+      <p style="margin-top:8px">Works offline too — changes are stored locally and pushed when you're back online.</p>
+      <button class="btn primary" style="width:100%" onclick="syncNow()">⟳ Sync now</button>
+    </div>
+
+    <div class="settings-card danger-zone">
+      <h3>Reset</h3>
+      <p>Disconnect this device from sync, or reset the library to defaults.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn sm" onclick="disconnectSync()" style="border-color:#ffd0d0;color:var(--red)">Disconnect sync</button>
+        <button class="btn sm" onclick="resetLibrary()" style="border-color:#ffd0d0;color:var(--red)">Reset to defaults</button>
+      </div>
+    </div>
+
   </div>
-  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
-      <span>Structural</span>
-      <span class="cat-count">20</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
-      <span>Exterior finishes</span>
-      <span class="cat-count">61</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
-      <span>Doors &amp; windows</span>
-      <span class="cat-count">26</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Roofing')">
-      <span>Roofing</span>
-      <span class="cat-count">23</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Electrical')">
-      <span>Electrical</span>
-      <span class="cat-count">13</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Plumbing')">
-      <span>Plumbing</span>
-      <span class="cat-count">22</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('HVAC')">
-      <span>HVAC</span>
-      <span class="cat-count">21</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Fire safety')">
-      <span>Fire safety</span>
-      <span class="cat-count">13</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Lifts &amp; escalators')">
-      <span>Lifts &amp; escalators</span>
-      <span class="cat-count">3</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Technology')">
-      <span>Technology</span>
-      <span class="cat-count">5</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Security')">
-      <span>Security</span>
-      <span class="cat-count">1</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Accessibility')">
-      <span>Accessibility</span>
-      <span class="cat-count">9</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Landscaping')">
-      <span>Landscaping</span>
-      <span class="cat-count">24</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Amenities')">
-      <span>Amenities</span>
-      <span class="cat-count">14</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Furnishings')">
-      <span>Furnishings</span>
-      <span class="cat-count">5</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Car parking')">
-      <span>Car parking</span>
-      <span class="cat-count">15</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Waterproofing')">
-      <span>Waterproofing</span>
-      <span class="cat-count">10</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Other')">
-      <span>Other</span>
-      <span class="cat-count">17</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div></div>
 </div>
   </div>
 
@@ -430,7 +404,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
-<div id="toast" class="toast">Synced</div>
+<div id="toast" class="toast">Enter your GitHub username and token</div>
 
 <!-- VIEW TEMPLATES -->
 <template id="tmpl-library">
