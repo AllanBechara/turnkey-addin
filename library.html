@@ -2049,34 +2049,54 @@ function sumBlank(r){
     +'<c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
 }
 // Replace columns A–H of a row, preserving any cells beyond H (e.g. helper column AC)
-function replaceSummaryRow(xml,r,ahCells){
-  const re=new RegExp('(<row r="'+r+'"[^>]*>)([\\s\\S]*?)(</row>)');
-  const m=xml.match(re);
-  if(!m)return xml;
-  const cells=m[2].match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[];
-  const keep=cells.filter(c=>{
-    const cm=c.match(/r="([A-Z]+)\d+"/);
-    if(!cm)return false;
-    const col=cm[1];
-    return col.length>1 || col>"H"; // keep I..Z and AA.. (AC helper)
-  });
-  return xml.replace(re,m[1]+ahCells+keep.join("")+m[3]);
-}
-// Fill the item area (rows 6–44) from selected items; row 45/46 totals are left intact
+// Fill the item area dynamically from selected items, appending rows and calculating custom totals below the data
 function writeSummaryRows(xml){
   const grouped={};
   (typeof selected!=="undefined"?selected:[]).forEach(it=>{(grouped[it.cat]=grouped[it.cat]||[]).push(it);});
   const rows=[];
+  
+  // Group headers and items sequentially
   CATS.forEach(cat=>{
     rows.push({bold:true,b:cat});
     (grouped[cat]||[]).forEach(it=>{
       rows.push({bold:false,b:it.scope,c:it.qty,d:it.unit,e:it.rate,g:it.nd,h:it.tl});
     });
   });
-  for(let i=0,r=6;r<=44;i++,r++){
-    xml=replaceSummaryRow(xml,r,i<rows.length?sumCells(r,rows[i]):sumBlank(r));
+
+  // Clear out any pre-existing placeholder rows (from row 6 up to 300) to ensure a clean slate
+  for(let r=6; r<=300; r++){
+    xml = xml.replace(new RegExp('<row r="' + r + '"[^>]*>[\\s\\S]*?</row>'), '');
   }
-  return{xml,count:rows.length,overflow:rows.length>39};
+
+  // Write all items dynamically starting from row 6
+  let r = 6;
+  for(let i=0; i<rows.length; i++){
+    let ahCells = sumCells(r, rows[i]);
+    let newRow = '<row r="'+r+'" spans="1:29" x14ac:dyDescent="0.25">'+ahCells+'</row>';
+    xml = xml.replace('</sheetData>', newRow + '</sheetData>');
+    r++;
+  }
+
+  // Add the dynamic "Total Estimated..." Label Row
+  const totalLabel = "Total Estimated Yearly Expenses With 3% CPI - Includes GST";
+  let totalLabelCells = '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
+    +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">'+totalLabel+'</t></is></c>'
+    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
+  let totalRow = '<row r="'+r+'" spans="1:29" x14ac:dyDescent="0.25">'+totalLabelCells+'</row>';
+  xml = xml.replace('</sheetData>', totalRow + '</sheetData>');
+  r++;
+
+  // Add the dynamic Subtotal Formula Row calculating up to the last item row
+  let sumFormula = 'SUM(F7:F' + (r-2) + ')';
+  let subtotalCells = '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
+    +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">Subtotal</t></is></c>'
+    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/>'
+    +'<c r="F'+r+'" s="49"><f>'+sumFormula+'</f></c>'
+    +'<c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
+  let subtotalRow = '<row r="'+r+'" spans="1:29" x14ac:dyDescent="0.25">'+subtotalCells+'</row>';
+  xml = xml.replace('</sheetData>', subtotalRow + '</sheetData>');
+
+  return {xml, count: rows.length, overflow: false};
 }
 
 function genEsc(s){
