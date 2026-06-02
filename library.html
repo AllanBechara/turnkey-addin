@@ -2040,18 +2040,30 @@ function sumBlank(r){
 }
 
 // Replace columns A–H of a row, preserving any cells beyond H (e.g. helper column AC)
-function replaceSummaryRow(xml,r,ahCells){
-  const re=new RegExp('(<row r="'+r+'"[^>]*>)([\\s\\S]*?)(</row>)');
-  const m=xml.match(re);
-  if(!m)return xml;
-  const cells=m[2].match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[];
-  const keep=cells.filter(c=>{
-    const cm=c.match(/r="([A-Z]+)\d+"/);
-    if(!cm)return false;
-    const col=cm[1];
-    return col.length>1 || col>"H"; // keep I..Z and AA.. (AC helper)
-  });
-  return xml.replace(re,m[1]+ahCells+keep.join("")+m[3]);
+// Replace columns A–H of a row, preserving any cells beyond H (e.g. helper column AC)
+function replaceSummaryRow(xml, r, ahCells) {
+  // 1. Strict check for self-closing row tags FIRST to prevent swallowing the next row
+  const reSelfClosing = new RegExp('<row r="' + r + '"[^>]*?\\/>');
+  if (reSelfClosing.test(xml)) {
+    const newRow = '<row r="' + r + '" spans="1:29" x14ac:dyDescent="0.25">' + ahCells + '</row>';
+    return xml.replace(reSelfClosing, newRow);
+  }
+  
+  // 2. Normal open/close tag check
+  const reNormal = new RegExp('(<row r="' + r + '"[^>]*>)([\\s\\S]*?)(</row>)');
+  const mNormal = xml.match(reNormal);
+  if (mNormal) {
+    const cells = mNormal[2].match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g) || [];
+    const keep = cells.filter(c => {
+      const cm = c.match(/r="([A-Z]+)\d+"/);
+      if (!cm) return false;
+      const col = cm[1];
+      return col.length > 1 || col > "H"; // keep I..Z and AA.. (AC helper)
+    });
+    return xml.replace(reNormal, mNormal[1] + ahCells + keep.join("") + mNormal[3]);
+  }
+  
+  return xml;
 }
 
 // Fill the item area dynamically. Overwrites existing rows safely to protect helper columns, 
@@ -2075,11 +2087,9 @@ function writeSummaryRows(xml){
   for(let i=0; i<rows.length; i++){
     let ahCells = sumCells(r, rows[i]);
     
-    // If the row already exists in the template (e.g. 6 to 46), safely overwrite columns A-H
     if (xml.includes('<row r="' + r + '"')) {
       xml = replaceSummaryRow(xml, r, ahCells);
     } else {
-      // If we've grown past the template's rows, create a brand new row in memory
       newRowsXml += '<row r="' + r + '" spans="1:29" x14ac:dyDescent="0.25">' + ahCells + '</row>';
     }
     r++;
@@ -2113,7 +2123,7 @@ function writeSummaryRows(xml){
   }
   r++;
 
-  // 4. Blank out any remaining template rows (e.g., if you only selected 5 items, we need to erase the old totals)
+  // 4. Blank out any remaining template rows cleanly
   while (xml.includes('<row r="' + r + '"')) {
     xml = replaceSummaryRow(xml, r, sumBlank(r));
     r++;
