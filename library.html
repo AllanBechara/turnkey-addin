@@ -262,8 +262,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">16 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 01:28 pm" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip" style="">17 selected</span>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 01:29 pm" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -287,42 +287,55 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
   </div>
-  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Technology')">
-      <span>Technology</span>
-      <span class="cat-count">1</span>
+  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
+      <span>Doors &amp; windows</span>
+      <span class="cat-count">1 selected · 2</span>
       <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x197')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x197')"></div>
+    </div><div class="item" onclick="toggleItem('x085')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x085')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Intercom and access control / fob system replacement</div>
-            <div class="item-desc">Replace intercom system and access control fobs or swipe cards</div>
-            <div class="meta">ea &nbsp;·&nbsp; $2,654/ea &nbsp;·&nbsp; life 6yr</div>
+            <div class="scope">Roller doors to factories - repair roller shutter doors as needed</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $386/item &nbsp;·&nbsp; life 4yr</div>
             
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x197')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x197')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x085')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x085')" title="Remove">✕</button>
           </div>
-        </div><div class="cat-head" onclick="toggleCat('Car parking')">
-      <span>Car parking</span>
-      <span class="cat-count">1 selected · 1</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item sel" onclick="toggleItem('u17803708938532rn')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('u17803708938532rn')"></div>
+        </div><div class="item sel" onclick="toggleItem('x093')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x093')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Intercom and access control at driveway - upgraded as needed</div>
+            <div class="scope">Replace roller door - basement entry</div>
             
-            <div class="meta">ea &nbsp;·&nbsp; $2,500/ea &nbsp;·&nbsp; life 10yr</div>
+            <div class="meta">item &nbsp;·&nbsp; $5,200/item &nbsp;·&nbsp; life 10yr</div>
             <div class="item-sel-fields" onclick="event.stopPropagation()">
-              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('u17803708938532rn','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
-              <div class="isf"><label>Next due (yr)</label><input type="number" value="10" onchange="updateSelFromLib('u17803708938532rn','nd',this.value)" inputmode="numeric" min="1"></div>
+              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('x093','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="5" onchange="updateSelFromLib('x093','nd',this.value)" inputmode="numeric" min="1"></div>
             </div>
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('u17803708938532rn')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('u17803708938532rn')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x093')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x093')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Car parking')">
+      <span>Car parking</span>
+      <span class="cat-count">1</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x257')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x257')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Bin room roller door motor replacement</div>
+            <div class="item-desc">Replace roller door motor to bin room enclosure</div>
+            <div class="meta">ea &nbsp;·&nbsp; $1,474/ea &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x257')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x257')" title="Remove">✕</button>
           </div>
         </div></div>
 </div>
@@ -332,7 +345,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">16</span>
+    <span class="count-badge" id="sel-count-badge">17</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
   <div class="sel-list" id="sel-list"><div class="sel-item">
@@ -543,11 +556,24 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(15,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$2,500</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Replace roller door - basement entry</div><div class="sel-cat-label">Doors &amp; windows</div></div>
+        <button class="rem" onclick="deselect(16)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(16,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(16,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="5200" onchange="updateSel(16,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(16,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(16,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$5,200</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$85,025</span>
+      <span class="total-val" id="total-val">$90,225</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
@@ -571,7 +597,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">16</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">17</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
