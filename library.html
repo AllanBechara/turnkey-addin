@@ -579,8 +579,12 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
       <div class="setup-section-title">Copy for Excel</div>
       <div class="setup-copy-btns">
         <div>
-          <button class="btn primary" style="width:100%;min-height:44px;font-size:13px" onclick="copyInputsSheet()">📋 Copy — Inputs &amp; Assumptions</button>
-          <div class="setup-hint">Paste at cell C4 on the Inputs &amp; Assumptions sheet</div>
+          <button class="btn primary" style="width:100%;min-height:44px;font-size:13px" onclick="copyInputsSheet()">📋 Copy — Inputs (Column C)</button>
+          <div class="setup-hint">Step 1 — paste at cell C4 on the Inputs &amp; Assumptions sheet</div>
+        </div>
+        <div>
+          <button class="btn" style="width:100%;min-height:44px;font-size:13px" onclick="copySuburbCell()">📋 Copy — Suburb</button>
+          <div class="setup-hint">Step 2 — paste at cell E4 on the same sheet</div>
         </div>
         <div>
           <button class="btn" style="width:100%;min-height:44px;font-size:13px" onclick="copyOptimizeSheet()">📋 Copy — Optimize Contribution</button>
@@ -1918,40 +1922,51 @@ function copyInputsSheet(){
   if(!sp){showFMsg("setup-msg","SP Number is required","err");return;}
   if(!rawAddress){showFMsg("setup-msg","Address from strata search is required","err");return;}
 
-  const{address,suburb}=setupExtractAddressSuburb(rawAddress);
+  const{address}=setupExtractAddressSuburb(rawAddress);
   const lots=rawLots.replace(/\D/g,"");
   const regDate=setupFmtRegisteredDate(regDateRaw);
   const yearStartFmt=setupFmtYearStart(yearStart);
   const dateOfInspection=setupFmtDateOfInspection();
 
-  // Table: columns C, D, E — paste at C4 (Excel rows 4–21)
-  const R=[
-    [address,      "", suburb],          // row 4
-    [`SP ${sp}`,   "", ""],              // row 5
-    [sp,           "", ""],              // row 6
-    [regDate,      "", ""],              // row 7
-    [lots,         "", ""],              // row 8
-    [le,           "", ""],              // row 9
-    [cwfBal,       "", ""],              // row 10
-    [gst,          "", ""],              // row 11
-    ["",           "", ""],              // row 12 blank
-    [cwfContrib,   "", ""],              // row 13
-    ["",           "", ""],              // row 14 blank
-    ["",           "", ""],              // row 15 blank
-    [company,      "", ""],              // row 16
-    [dateOfInspection,"",""],            // row 17
-    ["",           "", ""],              // row 18 blank
-    ["",           "", ""],              // row 19 blank
-    ["",           "", ""],              // row 20 blank
-    [yearStartFmt, "", ""],              // row 21
+  // Single column C, paste at C4 (Excel rows 4–21). One column avoids the
+  // merged C:D input cells that block a multi-column paste. Suburb (E4) is copied separately.
+  const C=[
+    address,          // C4
+    `SP ${sp}`,       // C5
+    sp,               // C6
+    regDate,          // C7
+    lots,             // C8
+    le,               // C9
+    cwfBal,           // C10
+    gst,              // C11
+    "",               // C12 blank
+    cwfContrib,       // C13
+    "",               // C14 blank
+    "",               // C15 blank
+    company,          // C16
+    dateOfInspection, // C17
+    "",               // C18 blank
+    "",               // C19 blank
+    "",               // C20 blank
+    yearStartFmt,     // C21
   ];
 
-  const htmlRows=R.map(([c,d,e])=>`<tr><td>${escHtml(c)}</td><td>${escHtml(d)}</td><td>${escHtml(e)}</td></tr>`).join("");
-  const text=R.map(([c,d,e])=>`${c}\t${d}\t${e}`).join("\n");
+  const htmlRows=C.map(v=>`<tr><td>${escHtml(v)}</td></tr>`).join("");
+  const text=C.join("\n");
   const html=`<html><body><table>${htmlRows}</table></body></html>`;
 
   writeExcelClipboard(text,html).then(()=>{
-    showFMsg("setup-msg","✓ Copied — go to Inputs & Assumptions, click C4, press Ctrl+V","ok");
+    showFMsg("setup-msg","✓ Step 1 copied — click C4, press Ctrl+V. Then tap Copy Suburb for E4.","ok");
+  });
+}
+
+function copySuburbCell(){
+  const rawAddress=getSetupVal("js-address");
+  if(!rawAddress){showFMsg("setup-msg","Address is required first","err");return;}
+  const{suburb}=setupExtractAddressSuburb(rawAddress);
+  const html=`<html><body><table><tr><td>${escHtml(suburb)}</td></tr></table></body></html>`;
+  writeExcelClipboard(suburb,html).then(()=>{
+    showFMsg("setup-msg","✓ Suburb copied — click E4, press Ctrl+V","ok");
   });
 }
 
