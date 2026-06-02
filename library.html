@@ -263,7 +263,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
     <span class="sel-chip" id="sel-chip" style="">7 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 11:12 am" onclick="showView('settings')"></div>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 11:14 am" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -289,33 +289,83 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
   <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Exterior finishes')">
       <span>Exterior finishes</span>
-      <span class="cat-count">1 selected · 3</span>
+      <span class="cat-count">1 selected · 5</span>
       <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x022')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x022')"></div>
+    </div><div class="item" onclick="toggleItem('x024')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x024')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Repaint external timber doors and frames</div>
+            <div class="scope">Repaint internal lobby walls / ceilings</div>
             
-            <div class="meta">m2 &nbsp;·&nbsp; $350/m2 &nbsp;·&nbsp; life 8yr</div>
+            <div class="meta">m2 &nbsp;·&nbsp; $85/m2 &nbsp;·&nbsp; life 8yr</div>
             
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x022')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x022')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x024')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x024')" title="Remove">✕</button>
           </div>
-        </div><div class="item" onclick="toggleItem('x063')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x063')"></div>
+        </div><div class="item" onclick="" style="cursor:default">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x027')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Repaint timber doors to bin enclosure</div>
-            <div class="item-desc">Repaint timber doors and frames to bin enclosure</div>
-            <div class="meta">item &nbsp;·&nbsp; $120/item &nbsp;·&nbsp; life 8yr</div>
+            <div class="item-edit-form" onclick="event.stopPropagation()">
+              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
+                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Description</label>
+                <input id="ei-scope-x027" type="text" value="Repaint internal walls" placeholder="e.g. Repaint external balcony soffits">
+              </div>
+              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
+                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Notes (optional)</label>
+                <input id="ei-desc-x027" type="text" value="" placeholder="Additional detail">
+              </div>
+              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
+                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Category</label>
+                <select id="ei-cat-x027"><option value="Structural">Structural</option><option value="Exterior finishes" selected="">Exterior finishes</option><option value="Doors &amp; windows">Doors &amp; windows</option><option value="Roofing">Roofing</option><option value="Electrical">Electrical</option><option value="Plumbing">Plumbing</option><option value="HVAC">HVAC</option><option value="Fire safety">Fire safety</option><option value="Lifts &amp; escalators">Lifts &amp; escalators</option><option value="Technology">Technology</option><option value="Security">Security</option><option value="Accessibility">Accessibility</option><option value="Landscaping">Landscaping</option><option value="Amenities">Amenities</option><option value="Furnishings">Furnishings</option><option value="Car parking">Car parking</option><option value="Waterproofing">Waterproofing</option><option value="Sustainability">Sustainability</option><option value="Other">Other</option></select>
+              </div>
+              <div class="item-edit-row">
+                <div class="ief"><label>Unit</label><input id="ei-unit-x027" type="text" value="m2"></div>
+                <div class="ief"><label>Rate ($)</label><input id="ei-rate-x027" type="number" value="125" min="0" inputmode="decimal"></div>
+              </div>
+              <div class="item-edit-row">
+                <div class="ief"><label>Default Qty</label><input id="ei-qty-x027" type="number" value="100" min="0" step="any" inputmode="decimal"></div>
+                <div class="ief"><label>Next due (yrs)</label><input id="ei-nd-x027" type="number" value="5" min="1" inputmode="numeric"></div>
+                <div class="ief"><label>Life (yrs)</label><input id="ei-tl-x027" type="number" value="8" min="1" inputmode="numeric"></div>
+              </div>
+              <div class="item-edit-actions">
+                <button class="item-edit-actions ief-save" onclick="saveEditLib('x027')">Save</button>
+                <button class="item-edit-actions ief-cancel" onclick="cancelEditLib()">Cancel</button>
+              </div>
+            </div>
             
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x063')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x063')" title="Remove">✕</button>
+            
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x027')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x043')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x043')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint internal stairwell walls / ceilings</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $2,854/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x043')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x043')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x061')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x061')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint garage columns, ceilings and block walls</div>
+            <div class="item-desc">Repaint internal garage structure surfaces</div>
+            <div class="meta">item &nbsp;·&nbsp; $95/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x061')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x061')" title="Remove">✕</button>
           </div>
         </div><div class="item sel" onclick="toggleItem('u1779847227293znb')" style="">
           <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('u1779847227293znb')"></div>
@@ -325,43 +375,13 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
             
             <div class="meta">ea &nbsp;·&nbsp; $300/ea &nbsp;·&nbsp; life 7yr</div>
             <div class="item-sel-fields" onclick="event.stopPropagation()">
-              <div class="isf"><label>Qty</label><input type="number" value="6" onchange="updateSelFromLib('u1779847227293znb','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Qty</label><input type="number" value="31" onchange="updateSelFromLib('u1779847227293znb','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
               <div class="isf"><label>Next due (yr)</label><input type="number" value="3" onchange="updateSelFromLib('u1779847227293znb','nd',this.value)" inputmode="numeric" min="1"></div>
             </div>
           </div>
           <div class="item-rv">
             <button class="edit-btn" onclick="event.stopPropagation();editLib('u1779847227293znb')" title="Edit">✏</button>
             <button class="del-btn" onclick="event.stopPropagation();removeLib('u1779847227293znb')" title="Remove">✕</button>
-          </div>
-        </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
-      <span>Doors &amp; windows</span>
-      <span class="cat-count">2</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x092')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x092')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Repaint factory timber doors</div>
-            
-            <div class="meta">item &nbsp;·&nbsp; $225/item &nbsp;·&nbsp; life 10yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x092')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x092')" title="Remove">✕</button>
-          </div>
-        </div><div class="item" onclick="toggleItem('x097')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x097')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Repaint factory timber doors and electrical meter doors</div>
-            
-            <div class="meta">item &nbsp;·&nbsp; $225/item &nbsp;·&nbsp; life 10yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x097')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x097')" title="Remove">✕</button>
           </div>
         </div></div>
 </div>
