@@ -262,8 +262,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">12 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 11:22 am" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip" style="">13 selected</span>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 11:43 am" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -287,81 +287,426 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
   </div>
-  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Electrical')">
-      <span>Electrical</span>
-      <span class="cat-count">1 selected · 4</span>
+  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
+      <span>Structural</span>
+      <span class="cat-count">2</span>
       <span class="cat-arrow">▾</span>
-    </div><div class="item sel" onclick="toggleItem('x124')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x124')"></div>
+    </div><div class="item" onclick="toggleItem('x014')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x014')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Lighting to common areas - upgrade as needed</div>
+            <div class="scope">Spalling repairs to balcony soffits and window lintel replacement</div>
+            <div class="item-desc">Concrete spalling and lintel remediation to balcony soffits</div>
+            <div class="meta">item &nbsp;·&nbsp; $32,000/item &nbsp;·&nbsp; life 4yr</div>
             
-            <div class="meta">ea &nbsp;·&nbsp; $1,500/ea &nbsp;·&nbsp; life 7yr</div>
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x014')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x014')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x016')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x016')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">External lintel replacement</div>
+            <div class="item-desc">Replace deteriorated or failed external window and door lintels</div>
+            <div class="meta">item &nbsp;·&nbsp; $7,555/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x016')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x016')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
+      <span>Exterior finishes</span>
+      <span class="cat-count">3</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x048')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x048')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint external - shingles to cottage and window frames (period colour to remain)</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $95/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x048')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x048')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x051')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x051')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repair of doors and window frames as needed</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $285/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x051')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x051')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x060')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x060')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint and treat window lintels</div>
+            <div class="item-desc">Prime and repaint exposed window lintel surfaces</div>
+            <div class="meta">item &nbsp;·&nbsp; $76/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x060')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x060')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
+      <span>Doors &amp; windows</span>
+      <span class="cat-count">2 selected · 26</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item sel" onclick="toggleItem('x080')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x080')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Door and window hardware</div>
+            <div class="item-desc">Per windows &amp; door</div>
+            <div class="meta">ea &nbsp;·&nbsp; $50/ea &nbsp;·&nbsp; life 5yr</div>
             <div class="item-sel-fields" onclick="event.stopPropagation()">
-              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('x124','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
-              <div class="isf"><label>Next due (yr)</label><input type="number" value="4" onchange="updateSelFromLib('x124','nd',this.value)" inputmode="numeric" min="1"></div>
+              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('x080','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="4" onchange="updateSelFromLib('x080','nd',this.value)" inputmode="numeric" min="1"></div>
             </div>
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x124')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x124')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x080')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x080')" title="Remove">✕</button>
           </div>
-        </div><div class="item" onclick="toggleItem('x125')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x125')"></div>
+        </div><div class="item" onclick="toggleItem('x081')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x081')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Emergency and exit lighting system replacement</div>
+            <div class="scope">Repair of doors and window frames as needed</div>
+            
+            <div class="meta">m2 &nbsp;·&nbsp; $85/m2 &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x081')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x081')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x082')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x082')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Door frame / jamb replacement as needed</div>
             
             <div class="meta">item &nbsp;·&nbsp; $1,200/item &nbsp;·&nbsp; life 8yr</div>
             
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x125')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x125')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x082')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x082')" title="Remove">✕</button>
           </div>
-        </div><div class="item" onclick="toggleItem('x127')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x127')"></div>
+        </div><div class="item" onclick="toggleItem('x083')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x083')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">External lighting</div>
+            <div class="scope">Garage doors - replace as needed</div>
             
-            <div class="meta">item &nbsp;·&nbsp; $224/item &nbsp;·&nbsp; life 4yr</div>
+            <div class="meta">item &nbsp;·&nbsp; $1,150/item &nbsp;·&nbsp; life 10yr</div>
             
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x127')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x127')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x083')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x083')" title="Remove">✕</button>
           </div>
-        </div><div class="item" onclick="toggleItem('x135')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x135')"></div>
+        </div><div class="item" onclick="toggleItem('x084')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x084')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Common area / external LED lighting upgrade</div>
+            <div class="scope">Fasade glazing / window fixtures</div>
             
-            <div class="meta">item &nbsp;·&nbsp; $280/item &nbsp;·&nbsp; life 10yr</div>
+            <div class="meta">item &nbsp;·&nbsp; $150/item &nbsp;·&nbsp; life 3yr</div>
             
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x135')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x135')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x084')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x084')" title="Remove">✕</button>
           </div>
-        </div><div class="cat-head" onclick="toggleCat('Fire safety')">
-      <span>Fire safety</span>
-      <span class="cat-count">1</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x185')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x185')"></div>
+        </div><div class="item" onclick="toggleItem('x085')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x085')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Emergency lighting battery and fitting replacement</div>
-            <div class="item-desc">Replace emergency lighting batteries and associated fittings</div>
-            <div class="meta">ea &nbsp;·&nbsp; $12,534/ea &nbsp;·&nbsp; life 9yr</div>
+            <div class="scope">Roller doors to factories - repair roller shutter doors as needed</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $386/item &nbsp;·&nbsp; life 4yr</div>
             
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x185')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x185')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x085')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x085')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x086')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x086')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Maintain aluminium window shade hoods / awnings</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $85/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x086')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x086')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x087')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x087')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Louvred glass window panel replacement</div>
+            <div class="item-desc">Replace louvred glass window panels and operators</div>
+            <div class="meta">item &nbsp;·&nbsp; $15,000/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x087')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x087')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x088')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x088')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Single pivot hinge glass entry door replacement</div>
+            <div class="item-desc">Replace single-pivot or patch-fitting glass entry door</div>
+            <div class="meta">ea &nbsp;·&nbsp; $3,500/ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x088')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x088')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x089')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x089')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Glass aluminium entry stairwell doors - replace as needed</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $1,200/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x089')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x089')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x090')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x090')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Fire lot entry doors - replace as needed</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $487/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x090')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x090')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x091')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x091')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint doors to basement</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $850/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x091')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x091')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x092')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x092')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint factory timber doors</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $225/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x092')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x092')" title="Remove">✕</button>
+          </div>
+        </div><div class="item sel" onclick="toggleItem('x093')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x093')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace roller door - basement entry</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $3,000/item &nbsp;·&nbsp; life 10yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('x093','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="9" onchange="updateSelFromLib('x093','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x093')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x093')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x094')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x094')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace automatic basement door operating gear</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $4,500/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x094')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x094')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x095')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x095')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replacement of external solid core doors as needed</div>
+            
+            <div class="meta">m2 &nbsp;·&nbsp; $85/m2 &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x095')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x095')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x096')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x096')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Window repairs</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $1,200/item &nbsp;·&nbsp; life 2yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x096')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x096')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x097')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x097')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint factory timber doors and electrical meter doors</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $225/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x097')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x097')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x098')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x098')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint entry doors to townhouses</div>
+            
+            <div class="meta">m2 &nbsp;·&nbsp; $200/m2 &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x098')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x098')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x099')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x099')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Balcony door frame and sub sill repairs (previous works completed)</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $140/item &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x099')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x099')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x100')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x100')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Roller shutter door replacement</div>
+            <div class="item-desc">Replace roller shutter door and assembly mechanism</div>
+            <div class="meta">item &nbsp;·&nbsp; $4,800/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x100')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x100')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x101')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x101')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Entry foyer glass door replacement</div>
+            <div class="item-desc">Replace frameless or framed glass door to entry foyer</div>
+            <div class="meta">ea &nbsp;·&nbsp; $2,141/ea &nbsp;·&nbsp; life 9yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x101')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x101')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x102')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x102')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Timber window sash cord replacement</div>
+            <div class="item-desc">Replace worn sash cords on double-hung timber windows</div>
+            <div class="meta">ea &nbsp;·&nbsp; $450/ea &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x102')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x102')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x103')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x103')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Anodised aluminium window and sliding door replacement</div>
+            <div class="item-desc">Replace anodised aluminium windows and sliding doors</div>
+            <div class="meta">ea &nbsp;·&nbsp; $4,252/ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x103')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x103')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x104')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x104')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Automatic glass entry door motor replacement</div>
+            <div class="item-desc">Replace automatic sliding or swing glass entry door motor</div>
+            <div class="meta">ea &nbsp;·&nbsp; $2,212/ea &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x104')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x104')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u17798472272935r5')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u17798472272935r5')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Doors &amp; windows</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $0/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('u17798472272935r5')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u17798472272935r5')" title="Remove">✕</button>
           </div>
         </div></div>
 </div>
@@ -371,7 +716,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">12</span>
+    <span class="count-badge" id="sel-count-badge">13</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
   <div class="sel-list" id="sel-list"><div class="sel-item">
@@ -530,11 +875,24 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(11,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$7,500</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Door and window hardware</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">Per windows &amp; door</div><div class="sel-cat-label">Doors &amp; windows</div></div>
+        <button class="rem" onclick="deselect(12)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="120" onchange="updateSel(12,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(12,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="50" onchange="updateSel(12,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(12,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="4" onchange="updateSel(12,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$6,000</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$119,950</span>
+      <span class="total-val" id="total-val">$125,950</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
@@ -558,7 +916,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">12</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">13</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
