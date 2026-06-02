@@ -1587,8 +1587,9 @@ function buildExcelContent(grouped){
   textRows.push(`${n}\t${totalLabel}\t\t\t\t\t\t`);
   htmlRows+=`<tr><td>${n}</td><td><b><u>${totalLabel}</u></b></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
   n++;
-  textRows.push(`${n}\tSubtotal\t\t\t\t$${total.toLocaleString()}\t\t`);
-  htmlRows+=`<tr><td>${n}</td><td><b><u>Subtotal</u></b></td><td></td><td></td><td></td><td>$${total.toLocaleString()}</td><td></td><td></td></tr>`;
+  const sumFormula=`=SUM(INDIRECT("F"&(ROW()-${n-1})&":F"&(ROW()-1)))`;
+  textRows.push(`${n}\tSubtotal\t\t\t\t${sumFormula}\t\t`);
+  htmlRows+=`<tr><td>${n}</td><td><b><u>Subtotal</u></b></td><td></td><td></td><td></td><td style="mso-number-format:'$#,##0'"><b><u>${sumFormula}</u></b></td><td></td><td></td></tr>`;
   const text=textRows.join("\n");
   const html=`<html><body><table>${htmlRows}</table></body></html>`;
   return{text,html,count:textRows.length};
