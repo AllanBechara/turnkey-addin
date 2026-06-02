@@ -401,41 +401,20 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
       <span>Car parking</span>
       <span class="cat-count">1 selected · 2</span>
       <span class="cat-arrow">▾</span>
-    </div><div class="item sel" onclick="" style="cursor:default">
+    </div><div class="item sel" onclick="toggleItem('x250')" style="">
           <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x250')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="item-edit-form" onclick="event.stopPropagation()">
-              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
-                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Description</label>
-                <input id="ei-scope-x250" type="text" value="Gate motor - entry / exit" placeholder="e.g. Repaint external balcony soffits">
-              </div>
-              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
-                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Notes (optional)</label>
-                <input id="ei-desc-x250" type="text" value="" placeholder="Additional detail">
-              </div>
-              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
-                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Category</label>
-                <select id="ei-cat-x250"><option value="Structural">Structural</option><option value="Exterior finishes">Exterior finishes</option><option value="Doors &amp; windows">Doors &amp; windows</option><option value="Roofing">Roofing</option><option value="Electrical">Electrical</option><option value="Plumbing">Plumbing</option><option value="HVAC">HVAC</option><option value="Fire safety">Fire safety</option><option value="Lifts &amp; escalators">Lifts &amp; escalators</option><option value="Technology">Technology</option><option value="Security">Security</option><option value="Accessibility">Accessibility</option><option value="Landscaping">Landscaping</option><option value="Amenities">Amenities</option><option value="Furnishings">Furnishings</option><option value="Car parking" selected="">Car parking</option><option value="Waterproofing">Waterproofing</option><option value="Sustainability">Sustainability</option><option value="Other">Other</option></select>
-              </div>
-              <div class="item-edit-row">
-                <div class="ief"><label>Unit</label><input id="ei-unit-x250" type="text" value="m2"></div>
-                <div class="ief"><label>Rate ($)</label><input id="ei-rate-x250" type="number" value="2800" min="0" inputmode="decimal"></div>
-              </div>
-              <div class="item-edit-row">
-                <div class="ief"><label>Default Qty</label><input id="ei-qty-x250" type="number" value="2" min="0" step="any" inputmode="decimal"></div>
-                <div class="ief"><label>Next due (yrs)</label><input id="ei-nd-x250" type="number" value="7" min="1" inputmode="numeric"></div>
-                <div class="ief"><label>Life (yrs)</label><input id="ei-tl-x250" type="number" value="8" min="1" inputmode="numeric"></div>
-              </div>
-              <div class="item-edit-actions">
-                <button class="item-edit-actions ief-save" onclick="saveEditLib('x250')">Save</button>
-                <button class="item-edit-actions ief-cancel" onclick="cancelEditLib()">Cancel</button>
-              </div>
-            </div>
+            <div class="scope">Gate motor - entry / exit</div>
             
+            <div class="meta">ea &nbsp;·&nbsp; $2,800/ea &nbsp;·&nbsp; life 8yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="2" onchange="updateSelFromLib('x250','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="7" onchange="updateSelFromLib('x250','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
           </div>
           <div class="item-rv">
-            
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x250')" title="Edit">✏</button>
             <button class="del-btn" onclick="event.stopPropagation();removeLib('x250')" title="Remove">✕</button>
           </div>
         </div><div class="item" onclick="toggleItem('x257')" style="">
@@ -481,18 +460,18 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <button class="rem" onclick="deselect(1)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="2" onchange="updateSel(1,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(1,'unit',this.value)"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(1,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(1,'unit',this.value)"></div>
         <div class="sf"><label>Rate</label><input type="number" value="2800" onchange="updateSel(1,'rate',this.value)" inputmode="decimal"></div>
         <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(1,'nd',this.value)" inputmode="numeric"></div>
         <div class="sf"><label>Life (yrs)</label><input type="number" value="8" onchange="updateSel(1,'tl',this.value)" inputmode="numeric"></div>
       </div>
-      <div class="sel-val">Value: <strong>$5,600</strong></div>
+      <div class="sel-val">Value: <strong>$2,800</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$30,600</span>
+      <span class="total-val" id="total-val">$27,800</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
