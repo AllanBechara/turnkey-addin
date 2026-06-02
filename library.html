@@ -262,8 +262,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">3 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 01:13 pm" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip" style="">4 selected</span>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 01:14 pm" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -287,45 +287,72 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
   </div>
-  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Exterior finishes')">
-      <span>Exterior finishes</span>
-      <span class="cat-count">1 selected · 1</span>
+  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Roofing')">
+      <span>Roofing</span>
+      <span class="cat-count">1 selected · 3</span>
       <span class="cat-arrow">▾</span>
-    </div><div class="item sel" onclick="toggleItem('u1780369961193hol')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('u1780369961193hol')"></div>
+    </div><div class="item" onclick="toggleItem('x105')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x105')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Repaint entry canopy soffits</div>
-            <div class="item-desc">for each doorway entrance</div>
-            <div class="meta">ea &nbsp;·&nbsp; $300/ea &nbsp;·&nbsp; life 7yr</div>
-            <div class="item-sel-fields" onclick="event.stopPropagation()">
-              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('u1780369961193hol','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
-              <div class="isf"><label>Next due (yr)</label><input type="number" value="7" onchange="updateSelFromLib('u1780369961193hol','nd',this.value)" inputmode="numeric" min="1"></div>
-            </div>
+            <div class="scope">Gutters and downpipe repairs</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $124/item &nbsp;·&nbsp; life 6yr</div>
+            
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('u1780369961193hol')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1780369961193hol')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x105')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x105')" title="Remove">✕</button>
           </div>
-        </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
-      <span>Doors &amp; windows</span>
-      <span class="cat-count">1 selected · 1</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item sel" onclick="toggleItem('x098')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x098')"></div>
+        </div><div class="item sel" onclick="" style="cursor:default">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x109')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Repaint entry doors to townhouses</div>
-            
-            <div class="meta">ea &nbsp;·&nbsp; $300/ea &nbsp;·&nbsp; life 7yr</div>
-            <div class="item-sel-fields" onclick="event.stopPropagation()">
-              <div class="isf"><label>Qty</label><input type="number" value="35" onchange="updateSelFromLib('x098','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
-              <div class="isf"><label>Next due (yr)</label><input type="number" value="4" onchange="updateSelFromLib('x098','nd',this.value)" inputmode="numeric" min="1"></div>
+            <div class="item-edit-form" onclick="event.stopPropagation()">
+              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
+                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Description</label>
+                <input id="ei-scope-x109" type="text" value="Box gutters, capping, flashing and downpipe repairs - allowance" placeholder="e.g. Repaint external balcony soffits">
+              </div>
+              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
+                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Notes (optional)</label>
+                <input id="ei-desc-x109" type="text" value="" placeholder="Additional detail">
+              </div>
+              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
+                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Category</label>
+                <select id="ei-cat-x109"><option value="Structural">Structural</option><option value="Exterior finishes">Exterior finishes</option><option value="Doors &amp; windows">Doors &amp; windows</option><option value="Roofing" selected="">Roofing</option><option value="Electrical">Electrical</option><option value="Plumbing">Plumbing</option><option value="HVAC">HVAC</option><option value="Fire safety">Fire safety</option><option value="Lifts &amp; escalators">Lifts &amp; escalators</option><option value="Technology">Technology</option><option value="Security">Security</option><option value="Accessibility">Accessibility</option><option value="Landscaping">Landscaping</option><option value="Amenities">Amenities</option><option value="Furnishings">Furnishings</option><option value="Car parking">Car parking</option><option value="Waterproofing">Waterproofing</option><option value="Sustainability">Sustainability</option><option value="Other">Other</option></select>
+              </div>
+              <div class="item-edit-row">
+                <div class="ief"><label>Unit</label><input id="ei-unit-x109" type="text" value="item"></div>
+                <div class="ief"><label>Rate ($)</label><input id="ei-rate-x109" type="number" value="5252" min="0" inputmode="decimal"></div>
+              </div>
+              <div class="item-edit-row">
+                <div class="ief"><label>Default Qty</label><input id="ei-qty-x109" type="number" value="8" min="0" step="any" inputmode="decimal"></div>
+                <div class="ief"><label>Next due (yrs)</label><input id="ei-nd-x109" type="number" value="7" min="1" inputmode="numeric"></div>
+                <div class="ief"><label>Life (yrs)</label><input id="ei-tl-x109" type="number" value="7" min="1" inputmode="numeric"></div>
+              </div>
+              <div class="item-edit-actions">
+                <button class="item-edit-actions ief-save" onclick="saveEditLib('x109')">Save</button>
+                <button class="item-edit-actions ief-cancel" onclick="cancelEditLib()">Cancel</button>
+              </div>
             </div>
+            
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x098')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x098')" title="Remove">✕</button>
+            
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x109')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x123')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x123')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replacement of fascia, gutter and downpipes</div>
+            <div class="item-desc">Replace deteriorated fascia, gutter sections and downpipes</div>
+            <div class="meta">item &nbsp;·&nbsp; $3,000/item &nbsp;·&nbsp; life 4yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x123')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x123')" title="Remove">✕</button>
           </div>
         </div></div>
 </div>
@@ -335,7 +362,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">3</span>
+    <span class="count-badge" id="sel-count-badge">4</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
   <div class="sel-list" id="sel-list"><div class="sel-item">
@@ -357,31 +384,44 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <button class="rem" onclick="deselect(1)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(1,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="15" onchange="updateSel(1,'qty',this.value)" inputmode="decimal"></div>
         <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(1,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="300" onchange="updateSel(1,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(1,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="250" onchange="updateSel(1,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(1,'nd',this.value)" inputmode="numeric"></div>
         <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(1,'tl',this.value)" inputmode="numeric"></div>
       </div>
-      <div class="sel-val">Value: <strong>$300</strong></div>
+      <div class="sel-val">Value: <strong>$3,750</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Repaint entry doors to townhouses</div><div class="sel-cat-label">Doors &amp; windows</div></div>
         <button class="rem" onclick="deselect(2)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="35" onchange="updateSel(2,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="15" onchange="updateSel(2,'qty',this.value)" inputmode="decimal"></div>
         <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(2,'unit',this.value)"></div>
         <div class="sf"><label>Rate</label><input type="number" value="300" onchange="updateSel(2,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(2,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(2,'nd',this.value)" inputmode="numeric"></div>
         <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(2,'tl',this.value)" inputmode="numeric"></div>
       </div>
-      <div class="sel-val">Value: <strong>$10,500</strong></div>
+      <div class="sel-val">Value: <strong>$4,500</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Box gutters, capping, flashing and downpipe repairs - allowance</div><div class="sel-cat-label">Roofing</div></div>
+        <button class="rem" onclick="deselect(3)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="8" onchange="updateSel(3,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(3,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="5252" onchange="updateSel(3,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(3,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(3,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$42,016</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$12,800</span>
+      <span class="total-val" id="total-val">$52,266</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
@@ -405,7 +445,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">3</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">4</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
