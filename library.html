@@ -262,7 +262,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">7 selected</span>
+    <span class="sel-chip" id="sel-chip" style="">8 selected</span>
     <div class="sync-dot ok" id="sync-dot" title="Synced 11:14 am" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
@@ -289,7 +289,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
   <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Exterior finishes')">
       <span>Exterior finishes</span>
-      <span class="cat-count">1 selected · 5</span>
+      <span class="cat-count">2 selected · 5</span>
       <span class="cat-arrow">▾</span>
     </div><div class="item" onclick="toggleItem('x024')" style="">
           <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x024')"></div>
@@ -304,41 +304,20 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
             <button class="edit-btn" onclick="event.stopPropagation();editLib('x024')" title="Edit">✏</button>
             <button class="del-btn" onclick="event.stopPropagation();removeLib('x024')" title="Remove">✕</button>
           </div>
-        </div><div class="item" onclick="" style="cursor:default">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x027')"></div>
+        </div><div class="item sel" onclick="toggleItem('x027')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x027')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="item-edit-form" onclick="event.stopPropagation()">
-              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
-                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Description</label>
-                <input id="ei-scope-x027" type="text" value="Repaint internal walls" placeholder="e.g. Repaint external balcony soffits">
-              </div>
-              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
-                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Notes (optional)</label>
-                <input id="ei-desc-x027" type="text" value="" placeholder="Additional detail">
-              </div>
-              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
-                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Category</label>
-                <select id="ei-cat-x027"><option value="Structural">Structural</option><option value="Exterior finishes" selected="">Exterior finishes</option><option value="Doors &amp; windows">Doors &amp; windows</option><option value="Roofing">Roofing</option><option value="Electrical">Electrical</option><option value="Plumbing">Plumbing</option><option value="HVAC">HVAC</option><option value="Fire safety">Fire safety</option><option value="Lifts &amp; escalators">Lifts &amp; escalators</option><option value="Technology">Technology</option><option value="Security">Security</option><option value="Accessibility">Accessibility</option><option value="Landscaping">Landscaping</option><option value="Amenities">Amenities</option><option value="Furnishings">Furnishings</option><option value="Car parking">Car parking</option><option value="Waterproofing">Waterproofing</option><option value="Sustainability">Sustainability</option><option value="Other">Other</option></select>
-              </div>
-              <div class="item-edit-row">
-                <div class="ief"><label>Unit</label><input id="ei-unit-x027" type="text" value="m2"></div>
-                <div class="ief"><label>Rate ($)</label><input id="ei-rate-x027" type="number" value="125" min="0" inputmode="decimal"></div>
-              </div>
-              <div class="item-edit-row">
-                <div class="ief"><label>Default Qty</label><input id="ei-qty-x027" type="number" value="100" min="0" step="any" inputmode="decimal"></div>
-                <div class="ief"><label>Next due (yrs)</label><input id="ei-nd-x027" type="number" value="5" min="1" inputmode="numeric"></div>
-                <div class="ief"><label>Life (yrs)</label><input id="ei-tl-x027" type="number" value="8" min="1" inputmode="numeric"></div>
-              </div>
-              <div class="item-edit-actions">
-                <button class="item-edit-actions ief-save" onclick="saveEditLib('x027')">Save</button>
-                <button class="item-edit-actions ief-cancel" onclick="cancelEditLib()">Cancel</button>
-              </div>
-            </div>
+            <div class="scope">Repaint internal walls</div>
             
+            <div class="meta">m2 &nbsp;·&nbsp; $125/m2 &nbsp;·&nbsp; life 7yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="100" onchange="updateSelFromLib('x027','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="3" onchange="updateSelFromLib('x027','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
           </div>
           <div class="item-rv">
-            
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x027')" title="Edit">✏</button>
             <button class="del-btn" onclick="event.stopPropagation();removeLib('x027')" title="Remove">✕</button>
           </div>
         </div><div class="item" onclick="toggleItem('x043')" style="">
@@ -391,7 +370,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">7</span>
+    <span class="count-badge" id="sel-count-badge">8</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
   <div class="sel-list" id="sel-list"><div class="sel-item">
@@ -485,11 +464,24 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(6,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$9,300</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Repaint internal walls</div><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(7)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="100" onchange="updateSel(7,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(7,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="125" onchange="updateSel(7,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(7,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(7,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$12,500</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$44,850</span>
+      <span class="total-val" id="total-val">$57,350</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
@@ -513,7 +505,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">7</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">8</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
