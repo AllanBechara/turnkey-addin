@@ -263,7 +263,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
     <span class="sel-chip" id="sel-chip" style="">5 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 11:04 am" onclick="showView('settings')"></div>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 11:06 am" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -296,11 +296,11 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
           <div class="item-info" style="flex:1">
             
             <div class="scope">Mailbox / letterbox bank replacement</div>
-            <div class="item-desc">Replace common property mailbox or letterbox bank units</div>
-            <div class="meta">item &nbsp;·&nbsp; $1,800/item &nbsp;·&nbsp; life 10yr</div>
+            <div class="item-desc">2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000</div>
+            <div class="meta">item &nbsp;·&nbsp; $3,000/item &nbsp;·&nbsp; life 10yr</div>
             <div class="item-sel-fields" onclick="event.stopPropagation()">
               <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('x248b','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
-              <div class="isf"><label>Next due (yr)</label><input type="number" value="15" onchange="updateSelFromLib('x248b','nd',this.value)" inputmode="numeric" min="1"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="8" onchange="updateSelFromLib('x248b','nd',this.value)" inputmode="numeric" min="1"></div>
             </div>
           </div>
           <div class="item-rv">
@@ -372,22 +372,22 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
       <div class="sel-val">Value: <strong>$200</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
-        <div><div class="sel-scope">Mailbox / letterbox bank replacement</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">Replace common property mailbox or letterbox bank units</div><div class="sel-cat-label">Furnishings</div></div>
+        <div><div class="sel-scope">Mailbox / letterbox bank replacement</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000</div><div class="sel-cat-label">Furnishings</div></div>
         <button class="rem" onclick="deselect(4)">×</button>
       </div>
       <div class="sel-fields">
         <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(4,'qty',this.value)" inputmode="decimal"></div>
         <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(4,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="1800" onchange="updateSel(4,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="15" onchange="updateSel(4,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="20" onchange="updateSel(4,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="3000" onchange="updateSel(4,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(4,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(4,'tl',this.value)" inputmode="numeric"></div>
       </div>
-      <div class="sel-val">Value: <strong>$1,800</strong></div>
+      <div class="sel-val">Value: <strong>$3,000</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$32,800</span>
+      <span class="total-val" id="total-val">$34,000</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
