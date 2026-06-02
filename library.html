@@ -263,7 +263,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
     <span class="sel-chip" id="sel-chip" style="">25 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 12:31 pm" onclick="showView('settings')"></div>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 12:32 pm" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -274,92 +274,63 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <!-- DESKTOP LEFT PANEL -->
   <div class="left-panel" id="left-panel" style="display: flex;">
     <div class="desktop-tabs">
-      <div class="dtab active" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
-      <div class="dtab" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
+      <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
+      <div class="dtab active" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
       <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
       <div class="dtab" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
     </div>
     <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
-  <div class="search-area">
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="search-input" placeholder="Search items..." oninput="renderLibrary()" autocomplete="off">
+  <div class="save-job-area">
+    <div class="save-job-row">
+      <input id="job-name-input" placeholder="Job name (e.g. 732 Military Rd Mosman)..." maxlength="80">
+      <select id="job-folder-select" title="Save into folder"><option value="">📋 No folder</option><option value="u1779768541150hh5">📁 Tower/Highrise</option></select>
+      <button class="btn primary sm" onclick="saveJob()">Save</button>
     </div>
-    <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
+    <textarea class="notes-input" id="job-notes-input" placeholder="Site notes — observations, conditions, issues found on inspection..." rows="3"></textarea>
+    <div style="display:flex;justify-content:flex-end">
+      <button class="btn sm" onclick="createFolder()" style="color:var(--navy-md);font-size:12px">📁 New Folder</button>
+    </div>
   </div>
-  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
-      <span>Structural</span>
-      <span class="cat-count">1 selected · 21</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
-      <span>Exterior finishes</span>
-      <span class="cat-count">7 selected · 63</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
-      <span>Doors &amp; windows</span>
-      <span class="cat-count">3 selected · 26</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Roofing')">
-      <span>Roofing</span>
-      <span class="cat-count">1 selected · 23</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Electrical')">
-      <span>Electrical</span>
-      <span class="cat-count">1 selected · 13</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Plumbing')">
-      <span>Plumbing</span>
-      <span class="cat-count">1 selected · 22</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('HVAC')">
-      <span>HVAC</span>
-      <span class="cat-count">21</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Fire safety')">
-      <span>Fire safety</span>
-      <span class="cat-count">1 selected · 14</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Lifts &amp; escalators')">
-      <span>Lifts &amp; escalators</span>
-      <span class="cat-count">1 selected · 2</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Technology')">
-      <span>Technology</span>
-      <span class="cat-count">1 selected · 6</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Security')">
-      <span>Security</span>
-      <span class="cat-count">1 selected · 1</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Accessibility')">
-      <span>Accessibility</span>
-      <span class="cat-count">9</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Landscaping')">
-      <span>Landscaping</span>
-      <span class="cat-count">1 selected · 25</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Amenities')">
-      <span>Amenities</span>
-      <span class="cat-count">14</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Furnishings')">
-      <span>Furnishings</span>
-      <span class="cat-count">2 selected · 6</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Car parking')">
-      <span>Car parking</span>
-      <span class="cat-count">2 selected · 15</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Waterproofing')">
-      <span>Waterproofing</span>
-      <span class="cat-count">1 selected · 11</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Other')">
-      <span>Other</span>
-      <span class="cat-count">1 selected · 17</span>
-      <span class="cat-arrow collapsed">▾</span>
+  <div class="jobs-scroll" id="jobs-list-wrap">
+    <div id="jobs-list"><div class="folder-header" onclick="toggleFolder('u1779768541150hh5')">
+      <span class="folder-icon">▾</span>
+      <span class="folder-title">📁 Tower/Highrise</span>
+      <span class="folder-count">1 job</span>
+      <div class="folder-actions" onclick="event.stopPropagation()">
+        <button class="folder-btn" onclick="renameFolder('u1779768541150hh5')" title="Rename">✏</button>
+        <button class="folder-btn" onclick="deleteFolder('u1779768541150hh5')" title="Delete folder" style="color:#ffaaaa">✕</button>
+      </div>
+    </div>
+    <div class="folder-jobs" id="folder-jobs-u1779768541150hh5">
+      <div class="job-row" id="job-row-0">
+    <div class="job-row-top">
+      <div class="job-info">
+        <div class="job-name">SP 9912</div>
+        <div class="job-meta">02/06/2026 · 25 items · $284,772</div>
+        <div class="job-notes-snippet">📝 Registered 1975 - 31 Lots</div>
+      </div>
+      <div class="job-btns">
+        <button class="btn primary sm" onclick="loadJob(0)">Load</button>
+        <button class="btn sm" onclick="copyJobToExcel(0)" title="Copy for Excel">📋</button>
+        <button class="btn sm" onclick="showMovePicker(0)" title="Move to folder">📁</button>
+        <button class="btn sm" onclick="toggleJobNotes(0)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
+        <button class="btn sm" onclick="addJobToLib(0)" title="Add items to library">+Lib</button>
+        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(0)">✕</button>
+      </div>
+    </div>
+    <div class="job-notes-panel" id="notes-panel-0">
+      <div class="job-notes-label">Site notes</div>
+      <div class="job-notes-text" id="notes-text-0" style="">Registered 1975 - 31 Lots</div>
+      <textarea class="job-notes-edit" id="notes-edit-0" style="display:none" placeholder="Add site notes here..." rows="4">Registered 1975 - 31 Lots</textarea>
+      <div style="display:flex;gap:6px">
+        <button class="btn primary sm" onclick="saveJobNotes(0)" id="notes-save-0" style="display:none">Save notes</button>
+        <button class="btn sm" onclick="editJobNotes(0)" id="notes-edit-btn-0">Edit notes</button>
+        <button class="btn ghost sm" onclick="toggleJobNotes(0)">Close</button>
+      </div>
+    </div>
+  </div>
     </div></div>
+  </div>
 </div>
   </div>
 
@@ -914,7 +885,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 </template>
 
 <script id="user-data">
-const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294gdp","cat":"Other","scope":"Sustainability","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"savedJobs":[{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":2,"unit":"m2","rate":2500,"nd":6,"tl":7},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":false}]};
+const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294gdp","cat":"Other","scope":"Sustainability","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"savedJobs":[{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":2,"unit":"m2","rate":2500,"nd":6,"tl":7},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":true}]};
 </script>
 
 <script>
