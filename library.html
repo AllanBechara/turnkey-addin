@@ -525,6 +525,10 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
           <input id="js-sp" type="number" placeholder="e.g. 12345" inputmode="numeric" autocomplete="off">
         </div>
         <div class="setup-field full">
+          <label>Building Name</label>
+          <input id="js-building" type="text" placeholder="e.g. Redmyre 2" autocomplete="off">
+        </div>
+        <div class="setup-field full">
           <label>Strata Management Company</label>
           <select id="js-company"></select>
         </div>
@@ -551,6 +555,14 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
             <input type="checkbox" id="js-gst">
           </label>
         </div>
+        <div class="setup-field">
+          <label>Weather Condition</label>
+          <input id="js-weather" type="text" placeholder="e.g. Fine" autocomplete="off">
+        </div>
+        <div class="setup-field">
+          <label>Prepared By</label>
+          <input id="js-preparedby" type="text" placeholder="e.g. Joseph Bechara" autocomplete="off">
+        </div>
       </div>
     </div>
 
@@ -576,20 +588,21 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
     </div>
 
     <div>
-      <div class="setup-section-title">Copy for Excel</div>
+      <div class="setup-section-title">Inputs &amp; Assumptions sheet</div>
+      <div class="setup-hint" style="margin-bottom:10px">Paste each in order at the cell shown. The runs skip the formula rows (C12, C14, C15) and the merged Variables header (C20).</div>
       <div class="setup-copy-btns">
-        <div>
-          <button class="btn primary" style="width:100%;min-height:44px;font-size:13px" onclick="copyInputsSheet()">📋 Copy — Inputs (Column C)</button>
-          <div class="setup-hint">Step 1 — paste at cell C4 on the Inputs &amp; Assumptions sheet</div>
-        </div>
-        <div>
-          <button class="btn" style="width:100%;min-height:44px;font-size:13px" onclick="copySuburbCell()">📋 Copy — Suburb</button>
-          <div class="setup-hint">Step 2 — paste at cell E4 on the same sheet</div>
-        </div>
-        <div>
-          <button class="btn" style="width:100%;min-height:44px;font-size:13px" onclick="copyOptimizeSheet()">📋 Copy — Optimize Contribution</button>
-          <div class="setup-hint">Paste at cell B7 on the Optimize Contribution sheet</div>
-        </div>
+        <button class="btn primary" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyTopBlock()">① Scheme &amp; finances → paste at <strong>C4</strong></button>
+        <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copySuburbCell()">② Suburb → paste at <strong>E4</strong></button>
+        <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyLevy()">③ Levy per annum → paste at <strong>C13</strong></button>
+        <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyPrepared()">④ Prepared / inspection → paste at <strong>C16</strong></button>
+        <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyYearStart()">⑤ Financial year start → paste at <strong>C21</strong></button>
+      </div>
+    </div>
+
+    <div>
+      <div class="setup-section-title">Optimize Contribution sheet</div>
+      <div class="setup-copy-btns">
+        <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyOptimizeSheet()">Contributions → paste at <strong>B7</strong></button>
       </div>
       <div class="form-msg" id="setup-msg" style="margin-top:10px"></div>
     </div>
@@ -1906,68 +1919,73 @@ function setupExtractAddressSuburb(raw){
   return{address,suburb};
 }
 
-function copyInputsSheet(){
-  const sp=getSetupVal("js-sp");
-  const company=getSetupVal("js-company");
-  const le=getSetupVal("js-le");
-  const cwfBal=getSetupVal("js-cwfbal");
-  const cwfContrib=getSetupVal("js-cwfcontrib");
-  const yearStart=getSetupVal("js-yearstart");
+function _setupGather(){
   const gstEl=document.getElementById("js-gst");
-  const gst=gstEl?(gstEl.checked?"Yes":"No"):"No";
-  const rawAddress=getSetupVal("js-address");
-  const regDateRaw=getSetupVal("js-regdate");
-  const rawLots=getSetupVal("js-lots");
-
-  if(!sp){showFMsg("setup-msg","SP Number is required","err");return;}
-  if(!rawAddress){showFMsg("setup-msg","Address from strata search is required","err");return;}
-
-  const{address}=setupExtractAddressSuburb(rawAddress);
-  const lots=rawLots.replace(/\D/g,"");
-  const regDate=setupFmtRegisteredDate(regDateRaw);
-  const yearStartFmt=setupFmtYearStart(yearStart);
-  const dateOfInspection=setupFmtDateOfInspection();
-
-  // Single column C, paste at C4 (Excel rows 4–21). One column avoids the
-  // merged C:D input cells that block a multi-column paste. Suburb (E4) is copied separately.
-  const C=[
-    address,          // C4
-    `SP ${sp}`,       // C5
-    sp,               // C6
-    regDate,          // C7
-    lots,             // C8
-    le,               // C9
-    cwfBal,           // C10
-    gst,              // C11
-    "",               // C12 blank
-    cwfContrib,       // C13
-    "",               // C14 blank
-    "",               // C15 blank
-    company,          // C16
-    dateOfInspection, // C17
-    "",               // C18 blank
-    "",               // C19 blank
-    "",               // C20 blank
-    yearStartFmt,     // C21
-  ];
-
-  const htmlRows=C.map(v=>`<tr><td>${escHtml(v)}</td></tr>`).join("");
-  const text=C.join("\n");
-  const html=`<html><body><table>${htmlRows}</table></body></html>`;
-
-  writeExcelClipboard(text,html).then(()=>{
-    showFMsg("setup-msg","✓ Step 1 copied — click C4, press Ctrl+V. Then tap Copy Suburb for E4.","ok");
-  });
+  return{
+    sp:getSetupVal("js-sp"),
+    building:getSetupVal("js-building"),
+    company:getSetupVal("js-company"),
+    le:getSetupVal("js-le"),
+    cwfBal:getSetupVal("js-cwfbal"),
+    cwfContrib:getSetupVal("js-cwfcontrib"),
+    yearStart:getSetupVal("js-yearstart"),
+    gst:gstEl?(gstEl.checked?"Yes":"No"):"No",
+    weather:getSetupVal("js-weather"),
+    preparedBy:getSetupVal("js-preparedby"),
+    rawAddress:getSetupVal("js-address"),
+    regDateRaw:getSetupVal("js-regdate"),
+    rawLots:getSetupVal("js-lots")
+  };
 }
 
+// Copy a single column of values as an HTML + plain-text clipboard payload
+function _copyCol(values,msg){
+  const htmlRows=values.map(v=>`<tr><td>${escHtml(String(v))}</td></tr>`).join("");
+  const text=values.join("\n");
+  const html=`<html><body><table>${htmlRows}</table></body></html>`;
+  writeExcelClipboard(text,html).then(()=>showFMsg("setup-msg",msg,"ok"));
+}
+
+// ① C4:C11 — Address, Building, SP, RegDate, Lots, LE, CWFBal, GST
+function copyTopBlock(){
+  const g=_setupGather();
+  if(!g.sp){showFMsg("setup-msg","SP Number is required","err");return;}
+  if(!g.rawAddress){showFMsg("setup-msg","Address is required (auto-fill from SP)","err");return;}
+  const{address}=setupExtractAddressSuburb(g.rawAddress);
+  const lots=g.rawLots.replace(/\D/g,"");
+  const regDate=setupFmtRegisteredDate(g.regDateRaw);
+  _copyCol([address,g.building,g.sp,regDate,lots,g.le,g.cwfBal,g.gst],
+    "✓ ① copied — click C4, press Ctrl+V");
+}
+
+// ② E4 — Suburb
 function copySuburbCell(){
-  const rawAddress=getSetupVal("js-address");
-  if(!rawAddress){showFMsg("setup-msg","Address is required first","err");return;}
-  const{suburb}=setupExtractAddressSuburb(rawAddress);
-  const html=`<html><body><table><tr><td>${escHtml(suburb)}</td></tr></table></body></html>`;
-  writeExcelClipboard(suburb,html).then(()=>{
-    showFMsg("setup-msg","✓ Suburb copied — click E4, press Ctrl+V","ok");
-  });
+  const g=_setupGather();
+  if(!g.rawAddress){showFMsg("setup-msg","Address is required first","err");return;}
+  const{suburb}=setupExtractAddressSuburb(g.rawAddress);
+  _copyCol([suburb],"✓ ② Suburb copied — click E4, press Ctrl+V");
+}
+
+// ③ C13 — Total Sinking Fund Levy (CWF contributions)
+function copyLevy(){
+  const g=_setupGather();
+  _copyCol([g.cwfContrib],"✓ ③ Levy copied — click C13, press Ctrl+V");
+}
+
+// ④ C16:C19 — Company, Date of Inspection, Weather, Prepared By
+function copyPrepared(){
+  const g=_setupGather();
+  const doi=setupFmtDateOfInspection();
+  _copyCol([g.company,doi,g.weather,g.preparedBy],
+    "✓ ④ copied — click C16, press Ctrl+V");
+}
+
+// ⑤ C21 — Financial Year Start Date
+function copyYearStart(){
+  const g=_setupGather();
+  if(!g.yearStart){showFMsg("setup-msg","Year Start Date is required","err");return;}
+  _copyCol([setupFmtYearStart(g.yearStart)],
+    "✓ ⑤ Year start copied — click C21, press Ctrl+V");
 }
 
 function copyOptimizeSheet(){
