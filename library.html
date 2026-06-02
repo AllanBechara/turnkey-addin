@@ -262,8 +262,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">10 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 01:23 pm" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip" style="">11 selected</span>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 01:24 pm" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -289,7 +289,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
   <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Electrical')">
       <span>Electrical</span>
-      <span class="cat-count">1 selected · 5</span>
+      <span class="cat-count">2 selected · 5</span>
       <span class="cat-arrow">▾</span>
     </div><div class="item" onclick="toggleItem('x124')" style="">
           <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x124')"></div>
@@ -330,14 +330,17 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
             <button class="edit-btn" onclick="event.stopPropagation();editLib('x127')" title="Edit">✏</button>
             <button class="del-btn" onclick="event.stopPropagation();removeLib('x127')" title="Remove">✕</button>
           </div>
-        </div><div class="item" onclick="toggleItem('x135')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x135')"></div>
+        </div><div class="item sel" onclick="toggleItem('x135')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x135')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Common area / external LED lighting upgrade</div>
+            <div class="scope">Common area wall/ceiling mounted lighting - upgrade/replacement as needed</div>
             
             <div class="meta">item &nbsp;·&nbsp; $280/item &nbsp;·&nbsp; life 10yr</div>
-            
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="25" onchange="updateSelFromLib('x135','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="4" onchange="updateSelFromLib('x135','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
           </div>
           <div class="item-rv">
             <button class="edit-btn" onclick="event.stopPropagation();editLib('x135')" title="Edit">✏</button>
@@ -384,7 +387,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">10</span>
+    <span class="count-badge" id="sel-count-badge">11</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
   <div class="sel-list" id="sel-list"><div class="sel-item">
@@ -517,11 +520,24 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(9,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$9,000</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Common area wall/ceiling mounted lighting - upgrade/replacement as needed</div><div class="sel-cat-label">Electrical</div></div>
+        <button class="rem" onclick="deselect(10)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="25" onchange="updateSel(10,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(10,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="280" onchange="updateSel(10,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(10,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(10,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$7,000</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$65,450</span>
+      <span class="total-val" id="total-val">$72,450</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
@@ -545,7 +561,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">10</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">11</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
