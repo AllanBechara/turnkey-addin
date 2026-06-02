@@ -287,78 +287,79 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
   </div>
-  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
+  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
+      <span>Structural</span>
+      <span class="cat-count">20</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
+      <span>Exterior finishes</span>
+      <span class="cat-count">61</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
       <span>Doors &amp; windows</span>
-      <span class="cat-count">1 selected · 2</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x085')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x085')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Roller doors to factories - repair roller shutter doors as needed</div>
-            
-            <div class="meta">item &nbsp;·&nbsp; $386/item &nbsp;·&nbsp; life 4yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x085')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x085')" title="Remove">✕</button>
-          </div>
-        </div><div class="item sel" onclick="" style="cursor:default">
-          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x093')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="item-edit-form" onclick="event.stopPropagation()">
-              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
-                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Description</label>
-                <input id="ei-scope-x093" type="text" value="Replace roller door - basement entry" placeholder="e.g. Repaint external balcony soffits">
-              </div>
-              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
-                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Notes (optional)</label>
-                <input id="ei-desc-x093" type="text" value="" placeholder="Additional detail">
-              </div>
-              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
-                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Category</label>
-                <select id="ei-cat-x093"><option value="Structural">Structural</option><option value="Exterior finishes">Exterior finishes</option><option value="Doors &amp; windows" selected="">Doors &amp; windows</option><option value="Roofing">Roofing</option><option value="Electrical">Electrical</option><option value="Plumbing">Plumbing</option><option value="HVAC">HVAC</option><option value="Fire safety">Fire safety</option><option value="Lifts &amp; escalators">Lifts &amp; escalators</option><option value="Technology">Technology</option><option value="Security">Security</option><option value="Accessibility">Accessibility</option><option value="Landscaping">Landscaping</option><option value="Amenities">Amenities</option><option value="Furnishings">Furnishings</option><option value="Car parking">Car parking</option><option value="Waterproofing">Waterproofing</option><option value="Sustainability">Sustainability</option><option value="Other">Other</option></select>
-              </div>
-              <div class="item-edit-row">
-                <div class="ief"><label>Unit</label><input id="ei-unit-x093" type="text" value="item"></div>
-                <div class="ief"><label>Rate ($)</label><input id="ei-rate-x093" type="number" value="3000" min="0" inputmode="decimal"></div>
-              </div>
-              <div class="item-edit-row">
-                <div class="ief"><label>Default Qty</label><input id="ei-qty-x093" type="number" value="1" min="0" step="any" inputmode="decimal"></div>
-                <div class="ief"><label>Next due (yrs)</label><input id="ei-nd-x093" type="number" value="5" min="1" inputmode="numeric"></div>
-                <div class="ief"><label>Life (yrs)</label><input id="ei-tl-x093" type="number" value="10" min="1" inputmode="numeric"></div>
-              </div>
-              <div class="item-edit-actions">
-                <button class="item-edit-actions ief-save" onclick="saveEditLib('x093')">Save</button>
-                <button class="item-edit-actions ief-cancel" onclick="cancelEditLib()">Cancel</button>
-              </div>
-            </div>
-            
-          </div>
-          <div class="item-rv">
-            
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x093')" title="Remove">✕</button>
-          </div>
-        </div><div class="cat-head" onclick="toggleCat('Car parking')">
-      <span>Car parking</span>
+      <span class="cat-count">1 selected · 26</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Roofing')">
+      <span>Roofing</span>
+      <span class="cat-count">23</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Electrical')">
+      <span>Electrical</span>
+      <span class="cat-count">13</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Plumbing')">
+      <span>Plumbing</span>
+      <span class="cat-count">22</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('HVAC')">
+      <span>HVAC</span>
+      <span class="cat-count">21</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Fire safety')">
+      <span>Fire safety</span>
+      <span class="cat-count">14</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Lifts &amp; escalators')">
+      <span>Lifts &amp; escalators</span>
+      <span class="cat-count">1 selected · 3</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Technology')">
+      <span>Technology</span>
+      <span class="cat-count">5</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Security')">
+      <span>Security</span>
       <span class="cat-count">1</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x257')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x257')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Bin room roller door motor replacement</div>
-            <div class="item-desc">Replace roller door motor to bin room enclosure</div>
-            <div class="meta">ea &nbsp;·&nbsp; $1,474/ea &nbsp;·&nbsp; life 8yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x257')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x257')" title="Remove">✕</button>
-          </div>
-        </div></div>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Accessibility')">
+      <span>Accessibility</span>
+      <span class="cat-count">9</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Landscaping')">
+      <span>Landscaping</span>
+      <span class="cat-count">24</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Amenities')">
+      <span>Amenities</span>
+      <span class="cat-count">14</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Furnishings')">
+      <span>Furnishings</span>
+      <span class="cat-count">5</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Car parking')">
+      <span>Car parking</span>
+      <span class="cat-count">1 selected · 15</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Waterproofing')">
+      <span>Waterproofing</span>
+      <span class="cat-count">10</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Other')">
+      <span>Other</span>
+      <span class="cat-count">17</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div></div>
 </div>
   </div>
 
