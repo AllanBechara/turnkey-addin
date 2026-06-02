@@ -263,7 +263,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
     <span class="sel-chip" id="sel-chip" style="">24 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 12:23 pm" onclick="showView('settings')"></div>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 12:27 pm" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -289,38 +289,77 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
   <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
       <span>Structural</span>
+      <span class="cat-count">1 selected · 21</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
+      <span>Exterior finishes</span>
+      <span class="cat-count">7 selected · 63</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
+      <span>Doors &amp; windows</span>
+      <span class="cat-count">3 selected · 26</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Roofing')">
+      <span>Roofing</span>
+      <span class="cat-count">1 selected · 23</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Electrical')">
+      <span>Electrical</span>
+      <span class="cat-count">1 selected · 13</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Plumbing')">
+      <span>Plumbing</span>
+      <span class="cat-count">1 selected · 22</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('HVAC')">
+      <span>HVAC</span>
+      <span class="cat-count">21</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Fire safety')">
+      <span>Fire safety</span>
+      <span class="cat-count">1 selected · 14</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Lifts &amp; escalators')">
+      <span>Lifts &amp; escalators</span>
       <span class="cat-count">1 selected · 2</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x005')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x005')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Brick pointing and balcony block balustrade repairs</div>
-            
-            <div class="meta">item &nbsp;·&nbsp; $1,200/item &nbsp;·&nbsp; life 6yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x005')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x005')" title="Remove">✕</button>
-          </div>
-        </div><div class="item sel" onclick="toggleItem('u1780367009619cs2')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('u1780367009619cs2')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Brick pointing and slab repair allowance</div>
-            
-            <div class="meta">item &nbsp;·&nbsp; $5,000/item &nbsp;·&nbsp; life 5yr</div>
-            <div class="item-sel-fields" onclick="event.stopPropagation()">
-              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('u1780367009619cs2','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
-              <div class="isf"><label>Next due (yr)</label><input type="number" value="5" onchange="updateSelFromLib('u1780367009619cs2','nd',this.value)" inputmode="numeric" min="1"></div>
-            </div>
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('u1780367009619cs2')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1780367009619cs2')" title="Remove">✕</button>
-          </div>
-        </div></div>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Technology')">
+      <span>Technology</span>
+      <span class="cat-count">1 selected · 6</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Security')">
+      <span>Security</span>
+      <span class="cat-count">1 selected · 1</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Accessibility')">
+      <span>Accessibility</span>
+      <span class="cat-count">9</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Landscaping')">
+      <span>Landscaping</span>
+      <span class="cat-count">1 selected · 25</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Amenities')">
+      <span>Amenities</span>
+      <span class="cat-count">14</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Furnishings')">
+      <span>Furnishings</span>
+      <span class="cat-count">2 selected · 6</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Car parking')">
+      <span>Car parking</span>
+      <span class="cat-count">2 selected · 15</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Waterproofing')">
+      <span>Waterproofing</span>
+      <span class="cat-count">11</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div><div class="cat-head" onclick="toggleCat('Other')">
+      <span>Other</span>
+      <span class="cat-count">1 selected · 17</span>
+      <span class="cat-arrow collapsed">▾</span>
+    </div></div>
 </div>
   </div>
 
@@ -862,7 +901,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 </template>
 
 <script id="user-data">
-const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294gdp","cat":"Other","scope":"Sustainability","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"savedJobs":[],"folders":[{"id":"u1779768541150hh5","name":"1-3 Lots","open":false}]};
+const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294gdp","cat":"Other","scope":"Sustainability","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"savedJobs":[],"folders":[{"id":"u1779768541150hh5","name":"1-3 Lots","open":false}]};
 </script>
 
 <script>
