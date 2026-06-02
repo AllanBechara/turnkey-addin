@@ -98,9 +98,21 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .isf label{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;white-space:nowrap;letter-spacing:0.03em}
 .isf input{width:64px;padding:5px 7px;border:1px solid var(--bdr);border-radius:6px;font-size:12px;color:var(--tx);background:#fff;outline:none;text-align:center;min-height:30px}
 .isf input:focus{border-color:var(--navy-lt);box-shadow:0 0 0 2px rgba(61,134,200,0.12)}
-.item-rv{display:flex;align-items:flex-start;padding-top:2px}
+.item-rv{display:flex;align-items:flex-start;padding-top:2px;gap:2px}
 .del-btn{background:none;border:none;cursor:pointer;color:var(--mu2);font-size:16px;padding:4px 6px;border-radius:4px;line-height:1;min-height:32px;display:flex;align-items:center}
 .del-btn:active{color:var(--red);background:#fff0f1}
+.edit-btn{background:none;border:none;cursor:pointer;color:var(--mu2);font-size:14px;padding:4px 6px;border-radius:4px;line-height:1;min-height:32px;display:flex;align-items:center}
+.edit-btn:active{color:var(--navy-lt);background:rgba(61,134,200,0.1)}
+.item-edit-form{margin-top:10px;padding-top:10px;border-top:1px solid var(--bdr2);display:flex;flex-direction:column;gap:8px}
+.item-edit-form input,.item-edit-form select{width:100%;padding:7px 10px;border:1px solid var(--bdr);border-radius:6px;font-size:12px;color:var(--tx);background:#fff;outline:none;box-sizing:border-box}
+.item-edit-form input:focus,.item-edit-form select:focus{border-color:var(--navy-lt);box-shadow:0 0 0 2px rgba(61,134,200,0.12)}
+.item-edit-row{display:flex;gap:6px}
+.item-edit-row .ief{flex:1;display:flex;flex-direction:column;gap:3px}
+.item-edit-row .ief label{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em}
+.item-edit-actions{display:flex;gap:6px;margin-top:2px}
+.item-edit-actions button{flex:1;padding:8px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:600;min-height:36px}
+.ief-save{background:var(--navy-lt);color:#fff}
+.ief-cancel{background:var(--surf2);color:var(--navy-dk);border:1px solid var(--bdr)!important}
 .empty{padding:40px 20px;text-align:center;color:var(--mu);font-size:13px;line-height:1.9}
 .empty .ei{font-size:36px;display:block;margin-bottom:10px;opacity:0.3}
 
@@ -768,6 +780,7 @@ const DEFAULT_ITEMS = [
 let library=[], selected=[], savedJobs=[], folders=[], activeCat="All", currentView="library", desktopLeftView="library";
 let ghToken="", gistId="", syncTimer=null, isMobile=true;
 let repoToken="", repoOwner="", repoName="turnkey-addin", repoTimer=null;
+let editingId=null;
 let movePickerJobIdx=null;
 let collapsedCats=new Set(CATS);
 
@@ -1035,6 +1048,7 @@ function mountView(containerId,viewName){
 }
 
 function afterMount(v){
+  if(v!=="library") editingId=null;
   if(v==="library"){renderLibrary();}
   else if(v==="selected"){renderSelected();}
   else if(v==="jobs"){renderJobs();populateFolderSelect();}
@@ -1104,18 +1118,53 @@ function renderLibrary(){
       grouped[cat].forEach(it=>{
         const s=selIds.has(it.id);
         const si=s?selected.find(x=>x.id===it.id):null;
-        html+=`<div class="item${s?" sel":""}" onclick="toggleItem('${it.id}')">
+        const isEditing=editingId===it.id;
+        const catOpts=CATS.map(c=>`<option value="${c}"${c===it.cat?" selected":""}>${c}</option>`).join("");
+        html+=`<div class="item${s?" sel":""}" onclick="${isEditing?"":"toggleItem('"+it.id+"')"}" style="${isEditing?"cursor:default":""}">
           <div class="chk-wrap"><input type="checkbox" class="chk" ${s?"checked":""} onclick="event.stopPropagation();toggleItem('${it.id}')"></div>
-          <div class="item-info">
+          <div class="item-info" style="flex:1">
+            ${isEditing?`
+            <div class="item-edit-form" onclick="event.stopPropagation()">
+              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
+                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Description</label>
+                <input id="ei-scope-${it.id}" type="text" value="${escHtml(it.scope)}" placeholder="e.g. Repaint external balcony soffits">
+              </div>
+              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
+                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Notes (optional)</label>
+                <input id="ei-desc-${it.id}" type="text" value="${escHtml(it.desc||"")}" placeholder="Additional detail">
+              </div>
+              <div class="ief" style="display:flex;flex-direction:column;gap:3px">
+                <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.03em">Category</label>
+                <select id="ei-cat-${it.id}">${catOpts}</select>
+              </div>
+              <div class="item-edit-row">
+                <div class="ief"><label>Unit</label><input id="ei-unit-${it.id}" type="text" value="${escHtml(it.unit)}"></div>
+                <div class="ief"><label>Rate ($)</label><input id="ei-rate-${it.id}" type="number" value="${it.rate}" min="0" inputmode="decimal"></div>
+              </div>
+              <div class="item-edit-row">
+                <div class="ief"><label>Default Qty</label><input id="ei-qty-${it.id}" type="number" value="${it.qty}" min="0" step="any" inputmode="decimal"></div>
+                <div class="ief"><label>Next due (yrs)</label><input id="ei-nd-${it.id}" type="number" value="${it.nd}" min="1" inputmode="numeric"></div>
+                <div class="ief"><label>Life (yrs)</label><input id="ei-tl-${it.id}" type="number" value="${it.tl}" min="1" inputmode="numeric"></div>
+              </div>
+              <div class="item-edit-actions">
+                <button class="item-edit-actions ief-save" onclick="saveEditLib('${it.id}')">Save</button>
+                <button class="item-edit-actions ief-cancel" onclick="cancelEditLib()">Cancel</button>
+              </div>
+            </div>
+            `:`
             <div class="scope">${it.scope}</div>
             ${it.desc?`<div class="item-desc">${it.desc}</div>`:""}
             <div class="meta">${it.unit} &nbsp;·&nbsp; $${it.rate.toLocaleString()}/${it.unit} &nbsp;·&nbsp; life ${it.tl}yr</div>
             ${s?`<div class="item-sel-fields" onclick="event.stopPropagation()">
               <div class="isf"><label>Qty</label><input type="number" value="${si.qty}" onchange="updateSelFromLib('${it.id}','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
               <div class="isf"><label>Next due (yr)</label><input type="number" value="${si.nd}" onchange="updateSelFromLib('${it.id}','nd',this.value)" inputmode="numeric" min="1"></div>
-            </div>`:""}
+            </div>`:""}`}
           </div>
-          <div class="item-rv"><button class="del-btn" onclick="event.stopPropagation();removeLib('${it.id}')" title="Remove">✕</button></div>
+          <div class="item-rv">
+            ${isEditing?"":
+              `<button class="edit-btn" onclick="event.stopPropagation();editLib('${it.id}')" title="Edit">✏</button>`}
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('${it.id}')" title="Remove">✕</button>
+          </div>
         </div>`;
       });
     }
@@ -1346,6 +1395,42 @@ function removeLib(id){
   library=library.filter(i=>i.id!==id);
   selected=selected.filter(i=>i.id!==id);
   scheduleSyncPush();renderAll();
+}
+
+function editLib(id){
+  editingId=id;
+  renderLibrary();
+  // Scroll the item into view after render
+  setTimeout(()=>{
+    const el=document.getElementById(`ei-scope-${id}`);
+    if(el)el.closest(".item")?.scrollIntoView({behavior:"smooth",block:"nearest"});
+  },50);
+}
+
+function cancelEditLib(){
+  editingId=null;
+  renderLibrary();
+}
+
+function saveEditLib(id){
+  const it=library.find(i=>i.id===id);
+  if(!it)return;
+  const scope=(document.getElementById(`ei-scope-${id}`)||{}).value?.trim();
+  if(!scope){toast("Description can't be empty","err");return;}
+  it.scope=scope;
+  it.desc=(document.getElementById(`ei-desc-${id}`)||{}).value?.trim()||"";
+  it.cat=document.getElementById(`ei-cat-${id}`).value;
+  it.unit=(document.getElementById(`ei-unit-${id}`)||{}).value?.trim()||"item";
+  it.rate=Number(document.getElementById(`ei-rate-${id}`).value)||0;
+  it.qty=Number(document.getElementById(`ei-qty-${id}`).value)||1;
+  it.nd=Number(document.getElementById(`ei-nd-${id}`).value)||1;
+  it.tl=Number(document.getElementById(`ei-tl-${id}`).value)||10;
+  // Propagate changes to any currently selected instance
+  const si=selected.find(s=>s.id===id);
+  if(si){si.scope=it.scope;si.desc=it.desc;si.cat=it.cat;si.unit=it.unit;si.rate=it.rate;}
+  editingId=null;
+  scheduleSyncPush();renderAll();
+  toast("Item updated");
 }
 
 function populateCatSelect(){
