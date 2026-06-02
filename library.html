@@ -562,7 +562,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         </div>
         <div class="setup-field">
           <label>Prepared By</label>
-          <input id="js-preparedby" type="text" placeholder="e.g. Joseph Bechara" autocomplete="off">
+          <input id="js-preparedby" type="text" placeholder="e.g. Joseph Bechara" value="Joseph Bechara" autocomplete="off">
         </div>
       </div>
     </div>
@@ -1920,10 +1920,18 @@ function setupFmtDateOfInspection(){
 function setupExtractAddressSuburb(raw){
   if(!raw)return{address:"",suburb:""};
   const parts=raw.split(",");
-  const address=parts[0].trim();
+  let address=parts[0].trim();
   const rest=parts[1]||"";
   const nswPos=rest.toUpperCase().indexOf("NSW");
-  const suburb=nswPos>-1?(rest.substring(0,nswPos).trim()+" NSW"):rest.trim();
+  const subName=(nswPos>-1?rest.substring(0,nswPos):rest).trim();
+  const suburb=subName?subName+" NSW":rest.trim();
+  // The Strata Hub address line often repeats the suburb at the end
+  // (e.g. "33-41 STOKES STREET LANE COVE NORTH"). Strip it so C4 is street-only.
+  if(subName){
+    const esc=subName.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    address=address.replace(new RegExp("\\s*,?\\s*"+esc+"\\s*$","i"),"").trim();
+  }
+  address=address.replace(/,\s*$/,"").trim();
   return{address,suburb};
 }
 
@@ -1962,7 +1970,7 @@ function copyTopBlock(){
   const{address}=setupExtractAddressSuburb(g.rawAddress);
   const lots=g.rawLots.replace(/\D/g,"");
   const regDate=setupFmtRegisteredDate(g.regDateRaw);
-  _copyCol([address,g.building,g.sp,regDate,lots,g.le,g.cwfBal,g.gst],
+  _copyCol([address,(g.building.trim()||("SP "+(g.sp.replace(/\D/g,"")||g.sp))),g.sp,regDate,lots,g.le,g.cwfBal,g.gst],
     "✓ ① copied — click C4, press Ctrl+V");
 }
 
@@ -1984,7 +1992,7 @@ function copyLevy(){
 function copyPrepared(){
   const g=_setupGather();
   const doi=setupFmtDateOfInspection();
-  _copyCol([g.company,doi,g.weather,g.preparedBy],
+  _copyCol([g.company,doi,g.weather,(g.preparedBy.trim()||"Joseph Bechara")],
     "✓ ④ copied — click C16, press Ctrl+V");
 }
 
@@ -2059,6 +2067,9 @@ async function generateExcel(){
   try{
     const{address,suburb}=setupExtractAddressSuburb(g.rawAddress);
     const lots=g.rawLots.replace(/\D/g,"");
+    const spNumOnly=g.sp.replace(/\D/g,"")||g.sp;
+    const buildingVal=g.building.trim()||("SP "+spNumOnly);
+    const preparedVal=g.preparedBy.trim()||"Joseph Bechara";
     const regDate=parseToDate(g.regDateRaw);
     const yStart=parseToDate(g.yearStart);
     const doi=new Date();
@@ -2072,8 +2083,8 @@ async function generateExcel(){
     let s2=await zip.file(SHEET_INPUTS).async("string");
     s2=setXmlCell(s2,"C4","s",address);
     s2=setXmlCell(s2,"E4","s",suburb);
-    s2=setXmlCell(s2,"C5","s",g.building);
-    s2=setXmlCell(s2,"C6","n",g.sp.replace(/\D/g,"")||g.sp);
+    s2=setXmlCell(s2,"C5","s",buildingVal);
+    s2=setXmlCell(s2,"C6","n",spNumOnly);
     if(regDate)s2=setXmlCell(s2,"C7","n",excelSerial(regDate));
     s2=setXmlCell(s2,"C8","n",lots||0);
     s2=setXmlCell(s2,"C9","n",(g.le||"").replace(/[^\d.]/g,"")||0);
@@ -2083,7 +2094,7 @@ async function generateExcel(){
     s2=setXmlCell(s2,"C16","s",g.company);
     s2=setXmlCell(s2,"C17","n",excelSerial(doi));
     s2=setXmlCell(s2,"C18","s",g.weather);
-    s2=setXmlCell(s2,"C19","s",g.preparedBy);
+    s2=setXmlCell(s2,"C19","s",preparedVal);
     if(yStart)s2=setXmlCell(s2,"C21","n",excelSerial(yStart));
     zip.file(SHEET_INPUTS,s2);
 
