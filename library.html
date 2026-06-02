@@ -2195,9 +2195,8 @@ async function generateExcel(){
     a.href=url;a.download=fname;document.body.appendChild(a);a.click();
     setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
     const itemCount=(typeof selected!=="undefined"?selected.length:0);
-    let msg=`✓ Downloaded ${fname} — ${itemCount} item${itemCount===1?"":"s"} in the Summary. Save it into the job folder`;
-    if(sres.overflow)msg=`✓ Downloaded ${fname}, but you have more rows than the Summary's 39-row area — some items past row 44 were not written. Save it and check the Summary sheet.`;
-    showFMsg("gen-msg",msg,sres.overflow?"err":"ok");
+    let msg=`✓ Downloaded ${fname} — ${itemCount} item${itemCount===1?"":"s"} written dynamically to Summary sheet! Save it into the job folder.`;
+showFMsg("gen-msg",msg,"ok");
   }catch(e){
     showFMsg("gen-msg","Couldn't generate the file ("+(e.message||e)+"). Use Manual paste below as a fallback.","err");
   }
