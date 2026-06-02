@@ -262,8 +262,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">3 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 11:02 am" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip" style="">4 selected</span>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 11:04 am" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -287,79 +287,44 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
   </div>
-  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
-      <span>Structural</span>
-      <span class="cat-count">20</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
+  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Exterior finishes')">
       <span>Exterior finishes</span>
-      <span class="cat-count">61</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
-      <span>Doors &amp; windows</span>
-      <span class="cat-count">1 selected · 26</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Roofing')">
-      <span>Roofing</span>
-      <span class="cat-count">23</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Electrical')">
-      <span>Electrical</span>
-      <span class="cat-count">13</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Plumbing')">
-      <span>Plumbing</span>
-      <span class="cat-count">22</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('HVAC')">
-      <span>HVAC</span>
-      <span class="cat-count">21</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Fire safety')">
-      <span>Fire safety</span>
-      <span class="cat-count">14</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Lifts &amp; escalators')">
-      <span>Lifts &amp; escalators</span>
-      <span class="cat-count">1 selected · 3</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Technology')">
-      <span>Technology</span>
-      <span class="cat-count">5</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Security')">
-      <span>Security</span>
-      <span class="cat-count">1</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Accessibility')">
+      <span class="cat-count">1 selected · 1</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item sel" onclick="toggleItem('x062')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x062')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint and treat metal handrails</div>
+            <div class="item-desc">Prime and repaint tubed metal handrail systems</div>
+            <div class="meta">ea &nbsp;·&nbsp; $200/ea &nbsp;·&nbsp; life 8yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('x062','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="2" onchange="updateSelFromLib('x062','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x062')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x062')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Accessibility')">
       <span>Accessibility</span>
-      <span class="cat-count">9</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Landscaping')">
-      <span>Landscaping</span>
-      <span class="cat-count">24</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Amenities')">
-      <span>Amenities</span>
-      <span class="cat-count">14</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Furnishings')">
-      <span>Furnishings</span>
-      <span class="cat-count">5</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Car parking')">
-      <span>Car parking</span>
-      <span class="cat-count">1 selected · 15</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Waterproofing')">
-      <span>Waterproofing</span>
-      <span class="cat-count">10</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Other')">
-      <span>Other</span>
-      <span class="cat-count">17</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div></div>
+      <span class="cat-count">1</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x205')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x205')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Stainless steel handrails and tactile ground indicators</div>
+            <div class="item-desc">Replace stainless handrails and install tactile tiles to entries</div>
+            <div class="meta">item &nbsp;·&nbsp; $5,251/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x205')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x205')" title="Remove">✕</button>
+          </div>
+        </div></div>
 </div>
   </div>
 
@@ -367,7 +332,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">3</span>
+    <span class="count-badge" id="sel-count-badge">4</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
   <div class="sel-list" id="sel-list"><div class="sel-item">
@@ -409,11 +374,24 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(2,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$3,000</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Repaint and treat metal handrails</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">Prime and repaint tubed metal handrail systems</div><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(3)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(3,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(3,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="200" onchange="updateSel(3,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="2" onchange="updateSel(3,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(3,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$200</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$30,800</span>
+      <span class="total-val" id="total-val">$31,000</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
@@ -437,7 +415,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">3</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">4</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
