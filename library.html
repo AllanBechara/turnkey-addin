@@ -1575,9 +1575,10 @@ function buildExcelContent(grouped){
     n++;
     if(grouped[cat]){
       grouped[cat].forEach(it=>{
-        textRows.push(`${n}\t${it.scope}\t${it.qty}\t${it.unit}\t${it.rate}\t\t${it.nd}\t${it.tl}`);
-        htmlRows+=`<tr><td>${n}</td><td>${escHtml(it.scope)}</td><td>${it.qty}</td><td>${escHtml(it.unit)}</td><td>${it.rate}</td><td></td><td>${it.nd}</td><td>${it.tl}</td></tr>`;
-        total+=Math.round(Number(it.qty)*Number(it.rate));
+        const val=Math.round(Number(it.qty)*Number(it.rate));
+        textRows.push(`${n}\t${it.scope}\t${it.qty}\t${it.unit}\t${it.rate}\t${val}\t${it.nd}\t${it.tl}`);
+        htmlRows+=`<tr><td>${n}</td><td>${escHtml(it.scope)}</td><td>${it.qty}</td><td>${escHtml(it.unit)}</td><td>${it.rate}</td><td>${val.toLocaleString()}</td><td>${it.nd}</td><td>${it.tl}</td></tr>`;
+        total+=val;
         n++;
       });
     }
