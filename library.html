@@ -262,8 +262,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="display: none;">0 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 01:02 pm" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip" style="">1 selected</span>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 01:05 pm" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -274,47 +274,70 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <!-- DESKTOP LEFT PANEL -->
   <div class="left-panel" id="left-panel" style="display: flex;">
     <div class="desktop-tabs">
-      <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
+      <div class="dtab active" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
       <div class="dtab" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
-      <div class="dtab active" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
+      <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
       <div class="dtab" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
     </div>
     <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
-  <div class="add-scroll">
-    <div class="fg">
-      <label>Description *</label>
-      <input id="f-scope" placeholder="e.g. Repaint external balcony soffits / slab edges" autocomplete="off">
+  <div class="search-area">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search items..." oninput="renderLibrary()" autocomplete="off">
     </div>
-    <div class="fg">
-      <label>Short note <span style="font-weight:400;text-transform:none;font-size:10px">(optional — shown under item name)</span></label>
-      <input id="f-desc" placeholder="e.g. Applies to all external rendered surfaces" autocomplete="off">
-    </div>
-    <div class="fg">
-      <label>Category *</label>
-      <select id="f-cat"><option>Structural</option><option>Exterior finishes</option><option>Doors &amp; windows</option><option>Roofing</option><option>Electrical</option><option>Plumbing</option><option>HVAC</option><option>Fire safety</option><option>Lifts &amp; escalators</option><option>Technology</option><option>Security</option><option>Accessibility</option><option>Landscaping</option><option>Amenities</option><option>Furnishings</option><option>Car parking</option><option>Waterproofing</option><option>Sustainability</option><option>Other</option></select>
-    </div>
-    <div class="fg-row3">
-      <div class="fg"><label>Qty</label><input id="f-qty" type="number" placeholder="1" min="0" step="any" inputmode="decimal"></div>
-      <div class="fg"><label>Unit</label><input id="f-unit" placeholder="m2" autocomplete="off"></div>
-      <div class="fg"><label>Rate ($)</label><input id="f-rate" type="number" placeholder="0" min="0" inputmode="decimal"></div>
-    </div>
-    <div class="fg-row">
-      <div class="fg"><label>Next due (yrs)</label><input id="f-nd" type="number" placeholder="3" min="1" inputmode="numeric"></div>
-      <div class="fg"><label>Total life (yrs)</label><input id="f-tl" type="number" placeholder="10" min="1" inputmode="numeric"></div>
-    </div>
-    <button class="btn primary" style="width:100%;min-height:48px;font-size:14px" onclick="addCustomItem()">Add to Library</button>
-    <div class="form-msg" id="add-msg"></div>
-    <div class="section-divider">
-      <div class="section-title">Import from a past Excel job</div>
-      <p style="font-size:12px;color:var(--mu);margin-bottom:10px;line-height:1.6">Select all data rows in a past Summary Page (cols A–H), copy with Ctrl+C, paste below.</p>
-      <div class="fg"><textarea id="paste-import" placeholder="Paste Excel rows here..." rows="4" style="resize:vertical;font-family:monospace;font-size:11px;min-height:80px"></textarea></div>
-      <div style="display:flex;gap:8px">
-        <button class="btn primary" style="flex:1" onclick="importFromPaste()">Import rows</button>
-        <button class="btn ghost" onclick="document.getElementById('paste-import').value=''">Clear</button>
-      </div>
-      <div class="form-msg" id="import-msg"></div>
-    </div>
+    <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
   </div>
+  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Landscaping')">
+      <span>Landscaping</span>
+      <span class="cat-count">1</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x208')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x208')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Building signage and letterboxes</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $441/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x208')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x208')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Furnishings')">
+      <span>Furnishings</span>
+      <span class="cat-count">1 selected · 2</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item sel" onclick="toggleItem('x248')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x248')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Building signage and letterboxes</div>
+            <div class="item-desc">Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000</div>
+            <div class="meta">item &nbsp;·&nbsp; $1,000/item &nbsp;·&nbsp; life 8yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="6" onchange="updateSelFromLib('x248','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="8" onchange="updateSelFromLib('x248','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x248')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x248')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x248b')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x248b')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Mailbox / letterbox bank replacement</div>
+            <div class="item-desc">2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000</div>
+            <div class="meta">item &nbsp;·&nbsp; $3,000/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x248b')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x248b')" title="Remove">✕</button>
+          </div>
+        </div></div>
 </div>
   </div>
 
@@ -322,17 +345,30 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">0</span>
+    <span class="count-badge" id="sel-count-badge">1</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
-  <div class="sel-list" id="sel-list"><div class="empty"><span class="ei">☑</span>No items selected.<br>Go to Library and tick items to add them here.</div></div>
+  <div class="sel-list" id="sel-list"><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Building signage and letterboxes</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000</div><div class="sel-cat-label">Furnishings</div></div>
+        <button class="rem" onclick="deselect(0)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="2" onchange="updateSel(0,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(0,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="1000" onchange="updateSel(0,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(0,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="8" onchange="updateSel(0,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$2,000</strong></div>
+    </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$0</span>
+      <span class="total-val" id="total-val">$2,000</span>
     </div>
     <div class="export-btns">
-      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()" disabled="">📋 Copy for Excel</button>
+      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
       <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
     </div>
     <div class="export-status" id="export-status"></div>
@@ -353,7 +389,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge" id="bnav-sel-badge">0</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">1</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
@@ -397,7 +433,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
-<div id="toast" class="toast">Synced</div>
+<div id="toast" class="toast">Item updated</div>
 
 <!-- VIEW TEMPLATES -->
 <template id="tmpl-library">
