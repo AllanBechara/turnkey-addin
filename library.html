@@ -1576,8 +1576,9 @@ function buildExcelContent(grouped){
     if(grouped[cat]){
       grouped[cat].forEach(it=>{
         const val=Math.round(Number(it.qty)*Number(it.rate));
-        textRows.push(`${n}\t${it.scope}\t${it.qty}\t${it.unit}\t${it.rate}\t${val}\t${it.nd}\t${it.tl}`);
-        htmlRows+=`<tr><td>${n}</td><td>${escHtml(it.scope)}</td><td>${it.qty}</td><td>${escHtml(it.unit)}</td><td>${it.rate}</td><td>${val.toLocaleString()}</td><td>${it.nd}</td><td>${it.tl}</td></tr>`;
+        const formula=`=INDIRECT("C"&ROW())*INDIRECT("E"&ROW())`;
+        textRows.push(`${n}\t${it.scope}\t${it.qty}\t${it.unit}\t${it.rate}\t${formula}\t${it.nd}\t${it.tl}`);
+        htmlRows+=`<tr><td>${n}</td><td>${escHtml(it.scope)}</td><td>${it.qty}</td><td>${escHtml(it.unit)}</td><td>${it.rate}</td><td>${formula}</td><td>${it.nd}</td><td>${it.tl}</td></tr>`;
         total+=val;
         n++;
       });
