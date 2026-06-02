@@ -2040,22 +2040,32 @@ function sumBlank(r){
 }
 
 // Replace columns A–H of a row, preserving any cells beyond H (e.g. helper column AC)
-function replaceSummaryRow(xml,r,ahCells){
-  const re=new RegExp('(<row r="'+r+'"[^>]*>)([\\s\\S]*?)(</row>)');
-  const m=xml.match(re);
-  if(!m)return xml;
-  const cells=m[2].match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[];
-  const keep=cells.filter(c=>{
-    const cm=c.match(/r="([A-Z]+)\d+"/);
-    if(!cm)return false;
-    const col=cm[1];
-    return col.length>1 || col>"H"; // keep I..Z and AA.. (AC helper)
-  });
-  return xml.replace(re,m[1]+ahCells+keep.join("")+m[3]);
+// Safely replaces row data, fully compatible with normal, empty, or self-closing tags
+function replaceSummaryRow(xml, r, ahCells) {
+  const reNormal = new RegExp('(<row r="' + r + '"(?:\\s[^>]*?)?>)([\\s\\S]*?)(</row>)');
+  const mNormal = xml.match(reNormal);
+  if (mNormal) {
+    const cells = mNormal[2].match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g) || [];
+    const keep = cells.filter(c => {
+      const cm = c.match(/r="([A-Z]+)\d+"/);
+      if (!cm) return false;
+      const col = cm[1];
+      return col.length > 1 || col > "H"; 
+    });
+    return xml.replace(reNormal, mNormal[1] + ahCells + keep.join("") + mNormal[3]);
+  }
+  
+  // Strict check for self-closing row tags to prevent missing empty placeholders
+  const reSelfClosing = new RegExp('<row r="' + r + '"(?:\\s[^>]*?)?\\/>');
+  if (reSelfClosing.test(xml)) {
+    const newRow = '<row r="' + r + '" spans="1:29" x14ac:dyDescent="0.25">' + ahCells + '</row>';
+    return xml.replace(reSelfClosing, newRow);
+  }
+  
+  return xml;
 }
 
-// Fill the item area dynamically. Overwrites existing rows safely to protect helper columns, 
-// and seamlessly generates new rows if the data expands past the template limits.
+// Fill the item area dynamically using strict regex matching to prevent false sub-string row skips
 function writeSummaryRows(xml){
   const grouped={};
   (typeof selected!=="undefined"?selected:[]).forEach(it=>{(grouped[it.cat]=grouped[it.cat]||[]).push(it);});
@@ -2068,6 +2078,65 @@ function writeSummaryRows(xml){
     });
   });
 
+  let r = 6;
+  let newRowsXml = "";
+
+  // 1. Write the headers and items
+  for(let i=0; i<rows.length; i++){
+    let ahCells = sumCells(r, rows[i]);
+    
+    // Strict match ensures r="47" never matches r="147"
+    const rowExists = new RegExp('<row r="' + r + '"(?:\\s|>)').test(xml);
+    
+    if (rowExists) {
+      xml = replaceSummaryRow(xml, r, ahCells);
+    } else {
+      newRowsXml += '<row r="' + r + '" spans="1:29" x14ac:dyDescent="0.25">' + ahCells + '</row>';
+    }
+    r++;
+  }
+
+  // 2. Write the Total Label
+  const totalLabel = "Total Estimated Yearly Expenses With 3% CPI - Includes GST";
+  let totalCells = '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
+    +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">'+totalLabel+'</t></is></c>'
+    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/><c r="F'+r+'" s="49"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
+  
+  if (new RegExp('<row r="' + r + '"(?:\\s|>)').test(xml)) {
+    xml = replaceSummaryRow(xml, r, totalCells);
+  } else {
+    newRowsXml += '<row r="' + r + '" spans="1:29" x14ac:dyDescent="0.25">' + totalCells + '</row>';
+  }
+  r++;
+
+  // 3. Write the Subtotal Formula dynamically tracking exactly where the items ended
+  let sumFormula = 'SUM(F7:F' + (r-2) + ')';
+  let subtotalCells = '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
+    +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">Subtotal</t></is></c>'
+    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/>'
+    +'<c r="F'+r+'" s="49"><f>'+sumFormula+'</f></c>'
+    +'<c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
+
+  if (new RegExp('<row r="' + r + '"(?:\\s|>)').test(xml)) {
+    xml = replaceSummaryRow(xml, r, subtotalCells);
+  } else {
+    newRowsXml += '<row r="' + r + '" spans="1:29" x14ac:dyDescent="0.25">' + subtotalCells + '</row>';
+  }
+  r++;
+
+  // 4. Blank out any remaining template rows cleanly
+  while (new RegExp('<row r="' + r + '"(?:\\s|>)').test(xml)) {
+    xml = replaceSummaryRow(xml, r, sumBlank(r));
+    r++;
+  }
+
+  // 5. Inject any brand new rows we had to build safely at the end of the sheet's data block
+  if (newRowsXml.length > 0) {
+    xml = xml.replace('</sheetData>', newRowsXml + '</sheetData>');
+  }
+
+  return {xml, count: rows.length, overflow: false};
+}
   let r = 6;
   let newRowsXml = "";
 
