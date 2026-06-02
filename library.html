@@ -278,7 +278,6 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 <body>
 <div class="shell">
 
-<!-- TOP BAR -->
 <div class="topbar">
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
@@ -289,10 +288,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
-<!-- CONTENT AREA (desktop: split, mobile: single view) -->
 <div class="content-area">
 
-  <!-- DESKTOP LEFT PANEL -->
   <div class="left-panel" id="left-panel" style="display:none">
     <div class="desktop-tabs">
       <div class="dtab active" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
@@ -304,15 +301,12 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
     <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden"></div>
   </div>
 
-  <!-- DESKTOP RIGHT PANEL -->
   <div class="right-panel-wrap" id="right-panel" style="display:none"></div>
 
-  <!-- MOBILE VIEWS (one at a time) -->
   <div id="mobile-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden"></div>
 
 </div>
 
-<!-- BOTTOM NAV (mobile only) -->
 <div class="bottom-nav">
   <div class="bnav-item active" id="bnav-library" onclick="showView('library')">
     <div class="bnav-icon">📋</div>
@@ -341,10 +335,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
-</div><!-- /.shell -->
-
-<!-- PASTE FOR EXCEL MODAL -->
-<div class="modal-overlay" id="paste-modal" onclick="if(event.target===this)closeModal('paste-modal')">
+</div><div class="modal-overlay" id="paste-modal" onclick="if(event.target===this)closeModal('paste-modal')">
   <div class="modal">
     <div class="modal-close-row"><button class="modal-close" onclick="closeModal('paste-modal')">✕</button></div>
     <h2>📋 How to paste into Excel</h2>
@@ -360,7 +351,6 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
-<!-- MOVE TO FOLDER PICKER -->
 <div class="modal-overlay" id="move-modal" onclick="if(event.target===this)closeModal('move-modal')">
   <div class="picker-modal">
     <h3>📁 Move to folder</h3>
@@ -371,7 +361,6 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 
 <div id="toast"></div>
 
-<!-- VIEW TEMPLATES -->
 <template id="tmpl-library">
   <div class="search-area">
     <div class="search-wrap">
@@ -2043,19 +2032,35 @@ function sumCells(r,row){
     +'<c r="G'+r+'" s="50"><v>'+sumNum(row.g)+'</v></c>'
     +'<c r="H'+r+'" s="50"><v>'+sumNum(row.h)+'</v></c>';
 }
+
 function sumBlank(r){
   return '<c r="A'+r+'" s="56"><v>'+(r-5)+'</v></c><c r="B'+r+'" s="4"/>'
     +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/>'
     +'<c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
 }
+
 // Replace columns A–H of a row, preserving any cells beyond H (e.g. helper column AC)
-// Fill the item area dynamically from selected items, appending rows and calculating custom totals below the data
+function replaceSummaryRow(xml,r,ahCells){
+  const re=new RegExp('(<row r="'+r+'"[^>]*>)([\\s\\S]*?)(</row>)');
+  const m=xml.match(re);
+  if(!m)return xml;
+  const cells=m[2].match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[];
+  const keep=cells.filter(c=>{
+    const cm=c.match(/r="([A-Z]+)\d+"/);
+    if(!cm)return false;
+    const col=cm[1];
+    return col.length>1 || col>"H"; // keep I..Z and AA.. (AC helper)
+  });
+  return xml.replace(re,m[1]+ahCells+keep.join("")+m[3]);
+}
+
+// Fill the item area dynamically. Overwrites existing rows safely to protect helper columns, 
+// and seamlessly generates new rows if the data expands past the template limits.
 function writeSummaryRows(xml){
   const grouped={};
   (typeof selected!=="undefined"?selected:[]).forEach(it=>{(grouped[it.cat]=grouped[it.cat]||[]).push(it);});
   const rows=[];
   
-  // Group headers and items sequentially
   CATS.forEach(cat=>{
     rows.push({bold:true,b:cat});
     (grouped[cat]||[]).forEach(it=>{
@@ -2063,38 +2068,61 @@ function writeSummaryRows(xml){
     });
   });
 
-  // Clear out any pre-existing placeholder rows (from row 6 up to 300) to ensure a clean slate
-  for(let r=6; r<=300; r++){
-    xml = xml.replace(new RegExp('<row r="' + r + '"[^>]*>[\\s\\S]*?</row>'), '');
-  }
-
-  // Write all items dynamically starting from row 6
   let r = 6;
+  let newRowsXml = "";
+
+  // 1. Write the headers and items
   for(let i=0; i<rows.length; i++){
     let ahCells = sumCells(r, rows[i]);
-    let newRow = '<row r="'+r+'" spans="1:29" x14ac:dyDescent="0.25">'+ahCells+'</row>';
-    xml = xml.replace('</sheetData>', newRow + '</sheetData>');
+    
+    // If the row already exists in the template (e.g. 6 to 46), safely overwrite columns A-H
+    if (xml.includes('<row r="' + r + '"')) {
+      xml = replaceSummaryRow(xml, r, ahCells);
+    } else {
+      // If we've grown past the template's rows, create a brand new row in memory
+      newRowsXml += '<row r="' + r + '" spans="1:29" x14ac:dyDescent="0.25">' + ahCells + '</row>';
+    }
     r++;
   }
 
-  // Add the dynamic "Total Estimated..." Label Row
+  // 2. Write the Total Label
   const totalLabel = "Total Estimated Yearly Expenses With 3% CPI - Includes GST";
-  let totalLabelCells = '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
+  let totalCells = '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
     +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">'+totalLabel+'</t></is></c>'
-    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
-  let totalRow = '<row r="'+r+'" spans="1:29" x14ac:dyDescent="0.25">'+totalLabelCells+'</row>';
-  xml = xml.replace('</sheetData>', totalRow + '</sheetData>');
+    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/><c r="F'+r+'" s="49"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
+  
+  if (xml.includes('<row r="' + r + '"')) {
+    xml = replaceSummaryRow(xml, r, totalCells);
+  } else {
+    newRowsXml += '<row r="' + r + '" spans="1:29" x14ac:dyDescent="0.25">' + totalCells + '</row>';
+  }
   r++;
 
-  // Add the dynamic Subtotal Formula Row calculating up to the last item row
+  // 3. Write the Subtotal Formula dynamically tracking exactly where the items ended
   let sumFormula = 'SUM(F7:F' + (r-2) + ')';
   let subtotalCells = '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
     +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">Subtotal</t></is></c>'
-    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/>'
+    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/>'
     +'<c r="F'+r+'" s="49"><f>'+sumFormula+'</f></c>'
     +'<c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
-  let subtotalRow = '<row r="'+r+'" spans="1:29" x14ac:dyDescent="0.25">'+subtotalCells+'</row>';
-  xml = xml.replace('</sheetData>', subtotalRow + '</sheetData>');
+
+  if (xml.includes('<row r="' + r + '"')) {
+    xml = replaceSummaryRow(xml, r, subtotalCells);
+  } else {
+    newRowsXml += '<row r="' + r + '" spans="1:29" x14ac:dyDescent="0.25">' + subtotalCells + '</row>';
+  }
+  r++;
+
+  // 4. Blank out any remaining template rows (e.g., if you only selected 5 items, we need to erase the old totals)
+  while (xml.includes('<row r="' + r + '"')) {
+    xml = replaceSummaryRow(xml, r, sumBlank(r));
+    r++;
+  }
+
+  // 5. Inject any brand new rows we had to build safely at the end of the sheet's data block
+  if (newRowsXml.length > 0) {
+    xml = xml.replace('</sheetData>', newRowsXml + '</sheetData>');
+  }
 
   return {xml, count: rows.length, overflow: false};
 }
