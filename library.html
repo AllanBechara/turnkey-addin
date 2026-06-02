@@ -2023,6 +2023,61 @@ function copyOptimizeSheet(){
 const TEMPLATE_URL="CWF_Template.xlsm";
 const SHEET_INPUTS="xl/worksheets/sheet2.xml";   // "Inputs and assumptions "
 const SHEET_OPTIMIZE="xl/worksheets/sheet4.xml"; // "Optimize Contribution"
+const SHEET_SUMMARY="xl/worksheets/sheet3.xml";  // "Summary Page for Building Data"
+
+function sumNum(v){const n=parseFloat(String(v==null?"":v).replace(/[^\d.\-]/g,""));return isNaN(n)?0:n;}
+
+// Build the A–H cells for one summary row (category header or item)
+function sumCells(r,row){
+  if(row.bold){
+    return '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
+      +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.b)+'</t></is></c>'
+      +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
+  }
+  return '<c r="A'+r+'" s="56"><v>'+(r-5)+'</v></c>'
+    +'<c r="B'+r+'" s="4" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.b)+'</t></is></c>'
+    +'<c r="C'+r+'" s="52"><v>'+sumNum(row.c)+'</v></c>'
+    +'<c r="D'+r+'" s="48" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.d||"")+'</t></is></c>'
+    +'<c r="E'+r+'" s="53"><v>'+sumNum(row.e)+'</v></c>'
+    +'<c r="F'+r+'" s="49"><f>C'+r+'*E'+r+'</f></c>'
+    +'<c r="G'+r+'" s="50"><v>'+sumNum(row.g)+'</v></c>'
+    +'<c r="H'+r+'" s="50"><v>'+sumNum(row.h)+'</v></c>';
+}
+function sumBlank(r){
+  return '<c r="A'+r+'" s="56"><v>'+(r-5)+'</v></c><c r="B'+r+'" s="4"/>'
+    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/>'
+    +'<c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
+}
+// Replace columns A–H of a row, preserving any cells beyond H (e.g. helper column AC)
+function replaceSummaryRow(xml,r,ahCells){
+  const re=new RegExp('(<row r="'+r+'"[^>]*>)([\\s\\S]*?)(</row>)');
+  const m=xml.match(re);
+  if(!m)return xml;
+  const cells=m[2].match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[];
+  const keep=cells.filter(c=>{
+    const cm=c.match(/r="([A-Z]+)\d+"/);
+    if(!cm)return false;
+    const col=cm[1];
+    return col.length>1 || col>"H"; // keep I..Z and AA.. (AC helper)
+  });
+  return xml.replace(re,m[1]+ahCells+keep.join("")+m[3]);
+}
+// Fill the item area (rows 6–44) from selected items; row 45/46 totals are left intact
+function writeSummaryRows(xml){
+  const grouped={};
+  (typeof selected!=="undefined"?selected:[]).forEach(it=>{(grouped[it.cat]=grouped[it.cat]||[]).push(it);});
+  const rows=[];
+  CATS.forEach(cat=>{
+    rows.push({bold:true,b:cat});
+    (grouped[cat]||[]).forEach(it=>{
+      rows.push({bold:false,b:it.scope,c:it.qty,d:it.unit,e:it.rate,g:it.nd,h:it.tl});
+    });
+  });
+  for(let i=0,r=6;r<=44;i++,r++){
+    xml=replaceSummaryRow(xml,r,i<rows.length?sumCells(r,rows[i]):sumBlank(r));
+  }
+  return{xml,count:rows.length,overflow:rows.length>39};
+}
 
 function genEsc(s){
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
@@ -2104,6 +2159,10 @@ async function generateExcel(){
     s4=setXmlCell(s4,"D7","n",(g.cwfContrib||"").replace(/[^\d.\-]/g,"")||0);
     zip.file(SHEET_OPTIMIZE,s4);
 
+    let s3=await zip.file(SHEET_SUMMARY).async("string");
+    const sres=writeSummaryRows(s3);
+    zip.file(SHEET_SUMMARY,sres.xml);
+
     const blob=await zip.generateAsync({
       type:"blob",
       mimeType:"application/vnd.ms-excel.sheet.macroEnabled.12",
@@ -2115,7 +2174,10 @@ async function generateExcel(){
     const a=document.createElement("a");
     a.href=url;a.download=fname;document.body.appendChild(a);a.click();
     setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
-    showFMsg("gen-msg",`✓ Downloaded ${fname} — save it into the job folder`,"ok");
+    const itemCount=(typeof selected!=="undefined"?selected.length:0);
+    let msg=`✓ Downloaded ${fname} — ${itemCount} item${itemCount===1?"":"s"} in the Summary. Save it into the job folder`;
+    if(sres.overflow)msg=`✓ Downloaded ${fname}, but you have more rows than the Summary's 39-row area — some items past row 44 were not written. Save it and check the Summary sheet.`;
+    showFMsg("gen-msg",msg,sres.overflow?"err":"ok");
   }catch(e){
     showFMsg("gen-msg","Couldn't generate the file ("+(e.message||e)+"). Use Manual paste below as a fallback.","err");
   }
