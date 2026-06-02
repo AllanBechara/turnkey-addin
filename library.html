@@ -289,7 +289,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
   <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Lifts &amp; escalators')">
       <span>Lifts &amp; escalators</span>
-      <span class="cat-count">1 selected · 2</span>
+      <span class="cat-count">1 selected · 1</span>
       <span class="cat-arrow">▾</span>
     </div><div class="item sel" onclick="toggleItem('x190')" style="">
           <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x190')"></div>
@@ -307,19 +307,6 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
             <button class="edit-btn" onclick="event.stopPropagation();editLib('x190')" title="Edit">✏</button>
             <button class="del-btn" onclick="event.stopPropagation();removeLib('x190')" title="Remove">✕</button>
           </div>
-        </div><div class="item" onclick="toggleItem('x192')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x192')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Passenger lift motor overhaul</div>
-            <div class="item-desc">Major service and overhaul of passenger lift motor</div>
-            <div class="meta">item &nbsp;·&nbsp; $1,600/item &nbsp;·&nbsp; life 9yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x192')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x192')" title="Remove">✕</button>
-          </div>
         </div></div>
 </div>
   </div>
@@ -333,251 +320,251 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
   <div class="sel-list" id="sel-list"><div class="sel-item">
       <div class="sel-item-head">
-        <div><div class="sel-scope">Passenger lift motor overhaul</div><div class="sel-cat-label">Lifts &amp; escalators</div></div>
+        <div><div class="sel-scope">Gate motor - entry / exit</div><div class="sel-cat-label">Car parking</div></div>
         <button class="rem" onclick="deselect(0)">×</button>
       </div>
       <div class="sel-fields">
         <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(0,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(0,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="125000" onchange="updateSel(0,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(0,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(0,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$125,000</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div><div class="sel-scope">Gate motor - entry / exit</div><div class="sel-cat-label">Car parking</div></div>
-        <button class="rem" onclick="deselect(1)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(1,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(1,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="2800" onchange="updateSel(1,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(1,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="8" onchange="updateSel(1,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(0,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="2800" onchange="updateSel(0,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(0,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="8" onchange="updateSel(0,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$2,800</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Replace roller door - basement entry</div><div class="sel-cat-label">Doors &amp; windows</div></div>
-        <button class="rem" onclick="deselect(2)">×</button>
+        <button class="rem" onclick="deselect(1)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(2,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(2,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="3000" onchange="updateSel(2,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="9" onchange="updateSel(2,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(2,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(1,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(1,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="3000" onchange="updateSel(1,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="9" onchange="updateSel(1,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(1,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$3,000</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Repaint and treat metal handrails</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">Prime and repaint tubed metal handrail systems</div><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(3)">×</button>
+        <button class="rem" onclick="deselect(2)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(3,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(3,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="200" onchange="updateSel(3,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(3,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(3,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(2,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(2,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="200" onchange="updateSel(2,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(2,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(2,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$200</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Mailbox / letterbox bank replacement</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000</div><div class="sel-cat-label">Furnishings</div></div>
-        <button class="rem" onclick="deselect(4)">×</button>
+        <button class="rem" onclick="deselect(3)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(4,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(4,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="3000" onchange="updateSel(4,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(4,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(4,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(3,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(3,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="3000" onchange="updateSel(3,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(3,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(3,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$3,000</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Repainting of car park line marking</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">Per car park bay</div><div class="sel-cat-label">Car parking</div></div>
-        <button class="rem" onclick="deselect(5)">×</button>
+        <button class="rem" onclick="deselect(4)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="31" onchange="updateSel(5,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(5,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="50" onchange="updateSel(5,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(5,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(5,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="31" onchange="updateSel(4,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(4,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="50" onchange="updateSel(4,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(4,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(4,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$1,550</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Repaint Internal timber doors and frames to units</div><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(6)">×</button>
+        <button class="rem" onclick="deselect(5)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="31" onchange="updateSel(6,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(6,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="300" onchange="updateSel(6,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(6,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(6,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="31" onchange="updateSel(5,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(5,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="300" onchange="updateSel(5,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(5,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(5,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$9,300</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Repaint internal walls</div><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(7)">×</button>
+        <button class="rem" onclick="deselect(6)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="600" onchange="updateSel(7,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(7,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="30" onchange="updateSel(7,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(7,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(7,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="600" onchange="updateSel(6,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(6,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="30" onchange="updateSel(6,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(6,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(6,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$18,000</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Repaint Internal walls and ceilings - fire escape</div><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(8)">×</button>
+        <button class="rem" onclick="deselect(7)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="800" onchange="updateSel(8,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(8,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="30" onchange="updateSel(8,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(8,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(8,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="800" onchange="updateSel(7,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(7,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="30" onchange="updateSel(7,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(7,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(7,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$24,000</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Carpet and underlay replacement</div><div class="sel-cat-label">Furnishings</div></div>
-        <button class="rem" onclick="deselect(9)">×</button>
+        <button class="rem" onclick="deselect(8)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="360" onchange="updateSel(9,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(9,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="60" onchange="updateSel(9,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(9,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(9,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="360" onchange="updateSel(8,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(8,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="60" onchange="updateSel(8,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(8,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(8,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$21,600</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Security cameras - upgrade/maintain as needed</div><div class="sel-cat-label">Security</div></div>
-        <button class="rem" onclick="deselect(10)">×</button>
+        <button class="rem" onclick="deselect(9)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="5" onchange="updateSel(10,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(10,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="800" onchange="updateSel(10,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(10,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(10,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="5" onchange="updateSel(9,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(9,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="800" onchange="updateSel(9,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(9,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(9,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$4,000</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Lighting to common areas - upgrade as needed</div><div class="sel-cat-label">Electrical</div></div>
-        <button class="rem" onclick="deselect(11)">×</button>
+        <button class="rem" onclick="deselect(10)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="5" onchange="updateSel(11,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(11,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="1500" onchange="updateSel(11,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(11,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(11,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="5" onchange="updateSel(10,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(10,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="1500" onchange="updateSel(10,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(10,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(10,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$7,500</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Door and window hardware</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">Per windows &amp; door</div><div class="sel-cat-label">Doors &amp; windows</div></div>
-        <button class="rem" onclick="deselect(12)">×</button>
+        <button class="rem" onclick="deselect(11)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="120" onchange="updateSel(12,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(12,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="50" onchange="updateSel(12,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(12,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(12,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="120" onchange="updateSel(11,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(11,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="50" onchange="updateSel(11,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(11,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(11,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$6,000</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Repaint external balcony soffits</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">12m^2 per balcony</div><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(13)">×</button>
+        <button class="rem" onclick="deselect(12)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="360" onchange="updateSel(13,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(13,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="30" onchange="updateSel(13,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(13,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(13,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="360" onchange="updateSel(12,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(12,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="30" onchange="updateSel(12,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(12,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(12,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$10,800</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Window repairs allowance</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">per window</div><div class="sel-cat-label">Doors &amp; windows</div></div>
-        <button class="rem" onclick="deselect(14)">×</button>
+        <button class="rem" onclick="deselect(13)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="64" onchange="updateSel(14,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(14,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="50" onchange="updateSel(14,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(14,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(14,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="64" onchange="updateSel(13,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(13,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="50" onchange="updateSel(13,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(13,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(13,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$3,200</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Key button pad at entry - upgrade as needed</div><div class="sel-cat-label">Technology</div></div>
-        <button class="rem" onclick="deselect(15)">×</button>
+        <button class="rem" onclick="deselect(14)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(15,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(15,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="3000" onchange="updateSel(15,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(15,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(15,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(14,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(14,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="3000" onchange="updateSel(14,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(14,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(14,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$3,000</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Repaint balcony top railing</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">8 l/m per balcony</div><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(16)">×</button>
+        <button class="rem" onclick="deselect(15)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="240" onchange="updateSel(16,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="lm" onchange="updateSel(16,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="40" onchange="updateSel(16,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(16,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(16,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="240" onchange="updateSel(15,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="lm" onchange="updateSel(15,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="40" onchange="updateSel(15,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(15,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(15,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$9,600</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Repaint basement exhaust covers</div><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(17)">×</button>
+        <button class="rem" onclick="deselect(16)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="5" onchange="updateSel(17,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(17,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="250" onchange="updateSel(17,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(17,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(17,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="5" onchange="updateSel(16,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(16,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="250" onchange="updateSel(16,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(16,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(16,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$1,250</strong></div>
     </div><div class="sel-item">
       <div class="sel-item-head">
         <div><div class="sel-scope">Liquid membrane isolated repairs</div><div class="sel-cat-label">Roofing</div></div>
+        <button class="rem" onclick="deselect(17)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="400" onchange="updateSel(17,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(17,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="18" onchange="updateSel(17,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(17,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="4" onchange="updateSel(17,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$7,200</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Passenger lift motor overhaul</div><div class="sel-cat-label">Lifts &amp; escalators</div></div>
         <button class="rem" onclick="deselect(18)">×</button>
       </div>
       <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="400" onchange="updateSel(18,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(18,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="18" onchange="updateSel(18,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(18,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="4" onchange="updateSel(18,'tl',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Qty</label><input type="number" value="1" onchange="updateSel(18,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(18,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="125000" onchange="updateSel(18,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(18,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(18,'tl',this.value)" inputmode="numeric"></div>
       </div>
-      <div class="sel-val">Value: <strong>$7,200</strong></div>
+      <div class="sel-val">Value: <strong>$125,000</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
