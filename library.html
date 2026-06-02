@@ -262,8 +262,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">13 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 11:45 am" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip" style="">15 selected</span>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 11:48 am" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -287,39 +287,25 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
   </div>
-  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
-      <span>Structural</span>
-      <span class="cat-count">1</span>
+  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
+      <span>Doors &amp; windows</span>
+      <span class="cat-count">1 selected · 1</span>
       <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x014')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x014')"></div>
+    </div><div class="item sel" onclick="toggleItem('x096')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x096')"></div>
           <div class="item-info" style="flex:1">
             
-            <div class="scope">Spalling repairs to balcony soffits and window lintel replacement</div>
-            <div class="item-desc">Concrete spalling and lintel remediation to balcony soffits</div>
-            <div class="meta">item &nbsp;·&nbsp; $32,000/item &nbsp;·&nbsp; life 4yr</div>
-            
+            <div class="scope">Window repairs allowance</div>
+            <div class="item-desc">per window</div>
+            <div class="meta">ea &nbsp;·&nbsp; $50/ea &nbsp;·&nbsp; life 5yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="15" onchange="updateSelFromLib('x096','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="5" onchange="updateSelFromLib('x096','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
           </div>
           <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x014')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x014')" title="Remove">✕</button>
-          </div>
-        </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
-      <span>Exterior finishes</span>
-      <span class="cat-count">1</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x023')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x023')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Repaint external balcony soffits</div>
-            
-            <div class="meta">m2 &nbsp;·&nbsp; $87/m2 &nbsp;·&nbsp; life 10yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x023')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x023')" title="Remove">✕</button>
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x096')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x096')" title="Remove">✕</button>
           </div>
         </div></div>
 </div>
@@ -329,7 +315,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">13</span>
+    <span class="count-badge" id="sel-count-badge">15</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
   <div class="sel-list" id="sel-list"><div class="sel-item">
@@ -501,11 +487,37 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(12,'tl',this.value)" inputmode="numeric"></div>
       </div>
       <div class="sel-val">Value: <strong>$6,000</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Repaint external balcony soffits</div><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(13)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="150" onchange="updateSel(13,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(13,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="87" onchange="updateSel(13,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(13,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(13,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$13,050</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Window repairs allowance</div><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">per window</div><div class="sel-cat-label">Doors &amp; windows</div></div>
+        <button class="rem" onclick="deselect(14)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="15" onchange="updateSel(14,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(14,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="50" onchange="updateSel(14,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(14,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(14,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$750</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$125,950</span>
+      <span class="total-val" id="total-val">$139,750</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
@@ -529,7 +541,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">13</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">15</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
