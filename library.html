@@ -297,7 +297,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
             
             <div class="scope">Repaint internal walls</div>
             
-            <div class="meta">m2 &nbsp;·&nbsp; $125/m2 &nbsp;·&nbsp; life 7yr</div>
+            <div class="meta">m2 &nbsp;·&nbsp; $30/m2 &nbsp;·&nbsp; life 7yr</div>
             <div class="item-sel-fields" onclick="event.stopPropagation()">
               <div class="isf"><label>Qty</label><input type="number" value="300" onchange="updateSelFromLib('x027','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
               <div class="isf"><label>Next due (yr)</label><input type="number" value="3" onchange="updateSelFromLib('x027','nd',this.value)" inputmode="numeric" min="1"></div>
@@ -430,16 +430,16 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
       <div class="sel-fields">
         <div class="sf"><label>Qty</label><input type="number" value="300" onchange="updateSel(7,'qty',this.value)" inputmode="decimal"></div>
         <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(7,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="125" onchange="updateSel(7,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="30" onchange="updateSel(7,'rate',this.value)" inputmode="decimal"></div>
         <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(7,'nd',this.value)" inputmode="numeric"></div>
         <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(7,'tl',this.value)" inputmode="numeric"></div>
       </div>
-      <div class="sel-val">Value: <strong>$37,500</strong></div>
+      <div class="sel-val">Value: <strong>$9,000</strong></div>
     </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$82,350</span>
+      <span class="total-val" id="total-val">$53,850</span>
     </div>
     <div class="export-btns">
       <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
