@@ -281,8 +281,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">1 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 02:48 pm" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip" style="display: none;">0 selected</span>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 06:42 pm" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -291,140 +291,129 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 
   <div class="left-panel" id="left-panel" style="display: flex;">
     <div class="desktop-tabs">
-      <div class="dtab active" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
-      <div class="dtab" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
+      <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
+      <div class="dtab active" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
       <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
       <div class="dtab" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
       <div class="dtab" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
     </div>
     <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
-  <div class="search-area">
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="search-input" placeholder="Search items..." oninput="renderLibrary()" autocomplete="off">
+  <div class="save-job-area">
+    <div class="save-job-row">
+      <input id="job-name-input" placeholder="Job name (e.g. 732 Military Rd Mosman)..." maxlength="80">
+      <select id="job-folder-select" title="Save into folder"><option value="">📋 No folder</option><option value="u1779768541150hh5">📁 Tower/Highrise</option><option value="u178037136575874q">📁 Townhouses</option><option value="u1780462018619puv">📁 Red Brick Stairwell</option></select>
+      <button class="btn primary sm" onclick="saveJob()">Save</button>
     </div>
-    <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
+    <textarea class="notes-input" id="job-notes-input" placeholder="Site notes — observations, conditions, issues found on inspection..." rows="3"></textarea>
+    <div style="display:flex;justify-content:flex-end">
+      <button class="btn sm" onclick="createFolder()" style="color:var(--navy-md);font-size:12px">📁 New Folder</button>
+    </div>
   </div>
-  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
-      <span>Structural</span>
-      <span class="cat-count">1 selected · 1</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item sel" onclick="toggleItem('x011')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x011')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Maintain and repaint soffit to roof eaves</div>
-            
-            <div class="meta">lm &nbsp;·&nbsp; $45/lm &nbsp;·&nbsp; life 7yr</div>
-            <div class="item-sel-fields" onclick="event.stopPropagation()">
-              <div class="isf"><label>Qty</label><input type="number" value="150" onchange="updateSelFromLib('x011','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
-              <div class="isf"><label>Next due (yr)</label><input type="number" value="4" onchange="updateSelFromLib('x011','nd',this.value)" inputmode="numeric" min="1"></div>
-            </div>
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x011')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x011')" title="Remove">✕</button>
-          </div>
-        </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
-      <span>Exterior finishes</span>
-      <span class="cat-count">5</span>
-      <span class="cat-arrow">▾</span>
-    </div><div class="item" onclick="toggleItem('x029')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x029')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Repair and repaint timber fascia and eaves</div>
-            
-            <div class="meta">lm &nbsp;·&nbsp; $45/lm &nbsp;·&nbsp; life 8yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x029')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x029')" title="Remove">✕</button>
-          </div>
-        </div><div class="item" onclick="toggleItem('x034')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x034')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Repaint roof eaves</div>
-            
-            <div class="meta">m2 &nbsp;·&nbsp; $55/m2 &nbsp;·&nbsp; life 7yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x034')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x034')" title="Remove">✕</button>
-          </div>
-        </div><div class="item" onclick="toggleItem('x037')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x037')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Repaint eaves soffits and sheeted gable ends</div>
-            
-            <div class="meta">m2 &nbsp;·&nbsp; $40/m2 &nbsp;·&nbsp; life 8yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x037')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x037')" title="Remove">✕</button>
-          </div>
-        </div><div class="item" onclick="toggleItem('x045')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x045')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Repaint exterior - roof eaves soffits (Approx. 78 l/m)</div>
-            
-            <div class="meta">item &nbsp;·&nbsp; $22/item &nbsp;·&nbsp; life 7yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x045')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x045')" title="Remove">✕</button>
-          </div>
-        </div><div class="item" onclick="toggleItem('x055')" style="">
-          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x055')"></div>
-          <div class="item-info" style="flex:1">
-            
-            <div class="scope">Repaint and repair timber mouldings to eaves lining</div>
-            <div class="item-desc">Repair and repaint decorative timber mouldings to eaves</div>
-            <div class="meta">ea &nbsp;·&nbsp; $250/ea &nbsp;·&nbsp; life 8yr</div>
-            
-          </div>
-          <div class="item-rv">
-            <button class="edit-btn" onclick="event.stopPropagation();editLib('x055')" title="Edit">✏</button>
-            <button class="del-btn" onclick="event.stopPropagation();removeLib('x055')" title="Remove">✕</button>
-          </div>
-        </div></div>
+  <div class="jobs-scroll" id="jobs-list-wrap">
+    <div id="jobs-list"><div class="folder-header" onclick="toggleFolder('u1779768541150hh5')">
+      <span class="folder-icon closed">▾</span>
+      <span class="folder-title">📁 Tower/Highrise</span>
+      <span class="folder-count">1 job</span>
+      <div class="folder-actions" onclick="event.stopPropagation()">
+        <button class="folder-btn" onclick="renameFolder('u1779768541150hh5')" title="Rename">✏</button>
+        <button class="folder-btn" onclick="deleteFolder('u1779768541150hh5')" title="Delete folder" style="color:#ffaaaa">✕</button>
+      </div>
+    </div>
+    <div class="folder-jobs collapsed" id="folder-jobs-u1779768541150hh5">
+      <div class="job-row" id="job-row-1">
+    <div class="job-row-top">
+      <div class="job-info">
+        <div class="job-name">SP 9912</div>
+        <div class="job-meta">02/06/2026 · 25 items · $284,772 · 📁 Tower/Highrise</div>
+        <div class="job-notes-snippet">📝 Registered 1975 - 31 Lots</div>
+      </div>
+      <div class="job-btns">
+        <button class="btn primary sm" onclick="loadJob(1)">Load</button>
+        <button class="btn sm" onclick="copyJobToExcel(1)" title="Copy for Excel">📋</button>
+        <button class="btn sm" onclick="showMovePicker(1)" title="Move to folder">📁</button>
+        <button class="btn sm" onclick="toggleJobNotes(1)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
+        <button class="btn sm" onclick="addJobToLib(1)" title="Add items to library">+Lib</button>
+        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(1)">✕</button>
+      </div>
+    </div>
+    <div class="job-notes-panel" id="notes-panel-1">
+      <div class="job-notes-label">Site notes</div>
+      <div class="job-notes-text" id="notes-text-1" style="">Registered 1975 - 31 Lots</div>
+      <textarea class="job-notes-edit" id="notes-edit-1" style="display:none" placeholder="Add site notes here..." rows="4">Registered 1975 - 31 Lots</textarea>
+      <div style="display:flex;gap:6px">
+        <button class="btn primary sm" onclick="saveJobNotes(1)" id="notes-save-1" style="display:none">Save notes</button>
+        <button class="btn sm" onclick="editJobNotes(1)" id="notes-edit-btn-1">Edit notes</button>
+        <button class="btn ghost sm" onclick="toggleJobNotes(1)">Close</button>
+      </div>
+    </div>
+  </div>
+    </div><div class="folder-header" onclick="toggleFolder('u178037136575874q')">
+      <span class="folder-icon closed">▾</span>
+      <span class="folder-title">📁 Townhouses</span>
+      <span class="folder-count">1 job</span>
+      <div class="folder-actions" onclick="event.stopPropagation()">
+        <button class="folder-btn" onclick="renameFolder('u178037136575874q')" title="Rename">✏</button>
+        <button class="folder-btn" onclick="deleteFolder('u178037136575874q')" title="Delete folder" style="color:#ffaaaa">✕</button>
+      </div>
+    </div>
+    <div class="folder-jobs collapsed" id="folder-jobs-u178037136575874q">
+      <div class="job-row" id="job-row-0">
+    <div class="job-row-top">
+      <div class="job-info">
+        <div class="job-name">SP 79900</div>
+        <div class="job-meta">02/06/2026 · 21 items · $105,729 · 📁 Townhouses</div>
+        <div class="job-notes-snippet">📝 Registered 2008 - 15 Lots</div>
+      </div>
+      <div class="job-btns">
+        <button class="btn primary sm" onclick="loadJob(0)">Load</button>
+        <button class="btn sm" onclick="copyJobToExcel(0)" title="Copy for Excel">📋</button>
+        <button class="btn sm" onclick="showMovePicker(0)" title="Move to folder">📁</button>
+        <button class="btn sm" onclick="toggleJobNotes(0)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
+        <button class="btn sm" onclick="addJobToLib(0)" title="Add items to library">+Lib</button>
+        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(0)">✕</button>
+      </div>
+    </div>
+    <div class="job-notes-panel" id="notes-panel-0">
+      <div class="job-notes-label">Site notes</div>
+      <div class="job-notes-text" id="notes-text-0" style="">Registered 2008 - 15 Lots</div>
+      <textarea class="job-notes-edit" id="notes-edit-0" style="display:none" placeholder="Add site notes here..." rows="4">Registered 2008 - 15 Lots</textarea>
+      <div style="display:flex;gap:6px">
+        <button class="btn primary sm" onclick="saveJobNotes(0)" id="notes-save-0" style="display:none">Save notes</button>
+        <button class="btn sm" onclick="editJobNotes(0)" id="notes-edit-btn-0">Edit notes</button>
+        <button class="btn ghost sm" onclick="toggleJobNotes(0)">Close</button>
+      </div>
+    </div>
+  </div>
+    </div><div class="folder-header" onclick="toggleFolder('u1780462018619puv')">
+      <span class="folder-icon closed">▾</span>
+      <span class="folder-title">📁 Red Brick Stairwell</span>
+      <span class="folder-count">0 jobs</span>
+      <div class="folder-actions" onclick="event.stopPropagation()">
+        <button class="folder-btn" onclick="renameFolder('u1780462018619puv')" title="Rename">✏</button>
+        <button class="folder-btn" onclick="deleteFolder('u1780462018619puv')" title="Delete folder" style="color:#ffaaaa">✕</button>
+      </div>
+    </div>
+    <div class="folder-jobs collapsed" id="folder-jobs-u1780462018619puv">
+      <div style="padding:12px 14px;font-size:12px;color:var(--mu);background:var(--surf)">No jobs in this folder yet.</div>
+    </div></div>
+  </div>
 </div>
   </div>
 
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">1</span>
+    <span class="count-badge" id="sel-count-badge">0</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
-  <div class="sel-list" id="sel-list"><div class="sel-item">
-      <div class="sel-item-head">
-        <div><div class="sel-scope">Maintain and repaint soffit to roof eaves</div><div class="sel-cat-label">Structural</div></div>
-        <button class="rem" onclick="deselect(0)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input type="number" value="150" onchange="updateSel(0,'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="lm" onchange="updateSel(0,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="45" onchange="updateSel(0,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(0,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(0,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$6,750</strong></div>
-    </div></div>
+  <div class="sel-list" id="sel-list"><div class="empty"><span class="ei">☑</span>No items selected.<br>Go to Library and tick items to add them here.</div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$6,750</span>
+      <span class="total-val" id="total-val">$0</span>
     </div>
     <div class="export-btns">
-      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
+      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()" disabled="">📋 Copy for Excel</button>
       <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
     </div>
     <div class="export-status" id="export-status"></div>
@@ -443,7 +432,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">1</div>
+    <div class="bnav-badge" id="bnav-sel-badge">0</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
@@ -487,7 +476,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
-<div id="toast" class="toast">Item updated</div>
+<div id="toast" class="toast">Synced</div>
 
 <template id="tmpl-library">
   <div class="search-area">
@@ -2429,6 +2418,7 @@ function init(){
 
 init();
 </script>
+
 
 
 </body></html>
