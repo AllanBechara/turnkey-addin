@@ -2056,9 +2056,12 @@ function writeSummaryRows(xml) {
   const totalLabel="Total Estimated Yearly Expenses With 3% CPI - Includes GST";
 
   CATS.forEach(cat=>{
+    // 1. ALWAYS push the category header, even if empty, to protect macros
+    rows.push({type: 'cat', val: cat, rNum: n});
+    n++;
+    
+    // 2. Add the items underneath ONLY if they exist
     if(grouped[cat]){
-      rows.push({type: 'cat', val: cat, rNum: n});
-      n++;
       grouped[cat].forEach(it=>{
         rows.push({type: 'item', scope: it.scope, qty: it.qty, unit: it.unit, rate: it.rate, nd: it.nd, tl: it.tl, rNum: n});
         n++;
