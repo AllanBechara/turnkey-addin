@@ -281,7 +281,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="display: none;">0 selected</span>
+    <span class="sel-chip" id="sel-chip" style="">1 selected</span>
     <div class="sync-dot ok" id="sync-dot" title="Synced 02:48 pm" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
@@ -307,94 +307,124 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
   <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
       <span>Structural</span>
-      <span class="cat-count">1 selected · 21</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
-      <span>Exterior finishes</span>
-      <span class="cat-count">7 selected · 64</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
-      <span>Doors &amp; windows</span>
-      <span class="cat-count">3 selected · 26</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Roofing')">
-      <span>Roofing</span>
-      <span class="cat-count">1 selected · 23</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Electrical')">
-      <span>Electrical</span>
-      <span class="cat-count">1 selected · 14</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Plumbing')">
-      <span>Plumbing</span>
-      <span class="cat-count">1 selected · 22</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('HVAC')">
-      <span>HVAC</span>
-      <span class="cat-count">21</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Fire safety')">
-      <span>Fire safety</span>
-      <span class="cat-count">1 selected · 14</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Lifts &amp; escalators')">
-      <span>Lifts &amp; escalators</span>
-      <span class="cat-count">1 selected · 3</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Technology')">
-      <span>Technology</span>
-      <span class="cat-count">1 selected · 6</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Security')">
-      <span>Security</span>
       <span class="cat-count">1 selected · 1</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Accessibility')">
-      <span>Accessibility</span>
-      <span class="cat-count">9</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Landscaping')">
-      <span>Landscaping</span>
-      <span class="cat-count">1 selected · 26</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Amenities')">
-      <span>Amenities</span>
-      <span class="cat-count">14</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Furnishings')">
-      <span>Furnishings</span>
-      <span class="cat-count">2 selected · 6</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Car parking')">
-      <span>Car parking</span>
-      <span class="cat-count">2 selected · 16</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Waterproofing')">
-      <span>Waterproofing</span>
-      <span class="cat-count">1 selected · 11</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div><div class="cat-head" onclick="toggleCat('Other')">
-      <span>Other</span>
-      <span class="cat-count">1 selected · 17</span>
-      <span class="cat-arrow collapsed">▾</span>
-    </div></div>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item sel" onclick="toggleItem('x011')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x011')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Maintain and repaint soffit to roof eaves</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $45/lm &nbsp;·&nbsp; life 7yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="150" onchange="updateSelFromLib('x011','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="4" onchange="updateSelFromLib('x011','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x011')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x011')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
+      <span>Exterior finishes</span>
+      <span class="cat-count">5</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x029')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x029')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repair and repaint timber fascia and eaves</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $45/lm &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x029')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x029')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x034')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x034')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint roof eaves</div>
+            
+            <div class="meta">m2 &nbsp;·&nbsp; $55/m2 &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x034')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x034')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x037')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x037')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint eaves soffits and sheeted gable ends</div>
+            
+            <div class="meta">m2 &nbsp;·&nbsp; $40/m2 &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x037')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x037')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x045')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x045')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint exterior - roof eaves soffits (Approx. 78 l/m)</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $22/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x045')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x045')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x055')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x055')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint and repair timber mouldings to eaves lining</div>
+            <div class="item-desc">Repair and repaint decorative timber mouldings to eaves</div>
+            <div class="meta">ea &nbsp;·&nbsp; $250/ea &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="edit-btn" onclick="event.stopPropagation();editLib('x055')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x055')" title="Remove">✕</button>
+          </div>
+        </div></div>
 </div>
   </div>
 
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
   <div class="sel-header">
     <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">0</span>
+    <span class="count-badge" id="sel-count-badge">1</span>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
-  <div class="sel-list" id="sel-list"><div class="empty"><span class="ei">☑</span>No items selected.<br>Go to Library and tick items to add them here.</div></div>
+  <div class="sel-list" id="sel-list"><div class="sel-item">
+      <div class="sel-item-head">
+        <div><div class="sel-scope">Maintain and repaint soffit to roof eaves</div><div class="sel-cat-label">Structural</div></div>
+        <button class="rem" onclick="deselect(0)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input type="number" value="150" onchange="updateSel(0,'qty',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="lm" onchange="updateSel(0,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="45" onchange="updateSel(0,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(0,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(0,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$6,750</strong></div>
+    </div></div>
   <div class="export-footer">
     <div class="total-bar">
       <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$0</span>
+      <span class="total-val" id="total-val">$6,750</span>
     </div>
     <div class="export-btns">
-      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()" disabled="">📋 Copy for Excel</button>
+      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
       <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
     </div>
     <div class="export-status" id="export-status"></div>
@@ -413,7 +443,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge" id="bnav-sel-badge">0</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">1</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
@@ -457,7 +487,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
-<div id="toast" class="toast">Deleted "SP 8887"</div>
+<div id="toast" class="toast">Item updated</div>
 
 <template id="tmpl-library">
   <div class="search-area">
