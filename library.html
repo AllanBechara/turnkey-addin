@@ -2041,7 +2041,7 @@ function replaceRowInXML(xml, r, ahCells) {
     }
   }
 
-  let newRow = (ahCells === null && !keepCells) ? "" : `<row r="${r}" spans="1:29" x14ac:dyDescent="0.25">${ahCells || ""}${keepCells}</row>`;
+  let newRow = (ahCells === null && !keepCells) ? "" : `<row r="${r}">${ahCells || ""}${keepCells}</row>`;
   return { found: true, xml: xml.substring(0, startIdx) + newRow + xml.substring(endIdx + 1) };
 }
 
@@ -2089,7 +2089,7 @@ function writeSummaryRows(xml) {
     if (res.found) {
       xml = res.xml;
     } else {
-      xml = xml.replace('</sheetData>', `<row r="${r}" spans="1:29" x14ac:dyDescent="0.25">${ahCells}</row></sheetData>`);
+      xml = xml.replace('</sheetData>', `<row r="${r}">${ahCells}</row></sheetData>`);
     }
     r++;
   }
