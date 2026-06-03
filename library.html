@@ -2136,6 +2136,7 @@ function copyOptimizeSheet(){
 // Surgically edits only the target cells inside a copy of the template,
 // leaving macros (vbaProject.bin), buttons, charts and formulas untouched.
 const TEMPLATE_URL="CWF_Template.xlsm";
+const WORD_TEMPLATE_URL="CWF 2026 Template.docm";
 const SHEET_INPUTS="xl/worksheets/sheet2.xml";   // "Inputs and assumptions "
 const SHEET_OPTIMIZE="xl/worksheets/sheet4.xml"; // "Optimize Contribution"
 const SHEET_SUMMARY="xl/worksheets/sheet3.xml";  // "Summary Page for Building Data"
@@ -2269,7 +2270,7 @@ async function generateExcel(){
   if(!g.yearStart){showFMsg("gen-msg","Year Start Date is required","err");return;}
   if(typeof JSZip==="undefined"){showFMsg("gen-msg","Still loading — try again in a moment","err");return;}
 
-  showFMsg("gen-msg","Building file…");
+  showFMsg("gen-msg","Building job folder…");
   try{
     const{address,suburb}=setupExtractAddressSuburb(g.rawAddress);
     const lots=g.rawLots.replace(/\D/g,"");
@@ -2281,8 +2282,9 @@ async function generateExcel(){
     const doi=new Date();
     const b7=yStart?new Date(yStart.getFullYear(),yStart.getMonth(),yStart.getDate()-1):null;
 
-    const resp=await fetch(TEMPLATE_URL,{cache:"no-store"});
-    if(!resp.ok)throw new Error("template fetch "+resp.status);
+    // --- 1. FETCH AND EDIT THE EXCEL TEMPLATE ---
+    const resp=await fetch(EXCEL_TEMPLATE_URL,{cache:"no-store"});
+    if(!resp.ok)throw new Error("Excel template fetch "+resp.status);
     const buf=await resp.arrayBuffer();
     const zip=await JSZip.loadAsync(buf);
 
@@ -2314,25 +2316,59 @@ async function generateExcel(){
     const sres=writeSummaryRows(s3);
     zip.file(SHEET_SUMMARY,sres.xml);
 
-    const blob=await zip.generateAsync({
+    // Save the edited Excel file into memory
+    const excelBlob=await zip.generateAsync({
       type:"blob",
       mimeType:"application/vnd.ms-excel.sheet.macroEnabled.12",
       compression:"DEFLATE"
     });
-    const spNum=g.sp.replace(/\D/g,"")||g.sp;
-    const fname=`SP ${spNum} Template.xlsm`;
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");
-    a.href=url;a.download=fname;document.body.appendChild(a);a.click();
+
+    // --- 2. SETUP DYNAMIC FOLDER AND FILE NAMES ---
+    const spNum = g.sp.replace(/\D/g,"") || g.sp;
+    const safeAddress = address.replace(/[\\/:*?"<>|]/g, "").trim(); 
+    const addressPart = safeAddress ? ` - ${safeAddress}` : "";
+    
+    const folderName = `SP ${spNum}`;
+    const excelName = `${folderName ${addressPart}} Template.xlsm`;
+    const wordName = `${folderName} Word Template.docm`; 
+
+    // --- 3. CREATE MASTER ZIP AND FOLDER ---
+    const masterZip = new JSZip();
+    const jobFolder = masterZip.folder(folderName);
+    
+    // Drop the Excel file into the folder
+    jobFolder.file(excelName, excelBlob);
+
+    // --- 4. FETCH AND ADD THE WORD TEMPLATE ---
+    try {
+      const wordResp = await fetch(WORD_TEMPLATE_URL, {cache:"no-store"});
+      if(wordResp.ok) {
+        const wordBuf = await wordResp.arrayBuffer();
+        jobFolder.file(wordName, wordBuf); // Drop the Word file into the folder
+      } else {
+        console.warn("Word template not found. Ensure " + WORD_TEMPLATE_URL + " exists in your directory.");
+      }
+    } catch(e) {
+      console.warn("Could not load Word template:", e);
+    }
+
+    // --- 5. GENERATE AND DOWNLOAD THE FINAL ZIP FILE ---
+    const finalZipBlob = await masterZip.generateAsync({ type: "blob" });
+    const zipFilename = `${folderName}.zip`;
+
+    const url = URL.createObjectURL(finalZipBlob);
+    const a = document.createElement("a");
+    a.href = url; a.download = zipFilename; document.body.appendChild(a); a.click();
     setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
+    
     const itemCount=(typeof selected!=="undefined"?selected.length:0);
-    let msg=`✓ Downloaded ${fname} — ${itemCount} item${itemCount===1?"":"s"} written dynamically to Summary sheet! Save it into the job folder.`;
-showFMsg("gen-msg",msg,"ok");
+    let msg=`✓ Downloaded ${zipFilename} — Extract it to access your Job Folder containing your generated Excel and Word files!`;
+    showFMsg("gen-msg",msg,"ok");
+
   }catch(e){
     showFMsg("gen-msg","Couldn't generate the file ("+(e.message||e)+"). Use Manual paste below as a fallback.","err");
   }
 }
-
 // ── MODAL ─────────────────────────────────────────────────────────────────────
 function openModal(id){document.getElementById(id).classList.add("open");}
 function closeModal(id){document.getElementById(id).classList.remove("open");}
