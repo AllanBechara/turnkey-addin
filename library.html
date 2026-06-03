@@ -2329,7 +2329,7 @@ async function generateExcel(){
     const addressPart = safeAddress ? ` - ${safeAddress}` : "";
     
     const folderName = `SP ${spNum}`;
-    const excelName = `${folderName ${addressPart}} Template.xlsm`;
+    const excelName = `${folderName}${addressPart} Template.xlsm`;
     const wordName = `${folderName} Word Template.docm`; 
 
     // --- 3. CREATE MASTER ZIP AND FOLDER ---
