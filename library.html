@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#22487F">
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="theme-color" content="#22487F"/>
 <title>TurnKey Library</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -281,146 +282,28 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="display: none;">0 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 06:42 pm" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip">0</span>
+    <div class="sync-dot idle" id="sync-dot" title="Sync status" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
 
 <div class="content-area">
 
-  <div class="left-panel" id="left-panel" style="display: flex;">
+  <div class="left-panel" id="left-panel" style="display:none">
     <div class="desktop-tabs">
-      <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
-      <div class="dtab active" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
-      <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
+      <div class="dtab active" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
+      <div class="dtab" id="dtab-jobs"    onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
+      <div class="dtab" id="dtab-add"     onclick="switchDesktopLeft('add')">+ Add Item</div>
       <div class="dtab" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
-      <div class="dtab" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
+      <div class="dtab" id="dtab-settings"onclick="switchDesktopLeft('settings')">⚙ Sync</div>
     </div>
-    <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
-  <div class="save-job-area">
-    <div class="save-job-row">
-      <input id="job-name-input" placeholder="Job name (e.g. 732 Military Rd Mosman)..." maxlength="80">
-      <select id="job-folder-select" title="Save into folder"><option value="">📋 No folder</option><option value="u1779768541150hh5">📁 Tower/Highrise</option><option value="u178037136575874q">📁 Townhouses</option><option value="u1780462018619puv">📁 Red Brick Stairwell</option></select>
-      <button class="btn primary sm" onclick="saveJob()">Save</button>
-    </div>
-    <textarea class="notes-input" id="job-notes-input" placeholder="Site notes — observations, conditions, issues found on inspection..." rows="3"></textarea>
-    <div style="display:flex;justify-content:flex-end">
-      <button class="btn sm" onclick="createFolder()" style="color:var(--navy-md);font-size:12px">📁 New Folder</button>
-    </div>
-  </div>
-  <div class="jobs-scroll" id="jobs-list-wrap">
-    <div id="jobs-list"><div class="folder-header" onclick="toggleFolder('u1779768541150hh5')">
-      <span class="folder-icon closed">▾</span>
-      <span class="folder-title">📁 Tower/Highrise</span>
-      <span class="folder-count">1 job</span>
-      <div class="folder-actions" onclick="event.stopPropagation()">
-        <button class="folder-btn" onclick="renameFolder('u1779768541150hh5')" title="Rename">✏</button>
-        <button class="folder-btn" onclick="deleteFolder('u1779768541150hh5')" title="Delete folder" style="color:#ffaaaa">✕</button>
-      </div>
-    </div>
-    <div class="folder-jobs collapsed" id="folder-jobs-u1779768541150hh5">
-      <div class="job-row" id="job-row-1">
-    <div class="job-row-top">
-      <div class="job-info">
-        <div class="job-name">SP 9912</div>
-        <div class="job-meta">02/06/2026 · 25 items · $284,772 · 📁 Tower/Highrise</div>
-        <div class="job-notes-snippet">📝 Registered 1975 - 31 Lots</div>
-      </div>
-      <div class="job-btns">
-        <button class="btn primary sm" onclick="loadJob(1)">Load</button>
-        <button class="btn sm" onclick="copyJobToExcel(1)" title="Copy for Excel">📋</button>
-        <button class="btn sm" onclick="showMovePicker(1)" title="Move to folder">📁</button>
-        <button class="btn sm" onclick="toggleJobNotes(1)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
-        <button class="btn sm" onclick="addJobToLib(1)" title="Add items to library">+Lib</button>
-        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(1)">✕</button>
-      </div>
-    </div>
-    <div class="job-notes-panel" id="notes-panel-1">
-      <div class="job-notes-label">Site notes</div>
-      <div class="job-notes-text" id="notes-text-1" style="">Registered 1975 - 31 Lots</div>
-      <textarea class="job-notes-edit" id="notes-edit-1" style="display:none" placeholder="Add site notes here..." rows="4">Registered 1975 - 31 Lots</textarea>
-      <div style="display:flex;gap:6px">
-        <button class="btn primary sm" onclick="saveJobNotes(1)" id="notes-save-1" style="display:none">Save notes</button>
-        <button class="btn sm" onclick="editJobNotes(1)" id="notes-edit-btn-1">Edit notes</button>
-        <button class="btn ghost sm" onclick="toggleJobNotes(1)">Close</button>
-      </div>
-    </div>
-  </div>
-    </div><div class="folder-header" onclick="toggleFolder('u178037136575874q')">
-      <span class="folder-icon closed">▾</span>
-      <span class="folder-title">📁 Townhouses</span>
-      <span class="folder-count">1 job</span>
-      <div class="folder-actions" onclick="event.stopPropagation()">
-        <button class="folder-btn" onclick="renameFolder('u178037136575874q')" title="Rename">✏</button>
-        <button class="folder-btn" onclick="deleteFolder('u178037136575874q')" title="Delete folder" style="color:#ffaaaa">✕</button>
-      </div>
-    </div>
-    <div class="folder-jobs collapsed" id="folder-jobs-u178037136575874q">
-      <div class="job-row" id="job-row-0">
-    <div class="job-row-top">
-      <div class="job-info">
-        <div class="job-name">SP 79900</div>
-        <div class="job-meta">02/06/2026 · 21 items · $105,729 · 📁 Townhouses</div>
-        <div class="job-notes-snippet">📝 Registered 2008 - 15 Lots</div>
-      </div>
-      <div class="job-btns">
-        <button class="btn primary sm" onclick="loadJob(0)">Load</button>
-        <button class="btn sm" onclick="copyJobToExcel(0)" title="Copy for Excel">📋</button>
-        <button class="btn sm" onclick="showMovePicker(0)" title="Move to folder">📁</button>
-        <button class="btn sm" onclick="toggleJobNotes(0)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
-        <button class="btn sm" onclick="addJobToLib(0)" title="Add items to library">+Lib</button>
-        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(0)">✕</button>
-      </div>
-    </div>
-    <div class="job-notes-panel" id="notes-panel-0">
-      <div class="job-notes-label">Site notes</div>
-      <div class="job-notes-text" id="notes-text-0" style="">Registered 2008 - 15 Lots</div>
-      <textarea class="job-notes-edit" id="notes-edit-0" style="display:none" placeholder="Add site notes here..." rows="4">Registered 2008 - 15 Lots</textarea>
-      <div style="display:flex;gap:6px">
-        <button class="btn primary sm" onclick="saveJobNotes(0)" id="notes-save-0" style="display:none">Save notes</button>
-        <button class="btn sm" onclick="editJobNotes(0)" id="notes-edit-btn-0">Edit notes</button>
-        <button class="btn ghost sm" onclick="toggleJobNotes(0)">Close</button>
-      </div>
-    </div>
-  </div>
-    </div><div class="folder-header" onclick="toggleFolder('u1780462018619puv')">
-      <span class="folder-icon closed">▾</span>
-      <span class="folder-title">📁 Red Brick Stairwell</span>
-      <span class="folder-count">0 jobs</span>
-      <div class="folder-actions" onclick="event.stopPropagation()">
-        <button class="folder-btn" onclick="renameFolder('u1780462018619puv')" title="Rename">✏</button>
-        <button class="folder-btn" onclick="deleteFolder('u1780462018619puv')" title="Delete folder" style="color:#ffaaaa">✕</button>
-      </div>
-    </div>
-    <div class="folder-jobs collapsed" id="folder-jobs-u1780462018619puv">
-      <div style="padding:12px 14px;font-size:12px;color:var(--mu);background:var(--surf)">No jobs in this folder yet.</div>
-    </div></div>
-  </div>
-</div>
+    <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden"></div>
   </div>
 
-  <div class="right-panel-wrap" id="right-panel" style="display: flex;">
-  <div class="sel-header">
-    <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">0</span>
-    <button class="btn ghost sm" onclick="clearAll()">Clear</button>
-  </div>
-  <div class="sel-list" id="sel-list"><div class="empty"><span class="ei">☑</span>No items selected.<br>Go to Library and tick items to add them here.</div></div>
-  <div class="export-footer">
-    <div class="total-bar">
-      <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$0</span>
-    </div>
-    <div class="export-btns">
-      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()" disabled="">📋 Copy for Excel</button>
-      <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
-    </div>
-    <div class="export-status" id="export-status"></div>
-  </div>
-</div>
+  <div class="right-panel-wrap" id="right-panel" style="display:none"></div>
 
-  <div id="mobile-content" style="display: none; flex-direction: column; flex: 1 1 0%; overflow: hidden;"></div>
+  <div id="mobile-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden"></div>
 
 </div>
 
@@ -476,7 +359,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
-<div id="toast" class="toast">Synced</div>
+<div id="toast"></div>
 
 <template id="tmpl-library">
   <div class="search-area">
@@ -502,7 +385,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
       <span class="total-val" id="total-val">$0</span>
     </div>
     <div class="export-btns">
-      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()" disabled="">📋 Copy for Excel</button>
+      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()" disabled>📋 Copy for Excel</button>
       <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
     </div>
     <div class="export-status" id="export-status"></div>
@@ -575,7 +458,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <input type="password" id="gh-token-input" placeholder="GitHub personal access token..." autocomplete="off" spellcheck="false">
         <button class="btn primary sm" onclick="connectGist()">Connect</button>
       </div>
-      <div style="font-size:11px;color:var(--mu)" id="gist-id-wrap">
+      <div style="font-size:11px;color:var(--mu)" id="gist-id-wrap" style="display:none">
         Gist ID: <div class="gist-id-display" id="gist-id-display"></div>
       </div>
     </div>
@@ -597,7 +480,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
         <button class="btn primary sm" onclick="connectRepo()">Connect</button>
       </div>
       <p style="margin-top:10px;font-size:11px;color:var(--mu)">Token needs <strong>Contents: Read &amp; Write</strong> permission for your repository. Use a fine-grained token from <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" style="color:var(--navy-lt)">github.com/settings/personal-access-tokens/new</a> — select your repo, grant Contents read/write.</p>
-      <div style="margin-top:8px" id="repo-disconnect-wrap">
+      <div style="margin-top:8px" id="repo-disconnect-wrap" style="display:none">
         <button class="btn sm" onclick="disconnectRepo()" style="color:var(--red);border-color:#ffd0d0">Disconnect auto-save</button>
       </div>
     </div>
@@ -737,7 +620,9 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
       <div style="font-size:12px;color:var(--mu);line-height:1.6;text-align:center">
         If a plan isn't found (very new registrations may not be in the dataset yet), use the official search and fill the three fields manually:
       </div>
-      <a href="https://www.nsw.gov.au/housing-and-construction/strata/strata-search" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;background:var(--surf2);color:var(--navy-dk);border:1px solid var(--bdr);padding:14px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;min-height:50px">
+      <a href="https://www.nsw.gov.au/housing-and-construction/strata/strata-search"
+         target="_blank"
+         style="display:flex;align-items:center;justify-content:center;gap:10px;background:var(--surf2);color:var(--navy-dk);border:1px solid var(--bdr);padding:14px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;min-height:50px">
         Open NSW Strata Search ↗
       </a>
     </div>
@@ -745,12 +630,12 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 </template>
 
 <script id="user-data">
-const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294gdp","cat":"Other","scope":"Sustainability","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u178036932353337e","cat":"Landscaping","scope":"Colorbond fencing replacement (Approx. )","desc":"measure on google maps","qty":1,"unit":"lm","rate":200,"nd":10,"tl":10},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":1,"unit":"ea","rate":300,"nd":7,"tl":7},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":10,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10}],"savedJobs":[{"id":"u17803720422421hw","name":"SP 79900","date":"02/06/2026","items":[{"id":"x248","cat":"Furnishings","scope":"Building signage and letterboxes","desc":"Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":2,"unit":"item","rate":1000,"nd":8,"tl":8},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":15,"unit":"ea","rate":250,"nd":5,"tl":7},{"id":"x098","cat":"Doors & windows","scope":"Repaint entry doors to townhouses","desc":"","qty":15,"unit":"ea","rate":300,"nd":5,"tl":7},{"id":"x109","cat":"Roofing","scope":"Box gutters, capping, flashing and downpipe - repairs as needed","desc":"","qty":15,"unit":"item","rate":1500,"nd":4,"tl":4},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":4,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":15,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"x107","cat":"Roofing","scope":"Re-cement / re-point ridge capping","desc":"","qty":50,"unit":"item","rate":125,"nd":7,"tl":7},{"id":"x111","cat":"Roofing","scope":"Lead flashing repairs","desc":"Repair and re-dress lead flashings to roof penetrations","qty":12,"unit":"item","rate":750,"nd":6,"tl":6},{"id":"x135","cat":"Electrical","scope":"Common area wall/ceiling mounted lighting - upgrade/replacement as needed","desc":"","qty":15,"unit":"item","rate":325,"nd":4,"tl":10},{"id":"x254","cat":"Car parking","scope":"Repaint yellow protection bollards","desc":"","qty":4,"unit":"item","rate":400,"nd":7,"tl":7},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":60,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"x159","cat":"HVAC","scope":"Exhaust and supply fan motors to car parks","desc":"Replace exhaust and supply fan motors in basement car parks","qty":3,"unit":"item","rate":1600,"nd":7,"tl":7},{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":5200,"nd":3,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":2,"unit":"ea","rate":3252,"nd":5,"tl":5},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":20,"nd":1,"tl":3},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":2,"unit":"m2","rate":2500,"nd":5,"tl":5},{"id":"x274","cat":"Other","scope":"Specialist reports required as per DPBA","desc":"","qty":1,"unit":"m2","rate":2500,"nd":5,"tl":5}],"notes":"Registered 2008 - 15 Lots","folderId":"u178037136575874q"},{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,   8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":2,"unit":"m2","rate":2500,"nd":6,"tl":7},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":false},{"id":"u178037136575874q","name":"Townhouses","open":false},{"id":"u1780462018619puv","name":"Red Brick Stairwell","open":false}]};
+const USER_DATA={"customItems":[],"savedJobs":[],"folders":[]};
 </script>
 
 <script>
 // ── DATA ──────────────────────────────────────────────────────────────────────
-const CATS=["Structural","Exterior finishes","Doors & windows","Roofing","Electrical","Plumbing","HVAC","Fire safety","Lifts & escalators","Technology","Security","Accessibility","Landscaping","Amenities","Furnishings","Car parking","Waterproofing","Other"];
+const CATS=["Structural","Exterior finishes","Doors & windows","Roofing","Electrical","Plumbing","HVAC","Fire safety","Lifts & escalators","Technology","Security","Accessibility","Landscaping","Amenities","Furnishings","Car parking","Waterproofing","Sustainability","Other"];
 const DEFAULT_ITEMS = [
   {id:"x001",cat:"Structural",scope:"Repair and treatment of rendered facade",desc:"",qty:45,unit:"item",rate:1200,nd:4,tl:5},
   {id:"x002",cat:"Structural",scope:"Brick and mortar repairs",desc:"",qty:8,unit:"item",rate:1200,nd:4,tl:4},
@@ -2125,7 +2010,6 @@ function copyOptimizeSheet(){
 // Surgically edits only the target cells inside a copy of the template,
 // leaving macros (vbaProject.bin), buttons, charts and formulas untouched.
 const TEMPLATE_URL="CWF_Template.xlsm";
-const WORD_TEMPLATE_URL="CWF 2026 Template.docm";
 const SHEET_INPUTS="xl/worksheets/sheet2.xml";   // "Inputs and assumptions "
 const SHEET_OPTIMIZE="xl/worksheets/sheet4.xml"; // "Optimize Contribution"
 const SHEET_SUMMARY="xl/worksheets/sheet3.xml";  // "Summary Page for Building Data"
@@ -2133,93 +2017,59 @@ const SHEET_SUMMARY="xl/worksheets/sheet3.xml";  // "Summary Page for Building D
 function sumNum(v){const n=parseFloat(String(v==null?"":v).replace(/[^\d.\-]/g,""));return isNaN(n)?0:n;}
 
 // Build the A–H cells for one summary row (category header or item)
-// Helper to safely overwrite columns A-H for a given row, preserving column I onwards (if it exists)
-function replaceRowInXML(xml, r, ahCells) {
-  let openTag = `<row r="${r}"`;
-  let startIdx = xml.indexOf(openTag + ">");
-  if (startIdx === -1) startIdx = xml.indexOf(openTag + " ");
-  if (startIdx === -1) startIdx = xml.indexOf(openTag + "/>");
-  if (startIdx === -1) return { found: false, xml: xml };
-
-  let tagCloseIdx = xml.indexOf(">", startIdx);
-  let isSelfClosing = xml.charAt(tagCloseIdx - 1) === "/";
-  let endIdx = isSelfClosing ? tagCloseIdx : xml.indexOf("</row>", tagCloseIdx) + 5;
-
-  let keepCells = "";
-  if (!isSelfClosing) {
-    let fullRow = xml.substring(startIdx, endIdx + 1);
-    let cMatches = fullRow.match(/<c r="([A-Z]+)\d+"[^>]*?(?:\/>|>[\s\S]*?<\/c>)/g);
-    if (cMatches) {
-      keepCells = cMatches.filter(c => {
-        let m = c.match(/r="([A-Z]+)\d+"/);
-        return m && (m[1].length > 1 || m[1] > "H");
-      }).join("");
-    }
+function sumCells(r,row){
+  if(row.bold){
+    return '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
+      +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.b)+'</t></is></c>'
+      +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
   }
-
-  let newRow = (ahCells === null && !keepCells) ? "" : `<row r="${r}">${ahCells || ""}${keepCells}</row>`;
-  return { found: true, xml: xml.substring(0, startIdx) + newRow + xml.substring(endIdx + 1) };
+  return '<c r="A'+r+'" s="56"><v>'+(r-5)+'</v></c>'
+    +'<c r="B'+r+'" s="4" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.b)+'</t></is></c>'
+    +'<c r="C'+r+'" s="52"><v>'+sumNum(row.c)+'</v></c>'
+    +'<c r="D'+r+'" s="48" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.d||"")+'</t></is></c>'
+    +'<c r="E'+r+'" s="53"><v>'+sumNum(row.e)+'</v></c>'
+    +'<c r="F'+r+'" s="49"><f>C'+r+'*E'+r+'</f></c>'
+    +'<c r="G'+r+'" s="50"><v>'+sumNum(row.g)+'</v></c>'
+    +'<c r="H'+r+'" s="50"><v>'+sumNum(row.h)+'</v></c>';
 }
 
-// Simplest approach: Exactly replicates the "Copy for Excel" logic directly into the XML starting at A6
-function writeSummaryRows(xml) {
+// Wipe the placeholder rows and write fresh content — exactly like pasting Copy-for-Excel at A6.
+function writeSummaryRows(xml){
   const grouped={};
   (typeof selected!=="undefined"?selected:[]).forEach(it=>{(grouped[it.cat]=grouped[it.cat]||[]).push(it);});
 
-  // 1. Build the array of rows exactly like Copy to Excel
-  const rows = [];
-  let n = 1;
-  const totalLabel="Total Estimated Yearly Expenses With 3% CPI - Includes GST";
-
+  let r=6, out="";
   CATS.forEach(cat=>{
-    // 1. ALWAYS push the category header, even if empty, to protect macros
-    rows.push({type: 'cat', val: cat, rNum: n});
-    n++;
-    
-    // 2. Add the items underneath ONLY if they exist
-    if(grouped[cat]){
-      grouped[cat].forEach(it=>{
-        rows.push({type: 'item', scope: it.scope, qty: it.qty, unit: it.unit, rate: it.rate, nd: it.nd, tl: it.tl, rNum: n});
-        n++;
-      });
-    }
+    out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'+sumCells(r,{bold:true,b:cat})+'</row>';
+    r++;
+    (grouped[cat]||[]).forEach(it=>{
+      out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'+sumCells(r,{bold:false,b:it.scope,c:it.qty,d:it.unit,e:it.rate,g:it.nd,h:it.tl})+'</row>';
+      r++;
+    });
   });
-  rows.push({type: 'total', val: totalLabel, rNum: n});
-  n++;
-  rows.push({type: 'subtotal', rNum: n});
+  // total label
+  out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'
+    +'<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
+    +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">Total Estimated Yearly Expenses With 3% CPI - Includes GST</t></is></c>'
+    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/><c r="F'+r+'" s="49"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>'
+    +'</row>';
+  r++;
+  // subtotal with SUM
+  out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'
+    +'<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
+    +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">Subtotal</t></is></c>'
+    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/>'
+    +'<c r="F'+r+'" s="49"><f>SUM(F7:F'+(r-2)+')</f></c>'
+    +'<c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>'
+    +'</row>';
 
-  // 2. Generate XML tags for the A-H columns
-  function getAHCells(r, data) {
-    if (data.type === 'cat') return '<c r="A'+r+'" s="140"><v>'+data.rNum+'</v></c><c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">'+genEsc(data.val)+'</t></is></c><c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/><c r="F'+r+'" s="49"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
-    if (data.type === 'item') return '<c r="A'+r+'" s="56"><v>'+data.rNum+'</v></c><c r="B'+r+'" s="4" t="inlineStr"><is><t xml:space="preserve">'+genEsc(data.scope)+'</t></is></c><c r="C'+r+'" s="52"><v>'+sumNum(data.qty)+'</v></c><c r="D'+r+'" s="48" t="inlineStr"><is><t xml:space="preserve">'+genEsc(data.unit||"")+'</t></is></c><c r="E'+r+'" s="53"><v>'+sumNum(data.rate)+'</v></c><c r="F'+r+'" s="49"><f>C'+r+'*E'+r+'</f></c><c r="G'+r+'" s="50"><v>'+sumNum(data.nd)+'</v></c><c r="H'+r+'" s="50"><v>'+sumNum(data.tl)+'</v></c>';
-    if (data.type === 'total') return '<c r="A'+r+'" s="140"><v>'+data.rNum+'</v></c><c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">'+genEsc(data.val)+'</t></is></c><c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/><c r="F'+r+'" s="49"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
-    if (data.type === 'subtotal') return '<c r="A'+r+'" s="140"><v>'+data.rNum+'</v></c><c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">Subtotal</t></is></c><c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/><c r="F'+r+'" s="49"><f>SUM(F7:F'+(r-1)+')</f></c><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
-    return "";
-  }
-
-  // 3. Inject the rows into the document
-  let r = 6;
-  for (let i = 0; i < rows.length; i++) {
-    let ahCells = getAHCells(r, rows[i]);
-    let res = replaceRowInXML(xml, r, ahCells);
-    if (res.found) {
-      xml = res.xml;
-    } else {
-      xml = xml.replace('</sheetData>', `<row r="${r}">${ahCells}</row></sheetData>`);
-    }
-    r++;
-  }
-
-  // 4. Blank out any remaining rows (A-H only) so old template totals vanish
-  while (true) {
-    let res = replaceRowInXML(xml, r, null);
-    if (!res.found) break;
-    xml = res.xml;
-    r++;
-  }
-
-  return {xml, count: rows.length, overflow: false};
+  // slice out old rows 6+ and drop in the new ones
+  const start=xml.indexOf('<row r="6"');
+  const end=xml.indexOf('</sheetData>');
+  xml=xml.slice(0,start)+out+xml.slice(end);
+  return{xml,count:(typeof selected!=="undefined"?selected.length:0)};
 }
+
 function genEsc(s){
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;").replace(/'/g,"&apos;");
@@ -2259,7 +2109,7 @@ async function generateExcel(){
   if(!g.yearStart){showFMsg("gen-msg","Year Start Date is required","err");return;}
   if(typeof JSZip==="undefined"){showFMsg("gen-msg","Still loading — try again in a moment","err");return;}
 
-  showFMsg("gen-msg","Building job folder…");
+  showFMsg("gen-msg","Building file…");
   try{
     const{address,suburb}=setupExtractAddressSuburb(g.rawAddress);
     const lots=g.rawLots.replace(/\D/g,"");
@@ -2271,9 +2121,8 @@ async function generateExcel(){
     const doi=new Date();
     const b7=yStart?new Date(yStart.getFullYear(),yStart.getMonth(),yStart.getDate()-1):null;
 
-    // --- 1. FETCH AND EDIT THE EXCEL TEMPLATE ---
-    const resp=await fetch(EXCEL_TEMPLATE_URL,{cache:"no-store"});
-    if(!resp.ok)throw new Error("Excel template fetch "+resp.status);
+    const resp=await fetch(TEMPLATE_URL,{cache:"no-store"});
+    if(!resp.ok)throw new Error("template fetch "+resp.status);
     const buf=await resp.arrayBuffer();
     const zip=await JSZip.loadAsync(buf);
 
@@ -2305,59 +2154,25 @@ async function generateExcel(){
     const sres=writeSummaryRows(s3);
     zip.file(SHEET_SUMMARY,sres.xml);
 
-    // Save the edited Excel file into memory
-    const excelBlob=await zip.generateAsync({
+    const blob=await zip.generateAsync({
       type:"blob",
       mimeType:"application/vnd.ms-excel.sheet.macroEnabled.12",
       compression:"DEFLATE"
     });
-
-    // --- 2. SETUP DYNAMIC FOLDER AND FILE NAMES ---
-    const spNum = g.sp.replace(/\D/g,"") || g.sp;
-    const safeAddress = address.replace(/[\\/:*?"<>|]/g, "").trim(); 
-    const addressPart = safeAddress ? ` - ${safeAddress}` : "";
-    
-    const folderName = `SP ${spNum}`;
-    const excelName = `${folderName}${addressPart} Template.xlsm`;
-    const wordName = `${folderName} Word Template.docm`; 
-
-    // --- 3. CREATE MASTER ZIP AND FOLDER ---
-    const masterZip = new JSZip();
-    const jobFolder = masterZip.folder(folderName);
-    
-    // Drop the Excel file into the folder
-    jobFolder.file(excelName, excelBlob);
-
-    // --- 4. FETCH AND ADD THE WORD TEMPLATE ---
-    try {
-      const wordResp = await fetch(WORD_TEMPLATE_URL, {cache:"no-store"});
-      if(wordResp.ok) {
-        const wordBuf = await wordResp.arrayBuffer();
-        jobFolder.file(wordName, wordBuf); // Drop the Word file into the folder
-      } else {
-        console.warn("Word template not found. Ensure " + WORD_TEMPLATE_URL + " exists in your directory.");
-      }
-    } catch(e) {
-      console.warn("Could not load Word template:", e);
-    }
-
-    // --- 5. GENERATE AND DOWNLOAD THE FINAL ZIP FILE ---
-    const finalZipBlob = await masterZip.generateAsync({ type: "blob" });
-    const zipFilename = `${folderName}.zip`;
-
-    const url = URL.createObjectURL(finalZipBlob);
-    const a = document.createElement("a");
-    a.href = url; a.download = zipFilename; document.body.appendChild(a); a.click();
+    const spNum=g.sp.replace(/\D/g,"")||g.sp;
+    const fname=`SP ${spNum} Template.xlsm`;
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url;a.download=fname;document.body.appendChild(a);a.click();
     setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
-    
     const itemCount=(typeof selected!=="undefined"?selected.length:0);
-    let msg=`✓ Downloaded ${zipFilename} — Extract it to access your Job Folder containing your generated Excel and Word files!`;
-    showFMsg("gen-msg",msg,"ok");
-
+    let msg=`✓ Downloaded ${fname} — ${itemCount} item${itemCount===1?"":"s"} written dynamically to Summary sheet! Save it into the job folder.`;
+showFMsg("gen-msg",msg,"ok");
   }catch(e){
     showFMsg("gen-msg","Couldn't generate the file ("+(e.message||e)+"). Use Manual paste below as a fallback.","err");
   }
 }
+
 // ── MODAL ─────────────────────────────────────────────────────────────────────
 function openModal(id){document.getElementById(id).classList.add("open");}
 function closeModal(id){document.getElementById(id).classList.remove("open");}
@@ -2400,9 +2215,9 @@ function init(){
   folders   = udFolders.length >= lsFolders.length ? udFolders : lsFolders;
 
   // Restore sync config
-  ghToken   = LS.load("tk_token",["gh","p_mXUgAOlTXYYNE23rW67LaNJZgXomAv177BYR"].join(""));
+  ghToken   = LS.load("tk_token","");
   gistId    = LS.load("tk_gist","8529c79a53285ec6f4db1adc04191c6a");
-  repoToken = LS.load("tk_repo_token",["git","hub_pat_11AS2ODRA0HnDZchKv0hxl_EDiyYCbyJqINHlci7yW0hoOZo4bPLmGtZ0U6Z4o9ofVVNKNGZPPyj9iT82H"].join(""));
+  repoToken = LS.load("tk_repo_token","");
   repoOwner = LS.load("tk_repo_owner","AllanBechara");
   repoName  = LS.load("tk_repo_name","turnkey-addin");
   if(ghToken&&gistId) setSyncStatus("ok","Synced previously");
@@ -2418,7 +2233,5 @@ function init(){
 
 init();
 </script>
-
-
-
-</body></html>
+</body>
+</html>
