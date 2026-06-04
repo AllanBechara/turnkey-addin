@@ -2278,8 +2278,9 @@ async function generateJobFolder(){
     if(!wordResp.ok)throw new Error("Word template fetch "+wordResp.status);
     const wordData=await wordResp.arrayBuffer();
 
-    // 3. Build ZIP folder: SP {number}/
-  const folderName = `SP ${spNumOnly}`;
+    // 3. Build ZIP folder: SP {number} {company}/
+  const companyVal = g.company ? g.company.trim() : "";
+  const folderName = `SP ${spNumOnly} ${companyVal}`.trim();
   const jobZip = new JSZip();
 
   // Create the empty subfolder for pictures
