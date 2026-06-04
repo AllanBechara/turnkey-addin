@@ -2684,7 +2684,7 @@ async function generateJobFolder(){
     const folderName=`SP ${spNumOnly}`;
     const jobZip=new JSZip();
     jobZip.file(`${folderName}/SP ${spNumOnly} Template.xlsm`,excelData);
-    jobZip.file(`${folderName}/CWF 2026 Template.docm`,wordData);
+    jobZip.file(`${folderName}/SP ${spNumOnly} Template.docm`,wordData);
 
     const zipBlob=await jobZip.generateAsync({type:"blob",compression:"DEFLATE"});
     const zipName=`${folderName}.zip`;
