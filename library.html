@@ -2693,16 +2693,23 @@ async function generateJobFolder(){
   const zipBlob = await jobZip.generateAsync({type: "blob", compression: "DEFLATE"});
   const zipName = `${folderName}.zip`;
   const url = URL.createObjectURL(zipBlob);
+  
   const a = document.createElement("a");
   a.href = url;
   a.download = zipName;
   document.body.appendChild(a);
   a.click();
-  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
+  
+  setTimeout(() => { 
+    document.body.removeChild(a); 
+    URL.revokeObjectURL(url); 
+  }, 1000);
 
   const itemCount = (typeof selected !== "undefined" ? selected.length : 0);
   showFMsg("gen-msg", `✓ Downloaded ${zipName} — filled Excel (${itemCount} item${itemCount === 1 ? "" : "s"}) + Word template inside`, "ok");
+
 } catch(e) {
+  // If anything above fails, this catches it
   showFMsg("gen-msg", "Couldn't generate (" + (e.message || e) + "). Use Manual paste below as a fallback.", "err");
 }
 }
