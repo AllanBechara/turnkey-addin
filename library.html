@@ -281,8 +281,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">25 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 10:19 am" onclick="showView('settings')"></div>
+    <span class="sel-chip" id="sel-chip" style="display: none;">0 selected</span>
+    <div class="sync-dot ok" id="sync-dot" title="Synced 10:22 am" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -292,132 +292,131 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="left-panel" id="left-panel" style="display: flex;">
     <div class="desktop-tabs">
       <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
-      <div class="dtab" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
+      <div class="dtab active" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
       <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
-      <div class="dtab active" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
+      <div class="dtab" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
       <div class="dtab" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
     </div>
     <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
-  <div class="setup-scroll">
-
-    <div>
-      <div class="setup-section-title">Job Details</div>
-      <div class="setup-grid">
-        <div class="setup-field full">
-          <label>SP Number</label>
-          <input id="js-sp" type="number" placeholder="e.g. 12345" inputmode="numeric" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label>Building Name</label>
-          <input id="js-building" type="text" placeholder="e.g. Redmyre 2" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label>Strata Management Company</label>
-          <select id="js-company"><option value="">— Not on list —</option><option value="Bay Strata">Bay Strata</option><option value="C.F Strata Management">C.F Strata Management</option><option value="Conti Strata">Conti Strata</option><option value="Eastern Star Strata">Eastern Star Strata</option><option value="Fabos Strata">Fabos Strata</option><option value="Hill Strata Solutions">Hill Strata Solutions</option><option value="Illawarra Strata">Illawarra Strata</option><option value="Jamesons Strata">Jamesons Strata</option><option value="Premium Strata">Premium Strata</option><option value="Kooper &amp; Levi">Kooper &amp; Levi</option><option value="Strata Only">Strata Only</option><option value="Strata Sense">Strata Sense</option><option value="Strathfield Partners">Strathfield Partners</option><option value="Vital Strata">Vital Strata</option><option value="Whelan Property">Whelan Property</option><option value="Wollongong Strata">Wollongong Strata</option><option value="Net Strata">Net Strata</option><option value="MY StrataCare">MY StrataCare</option><option value="Real Strata Management">Real Strata Management</option><option value="Exclusive">Exclusive</option></select>
-        </div>
-        <div class="setup-field">
-          <label>Lot Entitlements</label>
-          <input id="js-le" type="text" placeholder="e.g. 100" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>CWF Balance ($)</label>
-          <input id="js-cwfbal" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label>CWF Total Contributions ($)</label>
-          <input id="js-cwfcontrib" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Year Start Date</label>
-          <input id="js-yearstart" type="date">
-        </div>
-        <div class="setup-field">
-          <label>GST</label>
-          <label class="setup-toggle">
-            <span>GST Applicable</span>
-            <input type="checkbox" id="js-gst">
-          </label>
-        </div>
-        <div class="setup-field">
-          <label>Weather Condition</label>
-          <input id="js-weather" type="text" placeholder="e.g. Fine" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Prepared By</label>
-          <input id="js-preparedby" type="text" placeholder="e.g. Joseph Bechara" value="Joseph Bechara" autocomplete="off">
-        </div>
+  <div class="save-job-area">
+    <div class="save-job-row">
+      <input id="job-name-input" placeholder="Job name (e.g. 732 Military Rd Mosman)..." maxlength="80">
+      <select id="job-folder-select" title="Save into folder"><option value="">📋 No folder</option><option value="u1779768541150hh5">📁 Tower/Highrise</option><option value="u178037136575874q">📁 Townhouses</option><option value="u1780462018619puv">📁 Red Brick Stairwell</option></select>
+      <button class="btn primary sm" onclick="saveJob()">Save</button>
+    </div>
+    <textarea class="notes-input" id="job-notes-input" placeholder="Site notes — observations, conditions, issues found on inspection..." rows="3"></textarea>
+    <div style="display:flex;justify-content:flex-end">
+      <button class="btn sm" onclick="createFolder()" style="color:var(--navy-md);font-size:12px">📁 New Folder</button>
+    </div>
+  </div>
+  <div class="jobs-scroll" id="jobs-list-wrap">
+    <div id="jobs-list"><div class="folder-header" onclick="toggleFolder('u1779768541150hh5')">
+      <span class="folder-icon">▾</span>
+      <span class="folder-title">📁 Tower/Highrise</span>
+      <span class="folder-count">1 job</span>
+      <div class="folder-actions" onclick="event.stopPropagation()">
+        <button class="folder-btn" onclick="renameFolder('u1779768541150hh5')" title="Rename">✏</button>
+        <button class="folder-btn" onclick="deleteFolder('u1779768541150hh5')" title="Delete folder" style="color:#ffaaaa">✕</button>
       </div>
     </div>
-
-    <div>
-      <div class="setup-section-title">Strata Details</div>
-      <button class="btn primary" style="width:100%;min-height:44px;font-size:13px;margin-bottom:8px" onclick="lookupStrata()">🔍 Auto-fill from SP number</button>
-      <div class="form-msg" id="strata-lookup-msg" style="margin-bottom:8px"></div>
-      <div class="setup-grid">
-        <div class="setup-field full">
-          <label>Address</label>
-          <input id="js-address" type="text" placeholder="e.g. 150-152 MARINE PDE, MAROUBRA NSW 2035" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Registered Date</label>
-          <input id="js-regdate" type="text" placeholder="e.g. 05 Jun 1964" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>No. of Lots</label>
-          <input id="js-lots" type="text" placeholder="e.g. 12 Lots" autocomplete="off">
-        </div>
+    <div class="folder-jobs" id="folder-jobs-u1779768541150hh5">
+      <div class="job-row" id="job-row-1">
+    <div class="job-row-top">
+      <div class="job-info">
+        <div class="job-name">SP 9912</div>
+        <div class="job-meta">02/06/2026 · 25 items · $284,772 · 📁 Tower/Highrise</div>
+        <div class="job-notes-snippet">📝 Registered 1975 - 31 Lots</div>
       </div>
-      <div class="setup-hint">Enter the SP number above, then auto-fill. These fill from NSW Strata Hub but stay editable — or fill them manually if a plan isn't found.</div>
-    </div>
-
-    <div>
-      <div class="setup-section-title">Generate Job Folder</div>
-      <button class="btn primary" style="width:100%;min-height:52px;font-size:15px;font-weight:600" onclick="generateJobFolder()">⚡ Generate Job Folder</button>
-      <div class="setup-hint" style="margin-bottom:4px">Downloads a ZIP folder <strong>SP {number}.zip</strong> containing the filled Excel template and the Word template, ready to go.</div>
-      <div class="form-msg" id="gen-msg" style="margin-top:6px"></div>
-    </div>
-
-    <details>
-      <summary style="font-size:11px;color:var(--mu);cursor:pointer;padding:8px 0">Manual paste (fallback, if you'd rather paste into an open sheet)</summary>
-      <div style="margin-top:8px">
-        <div class="setup-section-title">Inputs &amp; Assumptions sheet</div>
-        <div class="setup-hint" style="margin-bottom:10px">Paste each in order at the cell shown. The runs skip the formula rows (C12, C14, C15) and the merged Variables header (C20).</div>
-        <div class="setup-copy-btns">
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyTopBlock()">① Scheme &amp; finances → paste at <strong>C4</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copySuburbCell()">② Suburb → paste at <strong>E4</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyLevy()">③ Levy per annum → paste at <strong>C13</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyPrepared()">④ Prepared / inspection → paste at <strong>C16</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyYearStart()">⑤ Financial year start → paste at <strong>C21</strong></button>
-        </div>
-        <div class="setup-section-title" style="margin-top:14px">Optimize Contribution sheet</div>
-        <div class="setup-copy-btns">
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyOptimizeSheet()">Contributions → paste at <strong>B7</strong></button>
-        </div>
-        <div class="form-msg" id="setup-msg" style="margin-top:10px"></div>
+      <div class="job-btns">
+        <button class="btn primary sm" onclick="loadJob(1)">Load</button>
+        <button class="btn sm" onclick="copyJobToExcel(1)" title="Copy for Excel">📋</button>
+        <button class="btn sm" onclick="showMovePicker(1)" title="Move to folder">📁</button>
+        <button class="btn sm" onclick="toggleJobNotes(1)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
+        <button class="btn sm" onclick="addJobToLib(1)" title="Add items to library">+Lib</button>
+        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(1)">✕</button>
       </div>
-    </details>
-
+    </div>
+    <div class="job-notes-panel" id="notes-panel-1">
+      <div class="job-notes-label">Site notes</div>
+      <div class="job-notes-text" id="notes-text-1" style="">Registered 1975 - 31 Lots</div>
+      <textarea class="job-notes-edit" id="notes-edit-1" style="display:none" placeholder="Add site notes here..." rows="4">Registered 1975 - 31 Lots</textarea>
+      <div style="display:flex;gap:6px">
+        <button class="btn primary sm" onclick="saveJobNotes(1)" id="notes-save-1" style="display:none">Save notes</button>
+        <button class="btn sm" onclick="editJobNotes(1)" id="notes-edit-btn-1">Edit notes</button>
+        <button class="btn ghost sm" onclick="toggleJobNotes(1)">Close</button>
+      </div>
+    </div>
+  </div>
+    </div><div class="folder-header" onclick="toggleFolder('u178037136575874q')">
+      <span class="folder-icon closed">▾</span>
+      <span class="folder-title">📁 Townhouses</span>
+      <span class="folder-count">1 job</span>
+      <div class="folder-actions" onclick="event.stopPropagation()">
+        <button class="folder-btn" onclick="renameFolder('u178037136575874q')" title="Rename">✏</button>
+        <button class="folder-btn" onclick="deleteFolder('u178037136575874q')" title="Delete folder" style="color:#ffaaaa">✕</button>
+      </div>
+    </div>
+    <div class="folder-jobs collapsed" id="folder-jobs-u178037136575874q">
+      <div class="job-row" id="job-row-0">
+    <div class="job-row-top">
+      <div class="job-info">
+        <div class="job-name">SP 79900</div>
+        <div class="job-meta">02/06/2026 · 21 items · $105,729 · 📁 Townhouses</div>
+        <div class="job-notes-snippet">📝 Registered 2008 - 15 Lots</div>
+      </div>
+      <div class="job-btns">
+        <button class="btn primary sm" onclick="loadJob(0)">Load</button>
+        <button class="btn sm" onclick="copyJobToExcel(0)" title="Copy for Excel">📋</button>
+        <button class="btn sm" onclick="showMovePicker(0)" title="Move to folder">📁</button>
+        <button class="btn sm" onclick="toggleJobNotes(0)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
+        <button class="btn sm" onclick="addJobToLib(0)" title="Add items to library">+Lib</button>
+        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(0)">✕</button>
+      </div>
+    </div>
+    <div class="job-notes-panel" id="notes-panel-0">
+      <div class="job-notes-label">Site notes</div>
+      <div class="job-notes-text" id="notes-text-0" style="">Registered 2008 - 15 Lots</div>
+      <textarea class="job-notes-edit" id="notes-edit-0" style="display:none" placeholder="Add site notes here..." rows="4">Registered 2008 - 15 Lots</textarea>
+      <div style="display:flex;gap:6px">
+        <button class="btn primary sm" onclick="saveJobNotes(0)" id="notes-save-0" style="display:none">Save notes</button>
+        <button class="btn sm" onclick="editJobNotes(0)" id="notes-edit-btn-0">Edit notes</button>
+        <button class="btn ghost sm" onclick="toggleJobNotes(0)">Close</button>
+      </div>
+    </div>
+  </div>
+    </div><div class="folder-header" onclick="toggleFolder('u1780462018619puv')">
+      <span class="folder-icon closed">▾</span>
+      <span class="folder-title">📁 Red Brick Stairwell</span>
+      <span class="folder-count">0 jobs</span>
+      <div class="folder-actions" onclick="event.stopPropagation()">
+        <button class="folder-btn" onclick="renameFolder('u1780462018619puv')" title="Rename">✏</button>
+        <button class="folder-btn" onclick="deleteFolder('u1780462018619puv')" title="Delete folder" style="color:#ffaaaa">✕</button>
+      </div>
+    </div>
+    <div class="folder-jobs collapsed" id="folder-jobs-u1780462018619puv">
+      <div style="padding:12px 14px;font-size:12px;color:var(--mu);background:var(--surf)">No jobs in this folder yet.</div>
+    </div></div>
   </div>
 </div>
   </div>
 
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
-  <div class="strata-panel">
-    <div class="strata-panel-head">
-      <h2>🔍 Strata Search</h2>
+  <div class="sel-header">
+    <h2>Selected items</h2>
+    <span class="count-badge" id="sel-count-badge">0</span>
+    <button class="btn ghost sm" onclick="clearAll()">Clear</button>
+  </div>
+  <div class="sel-list" id="sel-list"><div class="empty"><span class="ei">☑</span>No items selected.<br>Go to Library and tick items to add them here.</div></div>
+  <div class="export-footer">
+    <div class="total-bar">
+      <span class="total-label">Total estimated value</span>
+      <span class="total-val" id="total-val">$0</span>
     </div>
-    <div style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:18px">
-      <div style="background:#e8f5e9;border:1px solid #b5dcb8;border-radius:10px;padding:14px 16px">
-        <div style="font-weight:600;color:var(--navy-dk);font-size:14px;margin-bottom:6px">⚡ Auto-fill is on</div>
-        <div style="font-size:12px;color:var(--tx);line-height:1.6">Enter the SP number in the form, then tap <strong>Auto-fill from SP number</strong>. The app pulls Address, Registered Date, and Lots straight from NSW Strata Hub — no copying needed.</div>
-      </div>
-      <div style="font-size:12px;color:var(--mu);line-height:1.6;text-align:center">
-        If a plan isn't found (very new registrations may not be in the dataset yet), use the official search and fill the three fields manually:
-      </div>
-      <a href="https://www.nsw.gov.au/housing-and-construction/strata/strata-search" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;background:var(--surf2);color:var(--navy-dk);border:1px solid var(--bdr);padding:14px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;min-height:50px">
-        Open NSW Strata Search ↗
-      </a>
+    <div class="export-btns">
+      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()" disabled="">📋 Copy for Excel</button>
+      <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
     </div>
+    <div class="export-status" id="export-status"></div>
   </div>
 </div>
 
@@ -433,7 +432,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">25</div>
+    <div class="bnav-badge" id="bnav-sel-badge">0</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
@@ -477,7 +476,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
-<div id="toast" class="toast">Loaded "SP 9912"</div>
+<div id="toast" class="toast">Synced</div>
 
 <template id="tmpl-library">
   <div class="search-area">
