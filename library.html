@@ -172,6 +172,14 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .form-msg.ok{color:var(--ok)}.form-msg.err{color:var(--red)}
 .section-divider{border-top:1px solid var(--bdr);margin:18px 0;padding-top:14px}
 .section-title{font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px}
+.ij-table{width:100%;border-collapse:collapse;font-size:12px}
+.ij-table th{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;padding:7px 8px;border-bottom:2px solid var(--bdr);text-align:left;background:var(--surf);position:sticky;top:0;z-index:1}
+.ij-table td{padding:6px 8px;border-bottom:1px solid var(--bdr);vertical-align:middle}
+.ij-table tr.ij-warn td{background:#fffbeb}
+.ij-scope{max-width:170px;word-break:break-word;line-height:1.4;color:var(--tx)}
+.ij-cat-sel{font-size:11px;padding:4px 6px;border:1px solid var(--bdr);border-radius:6px;background:var(--surf2);color:var(--tx);max-width:140px;cursor:pointer}
+.ij-field{padding:9px 12px;border:1px solid var(--bdr);border-radius:8px;font-size:13px;outline:none;background:var(--surf2);color:var(--tx);width:100%;box-sizing:border-box}
+.ij-field:focus{border-color:var(--navy-lt)}
 
 /* ── JOBS VIEW ── */
 .jobs-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -305,7 +313,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
       <button class="btn primary sm" onclick="saveJob()">Save</button>
     </div>
     <textarea class="notes-input" id="job-notes-input" placeholder="Site notes — observations, conditions, issues found on inspection..." rows="3"></textarea>
-    <div style="display:flex;justify-content:flex-end">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <button class="btn sm" onclick="openImportJobModal()" style="color:var(--navy-md);font-size:12px">📥 Import old job</button>
       <button class="btn sm" onclick="createFolder()" style="color:var(--navy-md);font-size:12px">📁 New Folder</button>
     </div>
   </div>
@@ -749,6 +758,44 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
   </div>
 </div>
 
+<div class="modal-overlay" id="import-job-modal" onclick="if(event.target===this)closeModal('import-job-modal')">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-close-row"><button class="modal-close" onclick="closeModal('import-job-modal')">✕</button></div>
+    <h2>📥 Import Old Job</h2>
+    <p style="font-size:12px;color:var(--mu);margin-bottom:14px;line-height:1.6">Select rows A–H from your old Excel Summary Page, Ctrl+C, paste below. Section headers and totals are skipped automatically.</p>
+    <textarea id="ij-paste" placeholder="Paste Excel rows here..." rows="5" style="resize:vertical;font-family:monospace;font-size:11px;min-height:90px;width:100%;box-sizing:border-box;padding:9px 11px;border:1px solid var(--bdr);border-radius:8px;outline:none;background:var(--surf2)"></textarea>
+    <div style="display:flex;gap:8px;margin:10px 0">
+      <button class="btn primary" style="flex:1" onclick="parseJobPaste()">Parse rows →</button>
+      <button class="btn ghost" onclick="document.getElementById('ij-paste').value='';document.getElementById('ij-review-area').style.display='none';showFMsg('ij-parse-msg','','')">Clear</button>
+    </div>
+    <div class="form-msg" id="ij-parse-msg"></div>
+    <div id="ij-review-area" style="display:none">
+      <div class="section-divider" style="margin-top:8px">
+        <div class="section-title">Review &amp; correct categories</div>
+        <p style="font-size:11px;color:var(--mu);margin-bottom:10px;line-height:1.5">Items highlighted in yellow were auto-classified as "Other" — check these first. Remove any rows that shouldn't be saved.</p>
+      </div>
+      <div id="ij-table-wrap" style="overflow-x:auto;max-height:280px;overflow-y:auto;border:1px solid var(--bdr);border-radius:8px;margin-bottom:16px"></div>
+      <div class="section-divider" style="margin-top:4px">
+        <div class="section-title">Save as job</div>
+      </div>
+      <div style="margin-bottom:8px">
+        <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:5px">Job name *</label>
+        <input id="ij-job-name" class="ij-field" placeholder="e.g. SP 7524 Mosman" maxlength="80">
+      </div>
+      <div style="margin-bottom:8px">
+        <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:5px">Folder</label>
+        <select id="ij-folder-select" class="ij-field" style="cursor:pointer;-webkit-appearance:none;appearance:none"></select>
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:5px">Site notes (optional)</label>
+        <textarea id="ij-notes" class="ij-field" placeholder="Observations, conditions found on inspection..." rows="2" style="resize:vertical"></textarea>
+      </div>
+      <button class="btn primary" style="width:100%;min-height:48px;font-size:14px" onclick="saveImportedJob()">💾 Save as saved job</button>
+      <div class="form-msg" id="ij-save-msg" style="margin-top:8px"></div>
+    </div>
+  </div>
+</div>
+
 <div id="toast" class="toast">Loaded "SP 79900"</div>
 
 <template id="tmpl-library">
@@ -790,7 +837,8 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
       <button class="btn primary sm" onclick="saveJob()">Save</button>
     </div>
     <textarea class="notes-input" id="job-notes-input" placeholder="Site notes — observations, conditions, issues found on inspection..." rows="3"></textarea>
-    <div style="display:flex;justify-content:flex-end">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <button class="btn sm" onclick="openImportJobModal()" style="color:var(--navy-md);font-size:12px">📥 Import old job</button>
       <button class="btn sm" onclick="createFolder()" style="color:var(--navy-md);font-size:12px">📁 New Folder</button>
     </div>
   </div>
@@ -2000,27 +2048,144 @@ function importFromPaste(){
     const c=line.split("\t");if(c.length<5)return;
     const scope=(c[1]||"").trim();if(!scope||scope.length<3){skipped++;return;}
     if(library.find(l=>l.scope.toLowerCase()===scope.toLowerCase())){skipped++;return;}
-    const sl=scope.toLowerCase();
-    let cat="Other";
-    if(sl.includes("roof")||sl.includes("membrane")||sl.includes("flash"))cat="Roofing";
-    else if(sl.includes("paint")||sl.includes("carpet")||sl.includes("balustrade"))cat="Exterior finishes";
-    else if(sl.includes("pump")||sl.includes("hot water")||sl.includes("sump"))cat="Plumbing";
-    else if(sl.includes("electric")||sl.includes("light"))cat="Electrical";
-    else if(sl.includes("door")||sl.includes("window")||sl.includes("jamb"))cat="Doors & windows";
-    else if(sl.includes("hvac")||sl.includes("duct")||sl.includes("exhaust"))cat="HVAC";
-    else if(sl.includes("cctv")||sl.includes("camera")||sl.includes("security"))cat="Security";
-    else if(sl.includes("intercom")||sl.includes("access control"))cat="Technology";
-    else if(sl.includes("landscape")||sl.includes("planter")||sl.includes("boundary"))cat="Landscaping";
-    else if(sl.includes("park")||sl.includes("line mark"))cat="Car parking";
-    else if(sl.includes("waterproof"))cat="Waterproofing";
-    else if(sl.includes("facade")||sl.includes("render")||sl.includes("concrete"))cat="Structural";
-    else if(sl.includes("fire")||sl.includes("sprinkler"))cat="Fire safety";
-    library.push({id:uid(),cat,scope,qty:parseFloat(c[2])||1,unit:(c[3]||"item").trim(),rate:parseFloat(c[4])||0,nd:parseInt(c[6])||1,tl:parseInt(c[7])||10});
+    const cat=classifyCategory(scope,"");
+    library.push({id:uid(),cat,scope,qty:sumNum(c[2])||1,unit:(c[3]||"item").trim(),rate:sumNum(c[4])||0,nd:parseInt(c[6])||1,tl:parseInt(c[7])||10});
     added++;
   });
   if(document.getElementById("paste-import"))document.getElementById("paste-import").value="";
   showFMsg("import-msg",`✓ ${added} imported${skipped>0?`, ${skipped} skipped`:""}`,added>0?"ok":"err");
   if(added>0){scheduleSyncPush();renderLibrary();}
+}
+
+// ── IMPORT OLD JOB ────────────────────────────────────────────────────────────
+let importJobItems=[];
+
+function classifyCategory(scope,hint){
+  const sl=scope.toLowerCase();
+  if(/lift|elevator|escalator/.test(sl))return"Lifts & escalators";
+  if(/fire\s*(door|escape|exit|system|alarm|panel|pump|rating|protection)|sprinkler|extinguisher|hydrant|hose.?reel/.test(sl))return"Fire safety";
+  if(/gutter|fascia|downpipe|ridge.?cap|re.?point|flashing|valley|hip.?iron|roof.?(tile|inspect|repair|maint|replace)|tile.?roof|eave.*(repair|replace)|fascia.*(repair|replace)/.test(sl))return"Roofing";
+  if(/carpet|letterbox|letter.?box|mailbox|signage|building.?sign|furnish|furniture|blinds|curtain/.test(sl))return"Furnishings";
+  if(/clothesline/.test(sl))return"Amenities";
+  if(/camera|cctv/.test(sl))return"Security";
+  if(/intercom|key.?pad|access.?control|fob|entry.?system|buzzer/.test(sl))return"Technology";
+  if(/car.?park|bollard|line.?mark|gate.?motor|boom.?gate|parking|garage.*(door|replace|install|motor)|roller.?door.*(garage|basement|entry)|driveway/.test(sl))return"Car parking";
+  if(/fence|landscap|garden|planter|lawn|tree|shrub|paving|path|courtyard|perimeter.?rail/.test(sl))return"Landscaping";
+  if(/waterproof|reseal|membrane|sealant|bathroom.*(seal|waterproof)|balcony.*(seal|waterproof)/.test(sl))return"Waterproofing";
+  if(/plumb|pipe|hot.?water|sump.?pump|pump|water.?main|tap|valve|sewage/.test(sl))return"Plumbing";
+  if(/hvac|exhaust.*(fan|motor|duct)|supply.?(fan|duct)|air.?con|ventilat|duct|air.?handl/.test(sl))return"HVAC";
+  if(/electric|light(ing)?|switch|power.?point|wiring|switchboard|meter|bollard.*(light|elec)/.test(sl))return"Electrical";
+  if(/door|window|roller.?shutter|jamb|frame.*(door|window)/.test(sl))return"Doors & windows";
+  if(/brick.?point|slab.?repair|concrete.?repair|spall|crack|structural|subsid|foundation|retaining.?wall/.test(sl))return"Structural";
+  if(/paint|repaint|coat|soffit|balustrade|handrail|stairwell|facade|render|masonry.?wall|internal.?wall|external.?wall|ceiling|balustr|height.?allowance/.test(sl))return"Exterior finishes";
+  if(hint){
+    const hl=hint.toLowerCase();
+    if(/roof/.test(hl))return"Roofing";
+    if(/driveway|car.?park|parking|garage/.test(hl))return"Car parking";
+    if(/exterior|building|paint/.test(hl))return"Exterior finishes";
+    if(/lift|elevator/.test(hl))return"Lifts & escalators";
+    if(/fire/.test(hl))return"Fire safety";
+    if(/interior|internal/.test(hl))return"Exterior finishes";
+  }
+  return"Other";
+}
+
+function parseOldJob(raw){
+  const items=[];let skipped=0,currentSection="";
+  raw.split(/\r?\n/).filter(l=>l.trim()).forEach(line=>{
+    const c=line.split("\t");
+    const scope=(c[1]||"").trim();
+    if(!scope||scope.length<3){skipped++;return;}
+    if(/^(sub)?total|gst|cpi|estimated yearly|per annum|includes gst|specialist report/i.test(scope)){skipped++;return;}
+    const qtyRaw=(c[2]||"").trim();const rateRaw=(c[4]||"").trim();
+    if(!qtyRaw&&!rateRaw){currentSection=scope;return;}
+    const qty=sumNum(c[2])||1;
+    const unit=(c[3]||"item").trim()||"item";
+    const rate=sumNum(c[4])||0;
+    const nd=parseInt(c[6])||1;
+    const tl=parseInt(c[7])||10;
+    const cat=classifyCategory(scope,currentSection);
+    items.push({id:uid(),cat,scope,desc:"",qty,unit,rate,nd,tl});
+  });
+  return{items,skipped};
+}
+
+function openImportJobModal(){
+  importJobItems=[];
+  const paste=document.getElementById("ij-paste");if(paste)paste.value="";
+  const ra=document.getElementById("ij-review-area");if(ra)ra.style.display="none";
+  const msg=document.getElementById("ij-parse-msg");if(msg){msg.textContent="";msg.className="form-msg";}
+  const nameInp=document.getElementById("ij-job-name");if(nameInp)nameInp.value="";
+  const notesInp=document.getElementById("ij-notes");if(notesInp)notesInp.value="";
+  const fs=document.getElementById("ij-folder-select");
+  if(fs)fs.innerHTML=`<option value="">📋 No folder</option>`+folders.map(f=>`<option value="${f.id}">📁 ${escHtml(f.name)}</option>`).join("");
+  openModal("import-job-modal");
+}
+
+function parseJobPaste(){
+  const raw=(document.getElementById("ij-paste")||{}).value?.trim();
+  if(!raw){showFMsg("ij-parse-msg","Paste some rows first","err");return;}
+  const result=parseOldJob(raw);
+  importJobItems=result.items;
+  if(importJobItems.length===0){showFMsg("ij-parse-msg","No valid item rows found — check your columns are tab-separated (copied directly from Excel)","err",6000);return;}
+  const otherCount=importJobItems.filter(it=>it.cat==="Other").length;
+  const parts=[`✓ ${importJobItems.length} items ready`];
+  if(result.skipped>0)parts.push(`${result.skipped} rows skipped`);
+  if(otherCount>0)parts.push(`${otherCount} need category check (highlighted)`);
+  showFMsg("ij-parse-msg",parts.join(" · "),"ok",9000);
+  renderImportTable();
+  const ra=document.getElementById("ij-review-area");if(ra)ra.style.display="";
+}
+
+function renderImportTable(){
+  const wrap=document.getElementById("ij-table-wrap");if(!wrap)return;
+  if(importJobItems.length===0){wrap.innerHTML="";return;}
+  let html=`<table class="ij-table"><thead><tr>
+    <th>Description</th><th>Qty</th><th>Unit</th><th>Rate</th>
+    <th>Category</th><th>ND</th><th>TL</th><th></th>
+  </tr></thead><tbody>`;
+  importJobItems.forEach((it,i)=>{
+    const warn=it.cat==="Other"?"ij-warn":"";
+    const opts=CATS.map(c=>`<option${c===it.cat?" selected":""}>${escHtml(c)}</option>`).join("");
+    html+=`<tr class="${warn}">
+      <td class="ij-scope">${escHtml(it.scope)}</td>
+      <td>${it.qty}</td><td>${escHtml(it.unit)}</td>
+      <td>$${it.rate.toLocaleString()}</td>
+      <td><select class="ij-cat-sel" onchange="updateImportCat(${i},this.value)">${opts}</select></td>
+      <td>${it.nd}</td><td>${it.tl}</td>
+      <td><button class="rem" onclick="removeImportItem(${i})" title="Remove row" style="padding:2px 7px;font-size:14px">✕</button></td>
+    </tr>`;
+  });
+  html+=`</tbody></table>`;
+  wrap.innerHTML=html;
+}
+
+function updateImportCat(idx,val){if(importJobItems[idx])importJobItems[idx].cat=val;}
+
+function removeImportItem(idx){
+  importJobItems.splice(idx,1);
+  renderImportTable();
+  if(importJobItems.length===0){
+    const ra=document.getElementById("ij-review-area");if(ra)ra.style.display="none";
+    showFMsg("ij-parse-msg","All rows removed","err");
+  }
+}
+
+function saveImportedJob(){
+  if(importJobItems.length===0){showFMsg("ij-save-msg","No items to save","err");return;}
+  const nameInp=document.getElementById("ij-job-name");
+  const notesInp=document.getElementById("ij-notes");
+  const folderSel=document.getElementById("ij-folder-select");
+  const name=(nameInp?nameInp.value.trim():"")||`Job ${new Date().toLocaleDateString("en-AU")}`;
+  const notes=notesInp?notesInp.value.trim():"";
+  const folderId=folderSel?folderSel.value||null:null;
+  savedJobs.unshift({id:uid(),name,date:new Date().toLocaleDateString("en-AU"),items:[...importJobItems],notes,folderId});
+  scheduleSyncPush();
+  closeModal("import-job-modal");
+  const fname=folderId?folders.find(f=>f.id===folderId)?.name:"";
+  toast(`"${name}" saved${fname?` in "${fname}"`:""}`, "ok");
+  renderJobs();
+  switchDesktopLeft("jobs");
 }
 
 // ── JOBS ──────────────────────────────────────────────────────────────────────
