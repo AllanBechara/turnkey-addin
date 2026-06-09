@@ -142,6 +142,9 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 .sel-item{padding:11px 14px;border-bottom:1px solid var(--bdr)}
 .sel-item-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
 .sel-scope{font-size:13px;font-weight:600;flex:1;line-height:1.35;color:var(--navy-dk)}
+.sel-scope-input{font-size:13px;font-weight:600;line-height:1.35;color:var(--navy-dk);width:100%;border:1px solid transparent;border-radius:5px;padding:2px 4px;background:transparent;resize:none;overflow:hidden;font-family:inherit;outline:none;box-sizing:border-box}
+.sel-scope-input:focus{border-color:var(--navy-lt);background:var(--surf2)}
+.sel-edited-tag{font-size:9px;color:var(--ok);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-top:2px}
 .sel-cat-label{font-size:10px;color:var(--mu);margin-top:1px}
 .rem{background:none;border:none;cursor:pointer;color:var(--mu2);font-size:22px;line-height:1;padding:0 2px;flex-shrink:0}
 .rem:active{color:var(--red)}
@@ -1765,14 +1768,15 @@ function renderSelected(){
   let total=0,html="";
   selected.forEach((it,i)=>{
     const v=Math.round(Number(it.qty)*Number(it.rate));total+=v;
+    const editedTag=it.customName?`<div class="sel-edited-tag">✎ edited for this job</div>`:"";
     html+=`<div class="sel-item">
       <div class="sel-item-head">
-        <div><div class="sel-scope">${it.scope}</div>${it.desc?`<div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">${it.desc}</div>`:""}<div class="sel-cat-label">${it.cat}</div></div>
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(${i},this.value)">${escHtml(it.scope)}</textarea>${it.desc?`<div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">${escHtml(it.desc)}</div>`:""}${editedTag}<div class="sel-cat-label">${escHtml(it.cat)}</div></div>
         <button class="rem" onclick="deselect(${i})">×</button>
       </div>
       <div class="sel-fields">
         <div class="sf"><label>Qty</label><input type="number" value="${it.qty}" onchange="updateSel(${i},'qty',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="${it.unit}" onchange="updateSel(${i},'unit',this.value)"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="${escHtml(it.unit)}" onchange="updateSel(${i},'unit',this.value)"></div>
         <div class="sf"><label>Rate</label><input type="number" value="${it.rate}" onchange="updateSel(${i},'rate',this.value)" inputmode="decimal"></div>
         <div class="sf"><label>Next due</label><input type="number" value="${it.nd}" onchange="updateSel(${i},'nd',this.value)" inputmode="numeric"></div>
         <div class="sf"><label>Life (yrs)</label><input type="number" value="${it.tl}" onchange="updateSel(${i},'tl',this.value)" inputmode="numeric"></div>
@@ -1781,6 +1785,7 @@ function renderSelected(){
     </div>`;
   });
   el.innerHTML=html;
+  el.querySelectorAll(".sel-scope-input").forEach(ta=>autoGrow(ta));
   if(tv)tv.textContent="$"+total.toLocaleString();
 }
 
@@ -1964,6 +1969,14 @@ function toggleItem(id){
 function deselect(i){selected.splice(i,1);renderSelected();updateBadges();}
 function clearAll(){selected=[];renderSelected();updateBadges();}
 function updateSel(i,f,v){selected[i][f]=f==="unit"?v:(Number(v)||0);renderSelected();}
+function autoGrow(el){el.style.height="auto";el.style.height=el.scrollHeight+"px";}
+function updateSelName(i,v){
+  const val=(v||"").trim();
+  if(!val){renderSelected();return;}
+  selected[i].scope=val;
+  selected[i].customName=true;
+  renderSelected();
+}
 function removeLib(id){
   const it=library.find(i=>i.id===id);
   if(!it)return;
@@ -2001,9 +2014,9 @@ function saveEditLib(id){
   it.qty=Number(document.getElementById(`ei-qty-${id}`).value)||1;
   it.nd=Number(document.getElementById(`ei-nd-${id}`).value)||1;
   it.tl=Number(document.getElementById(`ei-tl-${id}`).value)||10;
-  // Propagate changes to any currently selected instance
+  // Propagate changes to any currently selected instance (preserve per-job renames)
   const si=selected.find(s=>s.id===id);
-  if(si){si.scope=it.scope;si.desc=it.desc;si.cat=it.cat;si.unit=it.unit;si.rate=it.rate;}
+  if(si){if(!si.customName)si.scope=it.scope;si.desc=it.desc;si.cat=it.cat;si.unit=it.unit;si.rate=it.rate;}
   editingId=null;
   scheduleSyncPush();renderAll();
   toast("Item updated");
@@ -2249,7 +2262,7 @@ function loadJob(i){
 function addJobToLib(i){
   let added=0;
   savedJobs[i].items.forEach(it=>{
-    if(!library.find(l=>l.scope===it.scope&&l.cat===it.cat)){library.push({...it,id:uid()});added++;}
+    if(!library.find(l=>l.scope===it.scope&&l.cat===it.cat)){const clone={...it,id:uid()};delete clone.customName;library.push(clone);added++;}
   });
   if(added>0){scheduleSyncPush();renderLibrary();}
   toast(added>0?`${added} items added to library`:"All already in library");
