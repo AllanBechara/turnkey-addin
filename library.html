@@ -960,7 +960,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
           <input id="js-building" type="text" placeholder="e.g. Redmyre 2" autocomplete="off">
         </div>
         <div class="setup-field full">
-          <label>Strata Management Company</label>
+          <label style="display:flex;justify-content:space-between;align-items:center">Strata Management Company <button type="button" class="btn sm" onclick="addStrataCompany()" style="font-size:11px;color:var(--navy-md);padding:2px 8px">+ Add company</button></label>
           <select id="js-company"></select>
         </div>
         <div class="setup-field">
@@ -1354,7 +1354,7 @@ const DEFAULT_ITEMS = [
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let library=[], selected=[], savedJobs=[], folders=[], activeCat="All", currentView="library", desktopLeftView="library";
+let library=[], selected=[], savedJobs=[], folders=[], customCompanies=[], activeCat="All", currentView="library", desktopLeftView="library";
 let ghToken="", gistId="", syncTimer=null, isMobile=true;
 let repoToken="", repoOwner="", repoName="turnkey-addin", repoTimer=null;
 let editingId=null;
@@ -1399,14 +1399,14 @@ async function connectGist(){
           // Gist has old library — keep new DEFAULT_ITEMS, push update back up
           library=[...DEFAULT_ITEMS];
         }
-        savedJobs=data.savedJobs||savedJobs;folders=data.folders||folders;
+        savedJobs=data.savedJobs||savedJobs;folders=data.folders||folders;customCompanies=data.customCompanies||customCompanies;
       }
       toast("Connected — library synced","ok");
     } else {
       // Create new gist
       const newGist=await gistFetch("POST","/gists",{
         description:"TurnKey Item Library",public:false,
-        files:{[GIST_FILE]:{content:JSON.stringify({lib_version:LIBRARY_VERSION,library,savedJobs,folders})}}
+        files:{[GIST_FILE]:{content:JSON.stringify({lib_version:LIBRARY_VERSION,library,savedJobs,folders,customCompanies})}}
       });
       gistId=newGist.id;
       toast("Connected — new library created","ok");
@@ -1432,7 +1432,7 @@ async function pullGist(){
 async function pushGist(){
   if(!ghToken||!gistId)return;
   await gistFetch("PATCH",`/gists/${gistId}`,{
-    files:{[GIST_FILE]:{content:JSON.stringify({lib_version:LIBRARY_VERSION,library,savedJobs,folders})}}
+    files:{[GIST_FILE]:{content:JSON.stringify({lib_version:LIBRARY_VERSION,library,savedJobs,folders,customCompanies})}}
   });
 }
 
@@ -1447,17 +1447,17 @@ async function syncNow(){
       } else {
         library=[...DEFAULT_ITEMS];
       }
-      savedJobs=remote.savedJobs||savedJobs;folders=remote.folders||folders;
+      savedJobs=remote.savedJobs||savedJobs;folders=remote.folders||folders;customCompanies=remote.customCompanies||customCompanies;
     }
     await pushGist();
-    LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);
+    LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);LS.save("tk_companies",customCompanies);
     setSyncStatus("ok","Synced "+new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"}));
     renderAll();toast("Synced","ok");
   }catch(e){setSyncStatus("err","Sync failed");toast("Sync failed: "+e.message,"err");}
 }
 
 function scheduleSyncPush(){
-  LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);LS.save("tk_folders",folders);
+  LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);LS.save("tk_folders",folders);LS.save("tk_companies",customCompanies);
   if(ghToken&&gistId){
     clearTimeout(syncTimer);
     setSyncStatus("busy","Pending...");
@@ -1480,7 +1480,7 @@ function toBase64(str){
 
 function buildUpdatedHtml(){
   const customItems=library.filter(it=>!it.id.startsWith("x"));
-  const userData=JSON.stringify({customItems,savedJobs,folders});
+  const userData=JSON.stringify({customItems,savedJobs,folders,customCompanies});
   let html=document.documentElement.outerHTML;
   html=html.replace(
     /<script id="user-data">[\s\S]*?<\/script>/,
@@ -2351,11 +2351,37 @@ const STRATA_COMPANIES = [
   "Net Strata","MY StrataCare","Real Strata Management","Exclusive"
 ];
 
+function getAllCompanies(){
+  const seen=new Set(),out=[];
+  STRATA_COMPANIES.forEach(c=>{seen.add(c.trim().toLowerCase());out.push(c);});
+  customCompanies.slice().sort((a,b)=>a.localeCompare(b)).forEach(c=>{
+    const k=c.trim().toLowerCase();if(k&&!seen.has(k)){seen.add(k);out.push(c);}
+  });
+  return out;
+}
+
 function renderJobSetup(){
   const sel=document.getElementById("js-company");
-  if(sel) sel.innerHTML=STRATA_COMPANIES.map(c=>
+  if(!sel)return;
+  const prev=sel.value;
+  sel.innerHTML=getAllCompanies().map(c=>
     `<option value="${escHtml(c)}">${c||"— Not on list —"}</option>`
   ).join("");
+  if(prev)sel.value=prev;
+}
+
+function addStrataCompany(){
+  const name=prompt("New strata management company:");
+  if(!name||!name.trim())return;
+  const clean=name.trim(),k=clean.toLowerCase();
+  const all=[...STRATA_COMPANIES,...customCompanies];
+  const match=all.find(c=>c.trim().toLowerCase()===k);
+  if(match!=null){const sel=document.getElementById("js-company");if(sel)sel.value=match;toast(`"${clean}" is already on the list`);return;}
+  customCompanies.push(clean);
+  scheduleSyncPush();
+  renderJobSetup();
+  const sel=document.getElementById("js-company");if(sel)sel.value=clean;
+  toast(`Added "${clean}"`,"ok");
 }
 
 // ── STRATA HUB AUTO-LOOKUP ────────────────────────────────────────────────────
@@ -2783,6 +2809,7 @@ function init(){
   const udCustom  = ud.customItems || [];
   const udJobs    = ud.savedJobs   || [];
   const udFolders = ud.folders     || [];
+  const udCompanies = ud.customCompanies || [];
 
   // Base library from DEFAULT_ITEMS (version-checked)
   const storedVersion = LS.load("tk_lib_version","");
@@ -2802,6 +2829,8 @@ function init(){
   const lsFolders = LS.load("tk_folders",[]);
   savedJobs = udJobs.length    >= lsJobs.length    ? udJobs    : lsJobs;
   folders   = udFolders.length >= lsFolders.length ? udFolders : lsFolders;
+  const lsCompanies = LS.load("tk_companies",[]);
+  customCompanies = udCompanies.length >= lsCompanies.length ? udCompanies : lsCompanies;
 
   // Restore sync config
   ghToken   = LS.load("tk_token","");
