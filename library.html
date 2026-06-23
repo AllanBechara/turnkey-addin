@@ -2226,12 +2226,11 @@ function jobSpNumber(name){
 function autoSaveSetupJob(g,spNumOnly){
   const company=(g.company||"").trim();
   const name=`SP ${spNumOnly}${company?` - ${company}`:""}`;
-  const noteParts=[];
-  if(g.rawAddress)noteParts.push(g.rawAddress.trim());
-  if(g.regDateRaw)noteParts.push(`Registered: ${g.regDateRaw.trim()}`);
   const lotsNum=(g.rawLots||"").replace(/\D/g,"");
-  if(lotsNum)noteParts.push(`${lotsNum} Lots`);
-  const notes=noteParts.join("\n");
+  let head=(g.regDateRaw||"").trim();
+  if(lotsNum)head=head?`${head} - ${lotsNum} Lots`:`${lotsNum} Lots`;
+  const addr=(g.rawAddress||"").trim();
+  const notes=[head,addr].filter(Boolean).join(", ");
   const today=new Date().toLocaleDateString("en-AU");
   const existingIdx=savedJobs.findIndex(j=>jobSpNumber(j.name)===spNumOnly);
   if(existingIdx>-1){
