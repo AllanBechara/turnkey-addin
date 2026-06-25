@@ -2838,20 +2838,29 @@ function sumCells(r,row,HS,IS){
 }
 
 
-// Wipe the placeholder rows and write fresh content — exactly like pasting Copy-for-Excel at A6.
+// Wipe the placeholder rows and write fresh content
 function writeSummaryRows(xml){
   const grouped={};
   (typeof selected!=="undefined"?selected:[]).forEach(it=>{(grouped[it.cat]=grouped[it.cat]||[]).push(it);});
 
+  // 1. Define your Header Styles (HS) and Item Styles (IS)
+  // You can hardcode these style IDs, or use your cellStyleOf() helper to extract them from the original XML before slicing.
+  const HS = { A: "10", B: "11", C: "12", D: "13", E: "14", F: "15", G: "16", H: "17" }; // Replace with your actual bold style IDs
+  const IS = { A: "20", B: "21", C: "22", D: "23", E: "24", F: "25", G: "26", H: "27" }; // Replace with your actual standard style IDs
+
   let r=6, out="";
   CATS.forEach(cat=>{
-    out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'+sumCells(r,{bold:true,b:cat})+'</row>';
+    // 2. Pass HS and IS into sumCells
+    out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">' + sumCells(r, {bold:true, b:cat}, HS, IS) + '</row>';
     r++;
+    
     (grouped[cat]||[]).forEach(it=>{
-      out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'+sumCells(r,{bold:false,b:it.scope,c:it.qty,d:it.unit,e:it.rate,g:it.nd,h:it.tl})+'</row>';
+      // 3. Pass HS and IS here as well
+      out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">' + sumCells(r, {bold:false, b:it.scope, c:it.qty, d:it.unit, e:it.rate, g:it.nd, h:it.tl}, HS, IS) + '</row>';
       r++;
     });
   });
+
   // total label
   out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'
     +'<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
@@ -2859,6 +2868,7 @@ function writeSummaryRows(xml){
     +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/><c r="F'+r+'" s="49"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>'
     +'</row>';
   r++;
+  
   // subtotal with SUM
   out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'
     +'<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
@@ -2872,7 +2882,7 @@ function writeSummaryRows(xml){
   const start=xml.indexOf('<row r="6"');
   const end=xml.indexOf('</sheetData>');
   xml=xml.slice(0,start)+out+xml.slice(end);
-  return{xml,count:(typeof selected!=="undefined"?selected.length:0)};
+  return {xml, count:(typeof selected!=="undefined"?selected.length:0)};
 }
 
 function genEsc(s){
