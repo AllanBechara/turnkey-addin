@@ -198,16 +198,16 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 .notes-input{width:100%;padding:10px 12px;border:1px solid var(--bdr);border-radius:8px;font-size:13px;outline:none;background:var(--surf2);resize:none;line-height:1.5;min-height:80px;font-family:inherit;color:var(--tx)}
 .notes-input:focus{border-color:var(--navy-lt);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
 /* Folder rows */
-.folder-header{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--navy);cursor:pointer;user-select:none;border-bottom:1px solid rgba(255,255,255,0.12)}
-.folder-header:active{background:var(--navy-dk)}
-.folder-icon{font-size:15px;flex-shrink:0;transition:transform 0.2s}
+.folder-header{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--surf2);cursor:pointer;user-select:none;border-bottom:1px solid var(--bdr)}
+.folder-header:active{background:var(--cat)}
+.folder-icon{font-size:13px;flex-shrink:0;transition:transform 0.2s;color:var(--mu)}
 .folder-icon.closed{transform:rotate(-90deg)}
-.folder-title{font-size:13px;font-weight:700;color:#fff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.folder-count{font-size:11px;color:rgba(255,255,255,0.6);flex-shrink:0}
+.folder-title{font-size:12.5px;font-weight:700;color:var(--navy-dk);text-transform:uppercase;letter-spacing:0.04em;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.folder-count{font-size:11px;color:var(--mu2);flex-shrink:0}
 .folder-actions{display:flex;gap:4px;flex-shrink:0}
-.folder-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.85);border-radius:5px;padding:3px 8px;font-size:11px;cursor:pointer;min-height:28px;display:flex;align-items:center}
-.folder-btn:active{background:rgba(255,255,255,0.25)}
-.folder-jobs{display:block;border-bottom:2px solid var(--navy-lt)}
+.folder-btn{background:var(--surf);border:1px solid var(--bdr);color:var(--navy-md);border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer;min-height:28px;display:flex;align-items:center}
+.folder-btn:active{background:var(--cat)}
+.folder-jobs{display:block;border-bottom:1px solid var(--bdr)}
 .folder-jobs.collapsed{display:none}
 /* Unfiled section */
 .unfiled-header{padding:6px 14px;background:var(--cat);font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.07em;border-bottom:1px solid var(--bdr)}
@@ -250,7 +250,6 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 .how-steps li{counter-increment:steps;list-style:none;display:flex;gap:10px;margin-bottom:10px;font-size:12px;color:var(--tx);line-height:1.5}
 .how-steps li::before{content:counter(steps);min-width:22px;height:22px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
 .how-steps a{color:var(--navy-lt)}
-.gist-id-display{font-family:monospace;font-size:11px;background:var(--cat);padding:6px 10px;border-radius:5px;word-break:break-all;color:var(--navy-dk);margin-top:6px}
 .danger-zone{border-color:#ffd0d0}
 .danger-zone h3{color:var(--red)}
 
@@ -285,6 +284,25 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:99px}
+
+/* ── COMPLETED JOBS ── */
+.cj-toolbar{padding:10px 12px;border-bottom:1px solid var(--bdr);background:var(--surf);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+.cj-filters{display:flex;flex-wrap:wrap;gap:6px}
+.cj-filters select,.cj-filters input{padding:8px 10px;border:1px solid var(--bdr);border-radius:7px;font-size:12.5px;background:var(--surf2);color:var(--tx);outline:none}
+.cj-filters input[type=text]{flex:1;min-width:140px}
+.cj-filters select{cursor:pointer}
+.cj-summary{display:flex;align-items:center;justify-content:space-between;padding:0 2px}
+.cj-summary span{font-size:11.5px;color:var(--mu)}
+.cj-clear{background:none;border:none;color:var(--navy);font-size:12px;font-weight:600;cursor:pointer;padding:0}
+.cj-scroll{flex:1;overflow:auto;-webkit-overflow-scrolling:touch}
+.cj-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.cj-table th{text-align:left;padding:9px 10px;font-size:10.5px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;background:var(--surf2);border-bottom:1px solid var(--bdr);white-space:nowrap;cursor:pointer;user-select:none;position:sticky;top:0}
+.cj-table td{padding:9px 10px;border-bottom:1px solid var(--bdr);white-space:nowrap;vertical-align:middle}
+.cj-table tr.cj-flash td{background:var(--sel)}
+.cj-badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:600;white-space:nowrap}
+.cj-notes-cell{max-width:160px;overflow:hidden;text-overflow:ellipsis;color:var(--mu)}
+.cj-row-btns{display:flex;gap:5px;justify-content:flex-end}
+.cj-empty{padding:48px 20px;text-align:center;color:var(--mu);font-size:13px}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
@@ -296,7 +314,7 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
     <span class="sel-chip" id="sel-chip" style="">21 selected</span>
-    <div class="sync-dot ok" id="sync-dot" title="Synced 05:02 pm" onclick="showView('settings')"></div>
+    <div class="sync-dot idle" id="sync-dot" title="Not configured" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
@@ -307,6 +325,7 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
     <div class="desktop-tabs">
       <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
       <div class="dtab active" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
+      <div class="dtab" id="dtab-completed-jobs" onclick="switchDesktopLeft('completed-jobs')">✓ Completed Jobs</div>
       <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
       <div class="dtab" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
       <div class="dtab" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
@@ -331,7 +350,7 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
       <span class="folder-count">1 job</span>
       <div class="folder-actions" onclick="event.stopPropagation()">
         <button class="folder-btn" onclick="renameFolder('u1779768541150hh5')" title="Rename">✏</button>
-        <button class="folder-btn" onclick="deleteFolder('u1779768541150hh5')" title="Delete folder" style="color:#ffaaaa">✕</button>
+        <button class="folder-btn" onclick="deleteFolder('u1779768541150hh5')" title="Delete folder" style="color:var(--red)">✕</button>
       </div>
     </div>
     <div class="folder-jobs collapsed" id="folder-jobs-u1779768541150hh5">
@@ -368,7 +387,7 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
       <span class="folder-count">1 job</span>
       <div class="folder-actions" onclick="event.stopPropagation()">
         <button class="folder-btn" onclick="renameFolder('u178037136575874q')" title="Rename">✏</button>
-        <button class="folder-btn" onclick="deleteFolder('u178037136575874q')" title="Delete folder" style="color:#ffaaaa">✕</button>
+        <button class="folder-btn" onclick="deleteFolder('u178037136575874q')" title="Delete folder" style="color:var(--red)">✕</button>
       </div>
     </div>
     <div class="folder-jobs" id="folder-jobs-u178037136575874q">
@@ -405,7 +424,7 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
       <span class="folder-count">0 jobs</span>
       <div class="folder-actions" onclick="event.stopPropagation()">
         <button class="folder-btn" onclick="renameFolder('u1780462018619puv')" title="Rename">✏</button>
-        <button class="folder-btn" onclick="deleteFolder('u1780462018619puv')" title="Delete folder" style="color:#ffaaaa">✕</button>
+        <button class="folder-btn" onclick="deleteFolder('u1780462018619puv')" title="Delete folder" style="color:var(--red)">✕</button>
       </div>
     </div>
     <div class="folder-jobs collapsed" id="folder-jobs-u1780462018619puv">
@@ -726,6 +745,10 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
     <div class="bnav-icon">💼</div>
     <div class="bnav-label">Jobs</div>
   </div>
+  <div class="bnav-item" id="bnav-completed-jobs" onclick="showView('completed-jobs')">
+    <div class="bnav-icon">✓</div>
+    <div class="bnav-label">Completed</div>
+  </div>
   <div class="bnav-item" id="bnav-add" onclick="showView('add')">
     <div class="bnav-icon">＋</div>
     <div class="bnav-label">Add</div>
@@ -853,6 +876,66 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
   </div>
 </template>
 
+<template id="tmpl-completed-jobs">
+  <div class="cj-toolbar">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <span style="font-size:13px;font-weight:600" id="cj-total-label">0 completed jobs</span>
+      <button class="btn primary sm" onclick="cjOpenAdd()">+ Add Job</button>
+    </div>
+    <div class="cj-filters">
+      <input type="text" id="cj-search" placeholder="Search SP, address, company, notes…" oninput="renderCompletedJobs()" autocomplete="off">
+      <select id="cj-ftype" onchange="renderCompletedJobs()"></select>
+      <select id="cj-fstatus" onchange="renderCompletedJobs()"></select>
+      <select id="cj-fcompany" onchange="renderCompletedJobs()"></select>
+    </div>
+    <div class="cj-summary">
+      <span id="cj-shown-label">Showing 0 of 0</span>
+      <button class="cj-clear" id="cj-clear-btn" onclick="cjClearFilters()" style="display:none">Clear filters</button>
+    </div>
+  </div>
+  <div class="cj-scroll">
+    <table class="cj-table">
+      <thead>
+        <tr>
+          <th onclick="cjSortBy('sp')">SP<span id="cj-arrow-sp"></span></th>
+          <th onclick="cjSortBy('address')">Address<span id="cj-arrow-address"></span></th>
+          <th onclick="cjSortBy('jobType')">Job Type<span id="cj-arrow-jobType"></span></th>
+          <th onclick="cjSortBy('strataCompany')">Strata Company<span id="cj-arrow-strataCompany"></span></th>
+          <th>Contribution</th>
+          <th onclick="cjSortBy('dateCompleted')">Date Completed<span id="cj-arrow-dateCompleted"></span></th>
+          <th>Notes</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="cj-tbody"></tbody>
+    </table>
+    <div class="cj-empty" id="cj-empty" style="display:none">No jobs found. Try adjusting your search or filters.</div>
+  </div>
+</template>
+
+<div class="modal-overlay" id="cj-modal" onclick="if(event.target===this)cjCancelForm()">
+  <div class="modal">
+    <div class="modal-close-row"><button class="modal-close" onclick="cjCancelForm()">✕</button></div>
+    <h2 id="cj-form-title">Add a job</h2>
+    <div class="fg-row">
+      <div class="fg"><label>SP number *</label><input id="cj-f-sp" placeholder="SP 12345" autocomplete="off"></div>
+      <div class="fg"><label>Date completed</label><input id="cj-f-date" type="date"></div>
+    </div>
+    <div class="fg"><label>Address *</label><input id="cj-f-address" placeholder="Street, suburb" autocomplete="off"></div>
+    <div class="fg-row">
+      <div class="fg"><label>Job type</label><select id="cj-f-type"></select></div>
+      <div class="fg"><label>Contribution status</label><select id="cj-f-status"></select></div>
+    </div>
+    <div class="fg"><label>Strata company</label><select id="cj-f-company"></select></div>
+    <div class="fg"><label>Notes</label><textarea id="cj-f-notes" rows="3" placeholder="Optional notes…"></textarea></div>
+    <div class="form-msg" id="cj-form-msg"></div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:6px">
+      <button class="btn" onclick="cjCancelForm()">Cancel</button>
+      <button class="btn primary" id="cj-save-btn" onclick="cjSaveJob()">Add job</button>
+    </div>
+  </div>
+</div>
+
 <template id="tmpl-add">
   <div class="add-scroll">
     <div class="fg">
@@ -894,22 +977,9 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 <template id="tmpl-settings">
   <div class="settings-scroll">
 
-    <div class="settings-card">
-      <h3>☁ Cloud sync</h3>
-      <p>Your library syncs across all devices via a private GitHub Gist. Set it up once and every phone, tablet, and computer stays in sync automatically.</p>
-      <div class="sync-status-bar idle" id="sync-status-bar">○ Not configured</div>
-      <div class="token-input-wrap">
-        <input type="password" id="gh-token-input" placeholder="GitHub personal access token..." autocomplete="off" spellcheck="false">
-        <button class="btn primary sm" onclick="connectGist()">Connect</button>
-      </div>
-      <div style="font-size:11px;color:var(--mu)" id="gist-id-wrap">
-        Gist ID: <div class="gist-id-display" id="gist-id-display"></div>
-      </div>
-    </div>
-
     <div class="settings-card" style="border-color:var(--navy-lt)">
-      <h3>💾 Auto-save to HTML file</h3>
-      <p>Every time you add an item or save a job, the app automatically commits the updated HTML back to your GitHub repository. Your data is baked into the file itself — it can never be lost.</p>
+      <h3>💾 Auto-save to GitHub repo</h3>
+      <p>This is the only sync mechanism — there's no separate cloud copy. Every time you add an item, save a job, or log a completed job, the app waits ~8 seconds then commits the updated HTML straight back to your GitHub repository, with all your data baked into the file itself. Open the same GitHub Pages URL on any device and it loads whatever was last committed. Your token is only ever kept in this browser's local storage — it is never written into the file or the repo.</p>
       <div class="sync-status-bar idle" id="repo-status-bar">○ Not configured</div>
       <div class="fg" style="margin-bottom:8px">
         <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:4px">GitHub username</label>
@@ -931,16 +1001,15 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 
     <div class="settings-card">
       <h3>ℹ About sync</h3>
-      <p>Changes sync when you tap the ⟳ Sync button or automatically after 5 seconds of inactivity. The coloured dot in the top bar shows sync status — green = all saved, orange = syncing, red = error.</p>
-      <p style="margin-top:8px">Works offline too — changes are stored locally and pushed when you're back online.</p>
+      <p>Changes auto-commit ~8 seconds after you stop editing. The coloured dot in the top bar shows save status — green = committed, orange = pending/saving, red = error. Tap ⟳ Sync to push immediately instead of waiting.</p>
+      <p style="margin-top:8px">Works offline too — changes are stored locally and pushed to GitHub when you're back online. To pick up changes made on another device, reload this page (GitHub Pages serves the latest commit).</p>
       <button class="btn primary" style="width:100%" onclick="syncNow()">⟳ Sync now</button>
     </div>
 
     <div class="settings-card danger-zone">
       <h3>Reset</h3>
-      <p>Disconnect this device from sync, or reset the library to defaults.</p>
+      <p>Reset the library to defaults.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn sm" onclick="disconnectSync()" style="border-color:#ffd0d0;color:var(--red)">Disconnect sync</button>
         <button class="btn sm" onclick="resetLibrary()" style="border-color:#ffd0d0;color:var(--red)">Reset to defaults</button>
       </div>
     </div>
@@ -1358,7 +1427,11 @@ const DEFAULT_ITEMS = [
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let library=[], selected=[], savedJobs=[], folders=[], customCompanies=[], activeCat="All", currentView="library", desktopLeftView="library";
-let ghToken="", gistId="", syncTimer=null, isMobile=true;
+let completedJobs=[];
+const CJ_TYPES=["CWF","Asbestos","Safety"];
+const CJ_STATUSES=["Photos Only","Photos & Report","Report Only","Pending"];
+let cjSortKey="dateCompleted", cjSortDir="desc", cjEditingId=null, cjFlashId=null;
+let isMobile=true;
 let repoToken="", repoOwner="", repoName="turnkey-addin", repoTimer=null;
 let editingId=null;
 let movePickerJobIdx=null;
@@ -1370,105 +1443,15 @@ const LS={
   save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
 };
 
-// ── GITHUB GIST SYNC ──────────────────────────────────────────────────────────
-const GIST_FILE="turnkey-library.json";
-
-async function gistFetch(method,path,body){
-  const r=await fetch(`https://api.github.com${path}`,{
-    method,headers:{"Authorization":`token ${ghToken}`,"Content-Type":"application/json","Accept":"application/vnd.github.v3+json"},
-    body:body?JSON.stringify(body):undefined
-  });
-  if(!r.ok)throw new Error(`GitHub API ${r.status}`);
-  return r.json();
-}
-
-async function connectGist(){
-  const tok=(document.getElementById("gh-token-input")||{}).value?.trim();
-  if(!tok){toast("Paste your GitHub token first","err");return;}
-  ghToken=tok;
-  setSyncStatus("busy","Connecting...");
-  try{
-    // Find existing TurnKey gist or create one
-    const gists=await gistFetch("GET","/gists");
-    const existing=gists.find(g=>g.files&&g.files[GIST_FILE]);
-    if(existing){
-      gistId=existing.id;
-      // Pull remote data
-      const data=await pullGist();
-      if(data){
-        if(data.lib_version===LIBRARY_VERSION){
-          library=data.library||library;
-        } else {
-          // Gist has old library — keep new DEFAULT_ITEMS, push update back up
-          library=[...DEFAULT_ITEMS];
-        }
-        savedJobs=data.savedJobs||savedJobs;folders=data.folders||folders;customCompanies=data.customCompanies||customCompanies;
-      }
-      toast("Connected — library synced","ok");
-    } else {
-      // Create new gist
-      const newGist=await gistFetch("POST","/gists",{
-        description:"TurnKey Item Library",public:false,
-        files:{[GIST_FILE]:{content:JSON.stringify({lib_version:LIBRARY_VERSION,library,savedJobs,folders,customCompanies})}}
-      });
-      gistId=newGist.id;
-      toast("Connected — new library created","ok");
-    }
-    LS.save("tk_token",ghToken);
-    LS.save("tk_gist",gistId);
-    setSyncStatus("ok","Synced");
-    renderAll();
-    renderSettingsStatus();
-  }catch(e){
-    setSyncStatus("err","Connection failed — check your token");
-    toast("Could not connect: "+e.message,"err");
-    ghToken="";
-  }
-}
-
-async function pullGist(){
-  if(!ghToken||!gistId)return null;
-  const g=await gistFetch("GET",`/gists/${gistId}`);
-  return JSON.parse(g.files[GIST_FILE].content);
-}
-
-async function pushGist(){
-  if(!ghToken||!gistId)return;
-  await gistFetch("PATCH",`/gists/${gistId}`,{
-    files:{[GIST_FILE]:{content:JSON.stringify({lib_version:LIBRARY_VERSION,library,savedJobs,folders,customCompanies})}}
-  });
-}
-
-async function syncNow(){
-  if(!ghToken||!gistId){toast("Set up sync in the ⚙ Sync tab first");return;}
-  setSyncStatus("busy","Syncing...");
-  try{
-    const remote=await pullGist();
-    if(remote){
-      if(remote.lib_version===LIBRARY_VERSION){
-        library=remote.library||library;
-      } else {
-        library=[...DEFAULT_ITEMS];
-      }
-      savedJobs=remote.savedJobs||savedJobs;folders=remote.folders||folders;customCompanies=remote.customCompanies||customCompanies;
-    }
-    await pushGist();
-    LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);LS.save("tk_companies",customCompanies);
-    setSyncStatus("ok","Synced "+new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"}));
-    renderAll();toast("Synced","ok");
-  }catch(e){setSyncStatus("err","Sync failed");toast("Sync failed: "+e.message,"err");}
+// ── SYNC (single source of truth: the GitHub repo file) ───────────────────────
+function syncNow(){
+  if(!repoToken||!repoOwner||!repoName){toast("Set up auto-save in the ⚙ Sync tab first");return;}
+  clearTimeout(repoTimer);
+  pushToRepo();
 }
 
 function scheduleSyncPush(){
-  LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);LS.save("tk_folders",folders);LS.save("tk_companies",customCompanies);
-  if(ghToken&&gistId){
-    clearTimeout(syncTimer);
-    setSyncStatus("busy","Pending...");
-    syncTimer=setTimeout(async()=>{
-      try{await pushGist();setSyncStatus("ok","Synced "+new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"}));}
-      catch(e){setSyncStatus("err","Sync failed");}
-    },5000);
-  }
+  LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);LS.save("tk_folders",folders);LS.save("tk_companies",customCompanies);LS.save("tk_completed",completedJobs);
   scheduleRepoPush();
 }
 
@@ -1483,7 +1466,7 @@ function toBase64(str){
 
 function buildUpdatedHtml(){
   const customItems=library.filter(it=>!it.id.startsWith("x"));
-  const userData=JSON.stringify({customItems,savedJobs,folders,customCompanies});
+  const userData=JSON.stringify({customItems,savedJobs,folders,customCompanies,completedJobs});
   let html=document.documentElement.outerHTML;
   html=html.replace(
     /<script id="user-data">[\s\S]*?<\/script>/,
@@ -1551,29 +1534,11 @@ function setRepoStatus(type,msg){
   const bar=document.getElementById("repo-status-bar");
   const msgs={ok:"● "+msg,busy:"● "+msg,err:"● "+msg,idle:"○ Not configured"};
   if(bar){bar.className="sync-status-bar "+type;bar.textContent=msgs[type]||msgs.idle;}
-}
-
-function setSyncStatus(type,msg){
   const dot=document.getElementById("sync-dot");
   if(dot){dot.className="sync-dot "+type;dot.title=msg;}
-  renderSettingsStatus();
 }
 
 function renderSettingsStatus(){
-  const bar=document.getElementById("sync-status-bar");
-  if(bar){
-    const dot=document.getElementById("sync-dot");
-    const cls=dot?dot.className.replace("sync-dot ",""):"idle";
-    const msgs={ok:"● Synced",busy:"● Syncing...",err:"● Error — check settings",idle:"○ Not configured"};
-    bar.className="sync-status-bar "+cls;bar.textContent=msgs[cls]||msgs.idle;
-  }
-  const gidw=document.getElementById("gist-id-wrap");
-  const gidd=document.getElementById("gist-id-display");
-  if(gidw)gidw.style.display=gistId?"":"none";
-  if(gidd)gidd.textContent=gistId;
-  const inp=document.getElementById("gh-token-input");
-  if(inp&&ghToken)inp.value="••••••••••••••••••••";
-  // Repo status
   const rdw=document.getElementById("repo-disconnect-wrap");
   if(rdw)rdw.style.display=repoOwner?"":"none";
   const roi=document.getElementById("repo-owner-input");
@@ -1588,14 +1553,6 @@ function renderSettingsStatus(){
   } else {
     setRepoStatus("idle","Not configured");
   }
-}
-
-function disconnectSync(){
-  if(!confirm("Disconnect this device from sync? Your local data stays."))return;
-  ghToken="";gistId="";
-  LS.save("tk_token","");LS.save("tk_gist","");
-  setSyncStatus("idle","Not configured");
-  toast("Disconnected from sync");
 }
 
 function resetLibrary(){
@@ -1632,6 +1589,7 @@ function afterMount(v){
   if(v==="library"){renderLibrary();}
   else if(v==="selected"){renderSelected();}
   else if(v==="jobs"){renderJobs();populateFolderSelect();}
+  else if(v==="completed-jobs"){renderCompletedJobs();}
   else if(v==="add"){populateCatSelect();}
   else if(v==="settings"){renderSettingsStatus();}
   else if(v==="job-setup"){renderJobSetup();}
@@ -1815,7 +1773,7 @@ function renderJobs(){
       <span class="folder-count">${jobsInFolder.length} job${jobsInFolder.length!==1?"s":""}</span>
       <div class="folder-actions" onclick="event.stopPropagation()">
         <button class="folder-btn" onclick="renameFolder('${f.id}')" title="Rename">✏</button>
-        <button class="folder-btn" onclick="deleteFolder('${f.id}')" title="Delete folder" style="color:#ffaaaa">✕</button>
+        <button class="folder-btn" onclick="deleteFolder('${f.id}')" title="Delete folder" style="color:var(--red)">✕</button>
       </div>
     </div>
     <div class="folder-jobs${isOpen?"":" collapsed"}" id="folder-jobs-${f.id}">
@@ -1945,6 +1903,7 @@ function renderAll(){
   renderLibrary();
   renderSelected();
   renderJobs();
+  renderCompletedJobs();
   updateBadges();
 }
 
@@ -2301,6 +2260,221 @@ function addJobToLib(i){
 
 function deleteJob(i){
   const name=savedJobs[i].name;savedJobs.splice(i,1);scheduleSyncPush();renderJobs();toast(`Deleted "${name}"`);
+}
+
+// ── COMPLETED JOBS ────────────────────────────────────────────────────────────
+function cjUid(){return "cj"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+
+function cjBlankForm(){
+  const iso=new Date().toISOString().slice(0,10);
+  const companies=getAllCompanies().filter(Boolean);
+  return {sp:"",address:"",jobType:"CWF",strataCompany:companies[0]||"",status:"Photos & Report",dateCompleted:iso,notes:""};
+}
+
+function cjTypeStyle(t){const m={CWF:["#dbeafe","#1e40af"],Asbestos:["#fee2e2","#b91c1c"],Safety:["#cffafe","#0e7490"]};return m[t]||["#f1f5f9","#475569"];}
+function cjStatusStyle(s){const m={"Photos Only":["#f1f5f9","#475569"],"Photos & Report":["#dcfce7","#15803d"],"Report Only":["#ede9fe","#6d28d9"],"Pending":["#fef3c7","#b45309"]};return m[s]||["#f1f5f9","#475569"];}
+
+function cjFmtDate(iso){
+  if(!iso)return "—";
+  const d=new Date(iso+"T00:00:00");
+  if(isNaN(d.getTime()))return iso;
+  const mo=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return d.getDate()+" "+mo[d.getMonth()]+" "+d.getFullYear();
+}
+
+function cjFlash(id){
+  cjFlashId=id;renderCompletedJobs();
+  setTimeout(()=>{if(cjFlashId===id){cjFlashId=null;renderCompletedJobs();}},2600);
+}
+
+function cjPopulateFilterSelects(){
+  const ft=document.getElementById("cj-ftype"), fs=document.getElementById("cj-fstatus"), fc=document.getElementById("cj-fcompany");
+  if(!ft)return;
+  const prevT=ft.value||"All", prevS=fs.value||"All", prevC=fc.value||"All";
+  ft.innerHTML=`<option value="All">All types</option>`+CJ_TYPES.map(t=>`<option value="${escHtml(t)}">${escHtml(t)}</option>`).join("");
+  fs.innerHTML=`<option value="All">All statuses</option>`+CJ_STATUSES.map(s=>`<option value="${escHtml(s)}">${escHtml(s)}</option>`).join("");
+  const companies=[...new Set(completedJobs.map(j=>j.strataCompany).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+  fc.innerHTML=`<option value="All">All companies</option>`+companies.map(c=>`<option value="${escHtml(c)}">${escHtml(c)}</option>`).join("");
+  ft.value=[...ft.options].some(o=>o.value===prevT)?prevT:"All";
+  fs.value=[...fs.options].some(o=>o.value===prevS)?prevS:"All";
+  fc.value=[...fc.options].some(o=>o.value===prevC)?prevC:"All";
+}
+
+function cjClearFilters(){
+  const se=document.getElementById("cj-search"), ft=document.getElementById("cj-ftype"), fs=document.getElementById("cj-fstatus"), fc=document.getElementById("cj-fcompany");
+  if(se)se.value="";if(ft)ft.value="All";if(fs)fs.value="All";if(fc)fc.value="All";
+  renderCompletedJobs();
+}
+
+function cjSortBy(key){
+  if(cjSortKey===key)cjSortDir=cjSortDir==="asc"?"desc":"asc";
+  else{cjSortKey=key;cjSortDir=key==="dateCompleted"?"desc":"asc";}
+  renderCompletedJobs();
+}
+
+function renderCompletedJobs(){
+  const tbody=document.getElementById("cj-tbody");
+  if(!tbody)return;
+  cjPopulateFilterSelects();
+
+  const term=(document.getElementById("cj-search")||{}).value?.trim().toLowerCase()||"";
+  const fType=(document.getElementById("cj-ftype")||{}).value||"All";
+  const fStatus=(document.getElementById("cj-fstatus")||{}).value||"All";
+  const fCompany=(document.getElementById("cj-fcompany")||{}).value||"All";
+
+  let arr=completedJobs.filter(j=>{
+    if(fType!=="All"&&j.jobType!==fType)return false;
+    if(fStatus!=="All"&&j.status!==fStatus)return false;
+    if(fCompany!=="All"&&j.strataCompany!==fCompany)return false;
+    if(term){
+      const hay=[j.sp,j.address,j.strataCompany,j.jobType,j.status,j.notes,cjFmtDate(j.dateCompleted)].join(" ").toLowerCase();
+      if(!hay.includes(term))return false;
+    }
+    return true;
+  });
+
+  const dir=cjSortDir==="asc"?1:-1, key=cjSortKey;
+  arr=arr.slice().sort((a,b)=>{
+    let av=a[key],bv=b[key];
+    if(key==="sp"){av=parseInt(String(av).replace(/\D/g,""))||0;bv=parseInt(String(bv).replace(/\D/g,""))||0;return (av-bv)*dir;}
+    if(key==="dateCompleted")return (av<bv?-1:av>bv?1:0)*dir;
+    av=String(av).toLowerCase();bv=String(bv).toLowerCase();
+    return (av<bv?-1:av>bv?1:0)*dir;
+  });
+
+  tbody.innerHTML=arr.map(j=>{
+    const ts=cjTypeStyle(j.jobType), ss=cjStatusStyle(j.status);
+    const notes=j.notes&&j.notes.trim()?j.notes:"—";
+    return `<tr class="${j.id===cjFlashId?"cj-flash":""}">
+      <td style="font-family:'IBM Plex Mono',monospace;font-weight:500">${escHtml(j.sp)}</td>
+      <td>${escHtml(j.address)}</td>
+      <td><span class="cj-badge" style="background:${ts[0]};color:${ts[1]}">${escHtml(j.jobType)}</span></td>
+      <td>${escHtml(j.strataCompany)}</td>
+      <td><span class="cj-badge" style="background:${ss[0]};color:${ss[1]}">${escHtml(j.status)}</span></td>
+      <td style="font-family:'IBM Plex Mono',monospace;font-size:12px">${cjFmtDate(j.dateCompleted)}</td>
+      <td class="cj-notes-cell" title="${escHtml(j.notes||"")}">${escHtml(notes)}</td>
+      <td><div class="cj-row-btns"><button class="btn sm" onclick="cjOpenEdit('${j.id}')">Edit</button><button class="btn sm" style="color:var(--red)" onclick="cjDeleteJob('${j.id}')">Delete</button></div></td>
+    </tr>`;
+  }).join("");
+
+  const emptyEl=document.getElementById("cj-empty");
+  if(emptyEl)emptyEl.style.display=arr.length===0?"":"none";
+
+  const totalLabel=document.getElementById("cj-total-label");
+  if(totalLabel)totalLabel.textContent=`${completedJobs.length} completed job${completedJobs.length===1?"":"s"}`;
+  const shownLabel=document.getElementById("cj-shown-label");
+  if(shownLabel)shownLabel.textContent=`Showing ${arr.length} of ${completedJobs.length}`;
+  const clearBtn=document.getElementById("cj-clear-btn");
+  const hasFilters=!!term||fType!=="All"||fStatus!=="All"||fCompany!=="All";
+  if(clearBtn)clearBtn.style.display=hasFilters?"":"none";
+
+  ["sp","address","jobType","strataCompany","dateCompleted"].forEach(k=>{
+    const el=document.getElementById("cj-arrow-"+k);
+    if(el)el.textContent=cjSortKey===k?(cjSortDir==="asc"?"  ↑":"  ↓"):"";
+  });
+}
+
+function cjPopulateFormSelects(){
+  const typeSel=document.getElementById("cj-f-type"), statusSel=document.getElementById("cj-f-status"), compSel=document.getElementById("cj-f-company");
+  if(!typeSel)return;
+  typeSel.innerHTML=CJ_TYPES.map(t=>`<option value="${escHtml(t)}">${escHtml(t)}</option>`).join("");
+  statusSel.innerHTML=CJ_STATUSES.map(s=>`<option value="${escHtml(s)}">${escHtml(s)}</option>`).join("");
+  compSel.innerHTML=getAllCompanies().map(c=>`<option value="${escHtml(c)}">${c||"— Not on list —"}</option>`).join("");
+}
+
+function cjFillForm(f){
+  cjPopulateFormSelects();
+  document.getElementById("cj-f-sp").value=f.sp||"";
+  document.getElementById("cj-f-address").value=f.address||"";
+  document.getElementById("cj-f-date").value=f.dateCompleted||"";
+  document.getElementById("cj-f-type").value=f.jobType||"CWF";
+  document.getElementById("cj-f-status").value=f.status||"Pending";
+  document.getElementById("cj-f-company").value=f.strataCompany||"";
+  document.getElementById("cj-f-notes").value=f.notes||"";
+}
+
+function cjOpenAdd(){
+  cjEditingId=null;
+  document.getElementById("cj-form-title").textContent="Add a job";
+  document.getElementById("cj-save-btn").textContent="Add job";
+  cjFillForm(cjBlankForm());
+  showFMsg("cj-form-msg","","");
+  openModal("cj-modal");
+}
+
+function cjOpenEdit(id){
+  const job=completedJobs.find(j=>j.id===id);
+  if(!job)return;
+  cjEditingId=id;
+  document.getElementById("cj-form-title").textContent="Edit job";
+  document.getElementById("cj-save-btn").textContent="Save changes";
+  cjFillForm(job);
+  showFMsg("cj-form-msg","","");
+  openModal("cj-modal");
+}
+
+function cjCancelForm(){
+  cjEditingId=null;
+  closeModal("cj-modal");
+}
+
+function cjSaveJob(){
+  const f={
+    sp:document.getElementById("cj-f-sp").value.trim(),
+    address:document.getElementById("cj-f-address").value.trim(),
+    jobType:document.getElementById("cj-f-type").value,
+    status:document.getElementById("cj-f-status").value,
+    strataCompany:document.getElementById("cj-f-company").value,
+    dateCompleted:document.getElementById("cj-f-date").value,
+    notes:document.getElementById("cj-f-notes").value.trim()
+  };
+  if(!f.sp||!f.address){showFMsg("cj-form-msg","SP number and address are required.","err");return;}
+  let id=cjEditingId;
+  if(id){
+    completedJobs=completedJobs.map(j=>j.id===id?{...j,...f}:j);
+  } else {
+    id=cjUid();
+    completedJobs.unshift({id,...f});
+  }
+  scheduleSyncPush();
+  cjEditingId=null;
+  closeModal("cj-modal");
+  renderCompletedJobs();
+  cjFlash(id);
+  toast("Job saved","ok");
+}
+
+function cjDeleteJob(id){
+  const job=completedJobs.find(j=>j.id===id);
+  if(!job)return;
+  if(!confirm(`Delete completed job "${job.sp}"?`))return;
+  completedJobs=completedJobs.filter(j=>j.id!==id);
+  scheduleSyncPush();
+  renderCompletedJobs();
+  toast("Job deleted");
+}
+
+// Called from generateJobFolder() so a generated job folder also drops into Completed Jobs as a CWF/Pending entry.
+function autoAddCompletedJob(g,spNumOnly){
+  const job={
+    id:cjUid(),
+    sp:"SP "+spNumOnly,
+    address:(g.rawAddress||"").trim(),
+    jobType:"CWF",
+    strataCompany:(g.company||"").trim(),
+    status:"Pending",
+    dateCompleted:new Date().toISOString().slice(0,10),
+    notes:"Generated from Turnkey job folder"
+  };
+  const existingIdx=completedJobs.findIndex(j=>j.sp.replace(/\D/g,"")===spNumOnly);
+  if(existingIdx>-1){
+    completedJobs[existingIdx]={...completedJobs[existingIdx],address:job.address||completedJobs[existingIdx].address,strataCompany:job.strataCompany||completedJobs[existingIdx].strataCompany};
+  } else {
+    completedJobs.unshift(job);
+  }
+  scheduleSyncPush();
+  renderCompletedJobs();
+  cjFlash(existingIdx>-1?completedJobs[existingIdx].id:job.id);
 }
 // ── EXCEL COPY HELPERS ────────────────────────────────────────────────────────
 function buildExcelContent(grouped){
@@ -2771,6 +2945,7 @@ async function generateJobFolder(){
     if(b7)s4=setXmlCell(s4,"B7","n",excelSerial(b7));
     s4=setXmlCell(s4,"C7","n",(g.cwfBal||"").replace(/[^\d.\-]/g,"")||0);
     s4=setXmlCell(s4,"D7","n",(g.cwfContrib||"").replace(/[^\d.\-]/g,"")||0);
+    s4=setXmlCell(s4,"E6","n",(g.le||"").replace(/[^\d.]/g,"")||0);
     xlZip.file(SHEET_OPTIMIZE,s4);
 
     let s3=await xlZip.file(SHEET_SUMMARY).async("string");
@@ -2813,6 +2988,7 @@ async function generateJobFolder(){
   const itemCount = (typeof selected !== "undefined" ? selected.length : 0);
   showFMsg("gen-msg", `✓ Downloaded ${zipName} — filled Excel (${itemCount} item${itemCount === 1 ? "" : "s"}) + Word template inside`, "ok");
   autoSaveSetupJob(g, spNumOnly);
+  autoAddCompletedJob(g, spNumOnly);
 
 } catch(e) {
   // If anything above fails, this catches it
@@ -2835,50 +3011,45 @@ function toast(msg,type=""){
 const LIBRARY_VERSION = "4.1"; // bump this whenever DEFAULT_ITEMS is updated
 
 function init(){
-  // USER_DATA is baked into the HTML file — custom items + saved jobs survive
-  // even if localStorage is cleared or a new browser is used
-  const ud = (typeof USER_DATA !== "undefined") ? USER_DATA : {};
-  const udCustom  = ud.customItems || [];
-  const udJobs    = ud.savedJobs   || [];
-  const udFolders = ud.folders     || [];
-  const udCompanies = ud.customCompanies || [];
+  // USER_DATA is baked into this HTML file by the last commit pushed to the repo.
+  // Whatever GitHub Pages serves you IS the latest state — trust it completely
+  // over any stale localStorage from a previous visit on this device. Local
+  // storage is only a fallback for the very first run, before anything has
+  // ever been committed (e.g. opening the file straight from disk).
+  const ud = (typeof USER_DATA !== "undefined") ? USER_DATA : null;
+  const hasBaked = ud !== null;
 
-  // Base library from DEFAULT_ITEMS (version-checked)
+  // Library: when baked data exists, it's the full authoritative set —
+  // DEFAULT_ITEMS plus whatever custom items were committed. Don't merge in
+  // anything from localStorage, or a deleted custom item would resurrect itself.
   const storedVersion = LS.load("tk_lib_version","");
-  if(storedVersion !== LIBRARY_VERSION){
+  if(hasBaked){
+    library = [...DEFAULT_ITEMS, ...(ud.customItems||[])];
+  } else if(storedVersion !== LIBRARY_VERSION){
     library = [...DEFAULT_ITEMS];
-    LS.save("tk_lib_version", LIBRARY_VERSION);
   } else {
     library = LS.load("tk_lib",[...DEFAULT_ITEMS]);
   }
-  // Merge in baked custom items without duplicating
-  const existingIds = new Set(library.map(i=>i.id));
-  udCustom.forEach(it=>{ if(!existingIds.has(it.id)) library.push(it); });
+  LS.save("tk_lib_version", LIBRARY_VERSION);
   LS.save("tk_lib", library);
 
-  // Jobs + folders: prefer whichever source has more data
-  const lsJobs    = LS.load("tk_jobs",[]);
-  const lsFolders = LS.load("tk_folders",[]);
-  savedJobs = udJobs.length    >= lsJobs.length    ? udJobs    : lsJobs;
-  folders   = udFolders.length >= lsFolders.length ? udFolders : lsFolders;
-  const lsCompanies = LS.load("tk_companies",[]);
-  customCompanies = udCompanies.length >= lsCompanies.length ? udCompanies : lsCompanies;
+  savedJobs       = hasBaked ? (ud.savedJobs       || []) : LS.load("tk_jobs",[]);
+  folders         = hasBaked ? (ud.folders         || []) : LS.load("tk_folders",[]);
+  customCompanies = hasBaked ? (ud.customCompanies || []) : LS.load("tk_companies",[]);
+  completedJobs   = hasBaked ? (ud.completedJobs   || []) : LS.load("tk_completed",[]);
+  LS.save("tk_jobs",savedJobs);LS.save("tk_folders",folders);LS.save("tk_companies",customCompanies);LS.save("tk_completed",completedJobs);
 
-  // Restore sync config
-  ghToken   = LS.load("tk_token","");
-  gistId    = LS.load("tk_gist","8529c79a53285ec6f4db1adc04191c6a");
+  // Restore auto-save config (per-device — token never leaves this browser)
   repoToken = LS.load("tk_repo_token","");
   repoOwner = LS.load("tk_repo_owner","AllanBechara");
   repoName  = LS.load("tk_repo_name","turnkey-addin");
-  if(ghToken&&gistId) setSyncStatus("ok","Synced previously");
 
   // Layout
   detectLayout();
   window.addEventListener("resize",()=>{const was=isMobile;detectLayout();if(was!==isMobile)renderAll();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape")["paste-modal"].forEach(closeModal);});
 
-  // Auto-sync on load if configured
-  if(ghToken&&gistId) syncNow();
+  if(repoOwner&&repoToken) setRepoStatus("ok",`Connected — ${repoOwner}/${repoName}`);
 }
 
 init();
