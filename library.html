@@ -2814,21 +2814,29 @@ const SHEET_SUMMARY="xl/worksheets/sheet3.xml";  // "Summary Page for Building D
 function sumNum(v){const n=parseFloat(String(v==null?"":v).replace(/[^\d.\-]/g,""));return isNaN(n)?0:n;}
 
 // Build the A–H cells for one summary row (category header or item)
-function sumCells(r,row){
-  if(row.bold){
-    return '<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
-      +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.b)+'</t></is></c>'
-      +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>';
-  }
-  return '<c r="A'+r+'" s="56"><v>'+(r-5)+'</v></c>'
-    +'<c r="B'+r+'" s="4" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.b)+'</t></is></c>'
-    +'<c r="C'+r+'" s="52"><v>'+sumNum(row.c)+'</v></c>'
-    +'<c r="D'+r+'" s="48" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.d||"")+'</t></is></c>'
-    +'<c r="E'+r+'" s="53"><v>'+sumNum(row.e)+'</v></c>'
-    +'<c r="F'+r+'" s="49"><f>C'+r+'*E'+r+'</f></c>'
-    +'<c r="G'+r+'" s="50"><v>'+sumNum(row.g)+'</v></c>'
-    +'<c r="H'+r+'" s="50"><v>'+sumNum(row.h)+'</v></c>';
+function cellStyleOf(xml,ref){
+  const m=xml.match(new RegExp('<c r="'+ref+'"([^>]*?)(?:/>|>)'));
+  if(!m)return null;
+  const sm=m[1].match(/ s="(\d+)"/);
+  return sm?sm[1]:null;
 }
+
+function sumCells(r,row,HS,IS){
+  if(row.bold){
+    return '<c r="A'+r+'" s="'+HS.A+'"><v>'+(r-5)+'</v></c>'
+      +'<c r="B'+r+'" s="'+HS.B+'" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.b)+'</t></is></c>'
+      +'<c r="C'+r+'" s="'+HS.C+'"/><c r="D'+r+'" s="'+HS.D+'"/><c r="E'+r+'" s="'+HS.E+'"/><c r="F'+r+'" s="'+HS.F+'"/><c r="G'+r+'" s="'+HS.G+'"/><c r="H'+r+'" s="'+HS.H+'"/>';
+  }
+  return '<c r="A'+r+'" s="'+IS.A+'"><v>'+(r-5)+'</v></c>'
+    +'<c r="B'+r+'" s="'+IS.B+'" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.b)+'</t></is></c>'
+    +'<c r="C'+r+'" s="'+IS.C+'"><v>'+sumNum(row.c)+'</v></c>'
+    +'<c r="D'+r+'" s="'+IS.D+'" t="inlineStr"><is><t xml:space="preserve">'+genEsc(row.d||"")+'</t></is></c>'
+    +'<c r="E'+r+'" s="'+IS.E+'"><v>'+sumNum(row.e)+'</v></c>'
+    +'<c r="F'+r+'" s="'+IS.F+'"><f>C'+r+'*E'+r+'</f></c>'
+    +'<c r="G'+r+'" s="'+IS.G+'"><v>'+sumNum(row.g)+'</v></c>'
+    +'<c r="H'+r+'" s="'+IS.H+'"><v>'+sumNum(row.h)+'</v></c>';
+}
+
 
 // Wipe the placeholder rows and write fresh content — exactly like pasting Copy-for-Excel at A6.
 function writeSummaryRows(xml){
