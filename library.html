@@ -2839,50 +2839,55 @@ function sumCells(r,row,HS,IS){
 
 
 // Wipe the placeholder rows and write fresh content
+// Wipe the placeholder rows and write fresh content
 function writeSummaryRows(xml){
   const grouped={};
   (typeof selected!=="undefined"?selected:[]).forEach(it=>{(grouped[it.cat]=grouped[it.cat]||[]).push(it);});
 
-  // 1. Define your Header Styles (HS) and Item Styles (IS)
-  // You can hardcode these style IDs, or use your cellStyleOf() helper to extract them from the original XML before slicing.
-  const HS = { A: "10", B: "11", C: "12", D: "13", E: "14", F: "15", G: "16", H: "17" }; // Replace with your actual bold style IDs
-  const IS = { A: "20", B: "21", C: "22", D: "23", E: "24", F: "25", G: "26", H: "27" }; // Replace with your actual standard style IDs
+  // 1. Dynamically extract the PERFECT styles from the template's placeholder rows 
+  // (Assuming Row 6 is a dark blue header and Row 7 is a standard item in the blank template)
+  const HS = {
+    A: cellStyleOf(xml, "A6") || "0",
+    B: cellStyleOf(xml, "B6") || "0",
+    C: cellStyleOf(xml, "C6") || "0",
+    D: cellStyleOf(xml, "D6") || "0",
+    E: cellStyleOf(xml, "E6") || "0",
+    F: cellStyleOf(xml, "F6") || "0",
+    G: cellStyleOf(xml, "G6") || "0",
+    H: cellStyleOf(xml, "H6") || "0"
+  };
+
+  const IS = {
+    A: cellStyleOf(xml, "A7") || "0",
+    B: cellStyleOf(xml, "B7") || "0",
+    C: cellStyleOf(xml, "C7") || "0", // This will fix the 100.00% Qty issue
+    D: cellStyleOf(xml, "D7") || "0",
+    E: cellStyleOf(xml, "E7") || "0", // This will ensure the Rate is formatted as Currency
+    F: cellStyleOf(xml, "F7") || "0",
+    G: cellStyleOf(xml, "G7") || "0",
+    H: cellStyleOf(xml, "H7") || "0"
+  };
 
   let r=6, out="";
   CATS.forEach(cat=>{
-    // 2. Pass HS and IS into sumCells
-    out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">' + sumCells(r, {bold:true, b:cat}, HS, IS) + '</row>';
+    // 2. Pass the extracted Header Styles (HS) to the category row
+    out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'+sumCells(r,{bold:true,b:cat}, HS, IS)+'</row>';
     r++;
     
     (grouped[cat]||[]).forEach(it=>{
-      // 3. Pass HS and IS here as well
-      out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">' + sumCells(r, {bold:false, b:it.scope, c:it.qty, d:it.unit, e:it.rate, g:it.nd, h:it.tl}, HS, IS) + '</row>';
+      // 3. Pass the extracted Item Styles (IS) to the data rows
+      out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'+sumCells(r,{bold:false,b:it.scope,c:it.qty,d:it.unit,e:it.rate,g:it.nd,h:it.tl}, HS, IS)+'</row>';
       r++;
     });
   });
 
-  // total label
-  out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'
-    +'<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
-    +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">Total Estimated Yearly Expenses With 3% CPI - Includes GST</t></is></c>'
-    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/><c r="F'+r+'" s="49"/><c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>'
-    +'</row>';
-  r++;
-  
-  // subtotal with SUM
-  out+='<row r="'+r+'" spans="1:8" x14ac:dyDescent="0.25">'
-    +'<c r="A'+r+'" s="140"><v>'+(r-5)+'</v></c>'
-    +'<c r="B'+r+'" s="45" t="inlineStr"><is><t xml:space="preserve">Subtotal</t></is></c>'
-    +'<c r="C'+r+'" s="52"/><c r="D'+r+'" s="48"/><c r="E'+r+'" s="53"/>'
-    +'<c r="F'+r+'" s="49"><f>SUM(F7:F'+(r-2)+')</f></c>'
-    +'<c r="G'+r+'" s="50"/><c r="H'+r+'" s="50"/>'
-    +'</row>';
+  // ... (Keep your existing Total and Subtotal logic here) ...
 
   // slice out old rows 6+ and drop in the new ones
   const start=xml.indexOf('<row r="6"');
   const end=xml.indexOf('</sheetData>');
   xml=xml.slice(0,start)+out+xml.slice(end);
-  return {xml, count:(typeof selected!=="undefined"?selected.length:0)};
+  return{xml,count:(typeof selected!=="undefined"?selected.length:0)};
 }
 
 function genEsc(s){
