@@ -2904,6 +2904,15 @@ function writeSummaryRows(xml){
   xml=xml.slice(0,start)+out+xml.slice(end);
   return{xml,count:(typeof selected!=="undefined"?selected.length:0)};
 }
+// Escapes special characters so they don't break the XML structure
+function genEsc(s){
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
 function excelSerial(d){
   if(!d)return"";
   const utc=Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());
