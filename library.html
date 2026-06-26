@@ -303,6 +303,19 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 .cj-notes-cell{max-width:160px;overflow:hidden;text-overflow:ellipsis;color:var(--mu)}
 .cj-row-btns{display:flex;gap:5px;justify-content:flex-end}
 .cj-empty{padding:48px 20px;text-align:center;color:var(--mu);font-size:13px}
+
+/* ── SPLIT RESIZER (desktop) ── */
+.split-resizer{display:none}
+@media(min-width:768px){
+  .split-resizer{display:block;flex:0 0 6px;width:6px;cursor:col-resize;background:var(--bdr);position:relative;flex-shrink:0;align-self:stretch}
+  .split-resizer::before{content:"";position:absolute;inset:0 -3px;}
+  .split-resizer:hover,.split-resizer:active{background:var(--navy-lt)}
+}
+
+/* ── TO-DO (reuses .cj-* table styles) ── */
+.td-check{width:18px;height:18px;accent-color:var(--navy);cursor:pointer;flex-shrink:0;vertical-align:middle}
+.cj-table td.td-done{color:var(--mu2);text-decoration:line-through}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
@@ -314,143 +327,86 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
     <span class="sel-chip" id="sel-chip" style="">24 selected</span>
-    <div class="sync-dot busy" id="sync-dot" title="Saving to GitHub..." onclick="showView('settings')"></div>
+    <div class="sync-dot busy" id="sync-dot" title="Saving to GitHub…" onclick="showView('settings')"></div>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
   </div>
 </div>
 
 <div class="content-area">
 
-  <div class="left-panel" id="left-panel" style="display: flex;">
+  <div class="left-panel" id="left-panel" style="display: flex; width: 55%;">
     <div class="desktop-tabs">
       <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
       <div class="dtab" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
       <div class="dtab" id="dtab-completed-jobs" onclick="switchDesktopLeft('completed-jobs')">✓ Completed Jobs</div>
+      <div class="dtab" id="dtab-todos" onclick="switchDesktopLeft('todos')">☑ To-Do</div>
       <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
-      <div class="dtab active" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
-      <div class="dtab" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
+      <div class="dtab" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
+      <div class="dtab active" id="dtab-settings" onclick="switchDesktopLeft('settings')">⚙ Sync</div>
     </div>
     <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
-  <div class="setup-scroll">
+  <div class="settings-scroll">
 
-    <div>
-      <div class="setup-section-title">Job Details</div>
-      <div class="setup-grid">
-        <div class="setup-field full">
-          <label>SP Number</label>
-          <input id="js-sp" type="number" placeholder="e.g. 12345" inputmode="numeric" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label>Building Name</label>
-          <input id="js-building" type="text" placeholder="e.g. Redmyre 2" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label style="display:flex;justify-content:space-between;align-items:center">Strata Management Company <button type="button" class="btn sm" onclick="addStrataCompany()" style="font-size:11px;color:var(--navy-md);padding:2px 8px">+ Add company</button></label>
-          <select id="js-company"><option value="">— Not on list —</option><option value="Bay Strata">Bay Strata</option><option value="C.F Strata Management">C.F Strata Management</option><option value="Conti Strata">Conti Strata</option><option value="Eastern Star Strata">Eastern Star Strata</option><option value="Fabos Strata">Fabos Strata</option><option value="Hill Strata Solutions">Hill Strata Solutions</option><option value="Illawarra Strata">Illawarra Strata</option><option value="Jamesons Strata">Jamesons Strata</option><option value="Premium Strata">Premium Strata</option><option value="Kooper &amp; Levi">Kooper &amp; Levi</option><option value="Strata Only">Strata Only</option><option value="Strata Sense">Strata Sense</option><option value="Strathfield Partners">Strathfield Partners</option><option value="Vital Strata">Vital Strata</option><option value="Whelan Property">Whelan Property</option><option value="Wollongong Strata">Wollongong Strata</option><option value="Net Strata">Net Strata</option><option value="MY StrataCare">MY StrataCare</option><option value="Real Strata Management">Real Strata Management</option><option value="Exclusive">Exclusive</option></select>
-        </div>
-        <div class="setup-field">
-          <label>Lot Entitlements</label>
-          <input id="js-le" type="text" placeholder="e.g. 100" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>CWF Balance ($)</label>
-          <input id="js-cwfbal" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label>CWF Total Contributions ($)</label>
-          <input id="js-cwfcontrib" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Year Start Date</label>
-          <input id="js-yearstart" type="date">
-        </div>
-        <div class="setup-field">
-          <label>GST</label>
-          <label class="setup-toggle">
-            <span>GST Applicable</span>
-            <input type="checkbox" id="js-gst">
-          </label>
-        </div>
-        <div class="setup-field">
-          <label>Weather Condition</label>
-          <input id="js-weather" type="text" placeholder="e.g. Fine" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Prepared By</label>
-          <input id="js-preparedby" type="text" placeholder="e.g. Joseph Bechara" value="Joseph Bechara" autocomplete="off">
-        </div>
+    <div class="settings-card" style="border-color:var(--navy-lt)">
+      <h3>💾 Auto-save to GitHub repo</h3>
+      <p>This is your live backup. Every change is saved instantly on this device, then committed to your GitHub repository about a second and a half later — and flushed straight away if you close or switch tabs. Your data is written as a small <strong>turnkey-data.json</strong> file (the reliable source of truth) and also baked into the HTML. Open the same page on any device and it loads whatever was last committed. Your token is only ever kept in this browser's local storage — it is never written into the file or the repo.</p>
+      <div class="sync-status-bar busy" id="repo-status-bar">● Saving to GitHub…</div>
+      <div class="fg" style="margin-bottom:8px">
+        <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:4px">GitHub username</label>
+        <input type="text" id="repo-owner-input" placeholder="e.g. allanbechara" autocomplete="off" spellcheck="false" style="width:100%;padding:9px 12px;border:1px solid var(--bdr);border-radius:7px;font-size:13px;outline:none;background:var(--surf2)">
+      </div>
+      <div class="fg" style="margin-bottom:8px">
+        <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:4px">Repository name</label>
+        <input type="text" id="repo-name-input" placeholder="turnkey-addin" value="turnkey-addin" autocomplete="off" spellcheck="false" style="width:100%;padding:9px 12px;border:1px solid var(--bdr);border-radius:7px;font-size:13px;outline:none;background:var(--surf2)">
+      </div>
+      <div class="token-input-wrap">
+        <input type="password" id="repo-token-input" placeholder="Token with repo contents write..." autocomplete="off" spellcheck="false">
+        <button class="btn primary sm" onclick="connectRepo()">Connect</button>
+      </div>
+      <p style="margin-top:10px;font-size:11px;color:var(--mu)">Token needs <strong>Contents: Read &amp; Write</strong> permission for your repository. Use a fine-grained token from <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" style="color:var(--navy-lt)">github.com/settings/personal-access-tokens/new</a> — select your repo, grant Contents read/write.</p>
+      <div style="margin-top:8px" id="repo-disconnect-wrap">
+        <button class="btn sm" onclick="disconnectRepo()" style="color:var(--red);border-color:#ffd0d0">Disconnect auto-save</button>
       </div>
     </div>
 
-    <div>
-      <div class="setup-section-title">Strata Details</div>
-      <button class="btn primary" style="width:100%;min-height:44px;font-size:13px;margin-bottom:8px" onclick="lookupStrata()">🔍 Auto-fill from SP number</button>
-      <div class="form-msg ok" id="strata-lookup-msg" style="margin-bottom:8px">✓ Found: 5 CARRAMAR AVENUE CARRAMAR, CARRAMAR</div>
-      <div class="setup-grid">
-        <div class="setup-field full">
-          <label>Address</label>
-          <input id="js-address" type="text" placeholder="e.g. 150-152 MARINE PDE, MAROUBRA NSW 2035" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Registered Date</label>
-          <input id="js-regdate" type="text" placeholder="e.g. 05 Jun 1964" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>No. of Lots</label>
-          <input id="js-lots" type="text" placeholder="e.g. 12 Lots" autocomplete="off">
-        </div>
-      </div>
-      <div class="setup-hint">Enter the SP number above, then auto-fill. These fill from NSW Strata Hub but stay editable — or fill them manually if a plan isn't found.</div>
+    <div class="settings-card">
+      <h3>ℹ About sync</h3>
+      <p>Changes auto-commit about 1.5 seconds after you stop editing, and immediately when you close or switch away from the tab. The coloured dot in the top bar shows save status — green = committed, orange = pending/saving, red = error (it retries on its own). Tap ⟳ Sync to push immediately.</p>
+      <p style="margin-top:8px">Works offline too — changes are stored locally and pushed to GitHub when you're back online. Reopening on another device pulls the latest committed data automatically.</p>
+      <button class="btn primary" style="width:100%" onclick="syncNow()">⟳ Sync now</button>
     </div>
 
-    <div>
-      <div class="setup-section-title">Generate Job Folder</div>
-      <button class="btn primary" style="width:100%;min-height:52px;font-size:15px;font-weight:600" onclick="generateJobFolder()">⚡ Generate Job Folder</button>
-      <div class="setup-hint" style="margin-bottom:4px">Downloads a ZIP folder <strong>SP {number}.zip</strong> containing the filled Excel template and the Word template, ready to go.</div>
-      <div class="form-msg" id="gen-msg" style="margin-top:6px"></div>
-    </div>
-
-    <details>
-      <summary style="font-size:11px;color:var(--mu);cursor:pointer;padding:8px 0">Manual paste (fallback, if you'd rather paste into an open sheet)</summary>
-      <div style="margin-top:8px">
-        <div class="setup-section-title">Inputs &amp; Assumptions sheet</div>
-        <div class="setup-hint" style="margin-bottom:10px">Paste each in order at the cell shown. The runs skip the formula rows (C12, C14, C15) and the merged Variables header (C20).</div>
-        <div class="setup-copy-btns">
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyTopBlock()">① Scheme &amp; finances → paste at <strong>C4</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copySuburbCell()">② Suburb → paste at <strong>E4</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyLevy()">③ Levy per annum → paste at <strong>C13</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyPrepared()">④ Prepared / inspection → paste at <strong>C16</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyYearStart()">⑤ Financial year start → paste at <strong>C21</strong></button>
-        </div>
-        <div class="setup-section-title" style="margin-top:14px">Optimize Contribution sheet</div>
-        <div class="setup-copy-btns">
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyOptimizeSheet()">Contributions → paste at <strong>B7</strong></button>
-        </div>
-        <div class="form-msg" id="setup-msg" style="margin-top:10px"></div>
+    <div class="settings-card danger-zone">
+      <h3>Reset</h3>
+      <p>Reset the library to defaults.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn sm" onclick="resetLibrary()" style="border-color:#ffd0d0;color:var(--red)">Reset to defaults</button>
       </div>
-    </details>
+    </div>
 
   </div>
 </div>
   </div>
 
+  <div class="split-resizer" id="split-resizer" title="Drag to resize · double-click to reset" style="display: block;"></div>
+
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
-  <div class="strata-panel">
-    <div class="strata-panel-head">
-      <h2>🔍 Strata Search</h2>
+  <div class="sel-header">
+    <h2>Selected items</h2>
+    <span class="count-badge" id="sel-count-badge">0</span>
+    <button class="btn ghost sm" onclick="clearAll()">Clear</button>
+  </div>
+  <div class="sel-list" id="sel-list"><div class="empty"><span class="ei">☑</span>No items selected.<br>Go to Library and tick items to add them here.</div></div>
+  <div class="export-footer">
+    <div class="total-bar">
+      <span class="total-label">Total estimated value</span>
+      <span class="total-val" id="total-val">$0</span>
     </div>
-    <div style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:18px">
-      <div style="background:#e8f5e9;border:1px solid #b5dcb8;border-radius:10px;padding:14px 16px">
-        <div style="font-weight:600;color:var(--navy-dk);font-size:14px;margin-bottom:6px">⚡ Auto-fill is on</div>
-        <div style="font-size:12px;color:var(--tx);line-height:1.6">Enter the SP number in the form, then tap <strong>Auto-fill from SP number</strong>. The app pulls Address, Registered Date, and Lots straight from NSW Strata Hub — no copying needed.</div>
-      </div>
-      <div style="font-size:12px;color:var(--mu);line-height:1.6;text-align:center">
-        If a plan isn't found (very new registrations may not be in the dataset yet), use the official search and fill the three fields manually:
-      </div>
-      <a href="https://www.nsw.gov.au/housing-and-construction/strata/strata-search" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;background:var(--surf2);color:var(--navy-dk);border:1px solid var(--bdr);padding:14px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;min-height:50px">
-        Open NSW Strata Search ↗
-      </a>
+    <div class="export-btns">
+      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()" disabled="">📋 Copy for Excel</button>
+      <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
     </div>
+    <div class="export-status" id="export-status"></div>
   </div>
 </div>
 
@@ -475,6 +431,10 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
   <div class="bnav-item" id="bnav-completed-jobs" onclick="showView('completed-jobs')">
     <div class="bnav-icon">✓</div>
     <div class="bnav-label">Completed</div>
+  </div>
+  <div class="bnav-item" id="bnav-todos" onclick="showView('todos')">
+    <div class="bnav-icon">☑</div>
+    <div class="bnav-label">To-Do</div>
   </div>
   <div class="bnav-item" id="bnav-add" onclick="showView('add')">
     <div class="bnav-icon">＋</div>
@@ -552,7 +512,7 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
   </div>
 </div>
 
-<div id="toast" class="toast">"SP 6565 - Conti Strata" saved to Saved Jobs</div>
+<div id="toast" class="toast">Job deleted</div>
 
 <template id="tmpl-library">
   <div class="search-area">
@@ -663,6 +623,61 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
   </div>
 </div>
 
+<template id="tmpl-todos">
+  <div class="cj-toolbar">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <span style="font-size:13px;font-weight:600" id="td-total-label">0 tasks</span>
+      <button class="btn primary sm" onclick="tdOpenAdd()">+ Add Task</button>
+    </div>
+    <div class="cj-filters">
+      <input type="text" id="td-search" placeholder="Search tasks, notes…" oninput="renderTodos()" autocomplete="off">
+      <select id="td-fstatus" onchange="renderTodos()"></select>
+    </div>
+    <div class="cj-summary">
+      <span id="td-shown-label">Showing 0 of 0</span>
+      <button class="cj-clear" id="td-clear-btn" onclick="tdClearFilters()" style="display:none">Clear filters</button>
+    </div>
+  </div>
+  <div class="cj-scroll">
+    <table class="cj-table">
+      <thead>
+        <tr>
+          <th style="width:34px" title="Done"></th>
+          <th onclick="tdSortBy('task')">Task<span id="td-arrow-task"></span></th>
+          <th onclick="tdSortBy('status')">Status<span id="td-arrow-status"></span></th>
+          <th onclick="tdSortBy('dateAssigned')">Date Assigned<span id="td-arrow-dateAssigned"></span></th>
+          <th onclick="tdSortBy('dateCompleted')">Date Completed<span id="td-arrow-dateCompleted"></span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="td-tbody"></tbody>
+    </table>
+    <div class="cj-empty" id="td-empty" style="display:none">No tasks yet. Tap “+ Add Task” to create one.</div>
+  </div>
+</template>
+
+<div class="modal-overlay" id="td-modal" onclick="if(event.target===this)tdCancelForm()">
+  <div class="modal">
+    <div class="modal-close-row"><button class="modal-close" onclick="tdCancelForm()">✕</button></div>
+    <h2 id="td-form-title">Add a task</h2>
+    <div class="fg"><label>Task *</label><input id="td-f-task" placeholder="What needs doing?" autocomplete="off"></div>
+    <div class="fg-row">
+      <div class="fg"><label>Status</label><select id="td-f-status"></select></div>
+      <div class="fg"><label>Date assigned</label><input id="td-f-assigned" type="date"></div>
+    </div>
+    <div class="fg-row">
+      <div class="fg"><label>Date completed</label><input id="td-f-completed" type="date"></div>
+      <div class="fg"><label>&nbsp;</label><div style="font-size:11px;color:var(--mu);line-height:1.4;padding-top:6px">Set automatically when status is “Done”.</div></div>
+    </div>
+    <div class="fg"><label>Notes</label><textarea id="td-f-notes" rows="3" placeholder="Optional notes…"></textarea></div>
+    <div class="form-msg" id="td-form-msg"></div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:6px">
+      <button class="btn" onclick="tdCancelForm()">Cancel</button>
+      <button class="btn primary" id="td-save-btn" onclick="tdSaveTask()">Add task</button>
+    </div>
+  </div>
+</div>
+
 <template id="tmpl-add">
   <div class="add-scroll">
     <div class="fg">
@@ -706,7 +721,7 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 
     <div class="settings-card" style="border-color:var(--navy-lt)">
       <h3>💾 Auto-save to GitHub repo</h3>
-      <p>This is the only sync mechanism — there's no separate cloud copy. Every time you add an item, save a job, or log a completed job, the app waits ~8 seconds then commits the updated HTML straight back to your GitHub repository, with all your data baked into the file itself. Open the same GitHub Pages URL on any device and it loads whatever was last committed. Your token is only ever kept in this browser's local storage — it is never written into the file or the repo.</p>
+      <p>This is your live backup. Every change is saved instantly on this device, then committed to your GitHub repository about a second and a half later — and flushed straight away if you close or switch tabs. Your data is written as a small <strong>turnkey-data.json</strong> file (the reliable source of truth) and also baked into the HTML. Open the same page on any device and it loads whatever was last committed. Your token is only ever kept in this browser's local storage — it is never written into the file or the repo.</p>
       <div class="sync-status-bar idle" id="repo-status-bar">○ Not configured</div>
       <div class="fg" style="margin-bottom:8px">
         <label style="font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:4px">GitHub username</label>
@@ -728,8 +743,8 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 
     <div class="settings-card">
       <h3>ℹ About sync</h3>
-      <p>Changes auto-commit ~8 seconds after you stop editing. The coloured dot in the top bar shows save status — green = committed, orange = pending/saving, red = error. Tap ⟳ Sync to push immediately instead of waiting.</p>
-      <p style="margin-top:8px">Works offline too — changes are stored locally and pushed to GitHub when you're back online. To pick up changes made on another device, reload this page (GitHub Pages serves the latest commit).</p>
+      <p>Changes auto-commit about 1.5 seconds after you stop editing, and immediately when you close or switch away from the tab. The coloured dot in the top bar shows save status — green = committed, orange = pending/saving, red = error (it retries on its own). Tap ⟳ Sync to push immediately.</p>
+      <p style="margin-top:8px">Works offline too — changes are stored locally and pushed to GitHub when you're back online. Reopening on another device pulls the latest committed data automatically.</p>
       <button class="btn primary" style="width:100%" onclick="syncNow()">⟳ Sync now</button>
     </div>
 
@@ -868,7 +883,7 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 </template>
 
 <script id="user-data">
-const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u178036932353337e","cat":"Landscaping","scope":"Colorbond fencing replacement (Approx. )","desc":"measure on google maps","qty":1,"unit":"lm","rate":200,"nd":10,"tl":10},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":1,"unit":"ea","rate":300,"nd":7,"tl":7},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":10,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10}],"savedJobs":[{"id":"u1782359029797ok8","name":"SP 6565 - Conti Strata","date":"25/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"13 Nov 1972 - 24 Lots, 5 CARRAMAR AVENUE CARRAMAR, CARRAMAR NSW 2163","folderId":null},{"id":"u17803720422421hw","name":"SP 79900","date":"02/06/2026","items":[{"id":"x248","cat":"Furnishings","scope":"Building signage and letterboxes","desc":"Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":2,"unit":"item","rate":1000,"nd":8,"tl":8},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":15,"unit":"ea","rate":250,"nd":5,"tl":7},{"id":"x098","cat":"Doors & windows","scope":"Repaint entry doors to townhouses","desc":"","qty":15,"unit":"ea","rate":300,"nd":5,"tl":7},{"id":"x109","cat":"Roofing","scope":"Box gutters, capping, flashing and downpipe - repairs as needed","desc":"","qty":15,"unit":"item","rate":1500,"nd":4,"tl":4},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":4,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":15,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"x107","cat":"Roofing","scope":"Re-cement / re-point ridge capping","desc":"","qty":50,"unit":"item","rate":125,"nd":7,"tl":7},{"id":"x111","cat":"Roofing","scope":"Lead flashing repairs","desc":"Repair and re-dress lead flashings to roof penetrations","qty":12,"unit":"item","rate":750,"nd":6,"tl":6},{"id":"x135","cat":"Electrical","scope":"Common area wall/ceiling mounted lighting - upgrade/replacement as needed","desc":"","qty":15,"unit":"item","rate":325,"nd":4,"tl":10},{"id":"x254","cat":"Car parking","scope":"Repaint yellow protection bollards","desc":"","qty":4,"unit":"item","rate":400,"nd":7,"tl":7},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":60,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"x159","cat":"HVAC","scope":"Exhaust and supply fan motors to car parks","desc":"Replace exhaust and supply fan motors in basement car parks","qty":3,"unit":"item","rate":1600,"nd":7,"tl":7},{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":5200,"nd":3,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":2,"unit":"ea","rate":3252,"nd":5,"tl":5},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":20,"nd":1,"tl":3},{"id":"x274","cat":"Other","scope":"Specialist reports required as per DPBA","desc":"","qty":1,"unit":"m2","rate":2500,"nd":5,"tl":5}],"notes":"Registered 2008 - 15 Lots","folderId":"u178037136575874q"},{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":true},{"id":"u178037136575874q","name":"Townhouses","open":false},{"id":"u1780462018619puv","name":"Red Brick Stairwell","open":false}],"customCompanies":[],"completedJobs":[{"id":"cjmqsyjp5y5yo9z","sp":"SP 6565","address":"5 CARRAMAR AVENUE CARRAMAR, CARRAMAR NSW 2163","jobType":"CWF","strataCompany":"Conti Strata","status":"Pending","dateCompleted":"2026-06-25","notes":"Generated from Turnkey job folder"}]};
+const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u178036932353337e","cat":"Landscaping","scope":"Colorbond fencing replacement (Approx. )","desc":"measure on google maps","qty":1,"unit":"lm","rate":200,"nd":10,"tl":10},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":1,"unit":"ea","rate":300,"nd":7,"tl":7},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":10,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10}],"savedJobs":[{"id":"u1782359029797ok8","name":"SP 6565 - Conti Strata","date":"25/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"13 Nov 1972 - 24 Lots, 5 CARRAMAR AVENUE CARRAMAR, CARRAMAR NSW 2163","folderId":null},{"id":"u17803720422421hw","name":"SP 79900","date":"02/06/2026","items":[{"id":"x248","cat":"Furnishings","scope":"Building signage and letterboxes","desc":"Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":2,"unit":"item","rate":1000,"nd":8,"tl":8},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":15,"unit":"ea","rate":250,"nd":5,"tl":7},{"id":"x098","cat":"Doors & windows","scope":"Repaint entry doors to townhouses","desc":"","qty":15,"unit":"ea","rate":300,"nd":5,"tl":7},{"id":"x109","cat":"Roofing","scope":"Box gutters, capping, flashing and downpipe - repairs as needed","desc":"","qty":15,"unit":"item","rate":1500,"nd":4,"tl":4},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":4,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":15,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"x107","cat":"Roofing","scope":"Re-cement / re-point ridge capping","desc":"","qty":50,"unit":"item","rate":125,"nd":7,"tl":7},{"id":"x111","cat":"Roofing","scope":"Lead flashing repairs","desc":"Repair and re-dress lead flashings to roof penetrations","qty":12,"unit":"item","rate":750,"nd":6,"tl":6},{"id":"x135","cat":"Electrical","scope":"Common area wall/ceiling mounted lighting - upgrade/replacement as needed","desc":"","qty":15,"unit":"item","rate":325,"nd":4,"tl":10},{"id":"x254","cat":"Car parking","scope":"Repaint yellow protection bollards","desc":"","qty":4,"unit":"item","rate":400,"nd":7,"tl":7},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":60,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"x159","cat":"HVAC","scope":"Exhaust and supply fan motors to car parks","desc":"Replace exhaust and supply fan motors in basement car parks","qty":3,"unit":"item","rate":1600,"nd":7,"tl":7},{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":5200,"nd":3,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":2,"unit":"ea","rate":3252,"nd":5,"tl":5},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":20,"nd":1,"tl":3},{"id":"x274","cat":"Other","scope":"Specialist reports required as per DPBA","desc":"","qty":1,"unit":"m2","rate":2500,"nd":5,"tl":5}],"notes":"Registered 2008 - 15 Lots","folderId":"u178037136575874q"},{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":true},{"id":"u178037136575874q","name":"Townhouses","open":false},{"id":"u1780462018619puv","name":"Red Brick Stairwell","open":false}],"customCompanies":[],"completedJobs":[],"todos":[],"_savedAt":1782440952533};
 </script>
 
 <script>
@@ -1156,6 +1171,8 @@ const DEFAULT_ITEMS = [
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let library=[], selected=[], savedJobs=[], folders=[], customCompanies=[], activeCat="All", currentView="library", desktopLeftView="library";
 let completedJobs=[];
+let todos=[];
+const TD_STATUSES=["To Do","In Progress","Done"];
 const CJ_TYPES=["CWF","Asbestos","Safety"];
 const CJ_STATUSES=["Photos Only","Photos & Report","Report Only","Pending"];
 let cjSortKey="dateCompleted", cjSortDir="desc", cjEditingId=null, cjFlashId=null;
@@ -1164,6 +1181,7 @@ let repoToken="", repoOwner="", repoName="turnkey-addin", repoTimer=null;
 let editingId=null;
 let movePickerJobIdx=null;
 let collapsedCats=new Set(CATS);
+let splitWidth=null;   // px width of the left panel on desktop (null = default 55%)
 
 // ── LOCAL STORAGE ─────────────────────────────────────────────────────────────
 const LS={
@@ -1171,7 +1189,46 @@ const LS={
   save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
 };
 
-// ── SYNC (single source of truth: the GitHub repo file) ───────────────────────
+// ── SAVE / SYNC ───────────────────────────────────────────────────────────────
+// Two independent layers of safety so a change can NEVER silently disappear:
+//   1) Every edit is written to this browser's localStorage immediately, stamped
+//      with the time. On load we keep whichever copy is NEWER — the local one or
+//      the data baked into the file served by GitHub — so an un-pushed change
+//      always survives a reload.
+//   2) Changes commit to GitHub as a small JSON data file (turnkey-data.json, the
+//      reliable source of truth) plus the full HTML, ~1.5s after you stop editing,
+//      and are flushed immediately when you close or switch away from the tab.
+const DATA_FILE="turnkey-data.json";
+const HTML_FILE="library.html";
+let repoDirty=false, repoBusy=false, repoShaJson=null, repoShaHtml=null;
+
+function collectData(){
+  return {
+    customItems: library.filter(it=>!it.id.startsWith("x")),
+    savedJobs, folders, customCompanies, completedJobs, todos,
+    _savedAt: Date.now()
+  };
+}
+
+function persistLocal(){
+  const d=collectData();
+  LS.save("tk_data",d);
+  LS.save("tk_saved_at",d._savedAt);
+  // legacy per-key copies (kept for backward compatibility)
+  LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);LS.save("tk_folders",folders);
+  LS.save("tk_companies",customCompanies);LS.save("tk_completed",completedJobs);LS.save("tk_todos",todos);
+}
+
+function applyData(d){
+  if(!d)return;
+  library=[...DEFAULT_ITEMS, ...(d.customItems||[])];
+  savedJobs=d.savedJobs||[];
+  folders=d.folders||[];
+  customCompanies=d.customCompanies||[];
+  completedJobs=d.completedJobs||[];
+  todos=d.todos||[];
+}
+
 function syncNow(){
   if(!repoToken||!repoOwner||!repoName){toast("Set up auto-save in the ⚙ Sync tab first");return;}
   clearTimeout(repoTimer);
@@ -1179,8 +1236,16 @@ function syncNow(){
 }
 
 function scheduleSyncPush(){
-  LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);LS.save("tk_folders",folders);LS.save("tk_companies",customCompanies);LS.save("tk_completed",completedJobs);
-  scheduleRepoPush();
+  persistLocal();          // ← saved on THIS device the instant you edit
+  scheduleRepoPush();      // ← committed to GitHub shortly after
+}
+
+function scheduleRepoPush(){
+  repoDirty=true;
+  if(!repoToken||!repoOwner||!repoName)return;
+  clearTimeout(repoTimer);
+  setRepoStatus("busy","Changes pending…");
+  repoTimer=setTimeout(()=>pushToRepo(),1500);
 }
 
 // ── AUTO-SAVE TO GITHUB REPO ──────────────────────────────────────────────────
@@ -1191,10 +1256,12 @@ function toBase64(str){
     bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+chunk));
   return btoa(bin);
 }
+function fromBase64(b64){
+  return decodeURIComponent(escape(atob(String(b64).replace(/\s/g,""))));
+}
 
 function buildUpdatedHtml(){
-  const customItems=library.filter(it=>!it.id.startsWith("x"));
-  const userData=JSON.stringify({customItems,savedJobs,folders,customCompanies,completedJobs});
+  const userData=JSON.stringify(collectData());
   let html=document.documentElement.outerHTML;
   html=html.replace(
     /<script id="user-data">[\s\S]*?<\/script>/,
@@ -1203,32 +1270,82 @@ function buildUpdatedHtml(){
   return "<!DOCTYPE html>\n"+html;
 }
 
-async function pushToRepo(){
-  if(!repoToken||!repoOwner||!repoName)return;
-  try{
-    setRepoStatus("busy","Saving to GitHub...");
-    const apiBase=`https://api.github.com/repos/${repoOwner}/${repoName}/contents/library.html`;
-    const r=await fetch(apiBase,{headers:{"Authorization":`token ${repoToken}`,"Accept":"application/vnd.github.v3+json"}});
-    if(!r.ok)throw new Error("Could not read file ("+r.status+")");
-    const data=await r.json();
-    const sha=data.sha;
-    const html=buildUpdatedHtml();
-    const encoded=toBase64(html);
-    const pr=await fetch(apiBase,{
-      method:"PUT",
-      headers:{"Authorization":`token ${repoToken}`,"Content-Type":"application/json","Accept":"application/vnd.github.v3+json"},
-      body:JSON.stringify({message:"Auto-save: "+new Date().toLocaleDateString("en-AU"),content:encoded,sha})
-    });
-    if(!pr.ok)throw new Error("Push failed ("+pr.status+")");
-    setRepoStatus("ok","Saved to GitHub ✓ "+new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"}));
-  }catch(e){setRepoStatus("err","Auto-save failed: "+e.message);}
+function ghHeaders(){return {"Authorization":`token ${repoToken}`,"Accept":"application/vnd.github.v3+json"};}
+function ghUrl(file){return `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${file}`;}
+
+// GET a file's current sha (null if it doesn't exist yet)
+async function ghSha(file){
+  const r=await fetch(ghUrl(file),{headers:ghHeaders(),cache:"no-store"});
+  if(r.status===404)return null;
+  if(!r.ok)throw new Error("read "+file+" ("+r.status+")");
+  return (await r.json()).sha;
 }
 
-function scheduleRepoPush(){
+// PUT content; if the sha is stale (409/422) re-fetch it and retry once.
+async function ghPut(file,contentB64,sha,opts){
+  const mk=s=>{const b={message:"TurnKey auto-save "+new Date().toISOString(),content:contentB64};if(s)b.sha=s;return JSON.stringify(b);};
+  const req=b=>fetch(ghUrl(file),{method:"PUT",headers:{...ghHeaders(),"Content-Type":"application/json"},body:b,...(opts||{})});
+  let r=await req(mk(sha));
+  if(r.status===409||r.status===422){
+    const fresh=await ghSha(file);
+    r=await req(mk(fresh||undefined));
+  }
+  if(!r.ok)throw new Error(file+" save ("+r.status+")");
+  const j=await r.json().catch(()=>({}));
+  return j.content&&j.content.sha;
+}
+
+async function pushToRepo(opts){
+  if(!repoToken||!repoOwner||!repoName)return false;
+  if(repoBusy)return false;
+  repoBusy=true;
+  try{
+    setRepoStatus("busy","Saving to GitHub…");
+    // 1) Primary save: the small JSON file. Fast, and it can't be corrupted by
+    //    DOM quirks the way a full-HTML rewrite can — this is the source of truth.
+    if(repoShaJson===null){try{repoShaJson=await ghSha(DATA_FILE);}catch(e){repoShaJson=undefined;}}
+    repoShaJson=await ghPut(DATA_FILE,toBase64(JSON.stringify(collectData())),repoShaJson||undefined,opts);
+    // 2) Secondary, best-effort: refresh the full HTML so the served page stays
+    //    self-sufficient. If this part fails, the data is already safe in JSON.
+    try{
+      if(repoShaHtml===null){repoShaHtml=await ghSha(HTML_FILE);}
+      repoShaHtml=await ghPut(HTML_FILE,toBase64(buildUpdatedHtml()),repoShaHtml||undefined,opts);
+    }catch(e){/* non-fatal */}
+    repoDirty=false;
+    setRepoStatus("ok","Saved to GitHub ✓ "+new Date().toLocaleTimeString("en-AU",{hour:"2-digit",minute:"2-digit"}));
+    return true;
+  }catch(e){
+    setRepoStatus("err","Auto-save failed: "+e.message+" — will retry");
+    clearTimeout(repoTimer);repoTimer=setTimeout(()=>pushToRepo(),6000);
+    return false;
+  }finally{repoBusy=false;}
+}
+
+// On load, pull the latest committed data straight from the GitHub API. This
+// bypasses any stale GitHub-Pages/browser cache, so reopening on any device
+// always shows the newest state.
+async function pullFromRepo(){
   if(!repoToken||!repoOwner||!repoName)return;
-  clearTimeout(repoTimer);
-  setRepoStatus("busy","Changes pending...");
-  repoTimer=setTimeout(()=>pushToRepo(),8000);
+  try{
+    const r=await fetch(ghUrl(DATA_FILE),{headers:ghHeaders(),cache:"no-store"});
+    if(!r.ok)return;
+    const meta=await r.json();
+    repoShaJson=meta.sha;
+    const remote=JSON.parse(fromBase64(meta.content));
+    if((remote._savedAt||0) > LS.load("tk_saved_at",0)){
+      applyData(remote);persistLocal();
+      if(typeof renderAll==="function")renderAll();
+      setRepoStatus("ok","Up to date with GitHub ✓");
+    }
+  }catch(e){/* offline / not configured — local copy stands */}
+}
+
+// Flush a pending save the moment the tab is hidden or closed.
+function flushPush(){
+  if(repoDirty && repoToken && repoOwner && repoName){
+    clearTimeout(repoTimer);
+    pushToRepo({keepalive:true});
+  }
 }
 
 async function connectRepo(){
@@ -1237,13 +1354,13 @@ async function connectRepo(){
   const rep=(document.getElementById("repo-name-input")||{}).value?.trim()||"turnkey-addin";
   if(!tok||!own){toast("Enter your GitHub username and token","err");return;}
   repoToken=tok;repoOwner=own;repoName=rep;
+  repoShaJson=null;repoShaHtml=null;
   LS.save("tk_repo_token",repoToken);LS.save("tk_repo_owner",repoOwner);LS.save("tk_repo_name",repoName);
-  setRepoStatus("busy","Testing connection...");
+  setRepoStatus("busy","Testing connection…");
   try{
-    const r=await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/library.html`,{
-      headers:{"Authorization":`token ${repoToken}`,"Accept":"application/vnd.github.v3+json"}
-    });
-    if(!r.ok)throw new Error("File not found — check username and repo name ("+r.status+")");
+    const r=await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}`,{headers:ghHeaders(),cache:"no-store"});
+    if(r.status===401||r.status===403)throw new Error("Token rejected — check it has Contents read/write ("+r.status+")");
+    if(!r.ok)throw new Error("Repo not found — check username and repo name ("+r.status+")");
     await pushToRepo();
     toast("Connected — auto-save is active","ok");
     renderSettingsStatus();
@@ -1289,17 +1406,69 @@ function resetLibrary(){
 }
 
 // ── LAYOUT ────────────────────────────────────────────────────────────────────
+function rightPanelView(v){
+  if(v==="job-setup") return "strata-search";
+  if(v==="completed-jobs"||v==="todos") return null;
+  return "selected";
+}
+
+function applySplit(){
+  if(isMobile) return;
+  const lp=document.getElementById("left-panel");
+  const rp=document.getElementById("right-panel");
+  const rz=document.getElementById("split-resizer");
+  const hideRight = rightPanelView(desktopLeftView)===null;
+  if(rp)rp.style.display = hideRight ? "none" : "flex";
+  if(rz)rz.style.display = hideRight ? "none" : "block";
+  if(lp)lp.style.width = hideRight ? "100%" : (splitWidth!=null ? splitWidth+"px" : "55%");
+}
+
 function detectLayout(){
   isMobile=window.innerWidth<768;
   document.getElementById("left-panel").style.display=isMobile?"none":"flex";
   document.getElementById("right-panel").style.display=isMobile?"none":"flex";
   document.getElementById("mobile-content").style.display=isMobile?"flex":"none";
+  const rz=document.getElementById("split-resizer");
+  if(rz)rz.style.display=isMobile?"none":"block";
   if(!isMobile){
     mountView("desk-left-content",desktopLeftView);
-    mountView("right-panel",desktopLeftView==="job-setup"?"strata-search":"selected");
+    const rv=rightPanelView(desktopLeftView);
+    if(rv)mountView("right-panel",rv);
+    applySplit();
   } else {
     mountView("mobile-content",currentView);
   }
+}
+
+// Drag the divider to resize the left panel; remembers the width.
+function setupResizer(){
+  const rz=document.getElementById("split-resizer");
+  const lp=document.getElementById("left-panel");
+  const area=document.querySelector(".content-area");
+  if(!rz||!lp||!area)return;
+  let dragging=false;
+  const start=e=>{dragging=true;document.body.style.cursor="col-resize";document.body.style.userSelect="none";e.preventDefault();};
+  const move=e=>{
+    if(!dragging)return;
+    const x=(e.touches?e.touches[0].clientX:e.clientX);
+    const rect=area.getBoundingClientRect();
+    let w=x-rect.left;
+    w=Math.max(320, Math.min(rect.width-360, w));
+    splitWidth=Math.round(w);
+    lp.style.width=splitWidth+"px";
+  };
+  const end=()=>{
+    if(!dragging)return;
+    dragging=false;document.body.style.cursor="";document.body.style.userSelect="";
+    LS.save("tk_split_w",splitWidth);
+  };
+  rz.addEventListener("mousedown",start);
+  window.addEventListener("mousemove",move);
+  window.addEventListener("mouseup",end);
+  rz.addEventListener("touchstart",start,{passive:false});
+  window.addEventListener("touchmove",move,{passive:false});
+  window.addEventListener("touchend",end);
+  rz.addEventListener("dblclick",()=>{splitWidth=null;LS.save("tk_split_w",null);applySplit();});
 }
 
 function mountView(containerId,viewName){
@@ -1318,6 +1487,7 @@ function afterMount(v){
   else if(v==="selected"){renderSelected();}
   else if(v==="jobs"){renderJobs();populateFolderSelect();}
   else if(v==="completed-jobs"){renderCompletedJobs();}
+  else if(v==="todos"){renderTodos();}
   else if(v==="add"){populateCatSelect();}
   else if(v==="settings"){renderSettingsStatus();}
   else if(v==="job-setup"){renderJobSetup();}
@@ -1344,7 +1514,9 @@ function switchDesktopLeft(v){
   desktopLeftView=v;
   mountView("desk-left-content",v);
   document.querySelectorAll(".dtab").forEach(el=>{el.classList.toggle("active",el.id==="dtab-"+v);});
-  mountView("right-panel",v==="job-setup"?"strata-search":"selected");
+  const rv=rightPanelView(v);
+  if(rv)mountView("right-panel",rv);
+  applySplit();
 }
 
 // ── RENDER LIBRARY ────────────────────────────────────────────────────────────
@@ -1991,6 +2163,161 @@ function deleteJob(i){
 }
 
 // ── COMPLETED JOBS ────────────────────────────────────────────────────────────
+// ── TO-DO CHECKLIST ───────────────────────────────────────────────────────────
+let tdSortKey="dateAssigned", tdSortDir="desc", tdEditingId=null;
+
+function tdUid(){return "td"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function tdToday(){return new Date().toISOString().slice(0,10);}
+function tdStatusStyle(s){const m={"To Do":["#f1f5f9","#475569"],"In Progress":["#fef3c7","#b45309"],"Done":["#dcfce7","#15803d"]};return m[s]||["#f1f5f9","#475569"];}
+
+function tdPopulateFilter(){
+  const fs=document.getElementById("td-fstatus");
+  if(!fs)return;
+  const prev=fs.value||"All";
+  fs.innerHTML=`<option value="All">All statuses</option>`+TD_STATUSES.map(s=>`<option value="${escHtml(s)}">${escHtml(s)}</option>`).join("");
+  fs.value=[...fs.options].some(o=>o.value===prev)?prev:"All";
+}
+
+function tdClearFilters(){
+  const se=document.getElementById("td-search"), fs=document.getElementById("td-fstatus");
+  if(se)se.value="";if(fs)fs.value="All";
+  renderTodos();
+}
+
+function tdSortBy(key){
+  if(tdSortKey===key)tdSortDir=tdSortDir==="asc"?"desc":"asc";
+  else{tdSortKey=key;tdSortDir=(key==="dateAssigned"||key==="dateCompleted")?"desc":"asc";}
+  renderTodos();
+}
+
+function tdFlash(id){
+  cjFlashId=id;renderTodos();
+  setTimeout(()=>{if(cjFlashId===id){cjFlashId=null;renderTodos();}},2600);
+}
+
+function renderTodos(){
+  const tbody=document.getElementById("td-tbody");
+  if(!tbody)return;
+  tdPopulateFilter();
+
+  const term=(document.getElementById("td-search")||{}).value?.trim().toLowerCase()||"";
+  const fStatus=(document.getElementById("td-fstatus")||{}).value||"All";
+
+  let arr=todos.filter(t=>{
+    if(fStatus!=="All"&&t.status!==fStatus)return false;
+    if(term){
+      const hay=[t.task,t.status,t.notes,cjFmtDate(t.dateAssigned),cjFmtDate(t.dateCompleted)].join(" ").toLowerCase();
+      if(!hay.includes(term))return false;
+    }
+    return true;
+  });
+
+  const dir=tdSortDir==="asc"?1:-1, key=tdSortKey;
+  arr=arr.slice().sort((a,b)=>{
+    let av=a[key]||"", bv=b[key]||"";
+    if(key==="status"){const o={"To Do":0,"In Progress":1,"Done":2};return (((o[av]??0)-(o[bv]??0)))*dir;}
+    av=String(av).toLowerCase();bv=String(bv).toLowerCase();
+    return (av<bv?-1:av>bv?1:0)*dir;
+  });
+
+  tbody.innerHTML=arr.map(t=>{
+    const ss=tdStatusStyle(t.status);
+    const done=t.status==="Done";
+    return `<tr class="${t.id===cjFlashId?"cj-flash":""}">
+      <td style="text-align:center"><input type="checkbox" class="td-check" ${done?"checked":""} onclick="tdToggleDone('${t.id}')"></td>
+      <td class="${done?"td-done":""}" style="white-space:normal;max-width:340px">${escHtml(t.task)}${t.notes&&t.notes.trim()?`<div style="font-size:11px;color:var(--mu);margin-top:2px;white-space:normal">${escHtml(t.notes)}</div>`:""}</td>
+      <td><span class="cj-badge" style="background:${ss[0]};color:${ss[1]}">${escHtml(t.status)}</span></td>
+      <td style="font-family:'IBM Plex Mono',monospace;font-size:12px">${cjFmtDate(t.dateAssigned)}</td>
+      <td style="font-family:'IBM Plex Mono',monospace;font-size:12px">${cjFmtDate(t.dateCompleted)}</td>
+      <td><div class="cj-row-btns"><button class="btn sm" onclick="tdOpenEdit('${t.id}')">Edit</button><button class="btn sm" style="color:var(--red)" onclick="tdDeleteTask('${t.id}')">Delete</button></div></td>
+    </tr>`;
+  }).join("");
+
+  const emptyEl=document.getElementById("td-empty");
+  if(emptyEl)emptyEl.style.display=arr.length===0?"":"none";
+  const totalLabel=document.getElementById("td-total-label");
+  if(totalLabel)totalLabel.textContent=`${todos.length} task${todos.length===1?"":"s"}`;
+  const shownLabel=document.getElementById("td-shown-label");
+  if(shownLabel)shownLabel.textContent=`Showing ${arr.length} of ${todos.length}`;
+  const clearBtn=document.getElementById("td-clear-btn");
+  if(clearBtn)clearBtn.style.display=(term||fStatus!=="All")?"":"none";
+
+  ["task","status","dateAssigned","dateCompleted"].forEach(k=>{
+    const el=document.getElementById("td-arrow-"+k);
+    if(el)el.textContent=tdSortKey===k?(tdSortDir==="asc"?"  ↑":"  ↓"):"";
+  });
+}
+
+function tdToggleDone(id){
+  const t=todos.find(x=>x.id===id);
+  if(!t)return;
+  if(t.status==="Done"){t.status="To Do";t.dateCompleted="";}
+  else{t.status="Done";if(!t.dateCompleted)t.dateCompleted=tdToday();}
+  scheduleSyncPush();renderTodos();
+}
+
+function tdPopulateFormSelect(){
+  const sel=document.getElementById("td-f-status");
+  if(sel)sel.innerHTML=TD_STATUSES.map(s=>`<option value="${escHtml(s)}">${escHtml(s)}</option>`).join("");
+}
+
+function tdFillForm(t){
+  tdPopulateFormSelect();
+  document.getElementById("td-f-task").value=t.task||"";
+  document.getElementById("td-f-status").value=t.status||"To Do";
+  document.getElementById("td-f-assigned").value=t.dateAssigned||"";
+  document.getElementById("td-f-completed").value=t.dateCompleted||"";
+  document.getElementById("td-f-notes").value=t.notes||"";
+}
+
+function tdOpenAdd(){
+  tdEditingId=null;
+  document.getElementById("td-form-title").textContent="Add a task";
+  document.getElementById("td-save-btn").textContent="Add task";
+  tdFillForm({status:"To Do",dateAssigned:tdToday()});
+  showFMsg("td-form-msg","","");
+  openModal("td-modal");
+}
+
+function tdOpenEdit(id){
+  const t=todos.find(x=>x.id===id);
+  if(!t)return;
+  tdEditingId=id;
+  document.getElementById("td-form-title").textContent="Edit task";
+  document.getElementById("td-save-btn").textContent="Save changes";
+  tdFillForm(t);
+  showFMsg("td-form-msg","","");
+  openModal("td-modal");
+}
+
+function tdCancelForm(){tdEditingId=null;closeModal("td-modal");}
+
+function tdSaveTask(){
+  const f={
+    task:document.getElementById("td-f-task").value.trim(),
+    status:document.getElementById("td-f-status").value,
+    dateAssigned:document.getElementById("td-f-assigned").value,
+    dateCompleted:document.getElementById("td-f-completed").value,
+    notes:document.getElementById("td-f-notes").value.trim()
+  };
+  if(!f.task){showFMsg("td-form-msg","A task description is required.","err");return;}
+  if(f.status==="Done"&&!f.dateCompleted)f.dateCompleted=tdToday();
+  let id=tdEditingId;
+  if(id){todos=todos.map(t=>t.id===id?{...t,...f}:t);}
+  else{id=tdUid();todos.unshift({id,...f});}
+  scheduleSyncPush();
+  tdEditingId=null;closeModal("td-modal");renderTodos();tdFlash(id);
+  toast("Task saved","ok");
+}
+
+function tdDeleteTask(id){
+  const t=todos.find(x=>x.id===id);
+  if(!t)return;
+  if(!confirm(`Delete task "${t.task}"?`))return;
+  todos=todos.filter(x=>x.id!==id);
+  scheduleSyncPush();renderTodos();toast("Task deleted");
+}
+
 function cjUid(){return "cj"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
 
 function cjBlankForm(){
@@ -2654,19 +2981,70 @@ function parseToDate(s){
   const d=new Date(s);
   return isNaN(d.getTime())?null:new Date(d.getFullYear(),d.getMonth(),d.getDate());
 }
-// Replace one cell's value in-place, preserving its style (s="..") attribute
+// Column letters → 1-based index (A=1 … Z=26, AA=27 …)
+function colToNum(c){let n=0;for(let i=0;i<c.length;i++)n=n*26+(c.charCodeAt(i)-64);return n;}
+
+// Replace one cell's value in-place, preserving its style (s="..") attribute.
+// CRITICAL: Excel omits empty cells from the sheet XML, so if the target cell
+// (e.g. C9 Lot Entitlements) is blank in the template it simply isn't there to
+// match — the old code then silently wrote nothing. This version INSERTS the
+// cell at the correct row/column position when it's missing, so the value is
+// ALWAYS written. That makes ='Inputs and assumptions'!C9 reliable every time.
 function setXmlCell(xml,ref,kind,value){
+  const col=ref.match(/[A-Z]+/)[0];
+  const rowNum=ref.match(/\d+/)[0];
   const re=new RegExp('<c r="'+ref+'"([^>]*?)(?:/>|>[\\s\\S]*?</c>)');
   const m=xml.match(re);
   let s="";
   if(m){const sm=m[1].match(/ s="(\d+)"/);if(sm)s=' s="'+sm[1]+'"';}
-  let cell;
-  if(kind==="n"){
-    cell='<c r="'+ref+'"'+s+'><v>'+value+'</v></c>';
-  }else{
-    cell='<c r="'+ref+'"'+s+' t="inlineStr"><is><t xml:space="preserve">'+genEsc(value)+'</t></is></c>';
+  const cell = kind==="n"
+    ? '<c r="'+ref+'"'+s+'><v>'+value+'</v></c>'
+    : '<c r="'+ref+'"'+s+' t="inlineStr"><is><t xml:space="preserve">'+genEsc(value)+'</t></is></c>';
+  if(m) return xml.replace(re,cell);
+
+  // Cell is absent — insert it into its row in column order.
+  const target=colToNum(col);
+  const rowRe=new RegExp('(<row r="'+rowNum+'"[^>]*>)([\\s\\S]*?)(</row>)');
+  const rm=xml.match(rowRe);
+  if(rm){
+    const cells=rm[2].match(/<c [^>]*?(?:\/>|>[\s\S]*?<\/c>)/g)||[];
+    let inserted=false,body="";
+    for(const c of cells){
+      const cr=c.match(/r="([A-Z]+)\d+"/);
+      if(!inserted&&cr&&colToNum(cr[1])>target){body+=cell;inserted=true;}
+      body+=c;
+    }
+    if(!inserted)body+=cell;
+    return xml.replace(rowRe,rm[1]+body+rm[3]);
   }
-  return m?xml.replace(re,cell):xml;
+
+  // Row is absent too — insert a fresh row in row order within sheetData.
+  const newRow='<row r="'+rowNum+'">'+cell+'</row>';
+  for(const r of xml.matchAll(/<row r="(\d+)"/g)){
+    if(parseInt(r[1],10)>parseInt(rowNum,10))
+      return xml.slice(0,r.index)+newRow+xml.slice(r.index);
+  }
+  return xml.replace('</sheetData>', newRow+'</sheetData>');
+}
+
+// Force Excel to recalculate every formula the moment the file opens, so cells
+// like =IA_FundLevy/C9 update on their own instead of needing a manual
+// double-click / Enter to refresh.
+function forceFullRecalc(zip){
+  try{
+    const path="xl/workbook.xml";
+    const f=zip.file(path);
+    if(!f)return Promise.resolve();
+    return f.async("string").then(wb=>{
+      const calc=' calcMode="auto" fullCalcOnLoad="1" forceFullCalc="1"';
+      const ins='<calcPr'+calc+'/>';
+      if(/<calcPr\b[^>]*\/>/.test(wb))      wb=wb.replace(/<calcPr\b[^>]*\/>/,ins);
+      else if(/<calcPr\b[^>]*>/.test(wb))   wb=wb.replace(/<calcPr\b[^>]*>/,'<calcPr'+calc+'>');
+      else if(/<extLst/.test(wb))           wb=wb.replace(/<extLst/,ins+'<extLst');
+      else                                  wb=wb.replace('</workbook>',ins+'</workbook>');
+      zip.file(path,wb);
+    });
+  }catch(e){return Promise.resolve();}
 }
 
 async function generateJobFolder(){
@@ -2721,6 +3099,9 @@ async function generateJobFolder(){
     let s3=await xlZip.file(SHEET_SUMMARY).async("string");
     const sres=writeSummaryRows(s3);
     xlZip.file(SHEET_SUMMARY,sres.xml);
+
+    // Recalculate all formulas on open (fixes stale C14 =IA_FundLevy/C9 etc.)
+    await forceFullRecalc(xlZip);
 
     const excelData=await xlZip.generateAsync({type:"uint8array",compression:"DEFLATE"});
 
@@ -2781,45 +3162,58 @@ function toast(msg,type=""){
 const LIBRARY_VERSION = "4.1"; // bump this whenever DEFAULT_ITEMS is updated
 
 function init(){
-  // USER_DATA is baked into this HTML file by the last commit pushed to the repo.
-  // Whatever GitHub Pages serves you IS the latest state — trust it completely
-  // over any stale localStorage from a previous visit on this device. Local
-  // storage is only a fallback for the very first run, before anything has
-  // ever been committed (e.g. opening the file straight from disk).
-  const ud = (typeof USER_DATA !== "undefined") ? USER_DATA : null;
-  const hasBaked = ud !== null;
+  // ── DECIDE WHICH COPY TO TRUST ──────────────────────────────────────────────
+  // Two candidate copies of your data exist: the one baked into this file (from
+  // the last GitHub commit) and the one in this browser's localStorage. Each is
+  // stamped with the time it was written. We keep whichever is NEWER. This is the
+  // key fix: a change you made locally but that hasn't finished committing (or
+  // whose commit failed, or that GitHub Pages hasn't re-served yet) is NEVER
+  // discarded, because the local copy's timestamp wins until the repo catches up.
+  const baked = (typeof USER_DATA !== "undefined") ? USER_DATA : null;
+  const local = LS.load("tk_data", null);
+  const bakedAt = baked ? (baked._savedAt || 1) : 0;   // committed-but-untimestamped → treat as old
+  const localAt = local ? (local._savedAt || LS.load("tk_saved_at",0) || 1) : 0;
 
-  // Library: when baked data exists, it's the full authoritative set —
-  // DEFAULT_ITEMS plus whatever custom items were committed. Don't merge in
-  // anything from localStorage, or a deleted custom item would resurrect itself.
-  const storedVersion = LS.load("tk_lib_version","");
-  if(hasBaked){
-    library = [...DEFAULT_ITEMS, ...(ud.customItems||[])];
-  } else if(storedVersion !== LIBRARY_VERSION){
-    library = [...DEFAULT_ITEMS];
-  } else {
-    library = LS.load("tk_lib",[...DEFAULT_ITEMS]);
+  let chosen;
+  if(local && localAt >= bakedAt)      chosen = local;   // local is newer (or equal) → trust it
+  else if(baked)                       chosen = baked;   // repo copy is newer → trust it
+  else if(local)                       chosen = local;
+  else {                                                 // very first run, nothing saved yet
+    const sv = LS.load("tk_lib_version","");
+    chosen = {
+      customItems: (sv===LIBRARY_VERSION ? LS.load("tk_lib",[...DEFAULT_ITEMS]).filter(it=>!String(it.id).startsWith("x")) : []),
+      savedJobs: LS.load("tk_jobs",[]), folders: LS.load("tk_folders",[]),
+      customCompanies: LS.load("tk_companies",[]), completedJobs: LS.load("tk_completed",[]),
+      todos: LS.load("tk_todos",[]), _savedAt: 0
+    };
   }
+  applyData(chosen);
   LS.save("tk_lib_version", LIBRARY_VERSION);
-  LS.save("tk_lib", library);
-
-  savedJobs       = hasBaked ? (ud.savedJobs       || []) : LS.load("tk_jobs",[]);
-  folders         = hasBaked ? (ud.folders         || []) : LS.load("tk_folders",[]);
-  customCompanies = hasBaked ? (ud.customCompanies || []) : LS.load("tk_companies",[]);
-  completedJobs   = hasBaked ? (ud.completedJobs   || []) : LS.load("tk_completed",[]);
-  LS.save("tk_jobs",savedJobs);LS.save("tk_folders",folders);LS.save("tk_companies",customCompanies);LS.save("tk_completed",completedJobs);
+  persistLocal();   // normalise both copies into a single timestamped record
 
   // Restore auto-save config (per-device — token never leaves this browser)
   repoToken = LS.load("tk_repo_token","");
   repoOwner = LS.load("tk_repo_owner","AllanBechara");
   repoName  = LS.load("tk_repo_name","turnkey-addin");
 
+  splitWidth = LS.load("tk_split_w", null);
+
   // Layout
   detectLayout();
+  setupResizer();
   window.addEventListener("resize",()=>{const was=isMobile;detectLayout();if(was!==isMobile)renderAll();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape")["paste-modal"].forEach(closeModal);});
 
-  if(repoOwner&&repoToken) setRepoStatus("ok",`Connected — ${repoOwner}/${repoName}`);
+  // Flush any pending save the instant the tab is hidden or closed, so nothing
+  // is lost if you switch away before the 1.5s debounce fires.
+  window.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")flushPush();});
+  window.addEventListener("pagehide",flushPush);
+  window.addEventListener("beforeunload",flushPush);
+
+  if(repoOwner&&repoToken){
+    setRepoStatus("ok",`Connected — ${repoOwner}/${repoName}`);
+    pullFromRepo();   // grab anything newer committed from another device
+  }
 }
 
 init();
