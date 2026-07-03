@@ -402,7 +402,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="display: none;">0 items · $0</span>
+    <span class="sel-chip" id="sel-chip" style="">15 items · $107,061</span>
     <div class="sync-dot busy" id="sync-dot" title="Saving to GitHub…" onclick="isMobile?showView('settings'):switchDesktopLeft('settings')"></div>
     <button class="tb-btn" id="sync-settings-btn" title="Sync settings" onclick="isMobile?showView('settings'):switchDesktopLeft('settings')">⚙</button>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
@@ -413,144 +413,1860 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 
   <div class="left-panel" id="left-panel" style="display: flex; width: 55%;">
     <div class="desktop-tabs">
-      <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
+      <div class="dtab active" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
       <div class="dtab" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
       <div class="dtab" id="dtab-completed-jobs" onclick="switchDesktopLeft('completed-jobs')">✓ Completed Jobs</div>
       <div class="dtab" id="dtab-todos" onclick="switchDesktopLeft('todos')">☑ To-Do</div>
       <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
-      <div class="dtab active" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
+      <div class="dtab" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
       <div class="dtab" id="dtab-projection" onclick="switchDesktopLeft('projection')">📈 Projection</div>
       <div class="dtab" id="dtab-report" onclick="switchDesktopLeft('report')">📄 Report</div>
     </div>
     <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
-  <div class="setup-scroll">
-
-    <div>
-      <div class="setup-section-title">Job Details</div>
-      <div class="setup-grid">
-        <div class="setup-field full">
-          <label>SP Number</label>
-          <input id="js-sp" type="number" placeholder="e.g. 12345" inputmode="numeric" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label>Building Name</label>
-          <input id="js-building" type="text" placeholder="e.g. Redmyre 2" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label style="display:flex;justify-content:space-between;align-items:center">Strata Management Company <button type="button" class="btn sm" onclick="addStrataCompany()" style="font-size:11px;color:var(--navy-md);padding:2px 8px">+ Add company</button></label>
-          <select id="js-company"><option value="">— Not on list —</option><option value="Bay Strata">Bay Strata</option><option value="C.F Strata Management">C.F Strata Management</option><option value="Conti Strata">Conti Strata</option><option value="Eastern Star Strata">Eastern Star Strata</option><option value="Fabos Strata">Fabos Strata</option><option value="Hill Strata Solutions">Hill Strata Solutions</option><option value="Illawarra Strata">Illawarra Strata</option><option value="Jamesons Strata">Jamesons Strata</option><option value="Premium Strata">Premium Strata</option><option value="Kooper &amp; Levi">Kooper &amp; Levi</option><option value="Strata Only">Strata Only</option><option value="Strata Sense">Strata Sense</option><option value="Strathfield Partners">Strathfield Partners</option><option value="Vital Strata">Vital Strata</option><option value="Whelan Property">Whelan Property</option><option value="Wollongong Strata">Wollongong Strata</option><option value="Net Strata">Net Strata</option><option value="MY StrataCare">MY StrataCare</option><option value="Real Strata Management">Real Strata Management</option><option value="Exclusive">Exclusive</option><option value="CEO Strata">CEO Strata</option><option value="Professionals Strata Team">Professionals Strata Team</option></select>
-        </div>
-        <div class="setup-field">
-          <label>Lot Entitlements</label>
-          <input id="js-le" type="text" placeholder="e.g. 100" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>CWF Balance ($)</label>
-          <input id="js-cwfbal" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label>CWF Total Contributions ($)</label>
-          <input id="js-cwfcontrib" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
-        </div>
-        <div class="setup-field full">
-          <label>Current Closing Balance ($) <span style="font-weight:400;text-transform:none;color:var(--navy-md)">— projection start</span></label>
-          <input id="js-closebal" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Year Start Date</label>
-          <input id="js-yearstart" type="date">
-        </div>
-        <div class="setup-field">
-          <label>GST</label>
-          <label class="setup-toggle">
-            <span>GST Applicable</span>
-            <input type="checkbox" id="js-gst">
-          </label>
-        </div>
-        <div class="setup-field">
-          <label>Weather Condition</label>
-          <input id="js-weather" type="text" placeholder="e.g. Fine" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Prepared By</label>
-          <input id="js-preparedby" type="text" placeholder="e.g. Joseph Bechara" value="Joseph Bechara" autocomplete="off">
-        </div>
-      </div>
+  <div class="search-area">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search items..." oninput="renderLibrary()" autocomplete="off">
     </div>
-
-    <div>
-      <div class="setup-section-title">Strata Details</div>
-      <button class="btn primary" style="width:100%;min-height:44px;font-size:13px;margin-bottom:8px" onclick="lookupStrata()">🔍 Auto-fill from SP number</button>
-      <div class="form-msg" id="strata-lookup-msg" style="margin-bottom:8px"></div>
-      <div class="setup-grid">
-        <div class="setup-field full">
-          <label>Address</label>
-          <input id="js-address" type="text" placeholder="e.g. 150-152 MARINE PDE, MAROUBRA NSW 2035" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>Registered Date</label>
-          <input id="js-regdate" type="text" placeholder="e.g. 05 Jun 1964" autocomplete="off">
-        </div>
-        <div class="setup-field">
-          <label>No. of Lots</label>
-          <input id="js-lots" type="text" placeholder="e.g. 12 Lots" autocomplete="off">
-        </div>
-      </div>
-      <div class="setup-hint">Enter the SP number above, then auto-fill. These fill from NSW Strata Hub but stay editable — or fill them manually if a plan isn't found.</div>
-    </div>
-
-    <div>
-      <div class="setup-section-title">Generate Job Folder</div>
-      <div class="gen-readout" id="gen-readout"><span class="gr-empty">⚠ No items selected — Summary will be empty</span><a onclick="switchDesktopLeft('library')">Pick items →</a></div>
-      <button class="btn primary" style="width:100%;min-height:52px;font-size:15px;font-weight:600" onclick="genWordReport()">⚡ Generate Word Report</button>
-      <button class="btn" style="width:100%;min-height:40px;font-size:12px;margin-top:8px" onclick="generateJobFolder()">Export Excel workbook (optional)</button>
-      <div class="setup-hint" style="margin-bottom:4px">Downloads <strong>SP {number}.zip</strong> with the filled Excel + Word templates. Your selected items become the Summary rows, and the job is saved to <strong>Saved Jobs</strong> automatically — ready to reuse next time.</div>
-      <div class="form-msg" id="gen-msg" style="margin-top:6px"></div>
-    </div>
-
-    <details>
-      <summary style="font-size:11px;color:var(--mu);cursor:pointer;padding:8px 0">Manual paste (fallback, if you'd rather paste into an open sheet)</summary>
-      <div style="margin-top:8px">
-        <div class="setup-section-title">Inputs &amp; Assumptions sheet</div>
-        <div class="setup-hint" style="margin-bottom:10px">Paste each in order at the cell shown. The runs skip the formula rows (C12, C14, C15) and the merged Variables header (C20).</div>
-        <div class="setup-copy-btns">
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyTopBlock()">① Scheme &amp; finances → paste at <strong>C4</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copySuburbCell()">② Suburb → paste at <strong>E4</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyLevy()">③ Levy per annum → paste at <strong>C13</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyPrepared()">④ Prepared / inspection → paste at <strong>C16</strong></button>
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyYearStart()">⑤ Financial year start → paste at <strong>C21</strong></button>
-        </div>
-        <div class="setup-section-title" style="margin-top:14px">Optimize Contribution sheet</div>
-        <div class="setup-copy-btns">
-          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyOptimizeSheet()">Contributions → paste at <strong>B7</strong></button>
-        </div>
-        <div class="form-msg" id="setup-msg" style="margin-top:10px"></div>
-      </div>
-    </details>
-
+    <div class="cat-row" id="cats-bar"><div class="pill active" onclick="setCat('All')">All</div><div class="pill" onclick="setCat('Structural')">Structural</div><div class="pill" onclick="setCat('Exterior finishes')">Exterior finishes</div><div class="pill" onclick="setCat('Doors &amp; windows')">Doors &amp; windows</div><div class="pill" onclick="setCat('Roofing')">Roofing</div><div class="pill" onclick="setCat('Electrical')">Electrical</div><div class="pill" onclick="setCat('Plumbing')">Plumbing</div><div class="pill" onclick="setCat('HVAC')">HVAC</div><div class="pill" onclick="setCat('Fire safety')">Fire safety</div><div class="pill" onclick="setCat('Lifts &amp; escalators')">Lifts &amp; escalators</div><div class="pill" onclick="setCat('Technology')">Technology</div><div class="pill" onclick="setCat('Security')">Security</div><div class="pill" onclick="setCat('Accessibility')">Accessibility</div><div class="pill" onclick="setCat('Landscaping')">Landscaping</div><div class="pill" onclick="setCat('Amenities')">Amenities</div><div class="pill" onclick="setCat('Furnishings')">Furnishings</div><div class="pill" onclick="setCat('Car parking')">Car parking</div><div class="pill" onclick="setCat('Waterproofing')">Waterproofing</div><div class="pill" onclick="setCat('Other')">Other</div></div>
   </div>
+  <div class="item-list" id="item-list"><div class="cat-head" onclick="toggleCat('Structural')">
+      <span>Structural</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Structural')" title="Add all Structural items to your list">+ all</button>
+      <span class="cat-count">12</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x003')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x003')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Cladding and precast tilt panels repairs</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $1,800/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x003')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x003')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x003')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x005')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x005')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Brick pointing and balcony block balustrade repairs</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $1,200/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x005')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x005')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x005')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x007')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x007')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Engineered stainless steel anchor point recertification</div>
+            <div class="item-desc">Recertify or replace engineered stainless steel fall arrest anchors</div>
+            <div class="meta">item &nbsp;·&nbsp; $15,000/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x007')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x007')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x007')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x008')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x008')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Bin enclosure upgrade - site estimate quotes required</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $1,200/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x008')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x008')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x008')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x009')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x009')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Non combustible cladding caulking joint replacement</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $1,400/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x009')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x009')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x009')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x012')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x012')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Maintain vertical fall arrest ladders</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $1,240/item &nbsp;·&nbsp; life 4yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x012')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x012')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x012')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x013')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x013')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Maintain sandstone tiled facade</div>
+            <div class="item-desc">Clean, re-point and maintain sandstone facade tiles</div>
+            <div class="meta">item &nbsp;·&nbsp; $442/item &nbsp;·&nbsp; life 4yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x013')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x013')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x013')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x014')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x014')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Spalling repairs to balcony soffits and window lintel replacement</div>
+            <div class="item-desc">Concrete spalling and lintel remediation to balcony soffits</div>
+            <div class="meta">item &nbsp;·&nbsp; $32,000/item &nbsp;·&nbsp; life 4yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x014')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x014')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x014')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x015')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x015')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Minor concrete spalling remediation</div>
+            <div class="item-desc">Repair minor concrete spalling to common area surfaces</div>
+            <div class="meta">item &nbsp;·&nbsp; $14,515/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x015')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x015')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x015')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x018')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x018')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Louvered aluminium panels and brackets to facade</div>
+            <div class="item-desc">Replace louvered aluminium facade panels and mounting brackets</div>
+            <div class="meta">item &nbsp;·&nbsp; $16,525/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x018')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x018')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x018')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x020')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x020')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Building control joint / mastic joint replacement</div>
+            <div class="item-desc">Replace failed mastic and control joints across building</div>
+            <div class="meta">ea &nbsp;·&nbsp; $1,652/ea &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x020')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x020')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x020')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u1780367009619cs2')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u1780367009619cs2')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Brick pointing and slab repair allowance</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $5,000/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u1780367009619cs2')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u1780367009619cs2')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1780367009619cs2')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Exterior finishes')">
+      <span>Exterior finishes</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Exterior finishes')" title="Add all Exterior finishes items to your list">+ all</button>
+      <span class="cat-count">2 selected · 18</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item sel" onclick="toggleItem('x022')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x022')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint external timber doors and frames</div>
+            
+            <div class="meta">m2 &nbsp;·&nbsp; $350/m2 &nbsp;·&nbsp; life 8yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="12" onchange="updateSelFromLib('x022','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="7" onchange="updateSelFromLib('x022','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x022')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x022')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x022')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x025')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x025')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint external timber balcony members and posts</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $44/lm &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x025')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x025')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x025')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x029')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x029')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repair and repaint timber fascia and eaves</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $45/lm &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x029')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x029')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x029')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x044')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x044')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint exterior - timber fascia boards (Approx. 78 l/m)</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $35/lm &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x044')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x044')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x044')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x046')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x046')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint external - programmed routine touch ups to facade</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $36/lm &nbsp;·&nbsp; life 2yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x046')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x046')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x046')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x050')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x050')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint yellow protection bollards</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $85/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x050')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x050')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x050')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x055')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x055')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint and repair timber mouldings to eaves lining</div>
+            <div class="item-desc">Repair and repaint decorative timber mouldings to eaves</div>
+            <div class="meta">ea &nbsp;·&nbsp; $250/ea &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x055')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x055')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x055')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x059')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x059')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint external entry timber pergola</div>
+            <div class="item-desc">Repaint rafters and posts of external entry pergola</div>
+            <div class="meta">ea &nbsp;·&nbsp; $166/ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x059')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x059')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x059')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x063')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x063')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint timber doors to bin enclosure</div>
+            <div class="item-desc">Repaint timber doors and frames to bin enclosure</div>
+            <div class="meta">item &nbsp;·&nbsp; $120/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x063')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x063')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x063')" title="Remove">✕</button>
+          </div>
+        </div><div class="item sel" onclick="toggleItem('x064')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x064')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repair of lattice work</div>
+            <div class="item-desc">Repair damaged timber or metal lattice panels</div>
+            <div class="meta">item &nbsp;·&nbsp; $25/item &nbsp;·&nbsp; life 3yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="24" onchange="updateSelFromLib('x064','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="1" onchange="updateSelFromLib('x064','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x064')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x064')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x064')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x069')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x069')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Timber fascia dry rot replacement</div>
+            <div class="item-desc">Replace dry-rotted timber fascia boards and sections</div>
+            <div class="meta">lm &nbsp;·&nbsp; $12/lm &nbsp;·&nbsp; life 4yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x069')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x069')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x069')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x070')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x070')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint metal protection covers to downpipes</div>
+            <div class="item-desc">Repaint metal kick protection covers on downpipes</div>
+            <div class="meta">ea &nbsp;·&nbsp; $85/ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x070')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x070')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x070')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x072')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x072')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Maintain walkway and balcony slab edge tiles</div>
+            <div class="item-desc">Re-bed and re-grout loose or cracked walkway slab edge tiles</div>
+            <div class="meta">item &nbsp;·&nbsp; $4,500/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x072')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x072')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x072')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x074')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x074')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repair of dilapidated timber gates</div>
+            <div class="item-desc">Repair or replace timber gates with wood decay or damage</div>
+            <div class="meta">item &nbsp;·&nbsp; $2,000/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x074')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x074')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x074')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x078')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x078')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Tile remediation - expansion joint replacement</div>
+            <div class="item-desc">Re-lay tiles and install adequate expansion joints</div>
+            <div class="meta">item &nbsp;·&nbsp; $3,252/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x078')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x078')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x078')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u1779847227293x16')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u1779847227293x16')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repainting stairwell milk boxes</div>
+            
+            <div class="meta">ea &nbsp;·&nbsp; $0/ea &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u1779847227293x16')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u1779847227293x16')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1779847227293x16')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u1779847227293znb')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u1779847227293znb')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint Internal timber doors and frames to units</div>
+            
+            <div class="meta">ea &nbsp;·&nbsp; $300/ea &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u1779847227293znb')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u1779847227293znb')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1779847227293znb')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u17827048114668cy')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u17827048114668cy')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint building exterior cementitious acrylic render</div>
+            
+            <div class="meta">Item &nbsp;·&nbsp; $92,500/Item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u17827048114668cy')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u17827048114668cy')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u17827048114668cy')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Doors &amp; windows')">
+      <span>Doors &amp; windows</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Doors &amp; windows')" title="Add all Doors &amp; windows items to your list">+ all</button>
+      <span class="cat-count">6</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x088')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x088')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Single pivot hinge glass entry door replacement</div>
+            <div class="item-desc">Replace single-pivot or patch-fitting glass entry door</div>
+            <div class="meta">ea &nbsp;·&nbsp; $3,500/ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x088')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x088')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x088')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x092')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x092')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint factory timber doors</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $225/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x092')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x092')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x092')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x094')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x094')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace automatic basement door operating gear</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $4,500/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x094')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x094')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x094')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x097')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x097')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint factory timber doors and electrical meter doors</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $225/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x097')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x097')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x097')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x102')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x102')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Timber window sash cord replacement</div>
+            <div class="item-desc">Replace worn sash cords on double-hung timber windows</div>
+            <div class="meta">ea &nbsp;·&nbsp; $450/ea &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x102')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x102')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x102')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x104')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x104')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Automatic glass entry door motor replacement</div>
+            <div class="item-desc">Replace automatic sliding or swing glass entry door motor</div>
+            <div class="meta">ea &nbsp;·&nbsp; $2,212/ea &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x104')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x104')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x104')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Roofing')">
+      <span>Roofing</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Roofing')" title="Add all Roofing items to your list">+ all</button>
+      <span class="cat-count">1 selected · 6</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item sel" onclick="toggleItem('x108')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x108')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Roof condition assessment and reports</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $325/lm &nbsp;·&nbsp; life 5yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="8" onchange="updateSelFromLib('x108','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="3" onchange="updateSelFromLib('x108','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x108')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x108')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x108')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x111')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x111')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Lead flashing repairs</div>
+            <div class="item-desc">Repair and re-dress lead flashings to roof penetrations</div>
+            <div class="meta">item &nbsp;·&nbsp; $1,254/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x111')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x111')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x111')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x112')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x112')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Metal roof water egress remediation</div>
+            <div class="item-desc">Locate and repair water ingress sources to metal roof</div>
+            <div class="meta">item &nbsp;·&nbsp; $6,252/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x112')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x112')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x112')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x113')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x113')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Trim deck roof sheet and Decktite replacement</div>
+            <div class="item-desc">Replace deteriorated trim deck roof sheets and Decktite seals</div>
+            <div class="meta">ea &nbsp;·&nbsp; $1,858/ea &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x113')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x113')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x113')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x119')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x119')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Cement tile roof repairs</div>
+            <div class="item-desc">Re-bed, re-point and replace damaged cement roof tiles</div>
+            <div class="meta">item &nbsp;·&nbsp; $22/item &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x119')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x119')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x119')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x123')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x123')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replacement of fascia, gutter and downpipes</div>
+            <div class="item-desc">Replace deteriorated fascia, gutter sections and downpipes</div>
+            <div class="meta">item &nbsp;·&nbsp; $3,000/item &nbsp;·&nbsp; life 4yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x123')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x123')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x123')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Electrical')">
+      <span>Electrical</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Electrical')" title="Add all Electrical items to your list">+ all</button>
+      <span class="cat-count">2 selected · 10</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x124')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x124')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Lighting to common areas - upgrade as needed</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $1,500/lm &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x124')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x124')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x124')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x125')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x125')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Emergency and exit lighting system replacement</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $1,200/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x125')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x125')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x125')" title="Remove">✕</button>
+          </div>
+        </div><div class="item sel" onclick="toggleItem('x127')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x127')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">External lighting</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $224/item &nbsp;·&nbsp; life 4yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="8" onchange="updateSelFromLib('x127','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="2" onchange="updateSelFromLib('x127','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x127')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x127')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x127')" title="Remove">✕</button>
+          </div>
+        </div><div class="item sel" onclick="toggleItem('x128')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x128')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Switchboard inspection &amp; upgrade - main electrical cupboard</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $25,000/item &nbsp;·&nbsp; life 10yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('x128','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="10" onchange="updateSelFromLib('x128','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x128')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x128')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x128')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x129')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x129')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Common area sensor lights and motion detector replacement</div>
+            <div class="item-desc">Replace sensor lights and motion detectors in common areas</div>
+            <div class="meta">ea &nbsp;·&nbsp; $2,000/ea &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x129')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x129')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x129')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x131')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x131')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace lightning protection components</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $8,500/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x131')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x131')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x131')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x132')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x132')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace fire stairwell light fittings</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $280/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x132')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x132')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x132')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x133')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x133')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace gym, foyer and lobby light fittings as needed</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $280/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x133')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x133')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x133')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x135')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x135')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Common area / external LED lighting upgrade</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $280/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x135')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x135')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x135')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u17803704141159vk')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u17803704141159vk')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Common area lighting bollards - upgrade/replacement as needed</div>
+            
+            <div class="meta">ea &nbsp;·&nbsp; $350/ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u17803704141159vk')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u17803704141159vk')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u17803704141159vk')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Plumbing')">
+      <span>Plumbing</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Plumbing')" title="Add all Plumbing items to your list">+ all</button>
+      <span class="cat-count">5</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x151')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x151')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Sewer pipe relining</div>
+            <div class="item-desc">CCTV inspection and relining of sewer pipework</div>
+            <div class="meta">item &nbsp;·&nbsp; $10,000/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x151')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x151')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x151')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x152')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x152')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Specialist roof plumbing inspection and report</div>
+            <div class="item-desc">Engage specialist plumber to inspect and report on roof drainage</div>
+            <div class="meta">item &nbsp;·&nbsp; $3,000/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x152')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x152')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x152')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x154')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x154')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Instantaneous hot water heater replacement</div>
+            <div class="item-desc">Replace instantaneous (continuous flow) hot water heaters</div>
+            <div class="meta">ea &nbsp;·&nbsp; $2,250/ea &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x154')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x154')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x154')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x155')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x155')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Irrigation pump replacement</div>
+            <div class="item-desc">Replace irrigation pump to garden watering system</div>
+            <div class="meta">item &nbsp;·&nbsp; $1,858/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x155')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x155')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x155')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u17827048114685nw')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u17827048114685nw')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Triplex domestic water pressure pumps</div>
+            
+            <div class="meta">Ea &nbsp;·&nbsp; $24,515/Ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u17827048114685nw')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u17827048114685nw')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u17827048114685nw')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('HVAC')">
+      <span>HVAC</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('HVAC')" title="Add all HVAC items to your list">+ all</button>
+      <span class="cat-count">11</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x158')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x158')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Mechanical exhaust - supply/extraction plant</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $1,950/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x158')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x158')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x158')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x161')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x161')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace basement ventilation fans and motors</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $2,154/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x161')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x161')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x161')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x163')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x163')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replacement of rooftop mounted exhaust ducting</div>
+            <div class="item-desc">Replace deteriorated rooftop exhaust duct sections</div>
+            <div class="meta">item &nbsp;·&nbsp; $3,500/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x163')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x163')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x163')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x165')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x165')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replacement of ductwork serving common areas to residential entity only</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $12,000/lm &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x165')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x165')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x165')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x168')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x168')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace ventilation VSDs</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $425/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x168')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x168')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x168')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x172')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x172')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Maintain supply and extraction fan system</div>
+            
+            <div class="meta">m2 &nbsp;·&nbsp; $1,241/m2 &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x172')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x172')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x172')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x173')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x173')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">CO2 / carbon mechanical activation sensor replacement</div>
+            <div class="item-desc">Replace CO2 or carbon monoxide mechanical activation sensors</div>
+            <div class="meta">item &nbsp;·&nbsp; $1,845/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x173')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x173')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x173')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x175')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x175')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Roof whirlybird ventilator replacement</div>
+            <div class="item-desc">Replace roof-mounted whirlybird ventilators</div>
+            <div class="meta">item &nbsp;·&nbsp; $2,250/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x175')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x175')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x175')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x176')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x176')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Split system air conditioner replacement</div>
+            <div class="item-desc">Replace split system air conditioner in common areas</div>
+            <div class="meta">ea &nbsp;·&nbsp; $1,500/ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x176')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x176')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x176')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x177')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x177')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Variable speed drives to ventilation fans</div>
+            <div class="item-desc">Replace variable speed drive (VSD) units to ventilation fans</div>
+            <div class="meta">item &nbsp;·&nbsp; $5,500/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x177')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x177')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x177')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u1782704811467k48')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u1782704811467k48')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Rooftop mounted exhaust ducting replacement as needed</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $2,214/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u1782704811467k48')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u1782704811467k48')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1782704811467k48')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Fire safety')">
+      <span>Fire safety</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Fire safety')" title="Add all Fire safety items to your list">+ all</button>
+      <span class="cat-count">1 selected · 3</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item sel" onclick="toggleItem('x179')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" checked="" onclick="event.stopPropagation();toggleItem('x179')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Active and passive fire system upgrades</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $6,656/item &nbsp;·&nbsp; life 6yr</div>
+            <div class="item-sel-fields" onclick="event.stopPropagation()">
+              <div class="isf"><label>Qty</label><input type="number" value="1" onchange="updateSelFromLib('x179','qty',this.value)" inputmode="decimal" min="0" step="any"></div>
+              <div class="isf"><label>Next due (yr)</label><input type="number" value="5" onchange="updateSelFromLib('x179','nd',this.value)" inputmode="numeric" min="1"></div>
+            </div>
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x179')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x179')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x179')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x185')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x185')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Emergency lighting battery and fitting replacement</div>
+            <div class="item-desc">Replace emergency lighting batteries and associated fittings</div>
+            <div class="meta">ea &nbsp;·&nbsp; $12,534/ea &nbsp;·&nbsp; life 9yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x185')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x185')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x185')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x187')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x187')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Fire extinguisher replacement</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $220/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x187')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x187')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x187')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Accessibility')">
+      <span>Accessibility</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Accessibility')" title="Add all Accessibility items to your list">+ all</button>
+      <span class="cat-count">2</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x203')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x203')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Non slip application to porch entry tiles</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $758/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x203')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x203')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x203')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x205')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x205')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Stainless steel handrails and tactile ground indicators</div>
+            <div class="item-desc">Replace stainless handrails and install tactile tiles to entries</div>
+            <div class="meta">item &nbsp;·&nbsp; $5,251/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x205')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x205')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x205')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Landscaping')">
+      <span>Landscaping</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Landscaping')" title="Add all Landscaping items to your list">+ all</button>
+      <span class="cat-count">7</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x213')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x213')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Boundary fence replacement / installation</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $885/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x213')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x213')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x213')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x215')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x215')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">External tiles - repair as needed</div>
+            <div class="item-desc">Repair cracked or lifting external tiles to common areas</div>
+            <div class="meta">item &nbsp;·&nbsp; $1,501/item &nbsp;·&nbsp; life 4yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x215')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x215')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x215')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x217')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x217')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Courtyard tile repairs</div>
+            
+            <div class="meta">m2 &nbsp;·&nbsp; $2,500/m2 &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x217')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x217')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x217')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x224')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x224')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint timber members to garages</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $125/lm &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x224')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x224')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x224')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x225')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x225')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Synthetic grass installation to pathways</div>
+            <div class="item-desc">Supply and install synthetic grass to common walkways</div>
+            <div class="meta">item &nbsp;·&nbsp; $1,800/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x225')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x225')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x225')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x226')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x226')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Terracotta walkway tiles - replace cracked treads</div>
+            <div class="item-desc">Replace cracked terracotta tiles to walkway treads</div>
+            <div class="meta">ea &nbsp;·&nbsp; $425/ea &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x226')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x226')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x226')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x227')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x227')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Podium walkway tiles and control joint repair</div>
+            <div class="item-desc">Re-lay podium tiles and repair failed control/expansion joints</div>
+            <div class="meta">m2 &nbsp;·&nbsp; $85/m2 &nbsp;·&nbsp; life 2yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x227')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x227')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x227')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Amenities')">
+      <span>Amenities</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Amenities')" title="Add all Amenities items to your list">+ all</button>
+      <span class="cat-count">15</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x231')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x231')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace spa gas heater - pentair</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $26,500/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x231')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x231')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x231')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x232')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x232')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint walls and ceilings to laundries</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $3,554/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x232')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x232')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x232')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x233')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x233')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace pool filter and pumps</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $3,500/item &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x233')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x233')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x233')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x234')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x234')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace automatic chlorinator dosing unit</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $2,212/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x234')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x234')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x234')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x235')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x235')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace spa blower</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $3,500/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x235')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x235')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x235')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x236')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x236')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replace pool fence</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $650/lm &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x236')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x236')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x236')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x237')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x237')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Gym equipment - rotation upgrades</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $3,250/item &nbsp;·&nbsp; life 8yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x237')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x237')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x237')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x238')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x238')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Bin compactor - repair as needed</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $625/item &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x238')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x238')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x238')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x239')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x239')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Pool filtration and pump system replacement</div>
+            <div class="item-desc">Replace pool filtration system and circulation pumps</div>
+            <div class="meta">item &nbsp;·&nbsp; $690/item &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x239')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x239')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x239')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x240')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x240')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Pontoon replacement</div>
+            <div class="item-desc">Replace common property pontoon structure</div>
+            <div class="meta">item &nbsp;·&nbsp; $25,000/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x240')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x240')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x240')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x241')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x241')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Common laundry washing machine replacement</div>
+            <div class="item-desc">Replace common laundry washing machines</div>
+            <div class="meta">item &nbsp;·&nbsp; $1,200/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x241')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x241')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x241')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x242')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x242')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Common laundry tub replacement</div>
+            <div class="item-desc">Replace laundry tub and tapware</div>
+            <div class="meta">item &nbsp;·&nbsp; $765/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x242')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x242')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x242')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x243')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x243')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Rooftop BBQ replacement</div>
+            <div class="item-desc">Replace rooftop common area BBQ unit</div>
+            <div class="meta">ea &nbsp;·&nbsp; $4,545/ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x243')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x243')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x243')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x244')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x244')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Re-stain common area timber furniture and benches</div>
+            <div class="item-desc">Clean, sand and re-stain common area timber outdoor furniture</div>
+            <div class="meta">ea &nbsp;·&nbsp; $1,250/ea &nbsp;·&nbsp; life 2yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x244')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x244')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x244')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u1783041907028fxx')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u1783041907028fxx')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Timber stained letterbox repainting</div>
+            
+            <div class="meta">ea &nbsp;·&nbsp; $330/ea &nbsp;·&nbsp; life 2yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u1783041907028fxx')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u1783041907028fxx')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1783041907028fxx')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Furnishings')">
+      <span>Furnishings</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Furnishings')" title="Add all Furnishings items to your list">+ all</button>
+      <span class="cat-count">1</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x247')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x247')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Common area floor tiles - repair / replace</div>
+            
+            <div class="meta">m2 &nbsp;·&nbsp; $2,414/m2 &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x247')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x247')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x247')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Car parking')">
+      <span>Car parking</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Car parking')" title="Add all Car parking items to your list">+ all</button>
+      <span class="cat-count">5</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x249')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x249')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repainting of car park line marking</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $425/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x249')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x249')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x249')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x254')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x254')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint yellow protection bollards</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $400/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x254')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x254')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x254')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x256')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x256')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replacement of driveway bollards</div>
+            <div class="item-desc">Replace quad or square profile driveway protection bollards</div>
+            <div class="meta">ea &nbsp;·&nbsp; $124/ea &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x256')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x256')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x256')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x261')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x261')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Reseal and tint stencil concrete driveway</div>
+            <div class="item-desc">Pressure wash, re-stain and reseal stencil concrete driveway</div>
+            <div class="meta">m2 &nbsp;·&nbsp; $25/m2 &nbsp;·&nbsp; life 5yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x261')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x261')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x261')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u1782704811468af0')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u1782704811468af0')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repaint parking bay line marking, arrows and directional arrows</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $12/lm &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u1782704811468af0')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u1782704811468af0')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1782704811468af0')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Waterproofing')">
+      <span>Waterproofing</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Waterproofing')" title="Add all Waterproofing items to your list">+ all</button>
+      <span class="cat-count">3</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x266')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x266')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Water egress remediation</div>
+            <div class="item-desc">Locate and rectify water egress sources to building envelope</div>
+            <div class="meta">item &nbsp;·&nbsp; $13,500/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x266')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x266')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x266')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x268')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x268')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Parking bay roof membrane installation</div>
+            <div class="item-desc">Install new waterproof membrane to concrete parking bay roof</div>
+            <div class="meta">item &nbsp;·&nbsp; $56/item &nbsp;·&nbsp; life 7yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x268')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x268')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x268')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('x272')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x272')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">External stairwell tile and wall junction waterproofing</div>
+            <div class="item-desc">Seal and waterproof tile-to-wall junctions in external stairwells</div>
+            <div class="meta">lm &nbsp;·&nbsp; $32/lm &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x272')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x272')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x272')" title="Remove">✕</button>
+          </div>
+        </div><div class="cat-head" onclick="toggleCat('Other')">
+      <span>Other</span>
+      <button class="cat-addall" onclick="event.stopPropagation();addCategory('Other')" title="Add all Other items to your list">+ all</button>
+      <span class="cat-count">5</span>
+      <span class="cat-arrow">▾</span>
+    </div><div class="item" onclick="toggleItem('x275')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('x275')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Building remediation works</div>
+            <div class="item-desc">Allowance for structural or facade remediation works</div>
+            <div class="meta">item &nbsp;·&nbsp; $18,580/item &nbsp;·&nbsp; life 3yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('x275')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('x275')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('x275')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u1779847227293b50')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u1779847227293b50')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Repair timber paling fence - 50% shared cost</div>
+            
+            <div class="meta">lm &nbsp;·&nbsp; $0/lm &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u1779847227293b50')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u1779847227293b50')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1779847227293b50')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u1779847227294nn8')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u1779847227294nn8')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Amenities</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $0/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u1779847227294nn8')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u1779847227294nn8')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1779847227294nn8')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u17827048114697r6')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u17827048114697r6')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Fittings to common property</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $0/item &nbsp;·&nbsp; life 10yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u17827048114697r6')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u17827048114697r6')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u17827048114697r6')" title="Remove">✕</button>
+          </div>
+        </div><div class="item" onclick="toggleItem('u1782704811469fyh')" style="">
+          <div class="chk-wrap"><input type="checkbox" class="chk" onclick="event.stopPropagation();toggleItem('u1782704811469fyh')"></div>
+          <div class="item-info" style="flex:1">
+            
+            <div class="scope">Replacement of floor tile tac tiles - stainless and rubber pads</div>
+            
+            <div class="meta">item &nbsp;·&nbsp; $3,585/item &nbsp;·&nbsp; life 6yr</div>
+            
+          </div>
+          <div class="item-rv">
+            <button class="star-btn" onclick="event.stopPropagation();toggleStar('u1782704811469fyh')" title="Mark as Common">☆</button>
+              <button class="edit-btn" onclick="event.stopPropagation();editLib('u1782704811469fyh')" title="Edit">✏</button>
+            <button class="del-btn" onclick="event.stopPropagation();removeLib('u1782704811469fyh')" title="Remove">✕</button>
+          </div>
+        </div></div>
 </div>
   </div>
 
   <div class="split-resizer" id="split-resizer" title="Drag to resize · double-click to reset" style="display: block;"></div>
 
   <div class="right-panel-wrap" id="right-panel" style="display: flex;">
-  <div class="strata-panel">
-    <div class="strata-panel-head">
-      <h2>🔍 Strata Search</h2>
-    </div>
-    <div style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:18px">
-      <div style="background:#e8f5e9;border:1px solid #b5dcb8;border-radius:10px;padding:14px 16px">
-        <div style="font-weight:600;color:var(--navy-dk);font-size:14px;margin-bottom:6px">⚡ Auto-fill is on</div>
-        <div style="font-size:12px;color:var(--tx);line-height:1.6">Enter the SP number in the form, then tap <strong>Auto-fill from SP number</strong>. The app pulls Address, Registered Date, and Lots straight from NSW Strata Hub — no copying needed.</div>
+  <div class="sel-header">
+    <h2>Selected items</h2>
+    <span class="count-badge" id="sel-count-badge">15</span>
+    <button class="btn ghost sm" onclick="clearAll()">Clear</button>
+  </div>
+  <div class="sel-list" id="sel-list"><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(0,this.value)" style="height: 22px;">Brick and mortar repairs</textarea><div class="sel-cat-label">Structural</div></div>
+        <button class="rem" onclick="deselect(0)">×</button>
       </div>
-      <div style="font-size:12px;color:var(--mu);line-height:1.6;text-align:center">
-        If a plan isn't found (very new registrations may not be in the dataset yet), use the official search and fill the three fields manually:
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-0" type="number" value="8" onchange="updateSel(0,'qty',this.value)" onkeydown="selQtyKey(event,0)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(0,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="1200" onchange="updateSel(0,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(0,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="4" onchange="updateSel(0,'tl',this.value)" inputmode="numeric"></div>
       </div>
-      <a href="https://www.nsw.gov.au/housing-and-construction/strata/strata-search" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;background:var(--surf2);color:var(--navy-dk);border:1px solid var(--bdr);padding:14px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;min-height:50px">
-        Open NSW Strata Search ↗
-      </a>
+      <div class="sel-val">Value: <strong>$9,600</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(1,this.value)" style="height: 22px;">Repaint and treat window lintels</textarea><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">Prime and repaint exposed window lintel surfaces</div><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(1)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-1" type="number" value="45" onchange="updateSel(1,'qty',this.value)" onkeydown="selQtyKey(event,1)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(1,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="76" onchange="updateSel(1,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(1,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(1,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$3,420</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(2,this.value)" style="height: 22px;">Repaint external timber doors and frames</textarea><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(2)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-2" type="number" value="12" onchange="updateSel(2,'qty',this.value)" onkeydown="selQtyKey(event,2)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(2,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="350" onchange="updateSel(2,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(2,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="8" onchange="updateSel(2,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$4,200</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(3,this.value)" style="height: 22px;">Repaint internal lobby walls / ceilings</textarea><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(3)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-3" type="number" value="45" onchange="updateSel(3,'qty',this.value)" onkeydown="selQtyKey(event,3)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(3,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="85" onchange="updateSel(3,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(3,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="8" onchange="updateSel(3,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$3,825</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(4,this.value)" style="height: 22px;">Repaint internal stairwell walls / ceilings</textarea><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(4)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-4" type="number" value="2" onchange="updateSel(4,'qty',this.value)" onkeydown="selQtyKey(event,4)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(4,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="2854" onchange="updateSel(4,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(4,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="8" onchange="updateSel(4,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$5,708</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(5,this.value)" style="height: 22px;">Repaint metal balustrades</textarea><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(5)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-5" type="number" value="125" onchange="updateSel(5,'qty',this.value)" onkeydown="selQtyKey(event,5)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="lm" onchange="updateSel(5,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="125" onchange="updateSel(5,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(5,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(5,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$15,625</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(6,this.value)" style="height: 22px;">Repaint pvc downpipes</textarea><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(6)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-6" type="number" value="90" onchange="updateSel(6,'qty',this.value)" onkeydown="selQtyKey(event,6)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="lm" onchange="updateSel(6,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="44" onchange="updateSel(6,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(6,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(6,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$3,960</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(7,this.value)" style="height: 22px;">Repair of lattice work</textarea><div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">Repair damaged timber or metal lattice panels</div><div class="sel-cat-label">Exterior finishes</div></div>
+        <button class="rem" onclick="deselect(7)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-7" type="number" value="24" onchange="updateSel(7,'qty',this.value)" onkeydown="selQtyKey(event,7)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(7,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="25" onchange="updateSel(7,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="1" onchange="updateSel(7,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="3" onchange="updateSel(7,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$600</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(8,this.value)" style="height: 22px;">Repair of doors and window frames as needed</textarea><div class="sel-cat-label">Doors &amp; windows</div></div>
+        <button class="rem" onclick="deselect(8)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-8" type="number" value="35" onchange="updateSel(8,'qty',this.value)" onkeydown="selQtyKey(event,8)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(8,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="85" onchange="updateSel(8,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(8,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(8,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$2,975</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(9,this.value)" style="height: 22px;">Window repairs</textarea><div class="sel-cat-label">Doors &amp; windows</div></div>
+        <button class="rem" onclick="deselect(9)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-9" type="number" value="15" onchange="updateSel(9,'qty',this.value)" onkeydown="selQtyKey(event,9)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(9,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="1200" onchange="updateSel(9,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="2" onchange="updateSel(9,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="2" onchange="updateSel(9,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$18,000</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(10,this.value)" style="height: 22px;">Gutters and downpipe repairs</textarea><div class="sel-cat-label">Roofing</div></div>
+        <button class="rem" onclick="deselect(10)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-10" type="number" value="25" onchange="updateSel(10,'qty',this.value)" onkeydown="selQtyKey(event,10)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(10,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="124" onchange="updateSel(10,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(10,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(10,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$3,100</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(11,this.value)" style="height: 22px;">Roof condition assessment and reports</textarea><div class="sel-cat-label">Roofing</div></div>
+        <button class="rem" onclick="deselect(11)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-11" type="number" value="8" onchange="updateSel(11,'qty',this.value)" onkeydown="selQtyKey(event,11)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="lm" onchange="updateSel(11,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="325" onchange="updateSel(11,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="3" onchange="updateSel(11,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(11,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$2,600</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(12,this.value)" style="height: 22px;">External lighting</textarea><div class="sel-cat-label">Electrical</div></div>
+        <button class="rem" onclick="deselect(12)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-12" type="number" value="8" onchange="updateSel(12,'qty',this.value)" onkeydown="selQtyKey(event,12)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(12,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="224" onchange="updateSel(12,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="2" onchange="updateSel(12,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="4" onchange="updateSel(12,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$1,792</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(13,this.value)" style="height: 22px;">Switchboard inspection &amp; upgrade - main electrical cupboard</textarea><div class="sel-cat-label">Electrical</div></div>
+        <button class="rem" onclick="deselect(13)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-13" type="number" value="1" onchange="updateSel(13,'qty',this.value)" onkeydown="selQtyKey(event,13)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(13,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="25000" onchange="updateSel(13,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(13,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(13,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$25,000</strong></div>
+    </div><div class="sel-item">
+      <div class="sel-item-head">
+        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(14,this.value)" style="height: 22px;">Active and passive fire system upgrades</textarea><div class="sel-cat-label">Fire safety</div></div>
+        <button class="rem" onclick="deselect(14)">×</button>
+      </div>
+      <div class="sel-fields">
+        <div class="sf"><label>Qty</label><input id="sel-qty-14" type="number" value="1" onchange="updateSel(14,'qty',this.value)" onkeydown="selQtyKey(event,14)" inputmode="decimal"></div>
+        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(14,'unit',this.value)"></div>
+        <div class="sf"><label>Rate</label><input type="number" value="6656" onchange="updateSel(14,'rate',this.value)" inputmode="decimal"></div>
+        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(14,'nd',this.value)" inputmode="numeric"></div>
+        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(14,'tl',this.value)" inputmode="numeric"></div>
+      </div>
+      <div class="sel-val">Value: <strong>$6,656</strong></div>
+    </div></div>
+  <div class="export-footer">
+    <div class="total-bar">
+      <span class="total-label">Total estimated value</span>
+      <span class="total-val" id="total-val">$107,061</span>
     </div>
+    <div class="export-btns">
+      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
+      <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
+    </div>
+    <div class="export-status" id="export-status"></div>
   </div>
 </div>
 
@@ -566,7 +2282,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge" id="bnav-sel-badge">0</div>
+    <div class="bnav-badge show" id="bnav-sel-badge">15</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
@@ -971,7 +2687,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   </div>
 </div>
 
-<div id="toast" class="toast show ok">Added "CEO Strata"</div>
+<div id="toast" class="toast">Added "CEO Strata"</div>
 
 <template id="tmpl-library">
   <div class="search-area">
@@ -1404,7 +3120,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 </template>
 
 <script id="user-data">
-const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u178036932353337e","cat":"Landscaping","scope":"Colorbond fencing replacement (Approx. )","desc":"measure on google maps","qty":1,"unit":"lm","rate":200,"nd":10,"tl":10},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":1,"unit":"ea","rate":300,"nd":7,"tl":7},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":10,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"u1782704811465d0y","cat":"Other","scope":"Scope","qty":1,"unit":"Unit","rate":0,"nd":1,"tl":10},{"id":"u17827048114669qs","cat":"Other","scope":"Building Exterior - Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114668cy","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u17827048114665ol","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u17827048114669t2","cat":"Fire safety","scope":"Repaint external service doors and door jambs to plant and fire exits","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u1782704811466hu5","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u1782704811466kkj","cat":"Landscaping","scope":"Planter box membrane replacement as needed","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704811466qin","cat":"Landscaping","scope":"Repaint walls to planterboxes and retaining walls","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704811466dar","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u1782704811466rg7","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u1782704811467ske","cat":"Other","scope":"Subtotal","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114675vm","cat":"Other","scope":"Roof to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114671al","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u1782704811467qgu","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"u1782704811467ke7","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704811467k48","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704811467uko","cat":"Other","scope":"Basement and Plant Items","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811467ya1","cat":"Electrical","scope":"Replace motor to electric gate","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704811467ez1","cat":"Other","scope":"Replacement of basement ramp rubber speed humps","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704811467i97","cat":"Electrical","scope":"Repaint and re-highlight yellow coloured kerbing","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u1782704811467hxz","cat":"Exterior finishes","scope":"Repaint walls","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704811468af0","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u1782704811468i5c","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u1782704811468pwa","cat":"Plumbing","scope":"Replacement of basement sewer pumps","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704811468gto","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704811468lp5","cat":"Other","scope":"Replacement of Co2 carbon monoxide sensors","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u17827048114680ii","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048114685nw","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u17827048114686ns","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704811468lhq","cat":"Other","scope":"Replacement of convex mirrors","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704811468ccg","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704811468v56","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u17827048114686qj","cat":"Fire safety","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u17827048114688zg","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704811468uya","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704811468w1z","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704811468r5a","cat":"Technology","scope":"Replacement of intercom","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704811468rac","cat":"Other","scope":"Basement bin rooms x 3","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469ia8","cat":"Other","scope":"Overhaul Elephants foot carousel x 3","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u178270481146936r","cat":"Other","scope":"Replacement of mechanical supply air motors","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704811469bjd","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704811469xn9","cat":"Doors & windows","scope":"Repaint doors","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u1782704811469hki","cat":"Other","scope":"Common lobby's - to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469o2f","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u1782704811469zrj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704811469qwc","cat":"Doors & windows","scope":"Repaint service doors and door jambs","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704811469fsz","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u17827048114697r6","cat":"Other","scope":"Fittings to common property","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469fyh","cat":"Other","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u17827048114693v8","cat":"Exterior finishes","scope":"Replacement of stainless tubed handrails - as needed","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704811469l1g","cat":"Other","scope":"Pedestrian external stairway non slip nosings","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u1782704811469um5","cat":"Technology","scope":"Replacement of security entry FOB system","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10}],"savedJobs":[{"id":"u1782705088650339","name":"SP 101810 - Professionals Strata Team","date":"29/06/2026","items":[{"id":"u1782704844064f0k","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","desc":"","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u178270484406568q","cat":"Exterior finishes","scope":"Repaint and re-highlight yellow coloured kerbing","desc":"","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u17827048440641nj","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","desc":"","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u17827048440642x8","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","desc":"","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u1782704844064egd","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","desc":"","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u1782704844065pe6","cat":"Exterior finishes","scope":"Repaint doors","desc":"","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u178270484406494p","cat":"Exterior finishes","scope":"Repaint external service doors and door jambs to plant and fire exits","desc":"","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u17827048440654np","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","desc":"","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704844065og6","cat":"Exterior finishes","scope":"Repaint walls","desc":"","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704844065ybu","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","desc":"","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u178270484406475d","cat":"Exterior finishes","scope":"Repaint walls to planterboxes and retaining walls","desc":"","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704844064rdy","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","desc":"","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u17827048440643i2","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","desc":"","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u178270484406594f","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","desc":"","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u1782704844065wex","cat":"Doors & windows","scope":"Repaint service doors and door jambs","desc":"","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704844064stc","cat":"Electrical","scope":"Replace motor to electric gate","desc":"","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704844065zo4","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","desc":"","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704844065b9t","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","desc":"","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u1782704844065yft","cat":"Plumbing","scope":"Replacement of basement sewer pumps","desc":"","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704844065llp","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","desc":"","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u17827048440656qq","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","desc":"","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u1782704844065hpy","cat":"HVAC","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","desc":"","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u1782704844065h20","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","desc":"","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704844065gju","cat":"HVAC","scope":"Replacement of Co2 carbon monoxide sensors","desc":"","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u1782704844064mbd","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","desc":"","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704844065oz2","cat":"HVAC","scope":"Replacement of mechanical supply air motors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704844064ux7","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","desc":"","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704844065ve4","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","desc":"","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704844065jr9","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","desc":"","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048440650zp","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","desc":"","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704844065st3","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","desc":"","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704844065rpu","cat":"Technology","scope":"Replacement of intercom","desc":"","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704844065t36","cat":"Technology","scope":"Replacement of security entry FOB system","desc":"","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10},{"id":"u1782704844065w1t","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","desc":"","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704844065spn","cat":"Accessibility","scope":"Pedestrian external stairway non slip nosings","desc":"","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u17827048440658k7","cat":"Accessibility","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","desc":"","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u1782704844065fro","cat":"Accessibility","scope":"Replacement of stainless tubed handrails - as needed","desc":"","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704844064o7p","cat":"Landscaping","scope":"Planter box membrane replacement as needed","desc":"","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704844065fk0","cat":"Amenities","scope":"Overhaul Elephants foot carousel x 3","desc":"","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u1782704844065qoj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","desc":"","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704844065rmt","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","desc":"","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u178270484406413u","cat":"Car parking","scope":"Replacement of basement ramp rubber speed humps","desc":"","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704844065bb4","cat":"Car parking","scope":"Replacement of convex mirrors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704844064m38","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","desc":"","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":4,"unit":"m2","rate":2500,"nd":6,"tl":7}],"notes":"27 Aug 2020 - 133 Lots, 28 CLIFF ROAD EPPING, EPPING NSW 2121","folderId":"u1779768541150hh5"},{"id":"u17803720422421hw","name":"SP 79900","date":"02/06/2026","items":[{"id":"x248","cat":"Furnishings","scope":"Building signage and letterboxes","desc":"Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":2,"unit":"item","rate":1000,"nd":8,"tl":8},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":15,"unit":"ea","rate":250,"nd":5,"tl":7},{"id":"x098","cat":"Doors & windows","scope":"Repaint entry doors to townhouses","desc":"","qty":15,"unit":"ea","rate":300,"nd":5,"tl":7},{"id":"x109","cat":"Roofing","scope":"Box gutters, capping, flashing and downpipe - repairs as needed","desc":"","qty":15,"unit":"item","rate":1500,"nd":4,"tl":4},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":4,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":15,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"x107","cat":"Roofing","scope":"Re-cement / re-point ridge capping","desc":"","qty":50,"unit":"item","rate":125,"nd":7,"tl":7},{"id":"x111","cat":"Roofing","scope":"Lead flashing repairs","desc":"Repair and re-dress lead flashings to roof penetrations","qty":12,"unit":"item","rate":750,"nd":6,"tl":6},{"id":"x135","cat":"Electrical","scope":"Common area wall/ceiling mounted lighting - upgrade/replacement as needed","desc":"","qty":15,"unit":"item","rate":325,"nd":4,"tl":10},{"id":"x254","cat":"Car parking","scope":"Repaint yellow protection bollards","desc":"","qty":4,"unit":"item","rate":400,"nd":7,"tl":7},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":60,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"x159","cat":"HVAC","scope":"Exhaust and supply fan motors to car parks","desc":"Replace exhaust and supply fan motors in basement car parks","qty":3,"unit":"item","rate":1600,"nd":7,"tl":7},{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":5200,"nd":3,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":2,"unit":"ea","rate":3252,"nd":5,"tl":5},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":20,"nd":1,"tl":3},{"id":"x274","cat":"Other","scope":"Specialist reports required as per DPBA","desc":"","qty":1,"unit":"m2","rate":2500,"nd":5,"tl":5}],"notes":"Registered 2008 - 15 Lots","folderId":"u178037136575874q"},{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":true},{"id":"u178037136575874q","name":"Townhouses","open":false},{"id":"u1780462018619puv","name":"Red Brick Stairwell","open":false}],"customCompanies":["Professionals Strata Team","CEO Strata"],"completedJobs":[{"id":"cjmqyoowskkrtja","sp":"SP 101810","address":"28 CLIFF ROAD EPPING, EPPING NSW 2121","jobType":"CWF","strataCompany":"Professionals Strata Team","status":"Pending","dateCompleted":"2026-06-29","notes":"Generated from Turnkey job folder"}],"todos":[],"starredItems":[],"itemUsage":{"x273":1},"defaultJobId":null,"recentItems":[],"lastSetup":{"preparedBy":"Joseph Bechara","company":"Professionals Strata Team","weather":"Clear"},"_savedAt":1783041480266};
+const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u178036932353337e","cat":"Landscaping","scope":"Colorbond fencing replacement (Approx. )","desc":"measure on google maps","qty":1,"unit":"lm","rate":200,"nd":10,"tl":10},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":1,"unit":"ea","rate":300,"nd":7,"tl":7},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":10,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"u1782704811465d0y","cat":"Other","scope":"Scope","qty":1,"unit":"Unit","rate":0,"nd":1,"tl":10},{"id":"u17827048114669qs","cat":"Other","scope":"Building Exterior - Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114668cy","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u17827048114665ol","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u17827048114669t2","cat":"Fire safety","scope":"Repaint external service doors and door jambs to plant and fire exits","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u1782704811466hu5","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u1782704811466kkj","cat":"Landscaping","scope":"Planter box membrane replacement as needed","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704811466qin","cat":"Landscaping","scope":"Repaint walls to planterboxes and retaining walls","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704811466dar","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u1782704811466rg7","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u1782704811467ske","cat":"Other","scope":"Subtotal","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114675vm","cat":"Other","scope":"Roof to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114671al","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u1782704811467qgu","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"u1782704811467ke7","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704811467k48","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704811467uko","cat":"Other","scope":"Basement and Plant Items","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811467ya1","cat":"Electrical","scope":"Replace motor to electric gate","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704811467ez1","cat":"Other","scope":"Replacement of basement ramp rubber speed humps","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704811467i97","cat":"Electrical","scope":"Repaint and re-highlight yellow coloured kerbing","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u1782704811467hxz","cat":"Exterior finishes","scope":"Repaint walls","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704811468af0","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u1782704811468i5c","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u1782704811468pwa","cat":"Plumbing","scope":"Replacement of basement sewer pumps","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704811468gto","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704811468lp5","cat":"Other","scope":"Replacement of Co2 carbon monoxide sensors","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u17827048114680ii","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048114685nw","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u17827048114686ns","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704811468lhq","cat":"Other","scope":"Replacement of convex mirrors","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704811468ccg","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704811468v56","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u17827048114686qj","cat":"Fire safety","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u17827048114688zg","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704811468uya","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704811468w1z","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704811468r5a","cat":"Technology","scope":"Replacement of intercom","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704811468rac","cat":"Other","scope":"Basement bin rooms x 3","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469ia8","cat":"Other","scope":"Overhaul Elephants foot carousel x 3","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u178270481146936r","cat":"Other","scope":"Replacement of mechanical supply air motors","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704811469bjd","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704811469xn9","cat":"Doors & windows","scope":"Repaint doors","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u1782704811469hki","cat":"Other","scope":"Common lobby's - to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469o2f","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u1782704811469zrj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704811469qwc","cat":"Doors & windows","scope":"Repaint service doors and door jambs","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704811469fsz","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u17827048114697r6","cat":"Other","scope":"Fittings to common property","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469fyh","cat":"Other","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u17827048114693v8","cat":"Exterior finishes","scope":"Replacement of stainless tubed handrails - as needed","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704811469l1g","cat":"Other","scope":"Pedestrian external stairway non slip nosings","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u1782704811469um5","cat":"Technology","scope":"Replacement of security entry FOB system","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10},{"id":"u1783041907028fxx","cat":"Amenities","scope":"Timber stained letterbox repainting","desc":"","qty":1,"unit":"ea","rate":330,"nd":2,"tl":2}],"savedJobs":[{"id":"u1782705088650339","name":"SP 101810 - Professionals Strata Team","date":"29/06/2026","items":[{"id":"u1782704844064f0k","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","desc":"","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u178270484406568q","cat":"Exterior finishes","scope":"Repaint and re-highlight yellow coloured kerbing","desc":"","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u17827048440641nj","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","desc":"","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u17827048440642x8","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","desc":"","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u1782704844064egd","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","desc":"","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u1782704844065pe6","cat":"Exterior finishes","scope":"Repaint doors","desc":"","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u178270484406494p","cat":"Exterior finishes","scope":"Repaint external service doors and door jambs to plant and fire exits","desc":"","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u17827048440654np","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","desc":"","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704844065og6","cat":"Exterior finishes","scope":"Repaint walls","desc":"","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704844065ybu","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","desc":"","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u178270484406475d","cat":"Exterior finishes","scope":"Repaint walls to planterboxes and retaining walls","desc":"","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704844064rdy","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","desc":"","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u17827048440643i2","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","desc":"","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u178270484406594f","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","desc":"","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u1782704844065wex","cat":"Doors & windows","scope":"Repaint service doors and door jambs","desc":"","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704844064stc","cat":"Electrical","scope":"Replace motor to electric gate","desc":"","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704844065zo4","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","desc":"","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704844065b9t","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","desc":"","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u1782704844065yft","cat":"Plumbing","scope":"Replacement of basement sewer pumps","desc":"","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704844065llp","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","desc":"","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u17827048440656qq","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","desc":"","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u1782704844065hpy","cat":"HVAC","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","desc":"","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u1782704844065h20","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","desc":"","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704844065gju","cat":"HVAC","scope":"Replacement of Co2 carbon monoxide sensors","desc":"","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u1782704844064mbd","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","desc":"","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704844065oz2","cat":"HVAC","scope":"Replacement of mechanical supply air motors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704844064ux7","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","desc":"","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704844065ve4","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","desc":"","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704844065jr9","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","desc":"","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048440650zp","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","desc":"","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704844065st3","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","desc":"","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704844065rpu","cat":"Technology","scope":"Replacement of intercom","desc":"","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704844065t36","cat":"Technology","scope":"Replacement of security entry FOB system","desc":"","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10},{"id":"u1782704844065w1t","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","desc":"","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704844065spn","cat":"Accessibility","scope":"Pedestrian external stairway non slip nosings","desc":"","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u17827048440658k7","cat":"Accessibility","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","desc":"","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u1782704844065fro","cat":"Accessibility","scope":"Replacement of stainless tubed handrails - as needed","desc":"","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704844064o7p","cat":"Landscaping","scope":"Planter box membrane replacement as needed","desc":"","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704844065fk0","cat":"Amenities","scope":"Overhaul Elephants foot carousel x 3","desc":"","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u1782704844065qoj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","desc":"","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704844065rmt","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","desc":"","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u178270484406413u","cat":"Car parking","scope":"Replacement of basement ramp rubber speed humps","desc":"","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704844065bb4","cat":"Car parking","scope":"Replacement of convex mirrors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704844064m38","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","desc":"","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":4,"unit":"m2","rate":2500,"nd":6,"tl":7}],"notes":"27 Aug 2020 - 133 Lots, 28 CLIFF ROAD EPPING, EPPING NSW 2121","folderId":"u1779768541150hh5"},{"id":"u17803720422421hw","name":"SP 79900","date":"02/06/2026","items":[{"id":"x248","cat":"Furnishings","scope":"Building signage and letterboxes","desc":"Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":2,"unit":"item","rate":1000,"nd":8,"tl":8},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":15,"unit":"ea","rate":250,"nd":5,"tl":7},{"id":"x098","cat":"Doors & windows","scope":"Repaint entry doors to townhouses","desc":"","qty":15,"unit":"ea","rate":300,"nd":5,"tl":7},{"id":"x109","cat":"Roofing","scope":"Box gutters, capping, flashing and downpipe - repairs as needed","desc":"","qty":15,"unit":"item","rate":1500,"nd":4,"tl":4},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":4,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":15,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"x107","cat":"Roofing","scope":"Re-cement / re-point ridge capping","desc":"","qty":50,"unit":"item","rate":125,"nd":7,"tl":7},{"id":"x111","cat":"Roofing","scope":"Lead flashing repairs","desc":"Repair and re-dress lead flashings to roof penetrations","qty":12,"unit":"item","rate":750,"nd":6,"tl":6},{"id":"x135","cat":"Electrical","scope":"Common area wall/ceiling mounted lighting - upgrade/replacement as needed","desc":"","qty":15,"unit":"item","rate":325,"nd":4,"tl":10},{"id":"x254","cat":"Car parking","scope":"Repaint yellow protection bollards","desc":"","qty":4,"unit":"item","rate":400,"nd":7,"tl":7},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":60,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"x159","cat":"HVAC","scope":"Exhaust and supply fan motors to car parks","desc":"Replace exhaust and supply fan motors in basement car parks","qty":3,"unit":"item","rate":1600,"nd":7,"tl":7},{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":5200,"nd":3,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":2,"unit":"ea","rate":3252,"nd":5,"tl":5},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":20,"nd":1,"tl":3},{"id":"x274","cat":"Other","scope":"Specialist reports required as per DPBA","desc":"","qty":1,"unit":"m2","rate":2500,"nd":5,"tl":5}],"notes":"Registered 2008 - 15 Lots","folderId":"u178037136575874q"},{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":true},{"id":"u178037136575874q","name":"Townhouses","open":false},{"id":"u1780462018619puv","name":"Red Brick Stairwell","open":false}],"customCompanies":["Professionals Strata Team","CEO Strata"],"completedJobs":[{"id":"cjmqyoowskkrtja","sp":"SP 101810","address":"28 CLIFF ROAD EPPING, EPPING NSW 2121","jobType":"CWF","strataCompany":"Professionals Strata Team","status":"Pending","dateCompleted":"2026-06-29","notes":"Generated from Turnkey job folder"}],"todos":[],"starredItems":[],"itemUsage":{"x273":1,"x002":1,"x060":1,"x022":1,"x024":1,"x026":1,"x031":1,"x043":1,"x051":1,"x081":1,"x064":1,"x096":1,"x105":1,"x108":1,"x127":1,"x126":1,"x128":1,"x179":1},"defaultJobId":null,"recentItems":["u1783041907028fxx"],"lastSetup":{"preparedBy":"Joseph Bechara","company":"Professionals Strata Team","weather":"Clear"},"_savedAt":1783041909627};
 </script>
 
 <script>
