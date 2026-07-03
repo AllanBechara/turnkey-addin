@@ -132,13 +132,6 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 .setup-toggle input[type=checkbox]{width:18px;height:18px;accent-color:var(--navy-lt);cursor:pointer;flex-shrink:0}
 .setup-copy-btns{display:flex;flex-direction:column;gap:8px}
 .setup-hint{font-size:11px;color:var(--mu);margin-top:4px;line-height:1.5}
-/* ── SITE PHOTOS ── */
-.jp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:10px}
-.jp-thumb{position:relative;aspect-ratio:1;border:1px solid var(--bdr);border-radius:8px;overflow:hidden;background:var(--surf2)}
-.jp-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.jp-x{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(15,23,42,0.65);color:#fff;border:none;font-size:11px;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center}
-.jp-x:active{background:var(--red)}
-.jp-n{position:absolute;left:4px;bottom:4px;background:rgba(15,23,42,0.65);color:#fff;font-size:9px;font-weight:600;padding:1px 6px;border-radius:99px}
 .strata-panel{display:flex;flex-direction:column;flex:1;overflow:hidden}
 .strata-panel-head{padding:10px 14px;background:var(--surf2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px;flex-shrink:0}
 .strata-panel-head h2{font-size:14px;font-weight:600;flex:1;color:var(--navy-dk)}
@@ -293,32 +286,6 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 ::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:99px}
 
 /* ── COMPLETED JOBS ── */
-.cj-layout{display:flex;flex:1;min-height:0}
-.tdj-sidebar{width:44px;flex-shrink:0;border-right:1px solid var(--bdr);background:var(--surf);display:flex;flex-direction:column;min-height:0;overflow:hidden;transition:width .18s ease}
-.tdj-sidebar.expanded{width:248px}
-.tdj-head{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 8px;border-bottom:1px solid var(--bdr);flex-shrink:0;cursor:pointer}
-.tdj-sidebar.expanded .tdj-head{justify-content:space-between;padding:12px 14px}
-.tdj-icon{font-size:16px}
-.tdj-sidebar.expanded .tdj-icon{display:none}
-.tdj-title{font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--navy-dk);display:none;white-space:nowrap}
-.tdj-sidebar.expanded .tdj-title{display:block}
-.tdj-chevron{display:none;color:var(--mu)}
-.tdj-sidebar.expanded .tdj-chevron{display:inline}
-.tdj-body{display:none;flex:1;flex-direction:column;min-height:0}
-.tdj-sidebar.expanded .tdj-body{display:flex}
-.tdj-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px;display:flex;flex-direction:column;gap:8px}
-.tdj-empty{padding:24px 10px;text-align:center;color:var(--mu);font-size:12px;line-height:1.6}
-.tdj-card{border:1px solid var(--bdr);border-radius:10px;padding:10px 12px;background:var(--surf2);display:flex;flex-direction:column;gap:6px;transition:background .3s}
-.tdj-card.tdj-flash{background:#eef4ff}
-.tdj-card .sp{font-weight:700;font-size:13px;color:var(--tx)}
-.tdj-card .addr{font-size:11px;color:var(--mu);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tdj-pill{align-self:flex-start;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px}
-.tdj-pill.inc{background:var(--warn-bg);color:var(--warn)}
-.tdj-pill.cmp{background:var(--ok-bg);color:var(--ok)}
-.tdj-card-actions{display:flex;gap:6px;align-items:center}
-.tdj-status-sel{flex:1;font-size:11px;border:1px solid var(--bdr2);border-radius:6px;padding:4px 6px;background:var(--surf);color:var(--tx)}
-.cj-main{flex:1;display:flex;flex-direction:column;min-height:0}
-@media (max-width:760px){ .cj-layout{flex-direction:column} .tdj-sidebar{width:auto;border-right:none;border-bottom:1px solid var(--bdr)} .tdj-sidebar.expanded{max-height:42vh} }
 .cj-toolbar{padding:10px 12px;border-bottom:1px solid var(--bdr);background:var(--surf);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
 .cj-filters{display:flex;flex-wrap:wrap;gap:6px}
 .cj-filters select,.cj-filters input{padding:8px 10px;border:1px solid var(--bdr);border-radius:7px;font-size:12.5px;background:var(--surf2);color:var(--tx);outline:none}
@@ -380,10 +347,6 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 
 /* ── PROJECTION TAB ── */
 .proj-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:14px}
-.proj-contrib-input{width:84px;font:inherit;font-size:12px;text-align:right;border:1px solid var(--bdr2);border-radius:6px;padding:3px 6px;background:var(--surf);color:var(--tx)}
-.proj-contrib-input:focus{outline:2px solid var(--navy-md);border-color:transparent}
-.proj-contrib-input::placeholder{color:var(--mu2)}
-.proj-contrib-cell.proj-over{background:rgba(37,99,235,0.08)}
 .proj-card{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px 16px}
 .proj-pull{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px dashed var(--bdr)}
 .proj-pull:last-child{border-bottom:none}
@@ -439,7 +402,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">45 items · $581,216</span>
+    <span class="sel-chip" id="sel-chip" style="display: none;">0 items · $0</span>
     <div class="sync-dot busy" id="sync-dot" title="Saving to GitHub…" onclick="isMobile?showView('settings'):switchDesktopLeft('settings')"></div>
     <button class="tb-btn" id="sync-settings-btn" title="Sync settings" onclick="isMobile?showView('settings'):switchDesktopLeft('settings')">⚙</button>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
@@ -453,6 +416,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
       <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
       <div class="dtab" id="dtab-jobs" onclick="switchDesktopLeft('jobs')">Saved Jobs</div>
       <div class="dtab" id="dtab-completed-jobs" onclick="switchDesktopLeft('completed-jobs')">✓ Completed Jobs</div>
+      <div class="dtab" id="dtab-todos" onclick="switchDesktopLeft('todos')">☑ To-Do</div>
       <div class="dtab" id="dtab-add" onclick="switchDesktopLeft('add')">+ Add Item</div>
       <div class="dtab active" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
       <div class="dtab" id="dtab-projection" onclick="switchDesktopLeft('projection')">📈 Projection</div>
@@ -474,7 +438,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
         </div>
         <div class="setup-field full">
           <label style="display:flex;justify-content:space-between;align-items:center">Strata Management Company <button type="button" class="btn sm" onclick="addStrataCompany()" style="font-size:11px;color:var(--navy-md);padding:2px 8px">+ Add company</button></label>
-          <select id="js-company"><option value="">— Not on list —</option><option value="Bay Strata">Bay Strata</option><option value="C.F Strata Management">C.F Strata Management</option><option value="Conti Strata">Conti Strata</option><option value="Eastern Star Strata">Eastern Star Strata</option><option value="Fabos Strata">Fabos Strata</option><option value="Hill Strata Solutions">Hill Strata Solutions</option><option value="Illawarra Strata">Illawarra Strata</option><option value="Jamesons Strata">Jamesons Strata</option><option value="Premium Strata">Premium Strata</option><option value="Kooper &amp; Levi">Kooper &amp; Levi</option><option value="Strata Only">Strata Only</option><option value="Strata Sense">Strata Sense</option><option value="Strathfield Partners">Strathfield Partners</option><option value="Vital Strata">Vital Strata</option><option value="Whelan Property">Whelan Property</option><option value="Wollongong Strata">Wollongong Strata</option><option value="Net Strata">Net Strata</option><option value="MY StrataCare">MY StrataCare</option><option value="Real Strata Management">Real Strata Management</option><option value="Exclusive">Exclusive</option><option value="Professionals Strata Team">Professionals Strata Team</option></select>
+          <select id="js-company"><option value="">— Not on list —</option><option value="Bay Strata">Bay Strata</option><option value="C.F Strata Management">C.F Strata Management</option><option value="Conti Strata">Conti Strata</option><option value="Eastern Star Strata">Eastern Star Strata</option><option value="Fabos Strata">Fabos Strata</option><option value="Hill Strata Solutions">Hill Strata Solutions</option><option value="Illawarra Strata">Illawarra Strata</option><option value="Jamesons Strata">Jamesons Strata</option><option value="Premium Strata">Premium Strata</option><option value="Kooper &amp; Levi">Kooper &amp; Levi</option><option value="Strata Only">Strata Only</option><option value="Strata Sense">Strata Sense</option><option value="Strathfield Partners">Strathfield Partners</option><option value="Vital Strata">Vital Strata</option><option value="Whelan Property">Whelan Property</option><option value="Wollongong Strata">Wollongong Strata</option><option value="Net Strata">Net Strata</option><option value="MY StrataCare">MY StrataCare</option><option value="Real Strata Management">Real Strata Management</option><option value="Exclusive">Exclusive</option><option value="CEO Strata">CEO Strata</option><option value="Professionals Strata Team">Professionals Strata Team</option></select>
         </div>
         <div class="setup-field">
           <label>Lot Entitlements</label>
@@ -517,7 +481,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
     <div>
       <div class="setup-section-title">Strata Details</div>
       <button class="btn primary" style="width:100%;min-height:44px;font-size:13px;margin-bottom:8px" onclick="lookupStrata()">🔍 Auto-fill from SP number</button>
-      <div class="form-msg ok" id="strata-lookup-msg" style="margin-bottom:8px">✓ Found: 28 CLIFF ROAD EPPING, EPPING</div>
+      <div class="form-msg" id="strata-lookup-msg" style="margin-bottom:8px"></div>
       <div class="setup-grid">
         <div class="setup-field full">
           <label>Address</label>
@@ -537,11 +501,11 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 
     <div>
       <div class="setup-section-title">Generate Job Folder</div>
-      <div class="gen-readout" id="gen-readout"><span><span class="gr-n">45</span> inspection items → Summary</span><span class="gr-n">$586,216</span></div>
+      <div class="gen-readout" id="gen-readout"><span class="gr-empty">⚠ No items selected — Summary will be empty</span><a onclick="switchDesktopLeft('library')">Pick items →</a></div>
       <button class="btn primary" style="width:100%;min-height:52px;font-size:15px;font-weight:600" onclick="genWordReport()">⚡ Generate Word Report</button>
       <button class="btn" style="width:100%;min-height:40px;font-size:12px;margin-top:8px" onclick="generateJobFolder()">Export Excel workbook (optional)</button>
       <div class="setup-hint" style="margin-bottom:4px">Downloads <strong>SP {number}.zip</strong> with the filled Excel + Word templates. Your selected items become the Summary rows, and the job is saved to <strong>Saved Jobs</strong> automatically — ready to reuse next time.</div>
-      <div class="form-msg ok" id="gen-msg" style="margin-top:6px">✓ Downloaded SP 101810 Professionals Strata Team.zip — filled Excel (45 items) + Word template inside</div>
+      <div class="form-msg" id="gen-msg" style="margin-top:6px"></div>
     </div>
 
     <details>
@@ -602,7 +566,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   <div class="bnav-item" id="bnav-selected" onclick="showView('selected')">
     <div class="bnav-icon">☑</div>
     <div class="bnav-label">Selected</div>
-    <div class="bnav-badge show" id="bnav-sel-badge">45</div>
+    <div class="bnav-badge" id="bnav-sel-badge">0</div>
   </div>
   <div class="bnav-item" id="bnav-jobs" onclick="showView('jobs')">
     <div class="bnav-icon">💼</div>
@@ -611,6 +575,10 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   <div class="bnav-item" id="bnav-completed-jobs" onclick="showView('completed-jobs')">
     <div class="bnav-icon">✓</div>
     <div class="bnav-label">Completed</div>
+  </div>
+  <div class="bnav-item" id="bnav-todos" onclick="showView('todos')">
+    <div class="bnav-icon">☑</div>
+    <div class="bnav-label">To-Do</div>
   </div>
   <div class="bnav-item" id="bnav-add" onclick="showView('add')">
     <div class="bnav-icon">＋</div>
@@ -1003,7 +971,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   </div>
 </div>
 
-<div id="toast" class="toast show ok">"SP 101810 - Professionals Strata Team" updated in Saved Jobs</div>
+<div id="toast" class="toast show ok">Added "CEO Strata"</div>
 
 <template id="tmpl-library">
   <div class="search-area">
@@ -1055,54 +1023,39 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 </template>
 
 <template id="tmpl-completed-jobs">
-  <div class="cj-layout">
-    <aside class="tdj-sidebar" id="tdj-sidebar">
-      <div class="tdj-head" onclick="tdjToggleSidebar()">
-        <span class="tdj-icon">📋</span>
-        <span class="tdj-title">To Do Jobs</span>
-        <span class="tdj-chevron" id="tdj-chevron">▸</span>
-      </div>
-      <div class="tdj-body" id="tdj-body">
-        <button class="btn primary sm" style="margin:10px" onclick="tdjOpenAdd()">+ Add</button>
-        <div class="tdj-list" id="tdj-list"></div>
-      </div>
-    </aside>
-    <div class="cj-main">
-      <div class="cj-toolbar">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-          <span style="font-size:13px;font-weight:600" id="cj-total-label">0 completed jobs</span>
-          <button class="btn primary sm" onclick="cjOpenAdd()">+ Add Job</button>
-        </div>
-        <div class="cj-filters">
-          <input type="text" id="cj-search" placeholder="Search SP, address, company, notes…" oninput="renderCompletedJobs()" autocomplete="off">
-          <select id="cj-ftype" onchange="renderCompletedJobs()"></select>
-          <select id="cj-fstatus" onchange="renderCompletedJobs()"></select>
-          <select id="cj-fcompany" onchange="renderCompletedJobs()"></select>
-        </div>
-        <div class="cj-summary">
-          <span id="cj-shown-label">Showing 0 of 0</span>
-          <button class="cj-clear" id="cj-clear-btn" onclick="cjClearFilters()" style="display:none">Clear filters</button>
-        </div>
-      </div>
-      <div class="cj-scroll">
-        <table class="cj-table">
-          <thead>
-            <tr>
-              <th onclick="cjSortBy('sp')">SP<span id="cj-arrow-sp"></span></th>
-              <th onclick="cjSortBy('address')">Address<span id="cj-arrow-address"></span></th>
-              <th onclick="cjSortBy('jobType')">Job Type<span id="cj-arrow-jobType"></span></th>
-              <th onclick="cjSortBy('strataCompany')">Strata Company<span id="cj-arrow-strataCompany"></span></th>
-              <th>Contribution</th>
-              <th onclick="cjSortBy('dateCompleted')">Date Completed<span id="cj-arrow-dateCompleted"></span></th>
-              <th>Notes</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="cj-tbody"></tbody>
-        </table>
-        <div class="cj-empty" id="cj-empty" style="display:none">No jobs found. Try adjusting your search or filters.</div>
-      </div>
+  <div class="cj-toolbar">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <span style="font-size:13px;font-weight:600" id="cj-total-label">0 completed jobs</span>
+      <button class="btn primary sm" onclick="cjOpenAdd()">+ Add Job</button>
     </div>
+    <div class="cj-filters">
+      <input type="text" id="cj-search" placeholder="Search SP, address, company, notes…" oninput="renderCompletedJobs()" autocomplete="off">
+      <select id="cj-ftype" onchange="renderCompletedJobs()"></select>
+      <select id="cj-fstatus" onchange="renderCompletedJobs()"></select>
+      <select id="cj-fcompany" onchange="renderCompletedJobs()"></select>
+    </div>
+    <div class="cj-summary">
+      <span id="cj-shown-label">Showing 0 of 0</span>
+      <button class="cj-clear" id="cj-clear-btn" onclick="cjClearFilters()" style="display:none">Clear filters</button>
+    </div>
+  </div>
+  <div class="cj-scroll">
+    <table class="cj-table">
+      <thead>
+        <tr>
+          <th onclick="cjSortBy('sp')">SP<span id="cj-arrow-sp"></span></th>
+          <th onclick="cjSortBy('address')">Address<span id="cj-arrow-address"></span></th>
+          <th onclick="cjSortBy('jobType')">Job Type<span id="cj-arrow-jobType"></span></th>
+          <th onclick="cjSortBy('strataCompany')">Strata Company<span id="cj-arrow-strataCompany"></span></th>
+          <th>Contribution</th>
+          <th onclick="cjSortBy('dateCompleted')">Date Completed<span id="cj-arrow-dateCompleted"></span></th>
+          <th>Notes</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="cj-tbody"></tbody>
+    </table>
+    <div class="cj-empty" id="cj-empty" style="display:none">No jobs found. Try adjusting your search or filters.</div>
   </div>
 </template>
 
@@ -1129,43 +1082,57 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   </div>
 </div>
 
-<div class="modal-overlay" id="tdj-modal" onclick="if(event.target===this)tdjCancelForm()">
+<template id="tmpl-todos">
+  <div class="cj-toolbar">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <span style="font-size:13px;font-weight:600" id="td-total-label">0 tasks</span>
+      <button class="btn primary sm" onclick="tdOpenAdd()">+ Add Task</button>
+    </div>
+    <div class="cj-filters">
+      <input type="text" id="td-search" placeholder="Search tasks, notes…" oninput="renderTodos()" autocomplete="off">
+      <select id="td-fstatus" onchange="renderTodos()"></select>
+    </div>
+    <div class="cj-summary">
+      <span id="td-shown-label">Showing 0 of 0</span>
+      <button class="cj-clear" id="td-clear-btn" onclick="tdClearFilters()" style="display:none">Clear filters</button>
+    </div>
+  </div>
+  <div class="cj-scroll">
+    <table class="cj-table">
+      <thead>
+        <tr>
+          <th style="width:34px" title="Done"></th>
+          <th onclick="tdSortBy('task')">Task<span id="td-arrow-task"></span></th>
+          <th onclick="tdSortBy('status')">Status<span id="td-arrow-status"></span></th>
+          <th onclick="tdSortBy('dateAssigned')">Date Assigned<span id="td-arrow-dateAssigned"></span></th>
+          <th onclick="tdSortBy('dateCompleted')">Date Completed<span id="td-arrow-dateCompleted"></span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="td-tbody"></tbody>
+    </table>
+    <div class="cj-empty" id="td-empty" style="display:none">No tasks yet. Tap “+ Add Task” to create one.</div>
+  </div>
+</template>
+
+<div class="modal-overlay" id="td-modal" onclick="if(event.target===this)tdCancelForm()">
   <div class="modal">
-    <div class="modal-close-row"><button class="modal-close" onclick="tdjCancelForm()">✕</button></div>
-    <h2 id="tdj-form-title">Add a To-Do Job</h2>
-    <button class="btn" style="width:100%;margin-bottom:10px" onclick="tdjPrefillFromNewJob()">Use current New Job</button>
+    <div class="modal-close-row"><button class="modal-close" onclick="tdCancelForm()">✕</button></div>
+    <h2 id="td-form-title">Add a task</h2>
+    <div class="fg"><label>Task *</label><input id="td-f-task" placeholder="What needs doing?" autocomplete="off"></div>
     <div class="fg-row">
-      <div class="fg"><label>SP number *</label><input id="tdj-f-sp" placeholder="SP 12345" autocomplete="off"></div>
-      <div class="fg"><label>Status</label><select id="tdj-f-status"><option>Incomplete</option><option>Complete</option></select></div>
-    </div>
-    <div class="fg"><label>Building name</label><input id="tdj-f-building" autocomplete="off"></div>
-    <div class="fg"><label>Address</label><input id="tdj-f-address" placeholder="Street, suburb" autocomplete="off"></div>
-    <div class="fg-row">
-      <div class="fg"><label>Registered date</label><input id="tdj-f-regdate" placeholder="e.g. 05 Jun 1964" autocomplete="off"></div>
-      <div class="fg"><label>No. of lots</label><input id="tdj-f-lots" placeholder="e.g. 12 Lots" autocomplete="off"></div>
-    </div>
-    <div class="fg"><label>Strata management company</label><select id="tdj-f-company"></select></div>
-    <div class="fg-row">
-      <div class="fg"><label>Lot entitlements</label><input id="tdj-f-le" inputmode="decimal" autocomplete="off"></div>
-      <div class="fg"><label class="setup-toggle"><span>GST Applicable</span><input type="checkbox" id="tdj-f-gst"></label></div>
+      <div class="fg"><label>Status</label><select id="td-f-status"></select></div>
+      <div class="fg"><label>Date assigned</label><input id="td-f-assigned" type="date"></div>
     </div>
     <div class="fg-row">
-      <div class="fg"><label>CWF balance ($)</label><input id="tdj-f-cwfbal" inputmode="decimal" autocomplete="off"></div>
-      <div class="fg"><label>Current closing balance ($)</label><input id="tdj-f-closebal" inputmode="decimal" autocomplete="off"></div>
+      <div class="fg"><label>Date completed</label><input id="td-f-completed" type="date"></div>
+      <div class="fg"><label>&nbsp;</label><div style="font-size:11px;color:var(--mu);line-height:1.4;padding-top:6px">Set automatically when status is “Done”.</div></div>
     </div>
-    <div class="fg-row">
-      <div class="fg"><label>CWF total contributions ($)</label><input id="tdj-f-cwfcontrib" inputmode="decimal" autocomplete="off"></div>
-      <div class="fg"><label>Financial year start</label><input id="tdj-f-yearstart" type="date"></div>
-    </div>
-    <div class="fg-row">
-      <div class="fg"><label>Weather</label><input id="tdj-f-weather" placeholder="e.g. Fine" autocomplete="off"></div>
-      <div class="fg"><label>Prepared by</label><input id="tdj-f-preparedby" autocomplete="off"></div>
-    </div>
-    <div class="fg"><label>Notes</label><textarea id="tdj-f-notes" rows="3" placeholder="Optional notes…"></textarea></div>
-    <div class="form-msg" id="tdj-form-msg"></div>
+    <div class="fg"><label>Notes</label><textarea id="td-f-notes" rows="3" placeholder="Optional notes…"></textarea></div>
+    <div class="form-msg" id="td-form-msg"></div>
     <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:6px">
-      <button class="btn" onclick="tdjCancelForm()">Cancel</button>
-      <button class="btn primary" id="tdj-save-btn" onclick="tdjSaveJob()">Add job</button>
+      <button class="btn" onclick="tdCancelForm()">Cancel</button>
+      <button class="btn primary" id="td-save-btn" onclick="tdSaveTask()">Add task</button>
     </div>
   </div>
 </div>
@@ -1329,14 +1296,6 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
     </div>
 
     <div>
-      <div class="setup-section-title">Site Photos <span id="jp-count" style="font-weight:400;text-transform:none;color:var(--mu2)"></span></div>
-      <label class="btn" style="width:100%;min-height:44px;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;box-sizing:border-box">📷 Add Photos<input type="file" accept="image/*" multiple style="display:none" onchange="jpAddFiles(this.files);this.value=''"></label>
-      <div class="jp-grid" id="jp-grid"></div>
-      <div id="jp-clear-wrap" style="display:none;margin-top:8px"><button class="btn" style="width:100%;min-height:36px;font-size:12px;color:var(--red)" onclick="jpClearAll()">Clear all photos</button></div>
-      <div class="setup-hint">Photos are embedded into the report's photo pages when you press <strong>Generate Word Report</strong> — 2 per row, sized to fit, exactly like the Word macro. They stay on this device until you remove them.</div>
-    </div>
-
-    <div>
       <div class="setup-section-title">Generate Job Folder</div>
       <div class="gen-readout" id="gen-readout"></div>
       <button class="btn primary" style="width:100%;min-height:52px;font-size:15px;font-weight:600" onclick="genWordReport()">⚡ Generate Word Report</button>
@@ -1378,7 +1337,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 
     <div class="proj-card proj-hero">
       <div class="proj-rec" id="proj-rec">$0</div>
-      <div class="proj-rec-sub">Suggested Year&nbsp;1 contribution (baseline) — edit any year below to override</div>
+      <div class="proj-rec-sub">Recommended Year&nbsp;1 contribution<br>balances the average closing balance to your goal</div>
       <div class="proj-perlot" id="proj-rec-perlot">$0 / lot</div>
       <div class="proj-check" id="proj-check"></div>
       <div class="proj-goal-row">
@@ -1393,10 +1352,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
     </div>
 
     <div>
-      <div class="setup-section-title" style="display:flex;align-items:center;justify-content:space-between;gap:10px">
-        <span>Projection — carries to Optimize Contribution on export</span>
-        <button class="btn sm" id="proj-reset-btn" onclick="projResetContribs()" style="display:none;flex-shrink:0">Reset to recommended</button>
-      </div>
+      <div class="setup-section-title">Projection — carries to Optimize Contribution on export</div>
       <div class="proj-table-wrap">
         <table class="proj-table">
           <thead><tr><th>Yr</th><th>Opening</th><th>Contribution</th><th>Per lot</th><th>Expenses</th><th>Conting.</th><th>Closing</th><th>Interest</th></tr></thead>
@@ -1410,7 +1366,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
         <span class="proj-const">Projection <b>10 yrs</b></span>
         <span class="proj-const">Expenses = future value of selected items × 1.03/yr</span>
       </div>
-      <div class="setup-hint">Edit any year's contribution — the closing balance and chart update live. These figures (including your edits) carry to the Optimize Contribution sheet and the Word report on export.</div>
+      <div class="setup-hint">On <strong>Generate Job Folder</strong> these balanced figures fill the Optimize Contribution sheet (I7 start, M9 goal, D8:D17 contributions, G8:G17 expenses, M16 recommendation) — no Goal Seek needed.</div>
     </div>
   </div>
 </template>
@@ -1448,7 +1404,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 </template>
 
 <script id="user-data">
-const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u178036932353337e","cat":"Landscaping","scope":"Colorbond fencing replacement (Approx. )","desc":"measure on google maps","qty":1,"unit":"lm","rate":200,"nd":10,"tl":10},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":1,"unit":"ea","rate":300,"nd":7,"tl":7},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":10,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"u1782704811465d0y","cat":"Other","scope":"Scope","qty":1,"unit":"Unit","rate":0,"nd":1,"tl":10},{"id":"u17827048114669qs","cat":"Other","scope":"Building Exterior - Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114668cy","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u17827048114665ol","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u17827048114669t2","cat":"Fire safety","scope":"Repaint external service doors and door jambs to plant and fire exits","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u1782704811466hu5","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u1782704811466kkj","cat":"Landscaping","scope":"Planter box membrane replacement as needed","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704811466qin","cat":"Landscaping","scope":"Repaint walls to planterboxes and retaining walls","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704811466dar","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u1782704811466rg7","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u1782704811467ske","cat":"Other","scope":"Subtotal","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114675vm","cat":"Other","scope":"Roof to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114671al","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u1782704811467qgu","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"u1782704811467ke7","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704811467k48","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704811467uko","cat":"Other","scope":"Basement and Plant Items","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811467ya1","cat":"Electrical","scope":"Replace motor to electric gate","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704811467ez1","cat":"Other","scope":"Replacement of basement ramp rubber speed humps","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704811467i97","cat":"Electrical","scope":"Repaint and re-highlight yellow coloured kerbing","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u1782704811467hxz","cat":"Exterior finishes","scope":"Repaint walls","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704811468af0","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u1782704811468i5c","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u1782704811468pwa","cat":"Plumbing","scope":"Replacement of basement sewer pumps","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704811468gto","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704811468lp5","cat":"Other","scope":"Replacement of Co2 carbon monoxide sensors","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u17827048114680ii","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048114685nw","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u17827048114686ns","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704811468lhq","cat":"Other","scope":"Replacement of convex mirrors","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704811468ccg","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704811468v56","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u17827048114686qj","cat":"Fire safety","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u17827048114688zg","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704811468uya","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704811468w1z","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704811468r5a","cat":"Technology","scope":"Replacement of intercom","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704811468rac","cat":"Other","scope":"Basement bin rooms x 3","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469ia8","cat":"Other","scope":"Overhaul Elephants foot carousel x 3","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u178270481146936r","cat":"Other","scope":"Replacement of mechanical supply air motors","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704811469bjd","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704811469xn9","cat":"Doors & windows","scope":"Repaint doors","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u1782704811469hki","cat":"Other","scope":"Common lobby's - to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469o2f","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u1782704811469zrj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704811469qwc","cat":"Doors & windows","scope":"Repaint service doors and door jambs","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704811469fsz","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u17827048114697r6","cat":"Other","scope":"Fittings to common property","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469fyh","cat":"Other","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u17827048114693v8","cat":"Exterior finishes","scope":"Replacement of stainless tubed handrails - as needed","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704811469l1g","cat":"Other","scope":"Pedestrian external stairway non slip nosings","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u1782704811469um5","cat":"Technology","scope":"Replacement of security entry FOB system","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10}],"savedJobs":[{"id":"u1782705088650339","name":"SP 101810 - Professionals Strata Team","date":"29/06/2026","items":[{"id":"u1782704844064f0k","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","desc":"","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u178270484406568q","cat":"Exterior finishes","scope":"Repaint and re-highlight yellow coloured kerbing","desc":"","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u17827048440641nj","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","desc":"","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u17827048440642x8","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","desc":"","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u1782704844064egd","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","desc":"","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u1782704844065pe6","cat":"Exterior finishes","scope":"Repaint doors","desc":"","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u178270484406494p","cat":"Exterior finishes","scope":"Repaint external service doors and door jambs to plant and fire exits","desc":"","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u17827048440654np","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","desc":"","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704844065og6","cat":"Exterior finishes","scope":"Repaint walls","desc":"","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704844065ybu","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","desc":"","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u178270484406475d","cat":"Exterior finishes","scope":"Repaint walls to planterboxes and retaining walls","desc":"","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704844064rdy","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","desc":"","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u17827048440643i2","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","desc":"","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u178270484406594f","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","desc":"","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u1782704844065wex","cat":"Doors & windows","scope":"Repaint service doors and door jambs","desc":"","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704844064stc","cat":"Electrical","scope":"Replace motor to electric gate","desc":"","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704844065zo4","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","desc":"","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704844065b9t","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","desc":"","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u1782704844065yft","cat":"Plumbing","scope":"Replacement of basement sewer pumps","desc":"","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704844065llp","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","desc":"","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u17827048440656qq","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","desc":"","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u1782704844065hpy","cat":"HVAC","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","desc":"","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u1782704844065h20","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","desc":"","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704844065gju","cat":"HVAC","scope":"Replacement of Co2 carbon monoxide sensors","desc":"","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u1782704844064mbd","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","desc":"","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704844065oz2","cat":"HVAC","scope":"Replacement of mechanical supply air motors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704844064ux7","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","desc":"","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704844065ve4","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","desc":"","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704844065jr9","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","desc":"","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048440650zp","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","desc":"","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704844065st3","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","desc":"","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704844065rpu","cat":"Technology","scope":"Replacement of intercom","desc":"","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704844065t36","cat":"Technology","scope":"Replacement of security entry FOB system","desc":"","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10},{"id":"u1782704844065w1t","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","desc":"","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704844065spn","cat":"Accessibility","scope":"Pedestrian external stairway non slip nosings","desc":"","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u17827048440658k7","cat":"Accessibility","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","desc":"","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u1782704844065fro","cat":"Accessibility","scope":"Replacement of stainless tubed handrails - as needed","desc":"","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704844064o7p","cat":"Landscaping","scope":"Planter box membrane replacement as needed","desc":"","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704844065fk0","cat":"Amenities","scope":"Overhaul Elephants foot carousel x 3","desc":"","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u1782704844065qoj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","desc":"","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704844065rmt","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","desc":"","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u178270484406413u","cat":"Car parking","scope":"Replacement of basement ramp rubber speed humps","desc":"","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704844065bb4","cat":"Car parking","scope":"Replacement of convex mirrors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704844064m38","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","desc":"","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":4,"unit":"m2","rate":2500,"nd":6,"tl":7}],"notes":"27 Aug 2020 - 133 Lots, 28 CLIFF ROAD EPPING, EPPING NSW 2121","folderId":"u1779768541150hh5"},{"id":"u17803720422421hw","name":"SP 79900","date":"02/06/2026","items":[{"id":"x248","cat":"Furnishings","scope":"Building signage and letterboxes","desc":"Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":2,"unit":"item","rate":1000,"nd":8,"tl":8},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":15,"unit":"ea","rate":250,"nd":5,"tl":7},{"id":"x098","cat":"Doors & windows","scope":"Repaint entry doors to townhouses","desc":"","qty":15,"unit":"ea","rate":300,"nd":5,"tl":7},{"id":"x109","cat":"Roofing","scope":"Box gutters, capping, flashing and downpipe - repairs as needed","desc":"","qty":15,"unit":"item","rate":1500,"nd":4,"tl":4},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":4,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":15,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"x107","cat":"Roofing","scope":"Re-cement / re-point ridge capping","desc":"","qty":50,"unit":"item","rate":125,"nd":7,"tl":7},{"id":"x111","cat":"Roofing","scope":"Lead flashing repairs","desc":"Repair and re-dress lead flashings to roof penetrations","qty":12,"unit":"item","rate":750,"nd":6,"tl":6},{"id":"x135","cat":"Electrical","scope":"Common area wall/ceiling mounted lighting - upgrade/replacement as needed","desc":"","qty":15,"unit":"item","rate":325,"nd":4,"tl":10},{"id":"x254","cat":"Car parking","scope":"Repaint yellow protection bollards","desc":"","qty":4,"unit":"item","rate":400,"nd":7,"tl":7},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":60,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"x159","cat":"HVAC","scope":"Exhaust and supply fan motors to car parks","desc":"Replace exhaust and supply fan motors in basement car parks","qty":3,"unit":"item","rate":1600,"nd":7,"tl":7},{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":5200,"nd":3,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":2,"unit":"ea","rate":3252,"nd":5,"tl":5},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":20,"nd":1,"tl":3},{"id":"x274","cat":"Other","scope":"Specialist reports required as per DPBA","desc":"","qty":1,"unit":"m2","rate":2500,"nd":5,"tl":5}],"notes":"Registered 2008 - 15 Lots","folderId":"u178037136575874q"},{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":true},{"id":"u178037136575874q","name":"Townhouses","open":false},{"id":"u1780462018619puv","name":"Red Brick Stairwell","open":false}],"customCompanies":["Professionals Strata Team"],"completedJobs":[{"id":"cjmqyoowskkrtja","sp":"SP 101810","address":"28 CLIFF ROAD EPPING, EPPING NSW 2121","jobType":"CWF","strataCompany":"Professionals Strata Team","status":"Pending","dateCompleted":"2026-06-29","notes":"Generated from Turnkey job folder"}],"todos":[],"starredItems":[],"itemUsage":{"x273":1},"defaultJobId":null,"recentItems":[],"lastSetup":{"preparedBy":"Joseph Bechara","company":"Professionals Strata Team","weather":"Clear"},"_savedAt":1782705276375};
+const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u178036932353337e","cat":"Landscaping","scope":"Colorbond fencing replacement (Approx. )","desc":"measure on google maps","qty":1,"unit":"lm","rate":200,"nd":10,"tl":10},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":1,"unit":"ea","rate":300,"nd":7,"tl":7},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":10,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"u1782704811465d0y","cat":"Other","scope":"Scope","qty":1,"unit":"Unit","rate":0,"nd":1,"tl":10},{"id":"u17827048114669qs","cat":"Other","scope":"Building Exterior - Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114668cy","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u17827048114665ol","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u17827048114669t2","cat":"Fire safety","scope":"Repaint external service doors and door jambs to plant and fire exits","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u1782704811466hu5","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u1782704811466kkj","cat":"Landscaping","scope":"Planter box membrane replacement as needed","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704811466qin","cat":"Landscaping","scope":"Repaint walls to planterboxes and retaining walls","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704811466dar","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u1782704811466rg7","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u1782704811467ske","cat":"Other","scope":"Subtotal","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114675vm","cat":"Other","scope":"Roof to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114671al","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u1782704811467qgu","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"u1782704811467ke7","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704811467k48","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704811467uko","cat":"Other","scope":"Basement and Plant Items","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811467ya1","cat":"Electrical","scope":"Replace motor to electric gate","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704811467ez1","cat":"Other","scope":"Replacement of basement ramp rubber speed humps","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704811467i97","cat":"Electrical","scope":"Repaint and re-highlight yellow coloured kerbing","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u1782704811467hxz","cat":"Exterior finishes","scope":"Repaint walls","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704811468af0","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u1782704811468i5c","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u1782704811468pwa","cat":"Plumbing","scope":"Replacement of basement sewer pumps","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704811468gto","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704811468lp5","cat":"Other","scope":"Replacement of Co2 carbon monoxide sensors","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u17827048114680ii","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048114685nw","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u17827048114686ns","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704811468lhq","cat":"Other","scope":"Replacement of convex mirrors","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704811468ccg","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704811468v56","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u17827048114686qj","cat":"Fire safety","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u17827048114688zg","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704811468uya","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704811468w1z","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704811468r5a","cat":"Technology","scope":"Replacement of intercom","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704811468rac","cat":"Other","scope":"Basement bin rooms x 3","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469ia8","cat":"Other","scope":"Overhaul Elephants foot carousel x 3","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u178270481146936r","cat":"Other","scope":"Replacement of mechanical supply air motors","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704811469bjd","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704811469xn9","cat":"Doors & windows","scope":"Repaint doors","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u1782704811469hki","cat":"Other","scope":"Common lobby's - to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469o2f","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u1782704811469zrj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704811469qwc","cat":"Doors & windows","scope":"Repaint service doors and door jambs","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704811469fsz","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u17827048114697r6","cat":"Other","scope":"Fittings to common property","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469fyh","cat":"Other","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u17827048114693v8","cat":"Exterior finishes","scope":"Replacement of stainless tubed handrails - as needed","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704811469l1g","cat":"Other","scope":"Pedestrian external stairway non slip nosings","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u1782704811469um5","cat":"Technology","scope":"Replacement of security entry FOB system","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10}],"savedJobs":[{"id":"u1782705088650339","name":"SP 101810 - Professionals Strata Team","date":"29/06/2026","items":[{"id":"u1782704844064f0k","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","desc":"","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u178270484406568q","cat":"Exterior finishes","scope":"Repaint and re-highlight yellow coloured kerbing","desc":"","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u17827048440641nj","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","desc":"","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u17827048440642x8","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","desc":"","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u1782704844064egd","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","desc":"","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u1782704844065pe6","cat":"Exterior finishes","scope":"Repaint doors","desc":"","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u178270484406494p","cat":"Exterior finishes","scope":"Repaint external service doors and door jambs to plant and fire exits","desc":"","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u17827048440654np","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","desc":"","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704844065og6","cat":"Exterior finishes","scope":"Repaint walls","desc":"","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704844065ybu","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","desc":"","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u178270484406475d","cat":"Exterior finishes","scope":"Repaint walls to planterboxes and retaining walls","desc":"","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704844064rdy","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","desc":"","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u17827048440643i2","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","desc":"","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u178270484406594f","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","desc":"","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u1782704844065wex","cat":"Doors & windows","scope":"Repaint service doors and door jambs","desc":"","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704844064stc","cat":"Electrical","scope":"Replace motor to electric gate","desc":"","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704844065zo4","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","desc":"","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704844065b9t","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","desc":"","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u1782704844065yft","cat":"Plumbing","scope":"Replacement of basement sewer pumps","desc":"","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704844065llp","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","desc":"","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u17827048440656qq","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","desc":"","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u1782704844065hpy","cat":"HVAC","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","desc":"","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u1782704844065h20","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","desc":"","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704844065gju","cat":"HVAC","scope":"Replacement of Co2 carbon monoxide sensors","desc":"","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u1782704844064mbd","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","desc":"","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704844065oz2","cat":"HVAC","scope":"Replacement of mechanical supply air motors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704844064ux7","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","desc":"","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704844065ve4","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","desc":"","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704844065jr9","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","desc":"","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048440650zp","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","desc":"","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704844065st3","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","desc":"","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704844065rpu","cat":"Technology","scope":"Replacement of intercom","desc":"","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704844065t36","cat":"Technology","scope":"Replacement of security entry FOB system","desc":"","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10},{"id":"u1782704844065w1t","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","desc":"","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704844065spn","cat":"Accessibility","scope":"Pedestrian external stairway non slip nosings","desc":"","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u17827048440658k7","cat":"Accessibility","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","desc":"","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u1782704844065fro","cat":"Accessibility","scope":"Replacement of stainless tubed handrails - as needed","desc":"","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704844064o7p","cat":"Landscaping","scope":"Planter box membrane replacement as needed","desc":"","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704844065fk0","cat":"Amenities","scope":"Overhaul Elephants foot carousel x 3","desc":"","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u1782704844065qoj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","desc":"","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704844065rmt","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","desc":"","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u178270484406413u","cat":"Car parking","scope":"Replacement of basement ramp rubber speed humps","desc":"","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704844065bb4","cat":"Car parking","scope":"Replacement of convex mirrors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704844064m38","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","desc":"","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":4,"unit":"m2","rate":2500,"nd":6,"tl":7}],"notes":"27 Aug 2020 - 133 Lots, 28 CLIFF ROAD EPPING, EPPING NSW 2121","folderId":"u1779768541150hh5"},{"id":"u17803720422421hw","name":"SP 79900","date":"02/06/2026","items":[{"id":"x248","cat":"Furnishings","scope":"Building signage and letterboxes","desc":"Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":2,"unit":"item","rate":1000,"nd":8,"tl":8},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":15,"unit":"ea","rate":250,"nd":5,"tl":7},{"id":"x098","cat":"Doors & windows","scope":"Repaint entry doors to townhouses","desc":"","qty":15,"unit":"ea","rate":300,"nd":5,"tl":7},{"id":"x109","cat":"Roofing","scope":"Box gutters, capping, flashing and downpipe - repairs as needed","desc":"","qty":15,"unit":"item","rate":1500,"nd":4,"tl":4},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":4,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":15,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"x107","cat":"Roofing","scope":"Re-cement / re-point ridge capping","desc":"","qty":50,"unit":"item","rate":125,"nd":7,"tl":7},{"id":"x111","cat":"Roofing","scope":"Lead flashing repairs","desc":"Repair and re-dress lead flashings to roof penetrations","qty":12,"unit":"item","rate":750,"nd":6,"tl":6},{"id":"x135","cat":"Electrical","scope":"Common area wall/ceiling mounted lighting - upgrade/replacement as needed","desc":"","qty":15,"unit":"item","rate":325,"nd":4,"tl":10},{"id":"x254","cat":"Car parking","scope":"Repaint yellow protection bollards","desc":"","qty":4,"unit":"item","rate":400,"nd":7,"tl":7},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":60,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"x159","cat":"HVAC","scope":"Exhaust and supply fan motors to car parks","desc":"Replace exhaust and supply fan motors in basement car parks","qty":3,"unit":"item","rate":1600,"nd":7,"tl":7},{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":5200,"nd":3,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":2,"unit":"ea","rate":3252,"nd":5,"tl":5},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":20,"nd":1,"tl":3},{"id":"x274","cat":"Other","scope":"Specialist reports required as per DPBA","desc":"","qty":1,"unit":"m2","rate":2500,"nd":5,"tl":5}],"notes":"Registered 2008 - 15 Lots","folderId":"u178037136575874q"},{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":true},{"id":"u178037136575874q","name":"Townhouses","open":false},{"id":"u1780462018619puv","name":"Red Brick Stairwell","open":false}],"customCompanies":["Professionals Strata Team","CEO Strata"],"completedJobs":[{"id":"cjmqyoowskkrtja","sp":"SP 101810","address":"28 CLIFF ROAD EPPING, EPPING NSW 2121","jobType":"CWF","strataCompany":"Professionals Strata Team","status":"Pending","dateCompleted":"2026-06-29","notes":"Generated from Turnkey job folder"}],"todos":[],"starredItems":[],"itemUsage":{"x273":1},"defaultJobId":null,"recentItems":[],"lastSetup":{"preparedBy":"Joseph Bechara","company":"Professionals Strata Team","weather":"Clear"},"_savedAt":1783041480266};
 </script>
 
 <script>
@@ -1737,7 +1693,7 @@ const DEFAULT_ITEMS = [
 let library=[], selected=[], savedJobs=[], folders=[], customCompanies=[], activeCat="All", currentView="library", desktopLeftView="library";
 let completedJobs=[];
 let todos=[];
-let todoJobs=[];
+const TD_STATUSES=["To Do","In Progress","Done"];
 const CJ_TYPES=["CWF","Asbestos","Safety"];
 const CJ_STATUSES=["Photos Only","Photos & Report","Report Only","Pending"];
 let cjSortKey="dateCompleted", cjSortDir="desc", cjEditingId=null, cjFlashId=null;
@@ -1747,12 +1703,10 @@ let editingId=null;
 let movePickerJobIdx=null;
 let starredItems=[];     // item ids marked "Common"
 let itemUsage={};        // {itemId: timesSelected} → Frequently used
-let catLearn={};         // {token:{category:count}} → learned auto-categorisation
 let defaultJobId=null;   // saved-job id auto-loaded as the base working list
 let recentItems=[];      // ids of recently created custom items (newest first)
 let lastSetup={};        // {preparedBy, company, weather} remembered between jobs
 let collapsedCats=new Set(CATS);
-let freqCollapsed=false;   // ↻ Frequently used section collapsed? (loaded in init)
 let splitWidth=null;   // px width of the left panel on desktop (null = default 55%)
 
 // ── LOCAL STORAGE ─────────────────────────────────────────────────────────────
@@ -1777,8 +1731,8 @@ let repoDirty=false, repoBusy=false, repoShaJson=null, repoShaHtml=null;
 function collectData(){
   return {
     customItems: library.filter(it=>!it.id.startsWith("x")),
-    savedJobs, folders, customCompanies, completedJobs, todos, todoJobs,
-    starredItems, itemUsage, catLearn, defaultJobId, recentItems, lastSetup,
+    savedJobs, folders, customCompanies, completedJobs, todos,
+    starredItems, itemUsage, defaultJobId, recentItems, lastSetup,
     _savedAt: Date.now()
   };
 }
@@ -1789,7 +1743,7 @@ function persistLocal(){
   LS.save("tk_saved_at",d._savedAt);
   // legacy per-key copies (kept for backward compatibility)
   LS.save("tk_lib",library);LS.save("tk_jobs",savedJobs);LS.save("tk_folders",folders);
-  LS.save("tk_companies",customCompanies);LS.save("tk_completed",completedJobs);LS.save("tk_todos",todos);LS.save("tk_todo_jobs",todoJobs);
+  LS.save("tk_companies",customCompanies);LS.save("tk_completed",completedJobs);LS.save("tk_todos",todos);
 }
 
 function applyData(d){
@@ -1800,15 +1754,12 @@ function applyData(d){
   customCompanies=d.customCompanies||[];
   completedJobs=d.completedJobs||[];
   todos=d.todos||[];
-  todoJobs=d.todoJobs||[];
   starredItems=d.starredItems||[];
   itemUsage=d.itemUsage||{};
-  catLearn=d.catLearn||{};
   defaultJobId=d.defaultJobId||null;
   recentItems=d.recentItems||[];
   lastSetup=d.lastSetup||{};
   savedJobs.forEach(j=>{if(!j.id)j.id=uid();});   // ensure every job has a stable id
-  todoJobs.forEach(j=>{if(!j.id)j.id=uid();});
 }
 
 function syncNow(){
@@ -1990,7 +1941,7 @@ function resetLibrary(){
 // ── LAYOUT ────────────────────────────────────────────────────────────────────
 function rightPanelView(v){
   if(v==="job-setup") return "strata-search";
-  if(v==="completed-jobs"||v==="projection"||v==="report"||v==="settings") return null;
+  if(v==="completed-jobs"||v==="todos"||v==="projection"||v==="report"||v==="settings") return null;
   return "selected";
 }
 
@@ -2068,10 +2019,11 @@ function afterMount(v){
   if(v==="library"){renderLibrary();if(!isMobile){const s=document.getElementById("search-input");if(s)setTimeout(()=>{try{s.focus();}catch(_){}}, 40);}}
   else if(v==="selected"){renderSelected();}
   else if(v==="jobs"){renderJobs();populateFolderSelect();}
-  else if(v==="completed-jobs"){renderCompletedJobs();renderTodoJobs();}
+  else if(v==="completed-jobs"){renderCompletedJobs();}
+  else if(v==="todos"){renderTodos();}
   else if(v==="add"){populateCatSelect();}
   else if(v==="settings"){renderSettingsStatus();}
-  else if(v==="job-setup"){renderJobSetup();renderJobPhotos();}
+  else if(v==="job-setup"){renderJobSetup();}
   else if(v==="projection"){renderProjection();}
   else if(v==="report"){renderReport();}
 }
@@ -2108,16 +2060,10 @@ function toggleCat(cat){
   else collapsedCats.add(cat);
   renderLibrary();
 }
-function toggleFreqSec(){
-  freqCollapsed=!freqCollapsed;
-  LS.save("tk_freq_collapsed",freqCollapsed);
-  renderLibrary();
-}
 
 function renderLibrary(){
   const qel=document.getElementById("search-input");
   const q=qel?qel.value.toLowerCase().trim():"";
-  const qToks=searchTokens(q);
   // When searching, expand everything so results are visible
   const isSearching=q.length>0||activeCat!=="All";
   const usedCats=[...new Set(library.map(i=>i.cat))];
@@ -2128,12 +2074,10 @@ function renderLibrary(){
   ).join("");
   const filtered=library.filter(it=>{
     const cok=activeCat==="All"||it.cat===activeCat;
-    const qok=!q||itemMatchesQuery(it,qToks)||it.scope.toLowerCase().includes(q)||(it.desc&&it.desc.toLowerCase().includes(q));
+    const qok=!q||it.scope.toLowerCase().includes(q)||it.cat.toLowerCase().includes(q)||(it.desc&&it.desc.toLowerCase().includes(q));
     return cok&&qok;
   });
   const grouped={};filtered.forEach(it=>{if(!grouped[it.cat])grouped[it.cat]=[];grouped[it.cat].push(it);});
-  // Most-used items float to the top of each category
-  Object.values(grouped).forEach(arr=>arr.sort((a,b)=>(itemUsage[b.id]||0)-(itemUsage[a.id]||0)||a.scope.localeCompare(b.scope)));
   const selIds=new Set(selected.map(s=>s.id));
   let html="";
   if(!isSearching)html+=buildQuickRegion(selIds);
@@ -2489,7 +2433,7 @@ function buildQuickRegion(selIds){
     h+=`<div class="quick-sec"><div class="quick-head"><span class="quick-title">★ Common items</span><span class="quick-count">${commonItems.length}</span><button class="quick-addall" ${allIn?"disabled":""} onclick="addAllCommon()">${allIn?"All added":"➕ Add all"}</button></div><div class="qchips">${commonItems.map(qchip).join("")}</div></div>`;
   }
   if(freq.length){
-    h+=`<div class="quick-sec"><div class="quick-head" style="cursor:pointer;user-select:none;margin-bottom:${freqCollapsed?"0":"8px"}" onclick="toggleFreqSec()"><span class="quick-title">↻ Frequently used</span><span class="quick-count">top ${freq.length}</span><span class="cat-arrow${freqCollapsed?" collapsed":""}" style="margin-left:auto;font-size:11px;opacity:0.6">▾</span></div>${freqCollapsed?"":`<div class="qchips">${freq.map(qchip).join("")}</div>`}</div>`;
+    h+=`<div class="quick-sec"><div class="quick-head"><span class="quick-title">↻ Frequently used</span><span class="quick-count">top ${freq.length}</span></div><div class="qchips">${freq.map(qchip).join("")}</div></div>`;
   }
   if(recents.length){
     h+=`<div class="quick-sec"><div class="quick-head"><span class="quick-title">🆕 Recently added</span><span class="quick-count">${recents.length}</span></div><div class="qchips">${recents.map(qchip).join("")}</div></div>`;
@@ -2559,9 +2503,7 @@ function saveEditLib(id){
   if(!scope){toast("Description can't be empty","err");return;}
   it.scope=scope;
   it.desc=(document.getElementById(`ei-desc-${id}`)||{}).value?.trim()||"";
-  const newCat=document.getElementById(`ei-cat-${id}`).value;
-  if(newCat!==it.cat)learnCategory(scope,newCat);   // teach the auto-sorter
-  it.cat=newCat;
+  it.cat=document.getElementById(`ei-cat-${id}`).value;
   it.unit=(document.getElementById(`ei-unit-${id}`)||{}).value?.trim()||"item";
   it.rate=Number(document.getElementById(`ei-rate-${id}`).value)||0;
   it.qty=Number(document.getElementById(`ei-qty-${id}`).value)||1;
@@ -2587,7 +2529,6 @@ function addCustomItem(){
   if(!scope){showFMsg("add-msg","Please enter a description","err");return;}
   const newCustomId=uid();
   recentItems.unshift(newCustomId);recentItems=recentItems.slice(0,8);
-  learnCategory(scope,document.getElementById("f-cat").value);   // teach the auto-sorter
   library.push({
     id:newCustomId,cat:document.getElementById("f-cat").value,scope,
     desc:(document.getElementById("f-desc")||{}).value?.trim()||"",
@@ -2615,8 +2556,8 @@ function importFromPaste(){
   let added=0,skipped=0;
   raw.split(/\r?\n/).filter(l=>l.trim()).forEach(line=>{
     const c=line.split("\t");if(c.length<5)return;
-    const scope=genericizeScope((c[1]||"").trim());if(!scope||scope.length<3){skipped++;return;}
-    if(library.find(l=>scopeSimilar(l.scope,scope))){skipped++;return;}
+    const scope=(c[1]||"").trim();if(!scope||scope.length<3){skipped++;return;}
+    if(library.find(l=>l.scope.toLowerCase()===scope.toLowerCase())){skipped++;return;}
     const cat=classifyCategory(scope,"");
     library.push({id:uid(),cat,scope,qty:sumNum(c[2])||1,unit:(c[3]||"item").trim(),rate:sumNum(c[4])||0,nd:parseInt(c[6])||1,tl:parseInt(c[7])||10});
     added++;
@@ -2624,94 +2565,6 @@ function importFromPaste(){
   if(document.getElementById("paste-import"))document.getElementById("paste-import").value="";
   showFMsg("import-msg",`✓ ${added} imported${skipped>0?`, ${skipped} skipped`:""}`,added>0?"ok":"err");
   if(added>0){scheduleSyncPush();renderLibrary();}
-}
-
-// ── SMART SEARCH + CATEGORY LEARNING + LIBRARY HARVEST ───────────────────────
-const CAT_STOPWORDS=new Set(["the","and","for","with","all","new","replace","replacement","repair","repairs","repaired","install","installation","installed","allowance","service","servicing","maintenance","maintain","upgrade","approx","per","area","areas","common","various","misc","general","works","work","item","items","incl","including","required","complete","supply","remove","removal"]);
-function stemWord(w){
-  if(w.length>5&&/ing$/.test(w))return w.slice(0,-3);
-  if(w.length>4&&/ers?$/.test(w))return w.replace(/ers?$/,"");
-  if(w.length>4&&/ed$/.test(w))return w.slice(0,-2);
-  if(w.length>3&&/es$/.test(w)&&!/[so]es$/.test(w))return w.slice(0,-2);
-  if(w.length>3&&/s$/.test(w)&&!/ss$/.test(w))return w.slice(0,-1);
-  return w;
-}
-function catTokens(scope){
-  return String(scope||"").toLowerCase().replace(/[^a-z0-9\s]/g," ").split(/\s+/)
-    .filter(w=>w.length>2&&!/^\d+$/.test(w)).map(stemWord).filter(w=>!CAT_STOPWORDS.has(w));
-}
-// Learn: every time the user hand-picks a category for a scope, remember its keywords.
-function learnCategory(scope,cat){
-  if(!cat||cat==="Other")return;
-  catTokens(scope).forEach(t=>{const m=catLearn[t]||(catLearn[t]={});m[cat]=(m[cat]||0)+1;});
-}
-// Recall: vote across learned keywords; only answer when reasonably confident.
-function learnedCategory(scope){
-  const scores={};
-  catTokens(scope).forEach(t=>{const m=catLearn[t];if(!m)return;Object.entries(m).forEach(([c,n])=>{scores[c]=(scores[c]||0)+n;});});
-  let best=null,bestN=0,total=0;
-  Object.entries(scores).forEach(([c,n])=>{total+=n;if(n>bestN){best=c;bestN=n;}});
-  return (best&&bestN>=2&&bestN>=total*0.6)?best:null;
-}
-// Strip building-specific fragments: "(approx. 200m2)", "~ 3 levels", "x2", trailing measures.
-function genericizeScope(scope){
-  let s=String(scope||"");
-  s=s.replace(/\s*\((?=[^)]*(\d|approx|circa|~))[^)]*\)/gi,"");
-  s=s.replace(/\s*[-–—,]?\s*(approx\.?|circa|~)\s*[\d,.]+\s*[a-z0-9]*\s*$/i,"");
-  s=s.replace(/\s*[xX]\s*\d+\s*$/,"");
-  s=s.replace(/\s{2,}/g," ").trim().replace(/[,;:\-–]+$/,"").trim();
-  return s;
-}
-// Similarity dedupe: token-set overlap so "Repaint exterior hard surfaces" ≈ existing variants.
-function scopeSimilar(a,b){
-  const na=String(a).toLowerCase().replace(/[^a-z0-9]/g,""),nb=String(b).toLowerCase().replace(/[^a-z0-9]/g,"");
-  if(na===nb)return true;
-  const ta=new Set(catTokens(a)),tb=new Set(catTokens(b));
-  if(!ta.size||!tb.size)return false;
-  let inter=0;ta.forEach(t=>{if(tb.has(t))inter++;});
-  const small=Math.min(ta.size,tb.size);
-  return inter/(ta.size+tb.size-inter)>=0.75||(inter===small&&small>=2);
-}
-// Harvest generic versions of a job's items into the library (skips near-duplicates).
-function harvestLibraryItems(items){
-  let added=0;
-  (items||[]).forEach(it=>{
-    const g=genericizeScope(it.scope);
-    if(!g||g.length<4)return;
-    if(library.some(l=>scopeSimilar(l.scope,g)))return;
-    const nid=uid();
-    library.push({id:nid,cat:(it.cat&&it.cat!=="Other")?it.cat:classifyCategory(g,""),scope:g,desc:"",qty:1,unit:it.unit||"item",rate:Number(it.rate)||0,nd:Number(it.nd)||1,tl:Number(it.tl)||10});
-    recentItems.unshift(nid);added++;
-  });
-  if(added)recentItems=recentItems.slice(0,8);
-  return added;
-}
-// Search: stemmed prefix matching + trade-term synonyms (keys/values pre-stemmed).
-const SEARCH_SYN={
-  paint:["repaint","recoat","coat"],repaint:["paint"],
-  gutter:["downpipe","fascia","guttering"],downpipe:["gutter"],
-  lift:["elevator"],elevator:["lift"],
-  aircon:["hvac","ventilat","exhaust","duct"],hvac:["aircon","ventilat"],
-  cctv:["camera"],camera:["cctv"],
-  carpark:["parking","garage","driveway"],parking:["carpark","garage"],
-  waterproof:["membrane","sealant","reseal"],membrane:["waterproof"],
-  light:["led","lamp"],
-  concrete:["slab","spall"],
-  roof:["ridge","flashing","tile"],
-  garden:["landscap","lawn","planter"],landscap:["garden","lawn"],
-  pump:["sump"]
-};
-function searchTokens(s){
-  return String(s||"").toLowerCase().replace(/[^a-z0-9\s]/g," ").split(/\s+/).filter(Boolean).map(stemWord);
-}
-function itemMatchesQuery(it,qToks){
-  if(!qToks.length)return true;
-  const hay=searchTokens(it.scope+" "+(it.desc||"")+" "+it.cat);
-  return qToks.every(q=>{
-    if(hay.some(h=>h.startsWith(q)||(q.startsWith(h)&&h.length>3)))return true;
-    const syns=SEARCH_SYN[q];
-    return !!(syns&&syns.some(sy=>hay.some(h=>h.startsWith(sy))));
-  });
 }
 
 // ── IMPORT OLD JOB ────────────────────────────────────────────────────────────
@@ -2735,8 +2588,6 @@ function classifyCategory(scope,hint){
   if(/door|window|roller.?shutter|jamb|frame.*(door|window)/.test(sl))return"Doors & windows";
   if(/brick.?point|slab.?repair|concrete.?repair|spall|crack|structural|subsid|foundation|retaining.?wall/.test(sl))return"Structural";
   if(/paint|repaint|coat|soffit|balustrade|handrail|stairwell|facade|render|masonry.?wall|internal.?wall|external.?wall|ceiling|balustr|height.?allowance/.test(sl))return"Exterior finishes";
-  const learned=learnedCategory(scope);
-  if(learned)return learned;
   if(hint){
     const hl=hint.toLowerCase();
     if(/roof/.test(hl))return"Roofing";
@@ -2790,7 +2641,7 @@ function parseJobPaste(){
   const otherCount=importJobItems.filter(it=>it.cat==="Other").length;
   const parts=[`✓ ${importJobItems.length} items ready`];
   if(result.skipped>0)parts.push(`${result.skipped} rows skipped`);
-  if(otherCount>0)parts.push(`${otherCount} need category check (highlighted) — your picks teach the auto-sorter`);
+  if(otherCount>0)parts.push(`${otherCount} need category check (highlighted)`);
   showFMsg("ij-parse-msg",parts.join(" · "),"ok",9000);
   renderImportTable();
   const ra=document.getElementById("ij-review-area");if(ra)ra.style.display="";
@@ -2819,13 +2670,7 @@ function renderImportTable(){
   wrap.innerHTML=html;
 }
 
-function updateImportCat(idx,val){
-  const it=importJobItems[idx];if(!it)return;
-  if(val!==it.cat)learnCategory(it.scope,val);   // teach the auto-sorter
-  it.cat=val;
-  scheduleSyncPush();
-  renderImportTable();
-}
+function updateImportCat(idx,val){if(importJobItems[idx])importJobItems[idx].cat=val;}
 
 function removeImportItem(idx){
   importJobItems.splice(idx,1);
@@ -2845,12 +2690,11 @@ function saveImportedJob(){
   const notes=notesInp?notesInp.value.trim():"";
   const folderId=folderSel?folderSel.value||null:null;
   savedJobs.unshift({id:uid(),name,date:new Date().toLocaleDateString("en-AU"),items:[...importJobItems],notes,folderId});
-  const harvested=harvestLibraryItems(importJobItems);
   scheduleSyncPush();
   closeModal("import-job-modal");
   const fname=folderId?folders.find(f=>f.id===folderId)?.name:"";
-  toast(`"${name}" saved${fname?` in "${fname}"`:""}${harvested?` · ${harvested} new item${harvested===1?"":"s"} learned into Library`:""}`, "ok");
-  renderJobs();renderLibrary();
+  toast(`"${name}" saved${fname?` in "${fname}"`:""}`, "ok");
+  renderJobs();
   switchDesktopLeft("jobs");
 }
 
@@ -2864,13 +2708,11 @@ function saveJob(){
   const notes=notesInp?notesInp.value.trim():"";
   const folderId=folderSel?folderSel.value||null:null;
   savedJobs.unshift({id:uid(),name:name||`Job ${new Date().toLocaleDateString("en-AU")}`,date:new Date().toLocaleDateString("en-AU"),items:[...selected],notes,folderId});
-  const harvestedJ=harvestLibraryItems(selected);
   if(inp)inp.value="";
   if(notesInp)notesInp.value="";
   scheduleSyncPush();renderJobs();
-  if(harvestedJ)renderLibrary();
   const fname=folderId?folders.find(f=>f.id===folderId)?.name:"";
-  toast(`"${name||savedJobs[0].name}" saved${fname?` in "${fname}"`:""}${harvestedJ?` · ${harvestedJ} new item${harvestedJ===1?"":"s"} learned into Library`:""}`, "ok");
+  toast(`"${name||savedJobs[0].name}" saved${fname?` in "${fname}"`:""}`, "ok");
 }
 
 function jobSpNumber(name){
@@ -2975,172 +2817,159 @@ function deleteJob(i){
 }
 
 // ── COMPLETED JOBS ────────────────────────────────────────────────────────────
-// ── TO-DO JOBS (MYOB-style sidebar in Completed Jobs) ─────────────────────────
-// A to-do job is a full New-Job snapshot (every js-* field + selected items)
-// parked until the work is finished. "Load Job" restores it into the New Job
-// tab; setting status to Complete moves it into the Completed Jobs list.
-let tdjEditingId=null, tdjFlashId=null, tdjPrefillItems=null, tdjExpanded=false;
+// ── TO-DO CHECKLIST ───────────────────────────────────────────────────────────
+let tdSortKey="dateAssigned", tdSortDir="desc", tdEditingId=null;
 
-function tdjToggleSidebar(){
-  tdjExpanded=!tdjExpanded;
-  const el=document.getElementById("tdj-sidebar"); if(el) el.classList.toggle("expanded",tdjExpanded);
-  const ch=document.getElementById("tdj-chevron"); if(ch) ch.textContent=tdjExpanded?"▾":"▸";
-}
-const TDJ_META_FIELDS=["js-sp","js-building","js-company","js-le","js-cwfbal","js-cwfcontrib","js-closebal","js-yearstart","js-weather","js-preparedby","js-address","js-regdate","js-lots","js-gst"];
-const TDJ_FORM_MAP={
-  "js-sp":"tdj-f-sp","js-building":"tdj-f-building","js-company":"tdj-f-company","js-address":"tdj-f-address",
-  "js-regdate":"tdj-f-regdate","js-lots":"tdj-f-lots","js-le":"tdj-f-le","js-cwfbal":"tdj-f-cwfbal",
-  "js-closebal":"tdj-f-closebal","js-cwfcontrib":"tdj-f-cwfcontrib","js-yearstart":"tdj-f-yearstart",
-  "js-weather":"tdj-f-weather","js-preparedby":"tdj-f-preparedby"
-};
+function tdUid(){return "td"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function tdToday(){return new Date().toISOString().slice(0,10);}
+function tdStatusStyle(s){const m={"To Do":["#f1f5f9","#475569"],"In Progress":["#fef3c7","#b45309"],"Done":["#dcfce7","#15803d"]};return m[s]||["#f1f5f9","#475569"];}
 
-function tdjUid(){return "tj"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
-
-function tdjLabel(meta){
-  const sp=(meta["js-sp"]||"").replace(/\D/g,"");
-  const suburb=setupExtractAddressSuburb(meta["js-address"]||"").suburb||"";
-  const company=meta["js-company"]||"";
-  return `SP ${sp||"—"}${suburb?" — "+suburb:""}${company?" — "+company:""}`;
+function tdPopulateFilter(){
+  const fs=document.getElementById("td-fstatus");
+  if(!fs)return;
+  const prev=fs.value||"All";
+  fs.innerHTML=`<option value="All">All statuses</option>`+TD_STATUSES.map(s=>`<option value="${escHtml(s)}">${escHtml(s)}</option>`).join("");
+  fs.value=[...fs.options].some(o=>o.value===prev)?prev:"All";
 }
 
-function renderTodoJobs(){
-  const list=document.getElementById("tdj-list");
-  if(!list)return;
-  if(todoJobs.length===0){
-    list.innerHTML='<div class="tdj-empty">No to-do jobs yet — tap + Add.</div>';
-    return;
-  }
-  list.innerHTML=todoJobs.map(j=>{
-    const m=j.meta||{};
-    const isCmp=j.status==="Complete";
-    return `<div class="tdj-card${j.id===tdjFlashId?" tdj-flash":""}">
-      <div class="sp">${escHtml(tdjLabel(m))}</div>
-      <div class="addr">${escHtml(m["js-address"]||j.notes||"")}</div>
-      <span class="tdj-pill ${isCmp?"cmp":"inc"}">${escHtml(j.status)}</span>
-      <div class="tdj-card-actions">
-        <button class="btn primary sm" onclick="tdjLoad('${j.id}')">Load Job</button>
-        <select class="tdj-status-sel" onchange="tdjSetStatus('${j.id}',this.value)">
-          <option${!isCmp?" selected":""}>Incomplete</option>
-          <option${isCmp?" selected":""}>Complete</option>
-        </select>
-      </div>
-      <div class="tdj-card-actions">
-        <button class="btn sm" onclick="tdjOpenAdd('${j.id}')">Edit</button>
-        <button class="btn sm" style="color:var(--red)" onclick="tdjDelete('${j.id}')">Delete</button>
-      </div>
-    </div>`;
+function tdClearFilters(){
+  const se=document.getElementById("td-search"), fs=document.getElementById("td-fstatus");
+  if(se)se.value="";if(fs)fs.value="All";
+  renderTodos();
+}
+
+function tdSortBy(key){
+  if(tdSortKey===key)tdSortDir=tdSortDir==="asc"?"desc":"asc";
+  else{tdSortKey=key;tdSortDir=(key==="dateAssigned"||key==="dateCompleted")?"desc":"asc";}
+  renderTodos();
+}
+
+function tdFlash(id){
+  cjFlashId=id;renderTodos();
+  setTimeout(()=>{if(cjFlashId===id){cjFlashId=null;renderTodos();}},2600);
+}
+
+function renderTodos(){
+  const tbody=document.getElementById("td-tbody");
+  if(!tbody)return;
+  tdPopulateFilter();
+
+  const term=(document.getElementById("td-search")||{}).value?.trim().toLowerCase()||"";
+  const fStatus=(document.getElementById("td-fstatus")||{}).value||"All";
+
+  let arr=todos.filter(t=>{
+    if(fStatus!=="All"&&t.status!==fStatus)return false;
+    if(term){
+      const hay=[t.task,t.status,t.notes,cjFmtDate(t.dateAssigned),cjFmtDate(t.dateCompleted)].join(" ").toLowerCase();
+      if(!hay.includes(term))return false;
+    }
+    return true;
+  });
+
+  const dir=tdSortDir==="asc"?1:-1, key=tdSortKey;
+  arr=arr.slice().sort((a,b)=>{
+    let av=a[key]||"", bv=b[key]||"";
+    if(key==="status"){const o={"To Do":0,"In Progress":1,"Done":2};return (((o[av]??0)-(o[bv]??0)))*dir;}
+    av=String(av).toLowerCase();bv=String(bv).toLowerCase();
+    return (av<bv?-1:av>bv?1:0)*dir;
+  });
+
+  tbody.innerHTML=arr.map(t=>{
+    const ss=tdStatusStyle(t.status);
+    const done=t.status==="Done";
+    return `<tr class="${t.id===cjFlashId?"cj-flash":""}">
+      <td style="text-align:center"><input type="checkbox" class="td-check" ${done?"checked":""} onclick="tdToggleDone('${t.id}')"></td>
+      <td class="${done?"td-done":""}" style="white-space:normal;max-width:340px">${escHtml(t.task)}${t.notes&&t.notes.trim()?`<div style="font-size:11px;color:var(--mu);margin-top:2px;white-space:normal">${escHtml(t.notes)}</div>`:""}</td>
+      <td><span class="cj-badge" style="background:${ss[0]};color:${ss[1]}">${escHtml(t.status)}</span></td>
+      <td style="font-family:'IBM Plex Mono',monospace;font-size:12px">${cjFmtDate(t.dateAssigned)}</td>
+      <td style="font-family:'IBM Plex Mono',monospace;font-size:12px">${cjFmtDate(t.dateCompleted)}</td>
+      <td><div class="cj-row-btns"><button class="btn sm" onclick="tdOpenEdit('${t.id}')">Edit</button><button class="btn sm" style="color:var(--red)" onclick="tdDeleteTask('${t.id}')">Delete</button></div></td>
+    </tr>`;
   }).join("");
-}
 
-function tdjPopulateFormSelects(){
-  const sel=document.getElementById("tdj-f-company");
-  if(sel)sel.innerHTML=getAllCompanies().map(c=>`<option value="${escHtml(c)}">${c||"— Not on list —"}</option>`).join("");
-}
+  const emptyEl=document.getElementById("td-empty");
+  if(emptyEl)emptyEl.style.display=arr.length===0?"":"none";
+  const totalLabel=document.getElementById("td-total-label");
+  if(totalLabel)totalLabel.textContent=`${todos.length} task${todos.length===1?"":"s"}`;
+  const shownLabel=document.getElementById("td-shown-label");
+  if(shownLabel)shownLabel.textContent=`Showing ${arr.length} of ${todos.length}`;
+  const clearBtn=document.getElementById("td-clear-btn");
+  if(clearBtn)clearBtn.style.display=(term||fStatus!=="All")?"":"none";
 
-function tdjFillForm(meta,status){
-  tdjPopulateFormSelects();
-  Object.entries(TDJ_FORM_MAP).forEach(([metaKey,elId])=>{
-    const el=document.getElementById(elId); if(el) el.value=(meta&&meta[metaKey])||"";
+  ["task","status","dateAssigned","dateCompleted"].forEach(k=>{
+    const el=document.getElementById("td-arrow-"+k);
+    if(el)el.textContent=tdSortKey===k?(tdSortDir==="asc"?"  ↑":"  ↓"):"";
   });
-  const gstEl=document.getElementById("tdj-f-gst"); if(gstEl) gstEl.checked=(meta&&meta["js-gst"]==="Yes");
-  const statusEl=document.getElementById("tdj-f-status"); if(statusEl) statusEl.value=status||"Incomplete";
-  const notesEl=document.getElementById("tdj-f-notes"); if(notesEl) notesEl.value=(meta&&meta.__notes)||"";
 }
 
-// Prefill the Add/Edit form from whatever is currently in the New Job tab —
-// the fastest way to park an in-progress job as a to-do (also captures the
-// currently selected inspection items, not just the field values).
-function tdjPrefillFromNewJob(){
-  tdjFillForm(jobMeta(),"Incomplete");
-  tdjPrefillItems=(typeof selected!=="undefined"?selected:[]).map(it=>({...it}));
-  showFMsg("tdj-form-msg",`Pulled in the current New Job details${tdjPrefillItems.length?` + ${tdjPrefillItems.length} item(s)`:""}.`,"ok");
+function tdToggleDone(id){
+  const t=todos.find(x=>x.id===id);
+  if(!t)return;
+  if(t.status==="Done"){t.status="To Do";t.dateCompleted="";}
+  else{t.status="Done";if(!t.dateCompleted)t.dateCompleted=tdToday();}
+  scheduleSyncPush();renderTodos();
 }
 
-function tdjOpenAdd(id){
-  tdjEditingId=id||null;
-  tdjPrefillItems=null;
-  const editing=id?todoJobs.find(t=>t.id===id):null;
-  document.getElementById("tdj-form-title").textContent=editing?"Edit To-Do Job":"Add a To-Do Job";
-  document.getElementById("tdj-save-btn").textContent=editing?"Save changes":"Add job";
-  tdjFillForm(editing?editing.meta:{}, editing?editing.status:"Incomplete");
-  showFMsg("tdj-form-msg","","");
-  openModal("tdj-modal");
+function tdPopulateFormSelect(){
+  const sel=document.getElementById("td-f-status");
+  if(sel)sel.innerHTML=TD_STATUSES.map(s=>`<option value="${escHtml(s)}">${escHtml(s)}</option>`).join("");
 }
 
-function tdjCancelForm(){ tdjEditingId=null; tdjPrefillItems=null; closeModal("tdj-modal"); }
+function tdFillForm(t){
+  tdPopulateFormSelect();
+  document.getElementById("td-f-task").value=t.task||"";
+  document.getElementById("td-f-status").value=t.status||"To Do";
+  document.getElementById("td-f-assigned").value=t.dateAssigned||"";
+  document.getElementById("td-f-completed").value=t.dateCompleted||"";
+  document.getElementById("td-f-notes").value=t.notes||"";
+}
 
-function tdjSaveJob(){
-  const meta={};
-  Object.entries(TDJ_FORM_MAP).forEach(([metaKey,elId])=>{
-    const el=document.getElementById(elId); if(el) meta[metaKey]=el.value.trim();
-  });
-  const gstEl=document.getElementById("tdj-f-gst"); meta["js-gst"]=(gstEl&&gstEl.checked)?"Yes":"No";
-  meta.__notes=(document.getElementById("tdj-f-notes")||{}).value?.trim()||"";
-  const sp=(meta["js-sp"]||"").replace(/\D/g,"");
-  if(!sp){ showFMsg("tdj-form-msg","SP number is required.","err"); return; }
-  const status=(document.getElementById("tdj-f-status")||{}).value||"Incomplete";
+function tdOpenAdd(){
+  tdEditingId=null;
+  document.getElementById("td-form-title").textContent="Add a task";
+  document.getElementById("td-save-btn").textContent="Add task";
+  tdFillForm({status:"To Do",dateAssigned:tdToday()});
+  showFMsg("td-form-msg","","");
+  openModal("td-modal");
+}
 
-  let id=tdjEditingId;
-  if(id){
-    const j=todoJobs.find(t=>t.id===id);
-    if(j){ j.meta=meta; j.label=tdjLabel(meta); j.notes=meta.__notes; if(tdjPrefillItems) j.items=tdjPrefillItems; }
-  } else {
-    id=tdjUid();
-    todoJobs.unshift({id,label:tdjLabel(meta),status:"Incomplete",meta,items:tdjPrefillItems||[],notes:meta.__notes,dateAdded:new Date().toLocaleDateString("en-AU")});
-  }
+function tdOpenEdit(id){
+  const t=todos.find(x=>x.id===id);
+  if(!t)return;
+  tdEditingId=id;
+  document.getElementById("td-form-title").textContent="Edit task";
+  document.getElementById("td-save-btn").textContent="Save changes";
+  tdFillForm(t);
+  showFMsg("td-form-msg","","");
+  openModal("td-modal");
+}
+
+function tdCancelForm(){tdEditingId=null;closeModal("td-modal");}
+
+function tdSaveTask(){
+  const f={
+    task:document.getElementById("td-f-task").value.trim(),
+    status:document.getElementById("td-f-status").value,
+    dateAssigned:document.getElementById("td-f-assigned").value,
+    dateCompleted:document.getElementById("td-f-completed").value,
+    notes:document.getElementById("td-f-notes").value.trim()
+  };
+  if(!f.task){showFMsg("td-form-msg","A task description is required.","err");return;}
+  if(f.status==="Done"&&!f.dateCompleted)f.dateCompleted=tdToday();
+  let id=tdEditingId;
+  if(id){todos=todos.map(t=>t.id===id?{...t,...f}:t);}
+  else{id=tdUid();todos.unshift({id,...f});}
   scheduleSyncPush();
-  tdjEditingId=null; tdjPrefillItems=null; closeModal("tdj-modal");
-  if(status==="Complete") tdjComplete(id); else { renderTodoJobs(); tdjFlash(id); toast("To-do job saved","ok"); }
+  tdEditingId=null;closeModal("td-modal");renderTodos();tdFlash(id);
+  toast("Task saved","ok");
 }
 
-function tdjFlash(id){
-  tdjFlashId=id; renderTodoJobs();
-  setTimeout(()=>{ if(tdjFlashId===id){ tdjFlashId=null; renderTodoJobs(); } },2600);
-}
-
-// Loads a to-do job's full New-Job snapshot (meta + items) into the New Job tab.
-// Forces a fresh mount of job-setup so wireProjectionLink() repopulates every
-// field (it only fills inputs that are currently empty).
-function tdjLoad(id){
-  const j=todoJobs.find(t=>t.id===id); if(!j)return;
-  _jobMeta=Object.assign({},j.meta||{}); LS.save("tk_job_meta",_jobMeta);
-  if(Array.isArray(j.items)&&j.items.length){ selected=j.items.map(it=>({...it})); sortSelectedByCat(); }
-  if(isMobile){ showView("job-setup"); } else { switchDesktopLeft("job-setup"); }
-  updateBadges(); renderLibrary&&renderLibrary();
-  toast(`Loaded "${j.label}" into New Job`,"ok");
-}
-
-function tdjSetStatus(id,status){
-  const j=todoJobs.find(t=>t.id===id); if(!j)return;
-  if(status==="Complete"){ tdjComplete(id); return; }
-  j.status=status; scheduleSyncPush(); renderTodoJobs();
-}
-
-// Moves a to-do job into Completed Jobs and removes it from the To-Do rail.
-function tdjComplete(id){
-  const j=todoJobs.find(t=>t.id===id); if(!j)return;
-  const m=j.meta||{};
-  completedJobs.unshift({
-    id:cjUid(),
-    sp:(m["js-sp"]||"").replace(/\D/g,""),
-    address:(m["js-address"]||""),
-    jobType:CJ_TYPES[0],
-    strataCompany:(m["js-company"]||""),
-    status:CJ_STATUSES[0],
-    dateCompleted:new Date().toISOString().slice(0,10),
-    notes:(j.notes||m.__notes||"")
-  });
-  todoJobs=todoJobs.filter(t=>t.id!==id);
-  scheduleSyncPush();
-  renderTodoJobs(); renderCompletedJobs();
-  toast(`"${j.label}" moved to Completed Jobs`,"ok");
-}
-
-function tdjDelete(id){
-  const j=todoJobs.find(t=>t.id===id); if(!j)return;
-  if(!confirm(`Delete to-do job "${j.label}"?`))return;
-  todoJobs=todoJobs.filter(t=>t.id!==id);
-  scheduleSyncPush(); renderTodoJobs(); toast("To-do job deleted");
+function tdDeleteTask(id){
+  const t=todos.find(x=>x.id===id);
+  if(!t)return;
+  if(!confirm(`Delete task "${t.task}"?`))return;
+  todos=todos.filter(x=>x.id!==id);
+  scheduleSyncPush();renderTodos();toast("Task deleted");
 }
 
 function cjUid(){return "cj"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
@@ -3507,13 +3336,12 @@ function applyStrataResult(data,spNum){
   if(a.suburb) full+=(full?", ":"")+a.suburb;
   if(a.postcode) full+=" NSW "+a.postcode;
   else if(a.suburb) full+=" NSW";
-  const fireInput=el=>{ if(el) el.dispatchEvent(new Event('input',{bubbles:true})); };
   const addrEl=document.getElementById("js-address");
-  if(addrEl&&full){ addrEl.value=full; fireInput(addrEl); }
+  if(addrEl&&full) addrEl.value=full;
   const regEl=document.getElementById("js-regdate");
-  if(regEl&&a.registrationdate!=null){ regEl.value=strataFmtDate(a.registrationdate); fireInput(regEl); }
+  if(regEl&&a.registrationdate!=null) regEl.value=strataFmtDate(a.registrationdate);
   const lotsEl=document.getElementById("js-lots");
-  if(lotsEl&&a.lottotal!=null){ lotsEl.value=a.lottotal+" Lots"; fireInput(lotsEl); }
+  if(lotsEl&&a.lottotal!=null) lotsEl.value=a.lottotal+" Lots";
   setStrataMsg(`✓ Found: ${a.address||""}${a.suburb?", "+a.suburb:""}`,"ok");
   return true;
 }
@@ -3943,13 +3771,12 @@ async function generateJobFolder(){
       const _div=Math.max(1, sumNum(_pi.le) || sumNum((g.le||"").replace(/[^\d.]/g,"")));
       const _exp=projExpenses();
       const _d1=projSolve(_open,_goal,_exp,_div);
-      const _contribs=projFinalContribs(_d1,_pi.overrides);
       s4=setXmlCell(s4,"I7","n",_open);
       s4=setXmlCell(s4,"M9","n",_goal);
-      s4=setXmlCell(s4,"M16","n",_contribs[0]);
+      s4=setXmlCell(s4,"M16","n",_d1);
       for(let _n=1;_n<=PROJ_YEARS;_n++){
         const _row=7+_n;
-        s4=setXmlCell(s4,"D"+_row,"n",_contribs[_n-1]);
+        s4=setXmlCell(s4,"D"+_row,"n",_d1*Math.pow(1+PROJ_CPI,_n-1));
         s4=setXmlCell(s4,"G"+_row,"n",_exp[_n-1]);
       }
     }catch(_e){ console.warn("projection export skipped:",_e); }
@@ -4044,15 +3871,12 @@ function jobMeta(){ if(!_jobMeta) _jobMeta=LS.load("tk_job_meta",{}); return _jo
 function saveJobMeta(){ LS.save("tk_job_meta", jobMeta()); }
 function projInputs(){
   const m=jobMeta();
-  let overrides=m["__contribOverrides"];
-  if(typeof overrides!=="object"||!overrides) overrides={};
   return {
     openBal:  m["js-cwfbal"]||"",
     closeBal: m["js-closebal"]||"",
     contrib:  m["js-cwfcontrib"]||"",
     le:       m["js-le"]||"",
-    goal:     (m["__goal"]!=null && m["__goal"]!=="") ? m["__goal"] : "95000",
-    overrides: overrides
+    goal:     (m["__goal"]!=null && m["__goal"]!=="") ? m["__goal"] : "95000"
   };
 }
 function saveProjInputs(){ saveJobMeta(); }
@@ -4079,15 +3903,12 @@ function cwfPerYearWorks(){
 // Expenses the Optimize projection consumes (years 1..N).
 function projExpenses(){ return cwfPerYearWorks().slice(1); }
 
-// Roll the projection forward from an explicit per-year contributions array
-// (contribs[0] = Year 1 .. contribs[9] = Year 10). This is the single source of
-// truth for both the live Projection tab and the Word/Excel export, so manual
-// per-year overrides always show up everywhere.
-function projProjectSeries(contribs,open,expenses,div){
+// Roll the projection forward from a Year-1 contribution (d1).
+function projProject(d1,open,expenses,div){
   const rows=[],closings=[]; let prevClose=open,prevInt=0;
   for(let n=1;n<=PROJ_YEARS;n++){
     const opening=prevClose+prevInt;
-    const contrib=Number(contribs[n-1])||0;
+    const contrib=d1*Math.pow(1+PROJ_CPI,n-1);
     const g=expenses[n-1]||0;
     const h=g*PROJ_CONT;
     const closing=opening+contrib-g-h;
@@ -4096,21 +3917,6 @@ function projProjectSeries(contribs,open,expenses,div){
     closings.push(closing); prevClose=closing; prevInt=intr;
   }
   return {rows,closings,avg:closings.reduce((a,b)=>a+b,0)/closings.length};
-}
-// Auto-grown series from a Year-1 contribution (d1), with any per-year manual
-// overrides applied on top. overrides = {"3":20000,...} (1-indexed year -> $).
-function projFinalContribs(d1,overrides){
-  const out=[];
-  for(let n=1;n<=PROJ_YEARS;n++){
-    const ov=overrides&&overrides[n]!=null?overrides[n]:(overrides&&overrides[String(n)]);
-    out.push((ov!=null&&ov!==""&&isFinite(+ov)) ? +ov : d1*Math.pow(1+PROJ_CPI,n-1));
-  }
-  return out;
-}
-// Roll the projection forward from a Year-1 contribution (d1) with no overrides
-// — kept for any caller that just wants the pure auto-grown series.
-function projProject(d1,open,expenses,div){
-  return projProjectSeries(projFinalContribs(d1,null),open,expenses,div);
 }
 
 // Goal Seek: find the Year-1 contribution that makes the average closing balance
@@ -4129,12 +3935,9 @@ function projCompute(){
   const div=Math.max(1,sumNum(pi.le));
   const goal=sumNum(pi.goal)||95000;
   const expenses=projExpenses();
-  const d1=projSolve(open,goal,expenses,div);   // suggested baseline (goal-seek)
-  const overrides=pi.overrides||{};
-  const contribs=projFinalContribs(d1,overrides);
-  const res=projProjectSeries(contribs,open,expenses,div);
-  const hasOverrides=Object.keys(overrides).length>0;
-  return {pi,open,div,goal,expenses,d1,contribs,overrides,hasOverrides,res};
+  const d1=projSolve(open,goal,expenses,div);
+  const res=projProject(d1,open,expenses,div);
+  return {pi,open,div,goal,expenses,d1,res};
 }
 
 function renderProjection(){
@@ -4152,7 +3955,6 @@ function renderProjection(){
   if(goalEl&&document.activeElement!==goalEl) goalEl.value=c.pi.goal;
   const recEl=document.getElementById("proj-rec"); if(recEl) recEl.textContent=projFmt(c.d1);
   const plEl=document.getElementById("proj-rec-perlot"); if(plEl) plEl.textContent=projFmt(c.d1/c.div)+" / lot";
-  const resetBtn=document.getElementById("proj-reset-btn"); if(resetBtn) resetBtn.style.display=c.hasOverrides?"":"none";
   const chkEl=document.getElementById("proj-check");
   if(chkEl){
     const matched=Math.abs(c.res.avg-c.goal)<=Math.max(50,c.goal*0.005);
@@ -4169,24 +3971,9 @@ function renderProjection(){
   }
   const tb=document.getElementById("proj-tbody");
   if(tb){
-    // Preserve focus + caret on the contribution input the user is actively typing in,
-    // since this whole tbody re-renders on every keystroke.
-    const active=document.activeElement;
-    const focusedYr=(active&&active.classList&&active.classList.contains("proj-contrib-input"))?active.getAttribute("data-yr"):null;
-    const caret=focusedYr!=null?active.selectionStart:null;
-    tb.innerHTML=c.res.rows.map(o=>{
-      const isOver=c.overrides&&c.overrides[o.n]!=null&&c.overrides[o.n]!=="";
-      const autoContrib=c.d1*Math.pow(1+PROJ_CPI,o.n-1);
-      return '<tr class="'+(o.closing<0?'proj-neg':'')+'"><td>'+o.n+'</td><td>'+projFmt(o.opening)+'</td>'
-        +'<td class="proj-contrib-cell'+(isOver?' proj-over':'')+'"><input class="proj-contrib-input" inputmode="decimal" data-yr="'+o.n+'" '
-        +'value="'+(isOver?Math.round(o.contrib):'')+'" placeholder="'+Math.round(autoContrib).toLocaleString()+'" '
-        +'oninput="onProjContribInput('+o.n+',this.value)"></td>'
-        +'<td>'+projFmt(o.perLot)+'</td><td>'+projFmt(o.g)+'</td><td>'+projFmt(o.h)+'</td><td class="proj-close">'+projFmt(o.closing)+'</td><td>'+projFmt(o.intr)+'</td></tr>';
-    }).join("");
-    if(focusedYr!=null){
-      const toFocus=tb.querySelector('.proj-contrib-input[data-yr="'+focusedYr+'"]');
-      if(toFocus){ toFocus.focus(); if(caret!=null){ try{ toFocus.setSelectionRange(caret,caret); }catch(e){} } }
-    }
+    tb.innerHTML=c.res.rows.map(o=>
+      '<tr class="'+(o.closing<0?'proj-neg':'')+'"><td>'+o.n+'</td><td>'+projFmt(o.opening)+'</td><td>'+projFmt(o.contrib)+'</td><td>'+projFmt(o.perLot)+'</td><td>'+projFmt(o.g)+'</td><td>'+projFmt(o.h)+'</td><td class="proj-close">'+projFmt(o.closing)+'</td><td>'+projFmt(o.intr)+'</td></tr>'
+    ).join("");
   }
   projDrawChart(c.res.closings, c.goal);
 }
@@ -4216,18 +4003,6 @@ function projDrawChart(closings,goal){
 
 function onProjGoalInput(v){
   const m=jobMeta(); m["__goal"]=String(v).replace(/[^\d.\-]/g,""); saveJobMeta(); renderProjection();
-}
-
-function onProjContribInput(yr,val){
-  const m=jobMeta(); let ov=m["__contribOverrides"]; if(typeof ov!=="object"||!ov) ov={};
-  val=String(val).replace(/[^\d.\-]/g,"");
-  if(val===""){ delete ov[yr]; } else { ov[yr]=+val; }
-  m["__contribOverrides"]=ov; saveJobMeta(); renderProjection();
-}
-
-function projResetContribs(){
-  const m=jobMeta(); m["__contribOverrides"]={}; saveJobMeta(); renderProjection();
-  toast("Contributions reset to recommended","ok");
 }
 
 // Wire the New Job balance / contribution / entitlement fields so they persist
@@ -4268,9 +4043,8 @@ function cwfReport(){
   const perItem=items.map(it=>{const f=fvcForItem(it); f.arr.forEach((v,y)=>works[y]+=v); return {it,f};});
   const expenses=works.slice(1);
   const d1=projSolve(startClose,goal,expenses,UE);
-  const contribs=projFinalContribs(d1,pi.overrides);
-  const opt=projProjectSeries(contribs,startClose,expenses,UE);
-  return {m,UE,startClose,openCur,curContrib,goal,items,perItem,works,expenses,d1,contribs,overrides:pi.overrides,opt,C:CWF_CONST};
+  const opt=projProject(d1,startClose,expenses,UE);
+  return {m,UE,startClose,openCur,curContrib,goal,items,perItem,works,expenses,d1,opt,C:CWF_CONST};
 }
 
 function renderReport(){
@@ -4365,152 +4139,23 @@ function wDateLong(d){ if(!(d instanceof Date)||isNaN(d))return""; const dy=["Su
 function wDate(d){ if(!(d instanceof Date)||isNaN(d))return""; const mo=["January","February","March","April","May","June","July","August","September","October","November","December"]; return String(d.getDate()).padStart(2,"0")+" "+mo[d.getMonth()]+" "+d.getFullYear(); }
 function wDateShort(d){ if(!(d instanceof Date)||isNaN(d))return""; return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+d.getFullYear(); }
 
-// ── SITE PHOTOS ──────────────────────────────────────────────────────────────
-// Photos added in New Job are stored in IndexedDB (survive reloads on this
-// device) and embedded into the Word report's photo table on generation,
-// replicating the template's AutoInsertImagesToTable8_Robust macro exactly:
-// 2 per row, rows added as needed, aspect locked, shrunk to cell width − 10pt.
-let jobPhotos=[]; const _jpUrls={};
-function jpDb(){ return new Promise((res,rej)=>{ const r=indexedDB.open("tk_photos",1); r.onupgradeneeded=()=>{ r.result.createObjectStore("photos",{keyPath:"id"}); }; r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
-function jpTx(mode,fn){ return jpDb().then(db=>new Promise((res,rej)=>{ const tx=db.transaction("photos",mode); const req=fn(tx.objectStore("photos")); tx.oncomplete=()=>res(req?req.result:undefined); tx.onerror=()=>rej(tx.error); })); }
-async function jpLoad(){ try{ const rows=await jpTx("readonly",st=>st.getAll()); jobPhotos=(rows||[]).sort((a,b)=>(a.ts||0)-(b.ts||0)); }catch(e){ console.warn("photo store:",e); } renderJobPhotos(); }
-async function jpAddFiles(files){
-  const list=[...(files||[])].filter(f=>f&&f.size); if(!list.length)return;
-  const base=Date.now();
-  const added=list.map((f,i)=>({id:uid()+i,name:f.name||("photo"+(jobPhotos.length+i+1)),type:f.type||"",blob:f,ts:base+i}));
-  jobPhotos=jobPhotos.concat(added);
-  renderJobPhotos();
-  try{ for(const p of added) await jpTx("readwrite",st=>st.put(p)); }catch(e){ console.warn("photo save:",e); }
-  toast(`Added ${added.length} photo${added.length>1?"s":""}`,"ok");
-}
-function jpRemove(id){
-  jobPhotos=jobPhotos.filter(p=>p.id!==id);
-  if(_jpUrls[id]){ try{URL.revokeObjectURL(_jpUrls[id]);}catch(e){} delete _jpUrls[id]; }
-  renderJobPhotos();
-  jpTx("readwrite",st=>st.delete(id)).catch(e=>console.warn(e));
-}
-function jpClearAll(){
-  if(!jobPhotos.length)return;
-  if(!confirm("Remove all "+jobPhotos.length+" photos?"))return;
-  jobPhotos.forEach(p=>{ if(_jpUrls[p.id]){ try{URL.revokeObjectURL(_jpUrls[p.id]);}catch(e){} delete _jpUrls[p.id]; } });
-  jobPhotos=[];
-  renderJobPhotos();
-  jpTx("readwrite",st=>st.clear()).catch(e=>console.warn(e));
-}
-function renderJobPhotos(){
-  const grids=[...document.querySelectorAll('[id="jp-grid"]')]; if(!grids.length)return;
-  [...document.querySelectorAll('[id="jp-count"]')].forEach(c=>c.textContent=jobPhotos.length?`(${jobPhotos.length})`:"");
-  [...document.querySelectorAll('[id="jp-clear-wrap"]')].forEach(w=>w.style.display=jobPhotos.length?"":"none");
-  grids.forEach(g=>{
-    g.innerHTML=jobPhotos.map((p,i)=>{
-      if(!_jpUrls[p.id]){ try{ _jpUrls[p.id]=URL.createObjectURL(p.blob); }catch(e){ _jpUrls[p.id]=""; } }
-      return `<div class="jp-thumb"><img src="${_jpUrls[p.id]}" alt=""><button class="jp-x" onclick="jpRemove('${p.id}')" title="Remove photo">✕</button><span class="jp-n">${i+1}</span></div>`;
-    }).join("");
-  });
-}
-
-// Embed jobPhotos into the Word doc's photo table (the empty 1-row × 2-col table,
-// "Table 8" in the macro). Mirrors AutoInsertImagesToTable8_Robust:
-// rowIdx=Int((n-1)/2)+1, colIdx=((n-1) Mod 2)+1, add rows as needed,
-// LockAspectRatio, width capped at cell width − 10pt (only shrink, never grow).
-async function insertSitePhotos(zip,doc,tbls){
-  if(!jobPhotos.length) return 0;
-  const NS=WNS;
-  const kids=(el,n)=>[...el.children].filter(c=>c.localName===n);
-  const trOf=t=>kids(t,"tr"), tcOf=tr=>kids(tr,"tc");
-  const colCount=t=>{const g=kids(t,"tblGrid")[0];return g?kids(g,"gridCol").length:0;};
-  const tbl=tbls.find(t=>trOf(t).length===1&&colCount(t)===2&&![...t.getElementsByTagNameNS(NS,"t")].some(x=>x.textContent.trim()));
-  if(!tbl) throw new Error("photo table not found in template");
-  const gcs=kids(kids(tbl,"tblGrid")[0],"gridCol");
-  const colPt=i=>parseInt(gcs[i]&&gcs[i].getAttribute("w:w")||"6990",10)/20; // twips → points
-  const rowTmpl=trOf(tbl)[0].cloneNode(true); // pristine empty row, cloned before any fill
-  const relPath="word/_rels/document.xml.rels", ctPath="[Content_Types].xml";
-  const relDoc=new DOMParser().parseFromString(await zip.file(relPath).async("string"),"application/xml");
-  const ctDoc=new DOMParser().parseFromString(await zip.file(ctPath).async("string"),"application/xml");
-  const RNS="http://schemas.openxmlformats.org/package/2006/relationships";
-  const CTNS="http://schemas.openxmlformats.org/package/2006/content-types";
-  const haveExt=new Set([...ctDoc.getElementsByTagNameNS(CTNS,"Default")].map(d=>(d.getAttribute("Extension")||"").toLowerCase()));
-  const addExt=(ext,mime)=>{ if(haveExt.has(ext))return; const d=ctDoc.createElementNS(CTNS,"Default"); d.setAttribute("Extension",ext); d.setAttribute("ContentType",mime); ctDoc.documentElement.appendChild(d); haveExt.add(ext); };
-  const okTypes={"image/jpeg":"jpeg","image/png":"png","image/gif":"gif","image/bmp":"bmp"};
-  const skipped=[];
-  let n=0;
-  for(const p of jobPhotos){
-    let blob=p.blob, type=(p.type||"").toLowerCase(), bmp=null;
-    try{ bmp=await createImageBitmap(blob); }catch(e){}
-    let ext=okTypes[type];
-    if(!ext){ // unsupported container (e.g. HEIC/WebP) → convert to JPEG if decodable
-      if(!bmp){ skipped.push(p.name); continue; }
-      const cv=document.createElement("canvas"); cv.width=bmp.width; cv.height=bmp.height;
-      cv.getContext("2d").drawImage(bmp,0,0);
-      blob=await new Promise(r=>cv.toBlob(r,"image/jpeg",0.92));
-      if(!blob){ skipped.push(p.name); continue; }
-      ext="jpeg"; type="image/jpeg";
-    }
-    const pw=bmp?bmp.width:1600, ph=bmp?bmp.height:1200;
-    if(bmp&&bmp.close){ try{bmp.close();}catch(e){} }
-    n++;
-    const rid="rIdSitePhoto"+n, media="media/sitephoto"+n+"."+ext;
-    zip.file("word/"+media, blob);
-    const rel=relDoc.createElementNS(RNS,"Relationship");
-    rel.setAttribute("Id",rid);
-    rel.setAttribute("Type","http://schemas.openxmlformats.org/officeDocument/2006/relationships/image");
-    rel.setAttribute("Target",media);
-    relDoc.documentElement.appendChild(rel);
-    addExt(ext,type);
-    const rowIdx=Math.floor((n-1)/2), colIdx=(n-1)%2;
-    let rows=trOf(tbl);
-    while(rows.length<=rowIdx){ tbl.appendChild(rowTmpl.cloneNode(true)); rows=trOf(tbl); }
-    const cell=tcOf(rows[rowIdx])[colIdx]; if(!cell){ n--; skipped.push(p.name); continue; }
-    const naturalPt=pw*72/96;                 // assume 96dpi, as Word does by default
-    const targetPt=colPt(colIdx)-10;          // macro: cell width − 10pt padding
-    const wPt=Math.min(naturalPt,targetPt);   // only shrink, never grow
-    const hPt=wPt*ph/pw;                      // aspect locked
-    const cx=Math.max(1,Math.round(wPt*12700)), cy=Math.max(1,Math.round(hPt*12700));
-    const did=9000+n;
-    const frag='<w:r xmlns:w="'+NS+'"><w:rPr><w:noProof/></w:rPr><w:drawing><wp:inline xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" distT="0" distB="0" distL="0" distR="0"><wp:extent cx="'+cx+'" cy="'+cy+'"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:docPr id="'+did+'" name="Site Photo '+n+'"/><wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="'+did+'" name="Site Photo '+n+'"/><pic:cNvPicPr><a:picLocks noChangeAspect="1"/></pic:cNvPicPr></pic:nvPicPr><pic:blipFill><a:blip xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:embed="'+rid+'"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>';
-    const rnode=new DOMParser().parseFromString(frag,"application/xml").documentElement;
-    let para=kids(cell,"p")[0];
-    if(!para){ para=doc.createElementNS(NS,"w:p"); cell.appendChild(para); }
-    kids(para,"r").forEach(r=>r.remove()); // clear the cell, like targetCell.Range.Delete
-    para.appendChild(doc.importNode(rnode,true));
-  }
-  zip.file(relPath,new XMLSerializer().serializeToString(relDoc));
-  zip.file(ctPath,new XMLSerializer().serializeToString(ctDoc));
-  if(skipped.length) toast("Skipped unsupported photo(s): "+skipped.join(", "),"err");
-  return n;
-}
-
 async function genWordReport(){
   const g=_setupGather();
   if(!g.sp){ showFMsg("gen-msg","SP Number is required","err"); return; }
   showFMsg("gen-msg","Building Word report…");
   try{
     const R=cwfReport(); const m=R.m;
-    // Robust field read: live DOM (any duplicate-id copy, desktop or mobile) wins over
-    // jobMeta, because autofilled values (Strata Hub) may not have fired an input event
-    // on every copy. Falls back to jobMeta if no live copy has a value.
-    function pick(id){
-      const els=[...document.querySelectorAll('[id="'+id+'"]')];
-      for(const el of els){ const v=(el.value||"").trim(); if(v) return v; }
-      return (m[id]||"").toString().trim();
-    }
-    function pickChecked(id){
-      const els=[...document.querySelectorAll('[id="'+id+'"]')];
-      if(els.some(el=>el.checked)) return "Yes";
-      if(els.length && els.every(el=>el.type==="checkbox")) return m[id]!=null?m[id]:"No";
-      return m[id]||"No";
-    }
-    const sp=(pick("js-sp")||"").replace(/\D/g,"")||g.sp;
-    const av=setupExtractAddressSuburb(pick("js-address")||g.rawAddress||"");
+    const sp=(m["js-sp"]||"").replace(/\D/g,"")||g.sp;
+    const av=setupExtractAddressSuburb(m["js-address"]||g.rawAddress||"");
     const addr=av.address||"", suburb=av.suburb||"";
     const fullAddr=(addr+(suburb?(", "+suburb):"")).replace(/^,\s*/,"");
-    const building=pick("js-building").trim()||("SP "+sp);
-    const company=pick("js-company"), weather=pick("js-weather");
-    const preparedBy=pick("js-preparedby").trim()||"Joseph Bechara";
-    const gst=pickChecked("js-gst"), lots=pick("js-lots");
+    const building=(m["js-building"]||"").trim()||("SP "+sp);
+    const company=m["js-company"]||"", weather=m["js-weather"]||"";
+    const preparedBy=(m["js-preparedby"]||"").trim()||"Joseph Bechara";
+    const gst=m["js-gst"]||"", lots=(m["js-lots"]||"").toString();
     const UE=R.UE, openBal=R.openCur, startClose=R.startClose, curContrib=R.curContrib;
     const levyPerUE=UE?curContrib/UE:0, recYr1=R.d1, recYr1PerLot=R.d1/UE;
-    const yStart=parseToDate(pick("js-yearstart")); const regD=parseToDate(pick("js-regdate"));
+    const yStart=parseToDate(m["js-yearstart"]); const regD=parseToDate(m["js-regdate"]);
     const inspDate=new Date(); const baseYear=yStart?yStart.getFullYear():inspDate.getFullYear();
     // Year-ending dates: ye[0]=current (yearStart-1day), ye[i]=ye0 + i years
     const ye0=yStart?new Date(yStart.getFullYear(),yStart.getMonth(),yStart.getDate()-1):null;
@@ -4532,9 +4177,7 @@ async function genWordReport(){
     function setRunText(r,text){ let ts=gT(r,"t"); if(!ts.length){ const t=doc.createElementNS(NS,"w:t"); r.appendChild(t); ts=[t]; } ts[0].setAttribute("xml:space","preserve"); ts[0].textContent=text==null?"":String(text); for(let k=1;k<ts.length;k++)ts[k].textContent=""; }
     function setParaText(p,text){ let runs=kids(p,"r"); if(!runs.length){ const r=doc.createElementNS(NS,"w:r"); p.appendChild(r); runs=[r]; } setRunText(runs[0],text); for(let k=1;k<runs.length;k++) gT(runs[k],"t").forEach(t=>t.textContent=""); }
     function setCellText(tc,text){ const ps=kids(tc,"p"); if(!ps.length)return; setParaText(ps[0],text); for(let k=1;k<ps.length;k++) gT(ps[k],"t").forEach(t=>t.textContent=""); }
-    function cellFmt(tc,opts){ gT(tc,"r").forEach(r=>{ let rpr=gT(r,"rPr")[0]; if(!rpr){rpr=doc.createElementNS(NS,"w:rPr"); r.insertBefore(rpr,r.firstChild);} const setFlag=(tag,on)=>{ let e=gT(rpr,tag)[0]; if(on){ if(!e){e=doc.createElementNS(NS,"w:"+tag); rpr.appendChild(e);} } else if(e){ e.remove(); } }; if(opts.bold!=null)setFlag("b",opts.bold); if(opts.underline!=null){ let u=gT(rpr,"u")[0]; if(opts.underline){ if(!u){u=doc.createElementNS(NS,"w:u");rpr.appendChild(u);} u.setAttribute("w:val","single"); } else if(u)u.remove(); } if(opts.size!=null){ ["sz","szCs"].forEach(tag=>{ let e=gT(rpr,tag)[0]; if(!e){e=doc.createElementNS(NS,"w:"+tag); rpr.appendChild(e);} e.setAttribute("w:val",String(opts.size)); }); } }); }
-    function setRowHeight(tr,twips){ let pr=kids(tr,"trPr")[0]; if(!pr){pr=doc.createElementNS(NS,"w:trPr"); tr.insertBefore(pr,tr.firstChild);} let h=gT(pr,"trHeight")[0]; if(!h){h=doc.createElementNS(NS,"w:trHeight"); pr.appendChild(h);} h.setAttribute("w:val",String(twips)); h.setAttribute("w:hRule","atLeast"); }
-    function equalizeCols(tbl,from,count){ const grid=kids(tbl,"tblGrid")[0]; if(!grid)return; const gc=kids(grid,"gridCol"); let sum=0,n=0; for(let i=from;i<from+count&&i<gc.length;i++){ sum+=parseInt(gc[i].getAttribute("w:w")||"0",10); n++; } if(!n)return; const w=Math.floor(sum/n); for(let i=from;i<from+count&&i<gc.length;i++) gc[i].setAttribute("w:w",String(w)); trOf(tbl).forEach(tr=>{ const cs=tcOf(tr); for(let i=from;i<from+count&&i<cs.length;i++){ const tcW=gT(cs[i],"tcW")[0]; if(tcW){ tcW.setAttribute("w:w",String(w)); tcW.setAttribute("w:type","dxa"); } } }); }
+    function cellFmt(tc,opts){ const r=gT(tc,"r")[0]; if(!r)return; let rpr=gT(r,"rPr")[0]; if(!rpr){rpr=doc.createElementNS(NS,"w:rPr"); r.insertBefore(rpr,r.firstChild);} const setFlag=(tag,on)=>{ let e=gT(rpr,tag)[0]; if(on){ if(!e){e=doc.createElementNS(NS,"w:"+tag); rpr.appendChild(e);} } else if(e){ e.remove(); } }; if(opts.bold!=null)setFlag("b",opts.bold); if(opts.underline!=null){ let u=gT(rpr,"u")[0]; if(opts.underline){ if(!u){u=doc.createElementNS(NS,"w:u");rpr.appendChild(u);} u.setAttribute("w:val","single"); } else if(u)u.remove(); } }
     // content controls
     const sdts=gT(doc,"sdt");
     function sdtSet(sdt,val){ const c=gT(sdt,"sdtContent")[0]; if(!c)return; const pr=gT(sdt,"sdtPr")[0]; if(pr){ const ph=gT(pr,"showingPlcHdr")[0]; if(ph)ph.remove(); } const ts=gT(c,"t"); if(ts.length){ ts[0].setAttribute("xml:space","preserve"); ts[0].textContent=val==null?"":String(val); for(let k=1;k<ts.length;k++)ts[k].textContent=""; } }
@@ -4545,22 +4188,11 @@ async function genWordReport(){
     sdtByTag("cell1",company); sdtByTag("cell2",fullAddr); sdtByTag("cell3",sp);
     sdtByTag("cell4",wDateLong(inspDate)); sdtByTag("cell5",weather); sdtByTag("cell6",preparedBy);
     sdtByTag("ccSchemeAddress",fullAddr); sdtByTag("ccStrataPlanNumber",sp);
-    sdtByTag("ccStartDate",wDate(yStart)); sdtByTag("ccRegistrationDate",regD?wDate(regD):pick("js-regdate"));
+    sdtByTag("ccStartDate",wDate(yStart)); sdtByTag("ccRegistrationDate",regD?wDate(regD):(m["js-regdate"]||""));
     sdtByTag("ccGSTStatus",gst); sdtByTag("ccUnitEntitlements",UE); sdtByTag("ccCurrentLevy",wCur(levyPerUE));
     sdtByTag("ccNumberOfLots",lots); sdtByTag("ccInflationRate","3.00%"); sdtByTag("ccOpeningBalance",wCur(openBal));
-    // bookmarks: clear whatever placeholder text sits between bookmarkStart/bookmarkEnd,
-    // then insert the value (cloning the placeholder's own rPr so size/format match).
-    function setBookmark(name,val){
-      const bs=gT(doc,"bookmarkStart").find(b=>b.getAttribute("w:name")===name); if(!bs)return;
-      const id=bs.getAttribute("w:id");
-      const be=gT(doc,"bookmarkEnd").find(b=>b.getAttribute("w:id")===id);
-      let rpr=null; const toRemove=[]; let n=bs.nextSibling;
-      while(n && n!==be){ const next=n.nextSibling; if(n.nodeType===1 && n.localName==="r"){ if(!rpr){ const p=gT(n,"rPr")[0]; if(p) rpr=p.cloneNode(true); } toRemove.push(n); } n=next; }
-      toRemove.forEach(r=>r.remove());
-      const r=doc.createElementNS(NS,"w:r"); if(rpr) r.appendChild(rpr);
-      const t=doc.createElementNS(NS,"w:t"); t.setAttribute("xml:space","preserve"); t.textContent=String(val); r.appendChild(t);
-      bs.parentNode.insertBefore(r, be||bs.nextSibling);
-    }
+    // bookmarks: insert text run right after bookmarkStart
+    function setBookmark(name,val){ const bs=gT(doc,"bookmarkStart").find(b=>b.getAttribute("w:name")===name); if(!bs)return; const r=doc.createElementNS(NS,"w:r"); const t=doc.createElementNS(NS,"w:t"); t.setAttribute("xml:space","preserve"); t.textContent=String(val); r.appendChild(t); bs.parentNode.insertBefore(r,bs.nextSibling); }
     setBookmark("ContributionFrom",wCur(curContrib)); setBookmark("ContributionTo",wCur(recYr1)); setBookmark("FinYear",wDate(yStart));
 
     const tbls=gT(doc,"tbl"); const N=tbls.length;
@@ -4568,10 +4200,7 @@ async function genWordReport(){
     const colCount=t=>{const grid=kids(t,"tblGrid")[0]; return grid?kids(grid,"gridCol").length:(tcOf(trOf(t)[0]||doc.createElement("x")).length);};
     // TABLE 1 — Current Capital Works Plan (rows=11, cols=2)
     const t1=tbls.find(t=>trOf(t).length===11&&colCount(t)===2);
-    if(t1){ const rws=trOf(t1); const c2=i=>tcOf(rws[i])[1]; const vals=[fullAddr,building,sp,(regD?wDate(regD):pick("js-regdate")),lots,UE,wCur(openBal),wCur(curContrib),wCur(recYr1),wCur(levyPerUE),wCur(recYr1PerLot)]; for(let i=0;i<11;i++){ if(c2(i))setCellText(c2(i),vals[i]); } }
-    // VARIABLES TABLE (1.1) — rows=12, cols=2. Row index 2 = "Opening Balance" value cell,
-    // left blank by the template (the leftover blue-highlighted cell in the screenshot).
-    try{ const tVar=tbls.find(t=>trOf(t).length===12&&colCount(t)===2); if(tVar){ const c=tcOf(trOf(tVar)[2])[1]; if(c)setCellText(c,wCur(openBal)); } }catch(e){ console.warn("variables table:",e); }
+    if(t1){ const rws=trOf(t1); const c2=i=>tcOf(rws[i])[1]; const vals=[fullAddr,building,sp,(regD?wDate(regD):(m["js-regdate"]||"")),lots,UE,wCur(openBal),wCur(curContrib),wCur(recYr1),wCur(levyPerUE),wCur(recYr1PerLot)]; for(let i=0;i<11;i++){ if(c2(i))setCellText(c2(i),vals[i]); } }
     // TABLE 2 — Recommended Capital Works Plan (rows=11, cols=9): need 11 data rows + header
     const t2=tbls.find(t=>trOf(t).length===11&&colCount(t)===9);
     if(t2){ let rws=trOf(t2); while(rws.length<12){ const clone=rws[rws.length-1].cloneNode(true); rws[rws.length-1].parentNode.appendChild(clone); rws=trOf(t2); } for(let i=1;i<=11;i++){ const tr=rws[i]; if(!tr)continue; const cs=tcOf(tr); const idx=i-1; // i=1->current(idx0)
@@ -4600,39 +4229,30 @@ async function genWordReport(){
     // LAST TABLE (index N) — date of inspection
     try{ const tl=tbls[N-1]; const cs=tcOf(trOf(tl)[0]); if(cs[0])setCellText(cs[0],wDateLong(inspDate)); }catch(e){ console.warn("last table:",e); }
 
-    // ITEMISED MASTER + 18 FIXED CATEGORY SUB-TABLES — guarded
-    try{ fillItemTables(doc,tbls,N,R,baseYear,trOf,tcOf,colCount,setCellText,cellFmt,kids,setRowHeight,equalizeCols); }catch(e){ console.warn("item tables:",e); }
+    // ITEMISED + 19 CATEGORY SUB-TABLES (grouped by category) — guarded
+    try{ fillItemTables(doc,tbls,N,R,baseYear,trOf,tcOf,colCount,setCellText,cellFmt,kids); }catch(e){ console.warn("item tables:",e); }
     // CHART — update each series numCache by its column letter; cats = year-ending dates
     try{ await updateChart(zip,optCol); }catch(e){ console.warn("chart:",e); }
-    // SITE PHOTOS — embed into the photo table, exactly like the macro
-    let photoN=0;
-    try{ photoN=await insertSitePhotos(zip,doc,tbls); }catch(e){ console.warn("photos:",e); toast("Photos couldn't be embedded ("+(e.message||e)+")","err"); }
 
     zip.file("word/document.xml", new XMLSerializer().serializeToString(doc));
     const out=await zip.generateAsync({type:"blob",compression:"DEFLATE"});
-    const cleanName=s=>String(s||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim();
-    const fname=`${cleanName("SP "+sp)} - ${cleanName(suburb)} - ${cleanName(company)}.docm`;
+    const fname=`Strata Plan ${sp} Turnkey Inspection Capital Works Fund Plan Report.docm`;
     const url=URL.createObjectURL(out); const a=document.createElement("a"); a.href=url; a.download=fname; document.body.appendChild(a); a.click();
     setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
-    showFMsg("gen-msg",`✓ Generated ${fname}${photoN?` — ${photoN} photo${photoN>1?"s":""} embedded`:""}`,"ok");
+    showFMsg("gen-msg",`✓ Generated ${fname}`,"ok");
     lastSetup={preparedBy:g.preparedBy||"",company:g.company||"",weather:g.weather||""};
     try{ autoSaveSetupJob(g,sp); autoAddCompletedJob(g,sp); }catch(e){ console.warn("autosave:",e); }
   }catch(e){ showFMsg("gen-msg","Couldn't generate Word report ("+(e.message||e)+"). Try Export Excel below.","err"); }
 }
 
-// Fill the master itemised forecast table (cols=13) + the 18 FIXED per-category
-// sub-tables (each one is pre-titled in the template, in the same order as CATS —
-// CATS[i] is always tbls[18+i]). A category with no selected items gets a single
-// "nil" row instead of being skipped (which used to shift every later category
-// into the wrong, already-titled table).
-const ITEM_DATA_PT=16; // 8pt (half-points)
-const ITEM_ROW_TWIPS=260;
-function fillItemTables(doc,tbls,N,R,baseYear,trOf,tcOf,colCount,setCellText,cellFmt,kids,setRowHeight,equalizeCols){
+// Fill the master itemised forecast table (cols=13) + the 19 per-category sub-tables.
+function fillItemTables(doc,tbls,N,R,baseYear,trOf,tcOf,colCount,setCellText,cellFmt,kids){
   const NS=WNS;
-  // group selected items by category
-  const byCat={};
-  R.perItem.forEach(pi=>{ const c=pi.it.cat||"Other"; (byCat[c]=byCat[c]||[]).push(pi); });
-
+  // group selected items by category, in first-seen order
+  const groups=[]; const gmap={};
+  R.perItem.forEach(pi=>{ const c=pi.it.cat||"Other"; if(!gmap[c]){gmap[c]={cat:c,items:[]}; gmap[c]._i=groups.length; groups.push(gmap[c]);} gmap[c].items.push(pi); });
+  const addRowsTo=(tbl,n,tmplIdx)=>{ const rws=trOf(tbl); const tmpl=rws[tmplIdx!=null?tmplIdx:rws.length-1]; for(let k=0;k<n;k++){ const cl=tmpl.cloneNode(true); tbl.appendChild(cl); } return trOf(tbl); };
+  const clearTrailing=(tbl,fromRow)=>{ let rws=trOf(tbl); for(let i=rws.length-1;i>=fromRow;i--){ rws[i].remove(); } };
   // ---- Master itemised table: cols=13 ----
   const master=tbls.find(t=>colCount(t)===13);
   if(master){
@@ -4643,58 +4263,43 @@ function fillItemTables(doc,tbls,N,R,baseYear,trOf,tcOf,colCount,setCellText,cel
     // remove everything after header rows
     let rws=trOf(master); for(let i=rws.length-1;i>=headerRows;i--) rws[i].remove();
     let lineNo=1;
-    CATS.forEach(cat=>{
-      const items=byCat[cat]; if(!items||!items.length)return; // master only lists non-empty categories
+    groups.forEach(grp=>{
       // category subheading row
       const sub=tmpl.cloneNode(true); master.appendChild(sub); const sc=tcOf(sub);
-      if(sc[1]){ setCellText(sc[1],cat); cellFmt(sc[1],{bold:true,underline:true,size:ITEM_DATA_PT}); }
+      if(sc[1]){ setCellText(sc[1],grp.cat); cellFmt(sc[1],{bold:true,underline:true}); }
       if(sc[0])setCellText(sc[0],"");
-      setRowHeight(sub,ITEM_ROW_TWIPS);
-      items.forEach(pi=>{
+      grp.items.forEach(pi=>{
         const r=tmpl.cloneNode(true); master.appendChild(r); const cs=tcOf(r);
         if(cs[0])setCellText(cs[0],String(lineNo++));
         if(cs[1])setCellText(cs[1],pi.it.scope||pi.it.desc||"");
         if(cs[2])setCellText(cs[2], pi.f.pv?wCur0(pi.f.pv):""); // Present Value column
         for(let y=1;y<=10;y++){ const c=cs[y+2]; if(c)setCellText(c, pi.f.arr[y]?wCur0(pi.f.arr[y]):""); }
-        cs.forEach(c=>cellFmt(c,{bold:false,underline:false,size:ITEM_DATA_PT}));
-        setRowHeight(r,ITEM_ROW_TWIPS);
       });
     });
     // totals row
     const tot=tmpl.cloneNode(true); master.appendChild(tot); const tcs=tcOf(tot);
-    if(tcs[0])setCellText(tcs[0],""); // clear stray inherited line-number from the cloned template row
-    if(tcs[1]){ setCellText(tcs[1],"Total Estimated Yearly Expenses With 3% CPI - Includes GST"); cellFmt(tcs[1],{bold:true,underline:true,size:ITEM_DATA_PT}); }
-    if(tcs[2])setCellText(tcs[2],""); // clear stray inherited Present Value from the cloned template row
-    for(let y=1;y<=10;y++){ const c=tcs[y+2]; if(c){ setCellText(c, R.works[y]?wCur0(R.works[y]):""); cellFmt(c,{bold:true,underline:true,size:ITEM_DATA_PT}); } }
-    setRowHeight(tot,ITEM_ROW_TWIPS);
-    // equalize the 10 year columns (col0=Line, col1=Item, col2=Present Value untouched)
-    try{ equalizeCols(master,3,10); }catch(e){}
+    if(tcs[1]){ setCellText(tcs[1],"Total Estimated Yearly Expenses With 3% CPI - Includes GST"); cellFmt(tcs[1],{bold:true,underline:true}); }
+    for(let y=1;y<=10;y++){ const c=tcs[y+2]; if(c){ setCellText(c, R.works[y]?wCur0(R.works[y]):""); cellFmt(c,{bold:true}); } }
   }
-
-  // ---- 18 FIXED category sub-tables: CATS[i] -> tbls[18+i] ----
-  CATS.forEach((cat,i)=>{
-    const tbl=tbls[18+i]; if(!tbl)return;
-    // header (yyyy) → years in row0 cols 2..11
+  // ---- 19 category sub-tables: indices (N-20)..(N-2), 1-based → 0-based (N-21)..(N-3) ----
+  const subStart=N-20; // 1-based index of first sub-table
+  groups.forEach((grp,gi)=>{
+    const idx1=subStart+gi; if(idx1>N-2)return; // don't overrun into totals
+    const tbl=tbls[idx1-1]; if(!tbl)return;
+    // header (yyyy) → years in row1 cols 3..12
     try{ const hr=trOf(tbl)[0]; const hc=tcOf(hr); for(let y=0;y<10;y++){ const c=hc[y+2]; if(c){ [...c.getElementsByTagNameNS(NS,'t')].forEach(t=>{ if(/yyyy/i.test(t.textContent)) t.textContent=t.textContent.replace(/yyyy/i,String(baseYear+y)); }); } } }catch(e){}
     const rws=trOf(tbl); const tmpl=rws[1]||rws[rws.length-1]; // row2 = data template
-    // clear all existing data rows (everything after the header row)
-    for(let k=rws.length-1;k>=1;k--) rws[k].remove();
-    const items=byCat[cat]||[];
-    const rowsToWrite = items.length ? items : [null]; // null => the "nil" row
-    rowsToWrite.forEach(pi=>{
-      const tr=tmpl.cloneNode(true); tbl.appendChild(tr); const cs=tcOf(tr);
-      if(!pi){
-        if(cs[0])setCellText(cs[0],"nil");
-        for(let k=1;k<cs.length;k++) setCellText(cs[k],"");
-      } else {
-        if(cs[0])setCellText(cs[0],pi.it.scope||pi.it.desc||"");
-        if(cs[1])setCellText(cs[1], pi.f.pv?wCur0(pi.f.pv):"");
-        for(let y=1;y<=10;y++){ const c=cs[y+1]; if(c)setCellText(c, pi.f.arr[y]?wCur0(pi.f.arr[y]):""); }
-      }
-      cs.forEach(c=>cellFmt(c,{bold:false,underline:false,size:ITEM_DATA_PT}));
-      setRowHeight(tr,ITEM_ROW_TWIPS);
+    // ensure enough rows
+    let need=grp.items.length; let cur=rws.length-1; // existing data rows after header
+    for(let k=cur;k<need;k++){ tbl.appendChild(tmpl.cloneNode(true)); }
+    const rws2=trOf(tbl);
+    grp.items.forEach((pi,ri)=>{ const tr=rws2[ri+1]; if(!tr)return; const cs=tcOf(tr);
+      if(cs[0])setCellText(cs[0],pi.it.scope||pi.it.desc||"");
+      if(cs[1])setCellText(cs[1], pi.f.pv?wCur0(pi.f.pv):"");
+      for(let y=1;y<=10;y++){ const c=cs[y+1]; if(c)setCellText(c, pi.f.arr[y]?wCur0(pi.f.arr[y]):""); }
     });
-    try{ equalizeCols(tbl,2,10); }catch(e){}
+    // delete trailing template rows beyond data
+    let rws3=trOf(tbl); for(let i=rws3.length-1;i>=need+1;i--) rws3[i].remove();
   });
 }
 
@@ -4760,10 +4365,6 @@ function init(){
   repoName  = LS.load("tk_repo_name","turnkey-addin");
 
   splitWidth = LS.load("tk_split_w", null);
-  freqCollapsed = LS.load("tk_freq_collapsed", false);
-
-  // Site photos (IndexedDB — separate from localStorage data)
-  jpLoad();
 
   // Layout
   detectLayout();
