@@ -466,7 +466,8 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   <div class="logo"><span>Turn</span><span>Key</span></div>
   <span class="logo-sub">Item Library</span>
   <div class="tb-right">
-    <span class="sel-chip" id="sel-chip" style="">45 items · $586,216</span>
+    <span class="sel-chip" id="sel-chip" style="">45 items · $581,216</span>
+    <button class="tb-btn" onclick="popOutSelected()" title="Open selected items in a separate window — drag it to another monitor">⧉ Pop out selected</button>
     <div class="sync-dot busy" id="sync-dot" title="Saving to GitHub…" onclick="isMobile?showView('settings'):switchDesktopLeft('settings')"></div>
     <button class="tb-btn" id="sync-settings-btn" title="Sync settings" onclick="isMobile?showView('settings'):switchDesktopLeft('settings')">⚙</button>
     <button class="tb-btn" onclick="syncNow()" id="sync-btn">⟳ Sync</button>
@@ -475,820 +476,145 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 
 <div class="content-area">
 
-  <div class="left-panel" id="left-panel" style="display: flex; width: 100%;">
+  <div class="left-panel" id="left-panel" style="display: flex; width: 55%;">
     <div class="desktop-tabs">
+      <div class="dtab active" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
       <div class="dtab" id="dtab-library" onclick="switchDesktopLeft('library')">Library</div>
       <div class="dtab" id="dtab-selected-sheet" onclick="switchDesktopLeft('selected-sheet')">☑ Selected Items</div>
       <div class="dtab" id="dtab-projection" onclick="switchDesktopLeft('projection')">📈 Projection</div>
-      <div class="dtab active" id="dtab-completed-jobs" onclick="switchDesktopLeft('completed-jobs')">💼 Jobs</div>
-      <div class="dtab" id="dtab-job-setup" onclick="switchDesktopLeft('job-setup')">🏢 New Job</div>
+      <div class="dtab" id="dtab-completed-jobs" onclick="switchDesktopLeft('completed-jobs')">💼 Jobs</div>
+      <div class="dtab" id="dtab-stencils" onclick="switchDesktopLeft('stencils')">🧩 Stencils</div>
       <div class="dtab" id="dtab-report" onclick="switchDesktopLeft('report')">📄 Report</div>
     </div>
     <div id="desk-left-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
-  <div class="cj-layout">
-    <aside class="tdj-sidebar" id="tdj-sidebar">
-      <div class="tdj-head" onclick="tdjToggleSidebar()">
-        <span class="tdj-icon">📋</span>
-        <span class="tdj-title">To Do Jobs</span>
-        <span class="tdj-chevron" id="tdj-chevron">▸</span>
-      </div>
-      <div class="tdj-body" id="tdj-body">
-        <button class="btn primary sm" style="margin:10px" onclick="tdjOpenAdd()">+ Add</button>
-        <div class="tdj-list" id="tdj-list"><div class="tdj-empty">No to-do jobs yet — tap + Add.</div></div>
-      </div>
-    </aside>
-    <div class="cj-main">
-      <div class="sj-section">
-        <div class="sj-head" onclick="sjToggle()">
-          <span style="font-size:13px;font-weight:600">💾 Saved Jobs <span id="sj-count" style="font-weight:400;color:var(--mu)">(4)</span></span>
-          <span id="sj-chevron" style="color:var(--mu)">▾</span>
+  <div class="setup-scroll">
+
+    <div>
+      <div class="setup-section-title">Job Details</div>
+      <div class="setup-grid">
+        <div class="setup-field full">
+          <label>SP Number</label>
+          <input id="js-sp" type="number" placeholder="e.g. 12345" inputmode="numeric" autocomplete="off">
         </div>
-        <div id="sj-body">
-          <div class="save-job-area" style="border-bottom:1px solid var(--bdr)">
-            <div class="save-job-row">
-              <input id="job-name-input" placeholder="Job name (e.g. 732 Military Rd Mosman)..." maxlength="80">
-              <input id="job-type-input" list="sj-types-dl" placeholder="Building type…" autocomplete="off" style="max-width:150px">
-              <button class="btn primary sm" onclick="saveJob()">Save</button>
-            </div>
-            <textarea class="notes-input" id="job-notes-input" placeholder="Site notes — observations, conditions, issues found on inspection..." rows="2"></textarea>
-            <div style="display:flex;gap:8px;align-items:center">
-              <button class="btn sm" onclick="openImportJobModal()" style="color:var(--navy-md);font-size:12px;flex-shrink:0">📥 Import old job</button>
-              <input type="text" id="sj-search" placeholder="Search saved jobs…" oninput="renderJobs()" autocomplete="off" style="flex:1;min-width:0;padding:7px 10px;border:1px solid var(--bdr);border-radius:7px;font-size:12px;outline:none;background:var(--surf2)">
-              <select id="sj-ftype" onchange="renderJobs()" style="flex-shrink:0;padding:7px 8px;border:1px solid var(--bdr);border-radius:7px;font-size:12px;background:var(--surf2)"><option value="All">All building types</option><option value="Tower/Highrise">Tower/Highrise</option><option value="Townhouses">Townhouses</option><option value="__none">No building type</option></select>
-            </div>
-            <datalist id="sj-types-dl"><option value="Tower/Highrise"></option><option value="Townhouses"></option></datalist>
-          </div>
-          <div id="jobs-list" style="max-height:320px;overflow-y:auto;border-bottom:1px solid var(--bdr)"><div class="job-row" id="job-row-0">
-    <div class="job-row-top">
-      <div class="job-info">
-        <div class="job-name">Job 07/07/2026</div>
-        <div class="job-meta">07/07/2026 · 45 items · $586,216 · 🏷 Townhouses</div>
-        
-      </div>
-      <div class="job-btns">
-        <button class="btn primary sm" onclick="loadJob(0)" title="Replace your current list with this job">Load</button>
-        <button class="btn sm" onclick="loadJobMerge(0)" title="Add this job's items to your current list (skips duplicates)">➕ Add</button>
-        <button class="btn sm" onclick="copyJobToExcel(0)" title="Copy for Excel">📋</button>
-        <button class="btn sm" onclick="duplicateJob(0)" title="Duplicate this job">⧉</button>
-        <button class="btn sm" onclick="setDefaultJob('u178341032813334y')" title="Use as default starting list (auto-loads on open)">☆</button>
-        <button class="btn sm" onclick="setJobType(0)" title="Set building type">🏷</button>
-        <button class="btn sm" onclick="toggleJobNotes(0)" title="Add site notes" style="color:var(--mu)">📝</button>
-        <button class="btn sm" onclick="addJobToLib(0)" title="Add items to library">+Lib</button>
-        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(0)">✕</button>
-      </div>
-    </div>
-    <div class="job-notes-panel" id="notes-panel-0">
-      <div class="job-notes-label">Site notes</div>
-      <div class="job-notes-text" id="notes-text-0" style="display:none"></div>
-      <textarea class="job-notes-edit" id="notes-edit-0" style="display:none" placeholder="Add site notes here..." rows="4"></textarea>
-      <div style="display:flex;gap:6px">
-        <button class="btn primary sm" onclick="saveJobNotes(0)" id="notes-save-0" style="display:none">Save notes</button>
-        <button class="btn sm" onclick="editJobNotes(0)" id="notes-edit-btn-0">Add notes</button>
-        <button class="btn ghost sm" onclick="toggleJobNotes(0)">Close</button>
-      </div>
-    </div>
-  </div><div class="job-row" id="job-row-1">
-    <div class="job-row-top">
-      <div class="job-info">
-        <div class="job-name">SP 101810 - Professionals Strata Team</div>
-        <div class="job-meta">29/06/2026 · 45 items · $586,216 · 🏷 Tower/Highrise</div>
-        <div class="job-notes-snippet">📝 27 Aug 2020 - 133 Lots, 28 CLIFF ROAD EPPING, EPPING NS…</div>
-      </div>
-      <div class="job-btns">
-        <button class="btn primary sm" onclick="loadJob(1)" title="Replace your current list with this job">Load</button>
-        <button class="btn sm" onclick="loadJobMerge(1)" title="Add this job's items to your current list (skips duplicates)">➕ Add</button>
-        <button class="btn sm" onclick="copyJobToExcel(1)" title="Copy for Excel">📋</button>
-        <button class="btn sm" onclick="duplicateJob(1)" title="Duplicate this job">⧉</button>
-        <button class="btn sm" onclick="setDefaultJob('u1782705088650339')" title="Use as default starting list (auto-loads on open)">☆</button>
-        <button class="btn sm" onclick="setJobType(1)" title="Set building type">🏷</button>
-        <button class="btn sm" onclick="toggleJobNotes(1)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
-        <button class="btn sm" onclick="addJobToLib(1)" title="Add items to library">+Lib</button>
-        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(1)">✕</button>
-      </div>
-    </div>
-    <div class="job-notes-panel" id="notes-panel-1">
-      <div class="job-notes-label">Site notes</div>
-      <div class="job-notes-text" id="notes-text-1" style="">27 Aug 2020 - 133 Lots, 28 CLIFF ROAD EPPING, EPPING NSW 2121</div>
-      <textarea class="job-notes-edit" id="notes-edit-1" style="display:none" placeholder="Add site notes here..." rows="4">27 Aug 2020 - 133 Lots, 28 CLIFF ROAD EPPING, EPPING NSW 2121</textarea>
-      <div style="display:flex;gap:6px">
-        <button class="btn primary sm" onclick="saveJobNotes(1)" id="notes-save-1" style="display:none">Save notes</button>
-        <button class="btn sm" onclick="editJobNotes(1)" id="notes-edit-btn-1">Edit notes</button>
-        <button class="btn ghost sm" onclick="toggleJobNotes(1)">Close</button>
-      </div>
-    </div>
-  </div><div class="job-row" id="job-row-2">
-    <div class="job-row-top">
-      <div class="job-info">
-        <div class="job-name">SP 79900</div>
-        <div class="job-meta">02/06/2026 · 20 items · $100,729 · 🏷 Townhouses</div>
-        <div class="job-notes-snippet">📝 Registered 2008 - 15 Lots</div>
-      </div>
-      <div class="job-btns">
-        <button class="btn primary sm" onclick="loadJob(2)" title="Replace your current list with this job">Load</button>
-        <button class="btn sm" onclick="loadJobMerge(2)" title="Add this job's items to your current list (skips duplicates)">➕ Add</button>
-        <button class="btn sm" onclick="copyJobToExcel(2)" title="Copy for Excel">📋</button>
-        <button class="btn sm" onclick="duplicateJob(2)" title="Duplicate this job">⧉</button>
-        <button class="btn sm" onclick="setDefaultJob('u17803720422421hw')" title="Use as default starting list (auto-loads on open)">☆</button>
-        <button class="btn sm" onclick="setJobType(2)" title="Set building type">🏷</button>
-        <button class="btn sm" onclick="toggleJobNotes(2)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
-        <button class="btn sm" onclick="addJobToLib(2)" title="Add items to library">+Lib</button>
-        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(2)">✕</button>
-      </div>
-    </div>
-    <div class="job-notes-panel" id="notes-panel-2">
-      <div class="job-notes-label">Site notes</div>
-      <div class="job-notes-text" id="notes-text-2" style="">Registered 2008 - 15 Lots</div>
-      <textarea class="job-notes-edit" id="notes-edit-2" style="display:none" placeholder="Add site notes here..." rows="4">Registered 2008 - 15 Lots</textarea>
-      <div style="display:flex;gap:6px">
-        <button class="btn primary sm" onclick="saveJobNotes(2)" id="notes-save-2" style="display:none">Save notes</button>
-        <button class="btn sm" onclick="editJobNotes(2)" id="notes-edit-btn-2">Edit notes</button>
-        <button class="btn ghost sm" onclick="toggleJobNotes(2)">Close</button>
-      </div>
-    </div>
-  </div><div class="job-row" id="job-row-3">
-    <div class="job-row-top">
-      <div class="job-info">
-        <div class="job-name">SP 9912</div>
-        <div class="job-meta">02/06/2026 · 24 items · $279,772 · 🏷 Tower/Highrise</div>
-        <div class="job-notes-snippet">📝 Registered 1975 - 31 Lots</div>
-      </div>
-      <div class="job-btns">
-        <button class="btn primary sm" onclick="loadJob(3)" title="Replace your current list with this job">Load</button>
-        <button class="btn sm" onclick="loadJobMerge(3)" title="Add this job's items to your current list (skips duplicates)">➕ Add</button>
-        <button class="btn sm" onclick="copyJobToExcel(3)" title="Copy for Excel">📋</button>
-        <button class="btn sm" onclick="duplicateJob(3)" title="Duplicate this job">⧉</button>
-        <button class="btn sm" onclick="setDefaultJob('u1780367435119m26')" title="Use as default starting list (auto-loads on open)">☆</button>
-        <button class="btn sm" onclick="setJobType(3)" title="Set building type">🏷</button>
-        <button class="btn sm" onclick="toggleJobNotes(3)" title="View/edit site notes" style="color:var(--navy-md)">📝</button>
-        <button class="btn sm" onclick="addJobToLib(3)" title="Add items to library">+Lib</button>
-        <button class="btn sm" style="color:var(--red)" onclick="deleteJob(3)">✕</button>
-      </div>
-    </div>
-    <div class="job-notes-panel" id="notes-panel-3">
-      <div class="job-notes-label">Site notes</div>
-      <div class="job-notes-text" id="notes-text-3" style="">Registered 1975 - 31 Lots</div>
-      <textarea class="job-notes-edit" id="notes-edit-3" style="display:none" placeholder="Add site notes here..." rows="4">Registered 1975 - 31 Lots</textarea>
-      <div style="display:flex;gap:6px">
-        <button class="btn primary sm" onclick="saveJobNotes(3)" id="notes-save-3" style="display:none">Save notes</button>
-        <button class="btn sm" onclick="editJobNotes(3)" id="notes-edit-btn-3">Edit notes</button>
-        <button class="btn ghost sm" onclick="toggleJobNotes(3)">Close</button>
-      </div>
-    </div>
-  </div></div>
+        <div class="setup-field full">
+          <label>Building Name</label>
+          <input id="js-building" type="text" placeholder="e.g. Redmyre 2" autocomplete="off">
+        </div>
+        <div class="setup-field full">
+          <label style="display:flex;justify-content:space-between;align-items:center">Strata Management Company <button type="button" class="btn sm" onclick="addStrataCompany()" style="font-size:11px;color:var(--navy-md);padding:2px 8px">+ Add company</button></label>
+          <select id="js-company"><option value="">— Not on list —</option><option value="Bay Strata">Bay Strata</option><option value="C.F Strata Management">C.F Strata Management</option><option value="Conti Strata">Conti Strata</option><option value="Eastern Star Strata">Eastern Star Strata</option><option value="Fabos Strata">Fabos Strata</option><option value="Hill Strata Solutions">Hill Strata Solutions</option><option value="Illawarra Strata">Illawarra Strata</option><option value="Jamesons Strata">Jamesons Strata</option><option value="Premium Strata">Premium Strata</option><option value="Kooper &amp; Levi">Kooper &amp; Levi</option><option value="Strata Only">Strata Only</option><option value="Strata Sense">Strata Sense</option><option value="Strathfield Partners">Strathfield Partners</option><option value="Vital Strata">Vital Strata</option><option value="Whelan Property">Whelan Property</option><option value="Wollongong Strata">Wollongong Strata</option><option value="Net Strata">Net Strata</option><option value="MY StrataCare">MY StrataCare</option><option value="Real Strata Management">Real Strata Management</option><option value="Exclusive">Exclusive</option><option value="Professionals Strata Team">Professionals Strata Team</option></select>
+        </div>
+        <div class="setup-field">
+          <label>Lot Entitlements</label>
+          <input id="js-le" type="text" placeholder="e.g. 100" autocomplete="off">
+        </div>
+        <div class="setup-field">
+          <label>CWF Balance ($)</label>
+          <input id="js-cwfbal" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
+        </div>
+        <div class="setup-field full">
+          <label>CWF Total Contributions ($)</label>
+          <input id="js-cwfcontrib" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
+        </div>
+        <div class="setup-field full">
+          <label>Current Closing Balance ($) <span style="font-weight:400;text-transform:none;color:var(--navy-md)">— projection start</span></label>
+          <input id="js-closebal" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
+        </div>
+        <div class="setup-field">
+          <label>Year Start Date</label>
+          <input id="js-yearstart" type="date">
+        </div>
+        <div class="setup-field">
+          <label>GST</label>
+          <label class="setup-toggle">
+            <span>GST Applicable</span>
+            <input type="checkbox" id="js-gst">
+          </label>
+        </div>
+        <div class="setup-field">
+          <label>Weather Condition</label>
+          <input id="js-weather" type="text" placeholder="e.g. Fine" autocomplete="off">
+        </div>
+        <div class="setup-field">
+          <label>Prepared By</label>
+          <input id="js-preparedby" type="text" placeholder="e.g. Joseph Bechara" value="Joseph Bechara" autocomplete="off">
         </div>
       </div>
-      <div class="cj-toolbar">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-          <span style="font-size:13px;font-weight:600" id="cj-total-label">1 completed job</span>
-          <button class="btn primary sm" onclick="cjOpenAdd()">+ Add Job</button>
-        </div>
-        <div class="cj-filters">
-          <input type="text" id="cj-search" placeholder="Search SP, address, company, notes…" oninput="renderCompletedJobs()" autocomplete="off">
-          <select id="cj-ftype" onchange="renderCompletedJobs()"><option value="All">All types</option><option value="CWF">CWF</option><option value="Asbestos">Asbestos</option><option value="Safety">Safety</option></select>
-          <select id="cj-fstatus" onchange="renderCompletedJobs()"><option value="All">All statuses</option><option value="Photos Only">Photos Only</option><option value="Photos &amp; Report">Photos &amp; Report</option><option value="Report Only">Report Only</option><option value="Pending">Pending</option></select>
-          <select id="cj-fcompany" onchange="renderCompletedJobs()"><option value="All">All companies</option><option value="Professionals Strata Team">Professionals Strata Team</option></select>
-        </div>
-        <div class="cj-summary">
-          <span id="cj-shown-label">Showing 1 of 1</span>
-          <button class="cj-clear" id="cj-clear-btn" onclick="cjClearFilters()" style="display:none">Clear filters</button>
-        </div>
-      </div>
-      <div class="cj-scroll">
-        <table class="cj-table">
-          <thead>
-            <tr>
-              <th onclick="cjSortBy('sp')">SP<span id="cj-arrow-sp"></span></th>
-              <th onclick="cjSortBy('address')">Address<span id="cj-arrow-address"></span></th>
-              <th onclick="cjSortBy('jobType')">Job Type<span id="cj-arrow-jobType"></span></th>
-              <th onclick="cjSortBy('strataCompany')">Strata Company<span id="cj-arrow-strataCompany"></span></th>
-              <th>Contribution</th>
-              <th onclick="cjSortBy('dateCompleted')">Date Completed<span id="cj-arrow-dateCompleted">  ↓</span></th>
-              <th>Notes</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="cj-tbody"><tr class="">
-      <td style="font-family:'IBM Plex Mono',monospace;font-weight:500">SP 101810</td>
-      <td>28 CLIFF ROAD EPPING, EPPING NSW 2121</td>
-      <td><span class="cj-badge" style="background:#dbeafe;color:#1e40af">CWF</span></td>
-      <td>Professionals Strata Team</td>
-      <td><span class="cj-badge" style="background:#fef3c7;color:#b45309">Pending</span></td>
-      <td style="font-family:'IBM Plex Mono',monospace;font-size:12px">29 Jun 2026</td>
-      <td class="cj-notes-cell" title="Generated from Turnkey job folder">Generated from Turnkey job folder</td>
-      <td><div class="cj-row-btns"><button class="btn sm" onclick="cjOpenEdit('cjmqyoowskkrtja')">Edit</button><button class="btn sm" style="color:var(--red)" onclick="cjDeleteJob('cjmqyoowskkrtja')">Delete</button></div></td>
-    </tr></tbody>
-        </table>
-        <div class="cj-empty" id="cj-empty" style="display:none">No jobs found. Try adjusting your search or filters.</div>
-      </div>
     </div>
+
+    <div>
+      <div class="setup-section-title">Strata Details</div>
+      <button class="btn primary" style="width:100%;min-height:44px;font-size:13px;margin-bottom:8px" onclick="lookupStrata()">🔍 Auto-fill from SP number</button>
+      <div class="form-msg ok" id="strata-lookup-msg" style="margin-bottom:8px">✓ Found: 28 CLIFF ROAD EPPING, EPPING</div>
+      <div class="setup-grid">
+        <div class="setup-field full">
+          <label>Address</label>
+          <input id="js-address" type="text" placeholder="e.g. 150-152 MARINE PDE, MAROUBRA NSW 2035" autocomplete="off">
+        </div>
+        <div class="setup-field">
+          <label>Registered Date</label>
+          <input id="js-regdate" type="text" placeholder="e.g. 05 Jun 1964" autocomplete="off">
+        </div>
+        <div class="setup-field">
+          <label>No. of Lots</label>
+          <input id="js-lots" type="text" placeholder="e.g. 12 Lots" autocomplete="off">
+        </div>
+      </div>
+      <div class="setup-hint">Enter the SP number above, then auto-fill. These fill from NSW Strata Hub but stay editable — or fill them manually if a plan isn't found.</div>
+    </div>
+
+    <div>
+      <div class="setup-section-title">Generate Job Folder</div>
+      <div class="gen-readout" id="gen-readout"><span><span class="gr-n">45</span> inspection items → Summary</span><span class="gr-n">$586,216</span></div>
+      <button class="btn primary" style="width:100%;min-height:52px;font-size:15px;font-weight:600" onclick="genWordReport()">⚡ Generate Word Report</button>
+      <button class="btn" style="width:100%;min-height:40px;font-size:12px;margin-top:8px" onclick="generateJobFolder()">Export Excel workbook (optional)</button>
+      <div class="setup-hint" style="margin-bottom:4px">Downloads <strong>SP {number}.zip</strong> with the filled Excel + Word templates. Your selected items become the Summary rows, and the job is saved to <strong>Saved Jobs</strong> automatically — ready to reuse next time.</div>
+      <div class="form-msg ok" id="gen-msg" style="margin-top:6px">✓ Downloaded SP 101810 Professionals Strata Team.zip — filled Excel (45 items) + Word template inside</div>
+    </div>
+
+    <details>
+      <summary style="font-size:11px;color:var(--mu);cursor:pointer;padding:8px 0">Manual paste (fallback, if you'd rather paste into an open sheet)</summary>
+      <div style="margin-top:8px">
+        <div class="setup-section-title">Inputs &amp; Assumptions sheet</div>
+        <div class="setup-hint" style="margin-bottom:10px">Paste each in order at the cell shown. The runs skip the formula rows (C12, C14, C15) and the merged Variables header (C20).</div>
+        <div class="setup-copy-btns">
+          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyTopBlock()">① Scheme &amp; finances → paste at <strong>C4</strong></button>
+          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copySuburbCell()">② Suburb → paste at <strong>E4</strong></button>
+          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyLevy()">③ Levy per annum → paste at <strong>C13</strong></button>
+          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyPrepared()">④ Prepared / inspection → paste at <strong>C16</strong></button>
+          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyYearStart()">⑤ Financial year start → paste at <strong>C21</strong></button>
+        </div>
+        <div class="setup-section-title" style="margin-top:14px">Optimize Contribution sheet</div>
+        <div class="setup-copy-btns">
+          <button class="btn" style="width:100%;min-height:42px;font-size:13px;text-align:left" onclick="copyOptimizeSheet()">Contributions → paste at <strong>B7</strong></button>
+        </div>
+        <div class="form-msg" id="setup-msg" style="margin-top:10px"></div>
+      </div>
+    </details>
+
   </div>
 </div>
   </div>
 
-  <div class="split-resizer" id="split-resizer" title="Drag to resize · double-click to reset" style="display: none;"></div>
+  <div class="split-resizer" id="split-resizer" title="Drag to resize · double-click to reset" style="display: block;"></div>
 
-  <div class="right-panel-wrap" id="right-panel" style="display: none;">
-  <div class="sel-header">
-    <h2>Selected items</h2>
-    <span class="count-badge" id="sel-count-badge">45</span>
-    <button class="btn ghost sm" onclick="clearAll()">Clear</button>
-  </div>
-  <div class="sel-list" id="sel-list"><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(0,this.value)" style="height: 0px;">Height allowance for facade repaint to render and FC cladding</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(0)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-0" type="number" value="1" onchange="updateSel(0,'qty',this.value)" onkeydown="selQtyKey(event,0)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(0,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="26252" onchange="updateSel(0,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(0,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(0,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$26,252</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(1,this.value)" style="height: 0px;">Repaint and re-highlight yellow coloured kerbing</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(1)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-1" type="number" value="144" onchange="updateSel(1,'qty',this.value)" onkeydown="selQtyKey(event,1)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(1,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="12" onchange="updateSel(1,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(1,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(1,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$1,728</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(2,this.value)" style="height: 0px;">Repaint balcony concrete soffits and slab edges</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(2)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-2" type="number" value="1380" onchange="updateSel(2,'qty',this.value)" onkeydown="selQtyKey(event,2)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(2,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="21" onchange="updateSel(2,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(2,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="15" onchange="updateSel(2,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$28,980</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(3,this.value)" style="height: 0px;">Repaint building exterior cementitious acrylic render</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(3)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-3" type="number" value="1" onchange="updateSel(3,'qty',this.value)" onkeydown="selQtyKey(event,3)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Item" onchange="updateSel(3,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="92500" onchange="updateSel(3,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(3,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(3,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$92,500</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(4,this.value)" style="height: 0px;">Repaint building exterior FC sheeted cladding</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(4)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-4" type="number" value="1" onchange="updateSel(4,'qty',this.value)" onkeydown="selQtyKey(event,4)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Item" onchange="updateSel(4,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="15500" onchange="updateSel(4,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(4,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(4,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$15,500</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(5,this.value)" style="height: 0px;">Repaint doors</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(5)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-5" type="number" value="6" onchange="updateSel(5,'qty',this.value)" onkeydown="selQtyKey(event,5)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(5,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="135" onchange="updateSel(5,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(5,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="8" onchange="updateSel(5,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$810</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(6,this.value)" style="height: 0px;">Repaint external service doors and door jambs to plant and fire exits</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(6)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-6" type="number" value="8" onchange="updateSel(6,'qty',this.value)" onkeydown="selQtyKey(event,6)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(6,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="185" onchange="updateSel(6,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(6,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(6,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$1,480</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(7,this.value)" style="height: 0px;">Repaint non slip epoxy floors - 150 mm upturn</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(7)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-7" type="number" value="225" onchange="updateSel(7,'qty',this.value)" onkeydown="selQtyKey(event,7)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(7,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="26" onchange="updateSel(7,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(7,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="4" onchange="updateSel(7,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$5,850</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(8,this.value)" style="height: 0px;">Repaint walls</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(8)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-8" type="number" value="221" onchange="updateSel(8,'qty',this.value)" onkeydown="selQtyKey(event,8)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(8,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="15" onchange="updateSel(8,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(8,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(8,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$3,315</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(9,this.value)" style="height: 0px;">Repaint walls and ceilings - (Approx. 1760 m2)</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(9)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-9" type="number" value="1760" onchange="updateSel(9,'qty',this.value)" onkeydown="selQtyKey(event,9)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(9,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="32" onchange="updateSel(9,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="9" onchange="updateSel(9,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(9,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$56,320</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(10,this.value)" style="height: 0px;">Repaint walls to planterboxes and retaining walls</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(10)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-10" type="number" value="1" onchange="updateSel(10,'qty',this.value)" onkeydown="selQtyKey(event,10)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(10,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="16585" onchange="updateSel(10,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(10,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(10,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$16,585</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(11,this.value)" style="height: 0px;">Replacement of access hatches in fire stairwell - top landing</textarea><div class="sel-cat-label">Exterior finishes</div></div>
-        <button class="rem" onclick="deselect(11)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-11" type="number" value="3" onchange="updateSel(11,'qty',this.value)" onkeydown="selQtyKey(event,11)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(11,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="1858" onchange="updateSel(11,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="9" onchange="updateSel(11,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(11,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$5,574</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(12,this.value)" style="height: 0px;">Glass entry doors to foyers (Blocks A,B &amp; C)</textarea><div class="sel-cat-label">Doors &amp; windows</div></div>
-        <button class="rem" onclick="deselect(12)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-12" type="number" value="3" onchange="updateSel(12,'qty',this.value)" onkeydown="selQtyKey(event,12)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(12,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="3212" onchange="updateSel(12,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(12,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(12,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$9,636</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(13,this.value)" style="height: 0px;">Repaint apartment entry doors and door jambs</textarea><div class="sel-cat-label">Doors &amp; windows</div></div>
-        <button class="rem" onclick="deselect(13)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-13" type="number" value="140" onchange="updateSel(13,'qty',this.value)" onkeydown="selQtyKey(event,13)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Ea" onchange="updateSel(13,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="125" onchange="updateSel(13,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="9" onchange="updateSel(13,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(13,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$17,500</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(14,this.value)" style="height: 0px;">Repaint service doors and door jambs</textarea><div class="sel-cat-label">Doors &amp; windows</div></div>
-        <button class="rem" onclick="deselect(14)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-14" type="number" value="135" onchange="updateSel(14,'qty',this.value)" onkeydown="selQtyKey(event,14)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(14,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="110" onchange="updateSel(14,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="9" onchange="updateSel(14,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(14,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$14,850</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(15,this.value)" style="height: 0px;">Replace motor to electric gate</textarea><div class="sel-cat-label">Electrical</div></div>
-        <button class="rem" onclick="deselect(15)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-15" type="number" value="1" onchange="updateSel(15,'qty',this.value)" onkeydown="selQtyKey(event,15)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(15,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="2858" onchange="updateSel(15,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="9" onchange="updateSel(15,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(15,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$2,858</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(16,this.value)" style="height: 0px;">Basement stormwater/sewer pump control panels</textarea><div class="sel-cat-label">Plumbing</div></div>
-        <button class="rem" onclick="deselect(16)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-16" type="number" value="2" onchange="updateSel(16,'qty',this.value)" onkeydown="selQtyKey(event,16)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(16,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="4888" onchange="updateSel(16,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(16,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(16,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$9,776</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(17,this.value)" style="height: 0px;">Bin room hot water tank - 50 litre x 3</textarea><div class="sel-cat-label">Plumbing</div></div>
-        <button class="rem" onclick="deselect(17)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-17" type="number" value="2" onchange="updateSel(17,'qty',this.value)" onkeydown="selQtyKey(event,17)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(17,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="650" onchange="updateSel(17,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="9" onchange="updateSel(17,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(17,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$1,300</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(18,this.value)" style="height: 0px;">Replacement of basement sewer pumps</textarea><div class="sel-cat-label">Plumbing</div></div>
-        <button class="rem" onclick="deselect(18)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-18" type="number" value="1" onchange="updateSel(18,'qty',this.value)" onkeydown="selQtyKey(event,18)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(18,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="4500" onchange="updateSel(18,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(18,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(18,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$4,500</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(19,this.value)" style="height: 0px;">Replacement of basement stormwater sump pumps</textarea><div class="sel-cat-label">Plumbing</div></div>
-        <button class="rem" onclick="deselect(19)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-19" type="number" value="2" onchange="updateSel(19,'qty',this.value)" onkeydown="selQtyKey(event,19)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(19,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="1850" onchange="updateSel(19,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(19,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(19,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$3,700</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(20,this.value)" style="height: 0px;">Triplex domestic water pressure pumps</textarea><div class="sel-cat-label">Plumbing</div></div>
-        <button class="rem" onclick="deselect(20)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-20" type="number" value="1" onchange="updateSel(20,'qty',this.value)" onkeydown="selQtyKey(event,20)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Ea" onchange="updateSel(20,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="24515" onchange="updateSel(20,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="9" onchange="updateSel(20,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(20,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$24,515</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(21,this.value)" style="height: 0px;">Exhaust /supply motors to lobby/meter room/hydrant rooms</textarea><div class="sel-cat-label">HVAC</div></div>
-        <button class="rem" onclick="deselect(21)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-21" type="number" value="4" onchange="updateSel(21,'qty',this.value)" onkeydown="selQtyKey(event,21)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(21,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="651" onchange="updateSel(21,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(21,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(21,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$2,604</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(22,this.value)" style="height: 0px;">Exhaust and supply fan motor replacement to basement - VSD</textarea><div class="sel-cat-label">HVAC</div></div>
-        <button class="rem" onclick="deselect(22)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-22" type="number" value="4" onchange="updateSel(22,'qty',this.value)" onkeydown="selQtyKey(event,22)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(22,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="1858" onchange="updateSel(22,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(22,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(22,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$7,432</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(23,this.value)" style="height: 0px;">Replacement of Co2 carbon monoxide sensors</textarea><div class="sel-cat-label">HVAC</div></div>
-        <button class="rem" onclick="deselect(23)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-23" type="number" value="1" onchange="updateSel(23,'qty',this.value)" onkeydown="selQtyKey(event,23)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(23,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="2200" onchange="updateSel(23,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="4" onchange="updateSel(23,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="4" onchange="updateSel(23,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$2,200</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(24,this.value)" style="height: 0px;">Replacement of exhaust motors and bearings</textarea><div class="sel-cat-label">HVAC</div></div>
-        <button class="rem" onclick="deselect(24)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-24" type="number" value="1" onchange="updateSel(24,'qty',this.value)" onkeydown="selQtyKey(event,24)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Item" onchange="updateSel(24,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="3232" onchange="updateSel(24,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(24,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="9" onchange="updateSel(24,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$3,232</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(25,this.value)" style="height: 0px;">Replacement of mechanical supply air motors</textarea><div class="sel-cat-label">HVAC</div></div>
-        <button class="rem" onclick="deselect(25)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-25" type="number" value="1" onchange="updateSel(25,'qty',this.value)" onkeydown="selQtyKey(event,25)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Item" onchange="updateSel(25,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="1858" onchange="updateSel(25,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(25,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(25,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$1,858</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(26,this.value)" style="height: 0px;">Rooftop mounted exhaust ducting replacement as needed</textarea><div class="sel-cat-label">HVAC</div></div>
-        <button class="rem" onclick="deselect(26)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-26" type="number" value="1" onchange="updateSel(26,'qty',this.value)" onkeydown="selQtyKey(event,26)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(26,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="2214" onchange="updateSel(26,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(26,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(26,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$2,214</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(27,this.value)" style="height: 0px;">Mimic and main fire panels - repair as needed</textarea><div class="sel-cat-label">Fire safety</div></div>
-        <button class="rem" onclick="deselect(27)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-27" type="number" value="3" onchange="updateSel(27,'qty',this.value)" onkeydown="selQtyKey(event,27)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(27,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="2515" onchange="updateSel(27,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(27,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(27,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$7,545</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(28,this.value)" style="height: 0px;">Overhaul diesel hydrant and jacking pump</textarea><div class="sel-cat-label">Fire safety</div></div>
-        <button class="rem" onclick="deselect(28)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-28" type="number" value="1" onchange="updateSel(28,'qty',this.value)" onkeydown="selQtyKey(event,28)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Ea" onchange="updateSel(28,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="4878" onchange="updateSel(28,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(28,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(28,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$4,878</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(29,this.value)" style="height: 0px;">Replacement of sprinkler booster jacking pump</textarea><div class="sel-cat-label">Fire safety</div></div>
-        <button class="rem" onclick="deselect(29)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-29" type="number" value="1" onchange="updateSel(29,'qty',this.value)" onkeydown="selQtyKey(event,29)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(29,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="1859" onchange="updateSel(29,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(29,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(29,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$1,859</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(30,this.value)" style="height: 0px;">Overhaul of lift motors x 3 (increment allowance)</textarea><div class="sel-cat-label">Lifts &amp; escalators</div></div>
-        <button class="rem" onclick="deselect(30)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-30" type="number" value="3" onchange="updateSel(30,'qty',this.value)" onkeydown="selQtyKey(event,30)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Ea" onchange="updateSel(30,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="6252" onchange="updateSel(30,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(30,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(30,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$18,756</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(31,this.value)" style="height: 0px;">Replacement of intercom</textarea><div class="sel-cat-label">Technology</div></div>
-        <button class="rem" onclick="deselect(31)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-31" type="number" value="1" onchange="updateSel(31,'qty',this.value)" onkeydown="selQtyKey(event,31)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(31,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="32525" onchange="updateSel(31,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(31,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(31,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$32,525</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(32,this.value)" style="height: 0px;">Replacement of security entry FOB system</textarea><div class="sel-cat-label">Technology</div></div>
-        <button class="rem" onclick="deselect(32)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-32" type="number" value="4" onchange="updateSel(32,'qty',this.value)" onkeydown="selQtyKey(event,32)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(32,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="1858" onchange="updateSel(32,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(32,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(32,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$7,432</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(33,this.value)" style="height: 0px;">Replacement of CCTV camera, monitors and hard drive recorder</textarea><div class="sel-cat-label">Security</div></div>
-        <button class="rem" onclick="deselect(33)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-33" type="number" value="1" onchange="updateSel(33,'qty',this.value)" onkeydown="selQtyKey(event,33)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(33,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="12500" onchange="updateSel(33,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(33,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(33,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$12,500</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(34,this.value)" style="height: 0px;">Pedestrian external stairway non slip nosings</textarea><div class="sel-cat-label">Accessibility</div></div>
-        <button class="rem" onclick="deselect(34)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-34" type="number" value="12" onchange="updateSel(34,'qty',this.value)" onkeydown="selQtyKey(event,34)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(34,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="285" onchange="updateSel(34,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(34,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(34,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$3,420</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(35,this.value)" style="height: 0px;">Replacement of floor tile tac tiles - stainless and rubber pads</textarea><div class="sel-cat-label">Accessibility</div></div>
-        <button class="rem" onclick="deselect(35)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-35" type="number" value="1" onchange="updateSel(35,'qty',this.value)" onkeydown="selQtyKey(event,35)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(35,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="3585" onchange="updateSel(35,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(35,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(35,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$3,585</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(36,this.value)" style="height: 0px;">Replacement of stainless tubed handrails - as needed</textarea><div class="sel-cat-label">Accessibility</div></div>
-        <button class="rem" onclick="deselect(36)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-36" type="number" value="1" onchange="updateSel(36,'qty',this.value)" onkeydown="selQtyKey(event,36)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Item" onchange="updateSel(36,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="5854" onchange="updateSel(36,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(36,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(36,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$5,854</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(37,this.value)" style="height: 0px;">Planter box membrane replacement as needed</textarea><div class="sel-cat-label">Landscaping</div></div>
-        <button class="rem" onclick="deselect(37)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-37" type="number" value="1" onchange="updateSel(37,'qty',this.value)" onkeydown="selQtyKey(event,37)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="item" onchange="updateSel(37,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="26525" onchange="updateSel(37,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(37,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(37,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$26,525</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(38,this.value)" style="height: 0px;">Overhaul Elephants foot carousel x 3</textarea><div class="sel-cat-label">Amenities</div></div>
-        <button class="rem" onclick="deselect(38)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-38" type="number" value="3" onchange="updateSel(38,'qty',this.value)" onkeydown="selQtyKey(event,38)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(38,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="3525" onchange="updateSel(38,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(38,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="6" onchange="updateSel(38,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$10,575</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(39,this.value)" style="height: 0px;">Replacement of carpet to lobbies</textarea><div class="sel-cat-label">Furnishings</div></div>
-        <button class="rem" onclick="deselect(39)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-39" type="number" value="480" onchange="updateSel(39,'qty',this.value)" onkeydown="selQtyKey(event,39)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(39,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="75" onchange="updateSel(39,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(39,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(39,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$36,000</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(40,this.value)" style="height: 0px;">Repaint parking bay line marking, arrows and directional arrows</textarea><div class="sel-cat-label">Car parking</div></div>
-        <button class="rem" onclick="deselect(40)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-40" type="number" value="265" onchange="updateSel(40,'qty',this.value)" onkeydown="selQtyKey(event,40)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="lm" onchange="updateSel(40,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="12" onchange="updateSel(40,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="7" onchange="updateSel(40,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(40,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$3,180</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(41,this.value)" style="height: 0px;">Replacement of basement ramp rubber speed humps</textarea><div class="sel-cat-label">Car parking</div></div>
-        <button class="rem" onclick="deselect(41)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-41" type="number" value="1" onchange="updateSel(41,'qty',this.value)" onkeydown="selQtyKey(event,41)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="ea" onchange="updateSel(41,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="2655" onchange="updateSel(41,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="5" onchange="updateSel(41,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="5" onchange="updateSel(41,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$2,655</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(42,this.value)" style="height: 0px;">Replacement of convex mirrors</textarea><div class="sel-cat-label">Car parking</div></div>
-        <button class="rem" onclick="deselect(42)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-42" type="number" value="1" onchange="updateSel(42,'qty',this.value)" onkeydown="selQtyKey(event,42)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="Item" onchange="updateSel(42,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="1858" onchange="updateSel(42,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="10" onchange="updateSel(42,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="10" onchange="updateSel(42,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$1,858</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(43,this.value)" style="height: 0px;">Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair</textarea><div class="sel-cat-label">Waterproofing</div></div>
-        <button class="rem" onclick="deselect(43)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-43" type="number" value="400" onchange="updateSel(43,'qty',this.value)" onkeydown="selQtyKey(event,43)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(43,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="85" onchange="updateSel(43,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="8" onchange="updateSel(43,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="8" onchange="updateSel(43,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$34,000</strong></div>
-    </div><div class="sel-item">
-      <div class="sel-item-head">
-        <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(44,this.value)" style="height: 0px;">Sustainability infrastructure upgrades</textarea><div class="sel-cat-label">Other</div></div>
-        <button class="rem" onclick="deselect(44)">×</button>
-      </div>
-      <div class="sel-fields">
-        <div class="sf"><label>Qty</label><input id="sel-qty-44" type="number" value="4" onchange="updateSel(44,'qty',this.value)" onkeydown="selQtyKey(event,44)" inputmode="decimal"></div>
-        <div class="sf"><label>Unit</label><input type="text" value="m2" onchange="updateSel(44,'unit',this.value)"></div>
-        <div class="sf"><label>Rate</label><input type="number" value="2500" onchange="updateSel(44,'rate',this.value)" inputmode="decimal"></div>
-        <div class="sf"><label>Next due</label><input type="number" value="6" onchange="updateSel(44,'nd',this.value)" inputmode="numeric"></div>
-        <div class="sf"><label>Life (yrs)</label><input type="number" value="7" onchange="updateSel(44,'tl',this.value)" inputmode="numeric"></div>
-      </div>
-      <div class="sel-val">Value: <strong>$10,000</strong></div>
-    </div></div>
-  <div class="export-footer">
-    <div class="total-bar">
-      <span class="total-label">Total estimated value</span>
-      <span class="total-val" id="total-val">$586,216</span>
+  <div class="right-panel-wrap" id="right-panel" style="display: flex;">
+  <div class="strata-panel">
+    <div class="strata-panel-head">
+      <h2>🔍 Strata Search</h2>
     </div>
-    <div class="export-btns">
-      <button class="btn primary lg" id="copy-btn" onclick="copyForExcel()">📋 Copy for Excel</button>
-      <button class="btn lg" style="flex:0;padding:12px 14px" onclick="openModal('paste-modal')">?</button>
+    <div style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:18px">
+      <div style="background:#e8f5e9;border:1px solid #b5dcb8;border-radius:10px;padding:14px 16px">
+        <div style="font-weight:600;color:var(--navy-dk);font-size:14px;margin-bottom:6px">⚡ Auto-fill is on</div>
+        <div style="font-size:12px;color:var(--tx);line-height:1.6">Enter the SP number in the form, then tap <strong>Auto-fill from SP number</strong>. The app pulls Address, Registered Date, and Lots straight from NSW Strata Hub — no copying needed.</div>
+      </div>
+      <div style="font-size:12px;color:var(--mu);line-height:1.6;text-align:center">
+        If a plan isn't found (very new registrations may not be in the dataset yet), use the official search and fill the three fields manually:
+      </div>
+      <a href="https://www.nsw.gov.au/housing-and-construction/strata/strata-search" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;background:var(--surf2);color:var(--navy-dk);border:1px solid var(--bdr);padding:14px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;min-height:50px">
+        Open NSW Strata Search ↗
+      </a>
     </div>
-    <div class="export-status" id="export-status"></div>
   </div>
 </div>
 
@@ -1297,7 +623,11 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 </div>
 
 <div class="bottom-nav">
-  <div class="bnav-item active" id="bnav-library" onclick="showView('library')">
+  <div class="bnav-item active" id="bnav-job-setup" onclick="showView('job-setup')">
+    <div class="bnav-icon">🏢</div>
+    <div class="bnav-label">New Job</div>
+  </div>
+  <div class="bnav-item" id="bnav-library" onclick="showView('library')">
     <div class="bnav-icon">📋</div>
     <div class="bnav-label">Library</div>
   </div>
@@ -1309,10 +639,6 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   <div class="bnav-item" id="bnav-completed-jobs" onclick="showView('completed-jobs')">
     <div class="bnav-icon">💼</div>
     <div class="bnav-label">Jobs</div>
-  </div>
-  <div class="bnav-item" id="bnav-job-setup" onclick="showView('job-setup')">
-    <div class="bnav-icon">🏢</div>
-    <div class="bnav-label">New Job</div>
   </div>
   <div class="bnav-item" id="bnav-projection" onclick="showView('projection')">
     <div class="bnav-icon">📈</div>
@@ -1691,7 +1017,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   </div>
 </div>
 
-<div id="toast" class="toast show ok">"Job 07/07/2026" saved · 🏷 Townhouses</div>
+<div id="toast" class="toast show ok">"SP 101810 - Professionals Strata Team" updated in Saved Jobs</div>
 
 <template id="tmpl-library">
   <div class="search-area">
@@ -1711,6 +1037,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   <div class="sel-header">
     <h2>Selected items</h2>
     <span class="count-badge" id="sel-count-badge">0</span>
+    <button class="btn ghost sm" onclick="popOutSelected()" title="Open selected items in a separate window — drag it to another monitor">⧉ Pop out</button>
     <button class="btn ghost sm" onclick="clearAll()">Clear</button>
   </div>
   <div class="sel-list" id="sel-list"></div>
@@ -1958,6 +1285,11 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
       <div class="setup-section-title">Job Details</div>
       <div class="setup-grid">
         <div class="setup-field full">
+          <label style="display:flex;justify-content:space-between;align-items:center">Building Type — Stencil <button type="button" class="btn sm" onclick="openStencilEditor()" style="font-size:11px;color:var(--navy-md);padding:2px 8px">✎ Edit stencils</button></label>
+          <select id="js-stencil" onchange="onStencilPick(this.value)"></select>
+          <div style="font-size:11px;color:var(--mu);margin-top:5px;line-height:1.5">Picking a stencil selects that building type's standard inspection items — a starting point you can edit freely.</div>
+        </div>
+        <div class="setup-field full">
           <label>SP Number</label>
           <input id="js-sp" type="number" placeholder="e.g. 12345" inputmode="numeric" autocomplete="off">
         </div>
@@ -2030,7 +1362,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 
     <div>
       <div class="setup-section-title">Site Photos <span id="jp-count" style="font-weight:400;text-transform:none;color:var(--mu2)"></span></div>
-      <label class="btn" style="width:100%;min-height:44px;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;box-sizing:border-box">📷 Add Photos<input type="file" accept="image/*" multiple="" style="display:none" onchange="jpAddFiles(this.files);this.value=''"></label>
+      <label class="btn" style="width:100%;min-height:44px;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;box-sizing:border-box">📷 Add Photos<input type="file" accept="image/*" multiple style="display:none" onchange="jpAddFiles(this.files);this.value=''"></label>
       <div class="jp-grid" id="jp-grid"></div>
       <div id="jp-clear-wrap" style="display:none;margin-top:8px"><button class="btn" style="width:100%;min-height:36px;font-size:12px;color:var(--red)" onclick="jpClearAll()">Clear all photos</button></div>
       <div class="setup-hint">Photos are embedded into the report's photo pages when you press <strong>Generate Word Report</strong> — 2 per row, sized to fit, exactly like the Word macro. They stay on this device until you remove them.</div>
@@ -2068,6 +1400,28 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
   </div>
 </template>
 
+<template id="tmpl-stencils">
+  <div class="proj-scroll">
+    <div>
+      <div class="setup-section-title">Building type stencils</div>
+      <div class="setup-hint" style="margin-bottom:10px">A stencil is the standard set of inspection items for a building type. Picking one on <strong>New Job</strong> selects its items as a starting point. Edits here affect future jobs only — never items already selected.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <select id="st-picker" onchange="stPick(this.value)" style="flex:1;min-width:200px;padding:9px 11px;border:1px solid var(--bdr);border-radius:7px;font-size:13px;background:var(--surf);color:var(--tx)"></select>
+        <button class="btn sm" onclick="stAdd()">＋ New</button>
+        <button class="btn sm" onclick="stRename()">✎ Rename</button>
+        <button class="btn sm" onclick="stDuplicate()">⧉ Duplicate</button>
+        <button class="btn sm" onclick="stDelete()" style="color:var(--red);border-color:#ffd0d0">✕ Delete</button>
+      </div>
+      <div id="st-count" style="font-size:12px;color:var(--mu);margin-top:8px"></div>
+    </div>
+    <div class="search-wrap" style="margin-bottom:0">
+      <span class="search-icon">🔍</span>
+      <input id="st-search" placeholder="Search items to add or remove…" oninput="stSearchInput(this.value)" autocomplete="off">
+    </div>
+    <div id="st-items" style="border:1px solid var(--bdr);border-radius:8px;overflow:hidden;background:var(--surf)"></div>
+  </div>
+</template>
+
 <template id="tmpl-projection">
   <div class="proj-scroll">
     <div>
@@ -2085,6 +1439,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
         <label>Avg closing<br>balance goal</label>
         <input type="number" id="proj-goal" step="1000" oninput="onProjGoalInput(this.value)">
       </div>
+      <div style="font-size:10.5px;color:var(--mu);margin-top:5px;line-height:1.5">Defaults to the Current Closing Balance from New Job (updates live). Type a value to set your own goal — clear the field to follow the balance again.</div>
     </div>
 
     <div>
@@ -2158,7 +1513,7 @@ table.rep-table tr.neg td.cl{color:var(--red);font-weight:700}
 </template>
 
 <script id="user-data">
-const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u178036932353337e","cat":"Landscaping","scope":"Colorbond fencing replacement (Approx. )","desc":"measure on google maps","qty":1,"unit":"lm","rate":200,"nd":10,"tl":10},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":1,"unit":"ea","rate":300,"nd":7,"tl":7},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":10,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"u1782704811465d0y","cat":"Other","scope":"Scope","qty":1,"unit":"Unit","rate":0,"nd":1,"tl":10},{"id":"u17827048114669qs","cat":"Other","scope":"Building Exterior - Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114668cy","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u17827048114665ol","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u17827048114669t2","cat":"Fire safety","scope":"Repaint external service doors and door jambs to plant and fire exits","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u1782704811466hu5","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u1782704811466kkj","cat":"Landscaping","scope":"Planter box membrane replacement as needed","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704811466qin","cat":"Landscaping","scope":"Repaint walls to planterboxes and retaining walls","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704811466dar","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u1782704811466rg7","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u1782704811467ske","cat":"Other","scope":"Subtotal","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114675vm","cat":"Other","scope":"Roof to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114671al","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u1782704811467qgu","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"u1782704811467ke7","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704811467k48","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704811467uko","cat":"Other","scope":"Basement and Plant Items","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811467ya1","cat":"Electrical","scope":"Replace motor to electric gate","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704811467ez1","cat":"Other","scope":"Replacement of basement ramp rubber speed humps","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704811467i97","cat":"Electrical","scope":"Repaint and re-highlight yellow coloured kerbing","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u1782704811467hxz","cat":"Exterior finishes","scope":"Repaint walls","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704811468af0","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u1782704811468i5c","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u1782704811468pwa","cat":"Plumbing","scope":"Replacement of basement sewer pumps","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704811468gto","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704811468lp5","cat":"Other","scope":"Replacement of Co2 carbon monoxide sensors","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u17827048114680ii","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048114685nw","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u17827048114686ns","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704811468lhq","cat":"Other","scope":"Replacement of convex mirrors","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704811468ccg","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704811468v56","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u17827048114686qj","cat":"Fire safety","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u17827048114688zg","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704811468uya","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704811468w1z","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704811468r5a","cat":"Technology","scope":"Replacement of intercom","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704811468rac","cat":"Other","scope":"Basement bin rooms x 3","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469ia8","cat":"Other","scope":"Overhaul Elephants foot carousel x 3","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u178270481146936r","cat":"Other","scope":"Replacement of mechanical supply air motors","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704811469bjd","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704811469xn9","cat":"Doors & windows","scope":"Repaint doors","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u1782704811469hki","cat":"Other","scope":"Common lobby's - to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469o2f","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u1782704811469zrj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704811469qwc","cat":"Doors & windows","scope":"Repaint service doors and door jambs","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704811469fsz","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u17827048114697r6","cat":"Other","scope":"Fittings to common property","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469fyh","cat":"Other","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u17827048114693v8","cat":"Exterior finishes","scope":"Replacement of stainless tubed handrails - as needed","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704811469l1g","cat":"Other","scope":"Pedestrian external stairway non slip nosings","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u1782704811469um5","cat":"Technology","scope":"Replacement of security entry FOB system","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10}],"savedJobs":[{"id":"u178341032813334y","name":"Job 07/07/2026","date":"07/07/2026","items":[{"id":"u1782704844064f0k","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","desc":"","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u178270484406568q","cat":"Exterior finishes","scope":"Repaint and re-highlight yellow coloured kerbing","desc":"","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u17827048440641nj","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","desc":"","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u17827048440642x8","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","desc":"","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u1782704844064egd","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","desc":"","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u1782704844065pe6","cat":"Exterior finishes","scope":"Repaint doors","desc":"","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u178270484406494p","cat":"Exterior finishes","scope":"Repaint external service doors and door jambs to plant and fire exits","desc":"","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u17827048440654np","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","desc":"","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704844065og6","cat":"Exterior finishes","scope":"Repaint walls","desc":"","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704844065ybu","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","desc":"","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u178270484406475d","cat":"Exterior finishes","scope":"Repaint walls to planterboxes and retaining walls","desc":"","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704844064rdy","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","desc":"","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u17827048440643i2","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","desc":"","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u178270484406594f","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","desc":"","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u1782704844065wex","cat":"Doors & windows","scope":"Repaint service doors and door jambs","desc":"","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704844064stc","cat":"Electrical","scope":"Replace motor to electric gate","desc":"","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704844065zo4","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","desc":"","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704844065b9t","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","desc":"","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u1782704844065yft","cat":"Plumbing","scope":"Replacement of basement sewer pumps","desc":"","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704844065llp","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","desc":"","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u17827048440656qq","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","desc":"","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u1782704844065hpy","cat":"HVAC","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","desc":"","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u1782704844065h20","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","desc":"","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704844065gju","cat":"HVAC","scope":"Replacement of Co2 carbon monoxide sensors","desc":"","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u1782704844064mbd","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","desc":"","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704844065oz2","cat":"HVAC","scope":"Replacement of mechanical supply air motors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704844064ux7","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","desc":"","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704844065ve4","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","desc":"","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704844065jr9","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","desc":"","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048440650zp","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","desc":"","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704844065st3","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","desc":"","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704844065rpu","cat":"Technology","scope":"Replacement of intercom","desc":"","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704844065t36","cat":"Technology","scope":"Replacement of security entry FOB system","desc":"","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10},{"id":"u1782704844065w1t","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","desc":"","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704844065spn","cat":"Accessibility","scope":"Pedestrian external stairway non slip nosings","desc":"","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u17827048440658k7","cat":"Accessibility","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","desc":"","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u1782704844065fro","cat":"Accessibility","scope":"Replacement of stainless tubed handrails - as needed","desc":"","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704844064o7p","cat":"Landscaping","scope":"Planter box membrane replacement as needed","desc":"","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704844065fk0","cat":"Amenities","scope":"Overhaul Elephants foot carousel x 3","desc":"","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u1782704844065qoj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","desc":"","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704844065rmt","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","desc":"","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u178270484406413u","cat":"Car parking","scope":"Replacement of basement ramp rubber speed humps","desc":"","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704844065bb4","cat":"Car parking","scope":"Replacement of convex mirrors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704844064m38","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","desc":"","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":4,"unit":"m2","rate":2500,"nd":6,"tl":7}],"notes":"","buildingType":"Townhouses"},{"id":"u1782705088650339","name":"SP 101810 - Professionals Strata Team","date":"29/06/2026","items":[{"id":"u1782704844064f0k","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","desc":"","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u178270484406568q","cat":"Exterior finishes","scope":"Repaint and re-highlight yellow coloured kerbing","desc":"","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u17827048440641nj","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","desc":"","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u17827048440642x8","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","desc":"","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u1782704844064egd","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","desc":"","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u1782704844065pe6","cat":"Exterior finishes","scope":"Repaint doors","desc":"","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u178270484406494p","cat":"Exterior finishes","scope":"Repaint external service doors and door jambs to plant and fire exits","desc":"","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u17827048440654np","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","desc":"","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704844065og6","cat":"Exterior finishes","scope":"Repaint walls","desc":"","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704844065ybu","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","desc":"","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u178270484406475d","cat":"Exterior finishes","scope":"Repaint walls to planterboxes and retaining walls","desc":"","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704844064rdy","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","desc":"","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u17827048440643i2","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","desc":"","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u178270484406594f","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","desc":"","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u1782704844065wex","cat":"Doors & windows","scope":"Repaint service doors and door jambs","desc":"","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704844064stc","cat":"Electrical","scope":"Replace motor to electric gate","desc":"","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704844065zo4","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","desc":"","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704844065b9t","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","desc":"","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u1782704844065yft","cat":"Plumbing","scope":"Replacement of basement sewer pumps","desc":"","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704844065llp","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","desc":"","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u17827048440656qq","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","desc":"","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u1782704844065hpy","cat":"HVAC","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","desc":"","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u1782704844065h20","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","desc":"","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704844065gju","cat":"HVAC","scope":"Replacement of Co2 carbon monoxide sensors","desc":"","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u1782704844064mbd","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","desc":"","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704844065oz2","cat":"HVAC","scope":"Replacement of mechanical supply air motors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704844064ux7","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","desc":"","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704844065ve4","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","desc":"","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704844065jr9","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","desc":"","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048440650zp","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","desc":"","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704844065st3","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","desc":"","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704844065rpu","cat":"Technology","scope":"Replacement of intercom","desc":"","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704844065t36","cat":"Technology","scope":"Replacement of security entry FOB system","desc":"","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10},{"id":"u1782704844065w1t","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","desc":"","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704844065spn","cat":"Accessibility","scope":"Pedestrian external stairway non slip nosings","desc":"","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u17827048440658k7","cat":"Accessibility","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","desc":"","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u1782704844065fro","cat":"Accessibility","scope":"Replacement of stainless tubed handrails - as needed","desc":"","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704844064o7p","cat":"Landscaping","scope":"Planter box membrane replacement as needed","desc":"","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704844065fk0","cat":"Amenities","scope":"Overhaul Elephants foot carousel x 3","desc":"","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u1782704844065qoj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","desc":"","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704844065rmt","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","desc":"","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u178270484406413u","cat":"Car parking","scope":"Replacement of basement ramp rubber speed humps","desc":"","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704844065bb4","cat":"Car parking","scope":"Replacement of convex mirrors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704844064m38","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","desc":"","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":4,"unit":"m2","rate":2500,"nd":6,"tl":7}],"notes":"27 Aug 2020 - 133 Lots, 28 CLIFF ROAD EPPING, EPPING NSW 2121","folderId":"u1779768541150hh5","buildingType":"Tower/Highrise"},{"id":"u17803720422421hw","name":"SP 79900","date":"02/06/2026","items":[{"id":"x248","cat":"Furnishings","scope":"Building signage and letterboxes","desc":"Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":2,"unit":"item","rate":1000,"nd":8,"tl":8},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":15,"unit":"ea","rate":250,"nd":5,"tl":7},{"id":"x098","cat":"Doors & windows","scope":"Repaint entry doors to townhouses","desc":"","qty":15,"unit":"ea","rate":300,"nd":5,"tl":7},{"id":"x109","cat":"Roofing","scope":"Box gutters, capping, flashing and downpipe - repairs as needed","desc":"","qty":15,"unit":"item","rate":1500,"nd":4,"tl":4},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":4,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":15,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"x107","cat":"Roofing","scope":"Re-cement / re-point ridge capping","desc":"","qty":50,"unit":"item","rate":125,"nd":7,"tl":7},{"id":"x111","cat":"Roofing","scope":"Lead flashing repairs","desc":"Repair and re-dress lead flashings to roof penetrations","qty":12,"unit":"item","rate":750,"nd":6,"tl":6},{"id":"x135","cat":"Electrical","scope":"Common area wall/ceiling mounted lighting - upgrade/replacement as needed","desc":"","qty":15,"unit":"item","rate":325,"nd":4,"tl":10},{"id":"x254","cat":"Car parking","scope":"Repaint yellow protection bollards","desc":"","qty":4,"unit":"item","rate":400,"nd":7,"tl":7},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":60,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"x159","cat":"HVAC","scope":"Exhaust and supply fan motors to car parks","desc":"Replace exhaust and supply fan motors in basement car parks","qty":3,"unit":"item","rate":1600,"nd":7,"tl":7},{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":5200,"nd":3,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":2,"unit":"ea","rate":3252,"nd":5,"tl":5},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":20,"nd":1,"tl":3},{"id":"x274","cat":"Other","scope":"Specialist reports required as per DPBA","desc":"","qty":1,"unit":"m2","rate":2500,"nd":5,"tl":5}],"notes":"Registered 2008 - 15 Lots","folderId":"u178037136575874q","buildingType":"Townhouses"},{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5","buildingType":"Tower/Highrise"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":true},{"id":"u178037136575874q","name":"Townhouses","open":false},{"id":"u1780462018619puv","name":"Red Brick Stairwell","open":false}],"customCompanies":["Professionals Strata Team"],"completedJobs":[{"id":"cjmqyoowskkrtja","sp":"SP 101810","address":"28 CLIFF ROAD EPPING, EPPING NSW 2121","jobType":"CWF","strataCompany":"Professionals Strata Team","status":"Pending","dateCompleted":"2026-06-29","notes":"Generated from Turnkey job folder"}],"todos":[],"todoJobs":[],"starredItems":[],"itemUsage":{"x273":1,"x103":1},"catLearn":{},"defaultJobId":null,"recentItems":[],"lastSetup":{"preparedBy":"Joseph Bechara","company":"Professionals Strata Team","weather":"Clear"},"_savedAt":1783410331602};
+const USER_DATA={"customItems":[{"id":"u1779847227293j5d","cat":"Other","scope":"Structural","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939xc","cat":"Other","scope":"Exterior finishes","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293a2c","cat":"Roofing","scope":"Repaint roof soffit","qty":55,"unit":"m2","rate":0,"nd":5,"tl":7},{"id":"u1779847227293ah8","cat":"Roofing","scope":"Repaint roof fascia boards","qty":67,"unit":"lm","rate":0,"nd":5,"tl":7},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293cds","cat":"Other","scope":"Pressure wash brick fascade - significant moss growth","qty":40,"unit":"m2","rate":0,"nd":1,"tl":4},{"id":"u1779847227293x16","cat":"Exterior finishes","scope":"Repainting stairwell milk boxes","qty":6,"unit":"ea","rate":0,"nd":6,"tl":7},{"id":"u17798472272935r5","cat":"Doors & windows","scope":"Doors & windows","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":6,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"u17798472272932n0","cat":"Roofing","scope":"Roofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272935rx","cat":"Electrical","scope":"Electrical","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272939pi","cat":"Other","scope":"Plumbing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272931f0","cat":"HVAC","scope":"HVAC","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272936uf","cat":"Fire safety","scope":"Fire safety","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293pmv","cat":"Other","scope":"Lifts & escalators","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272937xr","cat":"Other","scope":"Technology","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":1,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1779847227293ytt","cat":"Other","scope":"Accessibility","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293yxp","cat":"Other","scope":"Landscaping","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227293b50","cat":"Other","scope":"Repair timber paling fence - 50% shared cost","qty":30,"unit":"lm","rate":0,"nd":1,"tl":10},{"id":"u1779847227294nn8","cat":"Other","scope":"Amenities","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17798472272949e7","cat":"Other","scope":"Furnishings","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294aux","cat":"Car parking","scope":"Car parking","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294lgc","cat":"Roofing","scope":"Waterproofing","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779847227294kbf","cat":"Other","scope":"Other","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1779960769560lu0","cat":"Fire safety","scope":"Sprinkler system","desc":"","qty":1,"unit":"ea","rate":100,"nd":1,"tl":10},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":1,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":300,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":1,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":1,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u178036932353337e","cat":"Landscaping","scope":"Colorbond fencing replacement (Approx. )","desc":"measure on google maps","qty":1,"unit":"lm","rate":200,"nd":10,"tl":10},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":1,"unit":"ea","rate":300,"nd":7,"tl":7},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":10,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"u1782704811465d0y","cat":"Other","scope":"Scope","qty":1,"unit":"Unit","rate":0,"nd":1,"tl":10},{"id":"u17827048114669qs","cat":"Other","scope":"Building Exterior - Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114668cy","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u17827048114665ol","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u17827048114669t2","cat":"Fire safety","scope":"Repaint external service doors and door jambs to plant and fire exits","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u1782704811466hu5","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u1782704811466kkj","cat":"Landscaping","scope":"Planter box membrane replacement as needed","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704811466qin","cat":"Landscaping","scope":"Repaint walls to planterboxes and retaining walls","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704811466dar","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u1782704811466rg7","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u1782704811467ske","cat":"Other","scope":"Subtotal","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114675vm","cat":"Other","scope":"Roof to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u17827048114671al","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u1782704811467qgu","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"u1782704811467ke7","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704811467k48","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704811467uko","cat":"Other","scope":"Basement and Plant Items","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811467ya1","cat":"Electrical","scope":"Replace motor to electric gate","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704811467ez1","cat":"Other","scope":"Replacement of basement ramp rubber speed humps","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704811467i97","cat":"Electrical","scope":"Repaint and re-highlight yellow coloured kerbing","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u1782704811467hxz","cat":"Exterior finishes","scope":"Repaint walls","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704811468af0","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u1782704811468i5c","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u1782704811468pwa","cat":"Plumbing","scope":"Replacement of basement sewer pumps","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704811468gto","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704811468lp5","cat":"Other","scope":"Replacement of Co2 carbon monoxide sensors","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u17827048114680ii","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048114685nw","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u17827048114686ns","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704811468lhq","cat":"Other","scope":"Replacement of convex mirrors","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704811468ccg","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704811468v56","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u17827048114686qj","cat":"Fire safety","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u17827048114688zg","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704811468uya","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704811468w1z","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704811468r5a","cat":"Technology","scope":"Replacement of intercom","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704811468rac","cat":"Other","scope":"Basement bin rooms x 3","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469ia8","cat":"Other","scope":"Overhaul Elephants foot carousel x 3","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u178270481146936r","cat":"Other","scope":"Replacement of mechanical supply air motors","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704811469bjd","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704811469xn9","cat":"Doors & windows","scope":"Repaint doors","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u1782704811469hki","cat":"Other","scope":"Common lobby's - to Buildings A-B-C","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469o2f","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u1782704811469zrj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704811469qwc","cat":"Doors & windows","scope":"Repaint service doors and door jambs","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704811469fsz","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u17827048114697r6","cat":"Other","scope":"Fittings to common property","qty":1,"unit":"item","rate":0,"nd":1,"tl":10},{"id":"u1782704811469fyh","cat":"Other","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u17827048114693v8","cat":"Exterior finishes","scope":"Replacement of stainless tubed handrails - as needed","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704811469l1g","cat":"Other","scope":"Pedestrian external stairway non slip nosings","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u1782704811469um5","cat":"Technology","scope":"Replacement of security entry FOB system","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10}],"savedJobs":[{"id":"u1782705088650339","name":"SP 101810 - Professionals Strata Team","date":"29/06/2026","items":[{"id":"u1782704844064f0k","cat":"Exterior finishes","scope":"Height allowance for facade repaint to render and FC cladding","desc":"","qty":1,"unit":"item","rate":26252,"nd":10,"tl":10},{"id":"u178270484406568q","cat":"Exterior finishes","scope":"Repaint and re-highlight yellow coloured kerbing","desc":"","qty":144,"unit":"m2","rate":12,"nd":5,"tl":5},{"id":"u17827048440641nj","cat":"Exterior finishes","scope":"Repaint balcony concrete soffits and slab edges","desc":"","qty":1380,"unit":"m2","rate":21,"nd":10,"tl":15},{"id":"u17827048440642x8","cat":"Exterior finishes","scope":"Repaint building exterior cementitious acrylic render","desc":"","qty":1,"unit":"Item","rate":92500,"nd":10,"tl":10},{"id":"u1782704844064egd","cat":"Exterior finishes","scope":"Repaint building exterior FC sheeted cladding","desc":"","qty":1,"unit":"Item","rate":15500,"nd":10,"tl":10},{"id":"u1782704844065pe6","cat":"Exterior finishes","scope":"Repaint doors","desc":"","qty":6,"unit":"ea","rate":135,"nd":7,"tl":8},{"id":"u178270484406494p","cat":"Exterior finishes","scope":"Repaint external service doors and door jambs to plant and fire exits","desc":"","qty":8,"unit":"ea","rate":185,"nd":10,"tl":10},{"id":"u17827048440654np","cat":"Exterior finishes","scope":"Repaint non slip epoxy floors - 150 mm upturn","desc":"","qty":225,"unit":"m2","rate":26,"nd":4,"tl":4},{"id":"u1782704844065og6","cat":"Exterior finishes","scope":"Repaint walls","desc":"","qty":221,"unit":"m2","rate":15,"nd":10,"tl":10},{"id":"u1782704844065ybu","cat":"Exterior finishes","scope":"Repaint walls and ceilings - (Approx. 1760 m2)","desc":"","qty":1760,"unit":"m2","rate":32,"nd":9,"tl":10},{"id":"u178270484406475d","cat":"Exterior finishes","scope":"Repaint walls to planterboxes and retaining walls","desc":"","qty":1,"unit":"ea","rate":16585,"nd":10,"tl":10},{"id":"u1782704844064rdy","cat":"Exterior finishes","scope":"Replacement of access hatches in fire stairwell - top landing","desc":"","qty":3,"unit":"ea","rate":1858,"nd":9,"tl":10},{"id":"u17827048440643i2","cat":"Doors & windows","scope":"Glass entry doors to foyers (Blocks A,B & C)","desc":"","qty":3,"unit":"ea","rate":3212,"nd":10,"tl":10},{"id":"u178270484406594f","cat":"Doors & windows","scope":"Repaint apartment entry doors and door jambs","desc":"","qty":140,"unit":"Ea","rate":125,"nd":9,"tl":10},{"id":"u1782704844065wex","cat":"Doors & windows","scope":"Repaint service doors and door jambs","desc":"","qty":135,"unit":"ea","rate":110,"nd":9,"tl":10},{"id":"u1782704844064stc","cat":"Electrical","scope":"Replace motor to electric gate","desc":"","qty":1,"unit":"ea","rate":2858,"nd":9,"tl":10},{"id":"u1782704844065zo4","cat":"Plumbing","scope":"Basement stormwater/sewer pump control panels","desc":"","qty":2,"unit":"ea","rate":4888,"nd":10,"tl":10},{"id":"u1782704844065b9t","cat":"Plumbing","scope":"Bin room hot water tank - 50 litre x 3","desc":"","qty":2,"unit":"ea","rate":650,"nd":9,"tl":10},{"id":"u1782704844065yft","cat":"Plumbing","scope":"Replacement of basement sewer pumps","desc":"","qty":1,"unit":"ea","rate":4500,"nd":6,"tl":6},{"id":"u1782704844065llp","cat":"Plumbing","scope":"Replacement of basement stormwater sump pumps","desc":"","qty":2,"unit":"ea","rate":1850,"nd":6,"tl":6},{"id":"u17827048440656qq","cat":"Plumbing","scope":"Triplex domestic water pressure pumps","desc":"","qty":1,"unit":"Ea","rate":24515,"nd":9,"tl":10},{"id":"u1782704844065hpy","cat":"HVAC","scope":"Exhaust /supply motors to lobby/meter room/hydrant rooms","desc":"","qty":4,"unit":"ea","rate":651,"nd":5,"tl":5},{"id":"u1782704844065h20","cat":"HVAC","scope":"Exhaust and supply fan motor replacement to basement - VSD","desc":"","qty":4,"unit":"item","rate":1858,"nd":6,"tl":6},{"id":"u1782704844065gju","cat":"HVAC","scope":"Replacement of Co2 carbon monoxide sensors","desc":"","qty":1,"unit":"ea","rate":2200,"nd":4,"tl":4},{"id":"u1782704844064mbd","cat":"HVAC","scope":"Replacement of exhaust motors and bearings","desc":"","qty":1,"unit":"Item","rate":3232,"nd":8,"tl":9},{"id":"u1782704844065oz2","cat":"HVAC","scope":"Replacement of mechanical supply air motors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":5,"tl":6},{"id":"u1782704844064ux7","cat":"HVAC","scope":"Rooftop mounted exhaust ducting replacement as needed","desc":"","qty":1,"unit":"item","rate":2214,"nd":10,"tl":10},{"id":"u1782704844065ve4","cat":"Fire safety","scope":"Mimic and main fire panels - repair as needed","desc":"","qty":3,"unit":"item","rate":2515,"nd":7,"tl":7},{"id":"u1782704844065jr9","cat":"Fire safety","scope":"Overhaul diesel hydrant and jacking pump","desc":"","qty":1,"unit":"Ea","rate":4878,"nd":6,"tl":6},{"id":"u17827048440650zp","cat":"Fire safety","scope":"Replacement of sprinkler booster jacking pump","desc":"","qty":1,"unit":"item","rate":1859,"nd":6,"tl":6},{"id":"u1782704844065st3","cat":"Lifts & escalators","scope":"Overhaul of lift motors x 3 (increment allowance)","desc":"","qty":3,"unit":"Ea","rate":6252,"nd":7,"tl":7},{"id":"u1782704844065rpu","cat":"Technology","scope":"Replacement of intercom","desc":"","qty":1,"unit":"item","rate":32525,"nd":10,"tl":10},{"id":"u1782704844065t36","cat":"Technology","scope":"Replacement of security entry FOB system","desc":"","qty":4,"unit":"ea","rate":1858,"nd":8,"tl":10},{"id":"u1782704844065w1t","cat":"Security","scope":"Replacement of CCTV camera, monitors and hard drive recorder","desc":"","qty":1,"unit":"item","rate":12500,"nd":10,"tl":10},{"id":"u1782704844065spn","cat":"Accessibility","scope":"Pedestrian external stairway non slip nosings","desc":"","qty":12,"unit":"m2","rate":285,"nd":6,"tl":6},{"id":"u17827048440658k7","cat":"Accessibility","scope":"Replacement of floor tile tac tiles - stainless and rubber pads","desc":"","qty":1,"unit":"item","rate":3585,"nd":6,"tl":6},{"id":"u1782704844065fro","cat":"Accessibility","scope":"Replacement of stainless tubed handrails - as needed","desc":"","qty":1,"unit":"Item","rate":5854,"nd":10,"tl":10},{"id":"u1782704844064o7p","cat":"Landscaping","scope":"Planter box membrane replacement as needed","desc":"","qty":1,"unit":"item","rate":26525,"nd":8,"tl":10},{"id":"u1782704844065fk0","cat":"Amenities","scope":"Overhaul Elephants foot carousel x 3","desc":"","qty":3,"unit":"ea","rate":3525,"nd":6,"tl":6},{"id":"u1782704844065qoj","cat":"Furnishings","scope":"Replacement of carpet to lobbies","desc":"","qty":480,"unit":"m2","rate":75,"nd":10,"tl":10},{"id":"u1782704844065rmt","cat":"Car parking","scope":"Repaint parking bay line marking, arrows and directional arrows","desc":"","qty":265,"unit":"lm","rate":12,"nd":7,"tl":10},{"id":"u178270484406413u","cat":"Car parking","scope":"Replacement of basement ramp rubber speed humps","desc":"","qty":1,"unit":"ea","rate":2655,"nd":5,"tl":5},{"id":"u1782704844065bb4","cat":"Car parking","scope":"Replacement of convex mirrors","desc":"","qty":1,"unit":"Item","rate":1858,"nd":10,"tl":10},{"id":"u1782704844064m38","cat":"Waterproofing","scope":"Membrane to rooftop slabs (Approx. 2160 m2) - 20% - repair","desc":"","qty":400,"unit":"m2","rate":85,"nd":8,"tl":8},{"id":"x273","cat":"Other","scope":"Sustainability infrastructure upgrades","desc":"","qty":4,"unit":"m2","rate":2500,"nd":6,"tl":7}],"notes":"27 Aug 2020 - 133 Lots, 28 CLIFF ROAD EPPING, EPPING NSW 2121","folderId":"u1779768541150hh5"},{"id":"u17803720422421hw","name":"SP 79900","date":"02/06/2026","items":[{"id":"x248","cat":"Furnishings","scope":"Building signage and letterboxes","desc":"Entry and Address Signage ~$500. --- 2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":2,"unit":"item","rate":1000,"nd":8,"tl":8},{"id":"u1780369961193hol","cat":"Exterior finishes","scope":"Repaint entry canopy soffits","desc":"for each doorway entrance","qty":15,"unit":"ea","rate":250,"nd":5,"tl":7},{"id":"x098","cat":"Doors & windows","scope":"Repaint entry doors to townhouses","desc":"","qty":15,"unit":"ea","rate":300,"nd":5,"tl":7},{"id":"x109","cat":"Roofing","scope":"Box gutters, capping, flashing and downpipe - repairs as needed","desc":"","qty":15,"unit":"item","rate":1500,"nd":4,"tl":4},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":4,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"u1780370242953v81","cat":"Lifts & escalators","scope":"Passenger lift maintence","desc":"","qty":1,"unit":"ea","rate":4000,"nd":3,"tl":3},{"id":"u17803704141159vk","cat":"Electrical","scope":"Common area lighting bollards - upgrade/replacement as needed","desc":"","qty":15,"unit":"ea","rate":350,"nd":6,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"x107","cat":"Roofing","scope":"Re-cement / re-point ridge capping","desc":"","qty":50,"unit":"item","rate":125,"nd":7,"tl":7},{"id":"x111","cat":"Roofing","scope":"Lead flashing repairs","desc":"Repair and re-dress lead flashings to roof penetrations","qty":12,"unit":"item","rate":750,"nd":6,"tl":6},{"id":"x135","cat":"Electrical","scope":"Common area wall/ceiling mounted lighting - upgrade/replacement as needed","desc":"","qty":15,"unit":"item","rate":325,"nd":4,"tl":10},{"id":"x254","cat":"Car parking","scope":"Repaint yellow protection bollards","desc":"","qty":4,"unit":"item","rate":400,"nd":7,"tl":7},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":60,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"x159","cat":"HVAC","scope":"Exhaust and supply fan motors to car parks","desc":"Replace exhaust and supply fan motors in basement car parks","qty":3,"unit":"item","rate":1600,"nd":7,"tl":7},{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"u17803708938532rn","cat":"Car parking","scope":"Intercom and access control at driveway - upgraded as needed","desc":"","qty":1,"unit":"ea","rate":2500,"nd":10,"tl":10},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":5200,"nd":3,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":2,"unit":"ea","rate":3252,"nd":5,"tl":5},{"id":"u177984722729303k","cat":"Other","scope":"Pressure washing exterior paths/pavers","qty":75,"unit":"m2","rate":20,"nd":1,"tl":3},{"id":"x274","cat":"Other","scope":"Specialist reports required as per DPBA","desc":"","qty":1,"unit":"m2","rate":2500,"nd":5,"tl":5}],"notes":"Registered 2008 - 15 Lots","folderId":"u178037136575874q"},{"id":"u1780367435119m26","name":"SP 9912","date":"02/06/2026","items":[{"id":"x250","cat":"Car parking","scope":"Gate motor - entry / exit","desc":"","qty":1,"unit":"ea","rate":2800,"nd":7,"tl":8},{"id":"x093","cat":"Doors & windows","scope":"Replace roller door - basement entry","desc":"","qty":1,"unit":"item","rate":3000,"nd":9,"tl":10},{"id":"x062","cat":"Exterior finishes","scope":"Repaint and treat metal handrails","desc":"Prime and repaint tubed metal handrail systems","qty":1,"unit":"ea","rate":200,"nd":3,"tl":7},{"id":"x248b","cat":"Furnishings","scope":"Mailbox / letterbox bank replacement","desc":"2 to 4 Boxes $550 - $900,  8 to 12 Boxes $1,180 - $1,650,  15 to 20 Boxes $2,300 - $3,000","qty":1,"unit":"item","rate":3000,"nd":8,"tl":10},{"id":"x249","cat":"Car parking","scope":"Repainting of car park line marking","desc":"Per car park bay","qty":31,"unit":"item","rate":50,"nd":3,"tl":5},{"id":"u1779847227293znb","cat":"Exterior finishes","scope":"Repaint Internal timber doors and frames to units","qty":31,"unit":"ea","rate":300,"nd":3,"tl":7,"desc":""},{"id":"x027","cat":"Exterior finishes","scope":"Repaint internal walls","desc":"","qty":600,"unit":"m2","rate":30,"nd":3,"tl":7},{"id":"u1780362999525hrm","cat":"Exterior finishes","scope":"Repaint Internal walls and ceilings - fire escape","desc":"","qty":800,"unit":"item","rate":30,"nd":10,"tl":10},{"id":"x028","cat":"Furnishings","scope":"Carpet and underlay replacement","desc":"","qty":360,"unit":"m2","rate":60,"nd":8,"tl":10},{"id":"u1779847227293zu7","cat":"Security","scope":"Security cameras - upgrade/maintain as needed","qty":5,"unit":"item","rate":800,"nd":10,"tl":10,"desc":""},{"id":"x124","cat":"Electrical","scope":"Lighting to common areas - upgrade as needed","desc":"","qty":5,"unit":"ea","rate":1500,"nd":4,"tl":7},{"id":"x080","cat":"Doors & windows","scope":"Door and window hardware","desc":"Per windows & door","qty":120,"unit":"ea","rate":50,"nd":6,"tl":6},{"id":"x023","cat":"Exterior finishes","scope":"Repaint external balcony soffits","desc":"12m^2 per balcony","qty":360,"unit":"m2","rate":30,"nd":7,"tl":10},{"id":"x096","cat":"Doors & windows","scope":"Window repairs allowance","desc":"per window","qty":64,"unit":"ea","rate":50,"nd":5,"tl":5},{"id":"u17803650827346eb","cat":"Technology","scope":"Key button pad at entry - upgrade as needed","desc":"","qty":1,"unit":"ea","rate":3000,"nd":3,"tl":10},{"id":"u1780365459571sjo","cat":"Exterior finishes","scope":"Repaint balcony top railing","desc":"8 l/m per balcony","qty":240,"unit":"lm","rate":40,"nd":7,"tl":7},{"id":"u1780365555704met","cat":"Exterior finishes","scope":"Repaint basement exhaust covers","desc":"","qty":5,"unit":"ea","rate":250,"nd":7,"tl":10},{"id":"x114","cat":"Roofing","scope":"Liquid membrane isolated repairs","desc":"","qty":400,"unit":"m2","rate":18,"nd":4,"tl":4},{"id":"x190","cat":"Lifts & escalators","scope":"Passenger lift motor overhaul","desc":"","qty":1,"unit":"item","rate":125000,"nd":10,"tl":10},{"id":"x136","cat":"Plumbing","scope":"Plumbing system and pipe repair allowance","desc":"","qty":1,"unit":"m2","rate":3252,"nd":8,"tl":8},{"id":"x187","cat":"Fire safety","scope":"Fire extinguisher replacement","desc":"","qty":6,"unit":"item","rate":220,"nd":6,"tl":6},{"id":"u1780366765515oxm","cat":"Landscaping","scope":"Repaint tubed perimeter railing","desc":"","qty":140,"unit":"lm","rate":30,"nd":7,"tl":10},{"id":"u1780367009619cs2","cat":"Structural","scope":"Brick pointing and slab repair allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5},{"id":"u1780367271636l2s","cat":"Waterproofing","scope":"Balcony and bathroom reseal allowance","desc":"","qty":1,"unit":"item","rate":5000,"nd":5,"tl":5}],"notes":"Registered 1975 - 31 Lots","folderId":"u1779768541150hh5"}],"folders":[{"id":"u1779768541150hh5","name":"Tower/Highrise","open":true},{"id":"u178037136575874q","name":"Townhouses","open":false},{"id":"u1780462018619puv","name":"Red Brick Stairwell","open":false}],"customCompanies":["Professionals Strata Team"],"completedJobs":[{"id":"cjmqyoowskkrtja","sp":"SP 101810","address":"28 CLIFF ROAD EPPING, EPPING NSW 2121","jobType":"CWF","strataCompany":"Professionals Strata Team","status":"Pending","dateCompleted":"2026-06-29","notes":"Generated from Turnkey job folder"}],"todos":[],"starredItems":[],"itemUsage":{"x273":1},"defaultJobId":null,"recentItems":[],"lastSetup":{"preparedBy":"Joseph Bechara","company":"Professionals Strata Team","weather":"Clear"},"_savedAt":1782705276375};
 </script>
 
 <script>
@@ -2443,8 +1798,27 @@ const DEFAULT_ITEMS = [
   {id:"x275",cat:"Other",scope:"Building remediation works",desc:"Allowance for structural or facade remediation works",qty:2,unit:"item",rate:18580,nd:1,tl:3}
 ];
 
+// ── DEFAULT BUILDING-TYPE STENCILS ────────────────────────────────────────────
+// A stencil = the standard set of inspection items for a building type. These
+// ship as sensible defaults and are fully editable in the 🧩 Stencils tab
+// (edits are saved and synced like everything else).
+const ST_BRICK_BASE=["x002","x005","x011","x016","x020","x022","x024","x027","x028","x031","x035","x036","x053","x060","x080","x090","x096","x102","x105","x107","x111","x119","x124","x125","x126","x127","x129","x136","x141","x187","x189","x207","x208","x223","x232","x245","x248b"];
+const ST_STAIRWELL=["x019","x042","x043","x062","x073","x089","x132","x272"];
+const ST_HIGHRISE=["x001","x003","x007","x009","x010","x015","x021","x023","x024","x026","x028","x032","x033","x080","x084","x101","x104","x106","x109","x114","x118","x124","x125","x126","x132","x135","x136","x141","x144","x158","x160","x163","x179","x180","x182","x184","x185","x186","x187","x189","x190","x191","x193","x194","x197","x247","x248","x263","x267","x271"];
+const ST_BASEMENT=["x047","x093","x094","x137","x138","x140","x145","x147","x159","x161","x162","x168","x173","x249","x250","x251","x253","x254","x255"];
+const DEFAULT_STENCILS=[
+  {id:"st_hr",  name:"Highrise",                               itemIds:[...ST_HIGHRISE]},
+  {id:"st_hrb", name:"Highrise with basement",                 itemIds:[...ST_HIGHRISE,...ST_BASEMENT]},
+  {id:"st_th",  name:"Townhouse",                              itemIds:["x021","x022","x025","x029","x030","x031","x037","x044","x045","x054","x083","x098","x105","x107","x119","x123","x127","x129","x136","x187","x207","x208","x210","x211","x212","x223","x261"]},
+  {id:"st_bb",  name:"Brick building",                         itemIds:[...ST_BRICK_BASE]},
+  {id:"st_bbs", name:"Brick building with stairwell",          itemIds:[...ST_BRICK_BASE,...ST_STAIRWELL]},
+  {id:"st_bbms",name:"Brick building with multiple stairwells",itemIds:[...ST_BRICK_BASE,...ST_STAIRWELL,"x075"]}
+];
+
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let library=[], selected=[], savedJobs=[], folders=[], customCompanies=[], activeCat="All", currentView="library", desktopLeftView="library";
+let library=[], selected=[], savedJobs=[], folders=[], customCompanies=[], activeCat="All", currentView="job-setup", desktopLeftView="job-setup";
+let stencils=[];             // building-type stencils: {id,name,itemIds:[...]}
+let stEditId=null, stSearchQ="";   // Stencils editor state
 let completedJobs=[];
 let todos=[];
 let todoJobs=[];
@@ -2489,6 +1863,7 @@ function collectData(){
     customItems: library.filter(it=>!it.id.startsWith("x")),
     savedJobs, folders, customCompanies, completedJobs, todos, todoJobs,
     starredItems, itemUsage, catLearn, defaultJobId, recentItems, lastSetup,
+    stencils,
     _savedAt: Date.now()
   };
 }
@@ -2517,6 +1892,7 @@ function applyData(d){
   defaultJobId=d.defaultJobId||null;
   recentItems=d.recentItems||[];
   lastSetup=d.lastSetup||{};
+  stencils=(Array.isArray(d.stencils)&&d.stencils.length)?d.stencils:DEFAULT_STENCILS.map(s=>({...s,itemIds:[...s.itemIds]}));
   savedJobs.forEach(j=>{if(!j.id)j.id=uid();});   // ensure every job has a stable id
   todoJobs.forEach(j=>{if(!j.id)j.id=uid();});
 }
@@ -2700,7 +2076,7 @@ function resetLibrary(){
 // ── LAYOUT ────────────────────────────────────────────────────────────────────
 function rightPanelView(v){
   if(v==="job-setup") return "strata-search";
-  if(v==="selected-sheet"||v==="completed-jobs"||v==="projection"||v==="report"||v==="settings") return null;
+  if(v==="selected-sheet"||v==="completed-jobs"||v==="projection"||v==="report"||v==="settings"||v==="stencils") return null;
   return "selected";
 }
 
@@ -2783,6 +2159,7 @@ function afterMount(v){
   else if(v==="job-setup"){renderJobSetup();renderJobPhotos();}
   else if(v==="projection"){renderProjection();}
   else if(v==="report"){renderReport();}
+  else if(v==="stencils"){renderStencils();}
 }
 
 // ── SHOW VIEW ─────────────────────────────────────────────────────────────────
@@ -2917,23 +2294,10 @@ function renderLibrary(){
 }
 
 // ── RENDER SELECTED ───────────────────────────────────────────────────────────
-function renderSelected(){
-  const el=document.getElementById("sel-list");
-  const cnt=document.getElementById("sel-count-badge");
-  const tv=document.getElementById("total-val");
-  const cb=document.getElementById("copy-btn");
-  if(cnt)cnt.textContent=selected.length;
-  if(cb)cb.disabled=selected.length===0;
-  if(!el)return;
-  if(selected.length===0){
-    el.innerHTML=`<div class="empty"><span class="ei">☑</span>No items selected.<br>Go to Library and tick items to add them here.</div>`;
-    if(tv)tv.textContent="$0";return;
-  }
-  let total=0,html="";
-  selected.forEach((it,i)=>{
-    const v=Math.round(Number(it.qty)*Number(it.rate));total+=v;
-    const editedTag=it.customName?`<div class="sel-edited-tag">✎ edited for this job</div>`:"";
-    html+=`<div class="sel-item">
+function selItemHtml(it,i){
+  const v=Math.round(Number(it.qty)*Number(it.rate));
+  const editedTag=it.customName?`<div class="sel-edited-tag">✎ edited for this job</div>`:"";
+  return `<div class="sel-item">
       <div class="sel-item-head">
         <div style="flex:1"><textarea class="sel-scope-input" rows="1" oninput="autoGrow(this)" onchange="updateSelName(${i},this.value)">${escHtml(it.scope)}</textarea>${it.desc?`<div style="font-size:11px;color:var(--navy-md);font-style:italic;margin-top:1px">${escHtml(it.desc)}</div>`:""}${editedTag}<div class="sel-cat-label">${escHtml(it.cat)}</div></div>
         <button class="rem" onclick="deselect(${i})">×</button>
@@ -2947,10 +2311,32 @@ function renderSelected(){
       </div>
       <div class="sel-val">Value: <strong>$${v.toLocaleString()}</strong></div>
     </div>`;
-  });
+}
+
+// Renders the selected-items list into any document — the app itself or the
+// popped-out window (which defines local shims that forward edits back here).
+function renderSelectedInto(doc){
+  const el=doc.getElementById("sel-list");
+  const cnt=doc.getElementById("sel-count-badge");
+  const tv=doc.getElementById("total-val");
+  const cb=doc.getElementById("copy-btn");
+  if(cnt)cnt.textContent=selected.length;
+  if(cb)cb.disabled=selected.length===0;
+  if(!el)return;
+  if(selected.length===0){
+    el.innerHTML=`<div class="empty"><span class="ei">☑</span>No items selected.<br>Go to Library and tick items to add them here.</div>`;
+    if(tv)tv.textContent="$0";return;
+  }
+  let total=0,html="";
+  selected.forEach((it,i)=>{total+=Math.round(Number(it.qty)*Number(it.rate));html+=selItemHtml(it,i);});
   el.innerHTML=html;
-  el.querySelectorAll(".sel-scope-input").forEach(ta=>autoGrow(ta));
+  el.querySelectorAll(".sel-scope-input").forEach(ta=>{ta.style.height="auto";ta.style.height=ta.scrollHeight+"px";});
   if(tv)tv.textContent="$"+total.toLocaleString();
+}
+
+function renderSelected(){
+  renderSelectedInto(document);
+  renderSelWin();
 }
 
 // ── RENDER JOBS ───────────────────────────────────────────────────────────────
@@ -3158,11 +2544,7 @@ function catIndex(c){const i=CATS.indexOf(c);return i<0?999:i;}
 // ── SELECTED ITEMS SHEET ── mirrors the Excel Summary layout: every category
 // as a bold underlined subheading (numbered, like buildExcelContent), items
 // beneath in CATS order, then the CPI-total + Subtotal rows.
-function renderSelectedSheet(){
-  const wrap=document.getElementById("sheet-wrap"); if(!wrap)return;
-  const title=document.getElementById("sheet-title");
-  if(title)title.textContent=`Selected Items (${selected.length})`;
-  if(!selected.length){ wrap.innerHTML='<div class="sheet-empty">No items selected yet — tick items in the Library tab and they\u2019ll appear here, laid out like the Excel Summary sheet.</div>'; return; }
+function buildSheetTable(){
   const grouped={};
   selected.forEach(it=>{ (grouped[it.cat]=grouped[it.cat]||[]).push(it); });
   const money=v=>"$"+Math.round(v).toLocaleString();
@@ -3177,9 +2559,16 @@ function renderSelectedSheet(){
   });
   rows+=`<tr class="sheet-total"><td class="num">${n}</td><td colspan="7">Total Estimated Yearly Expenses With 3% CPI - Includes GST</td></tr>`; n++;
   rows+=`<tr class="sheet-sub"><td class="num">${n}</td><td>Subtotal</td><td></td><td></td><td></td><td class="num">${money(total)}</td><td></td><td></td></tr>`;
-  wrap.innerHTML=`<table class="sheet-table">
+  return `<table class="sheet-table">
     <thead><tr><th style="width:44px">No.</th><th>Item</th><th style="width:60px">Qty</th><th style="width:60px">Unit</th><th style="width:90px">Rate</th><th style="width:100px">Total</th><th style="width:80px">Next Due</th><th style="width:80px">Time Left</th></tr></thead>
     <tbody>${rows}</tbody></table>`;
+}
+function renderSelectedSheet(){
+  const wrap=document.getElementById("sheet-wrap"); if(!wrap)return;
+  const title=document.getElementById("sheet-title");
+  if(title)title.textContent=`Selected Items (${selected.length})`;
+  if(!selected.length){ wrap.innerHTML='<div class="sheet-empty">No items selected yet — tick items in the Library tab and they\u2019ll appear here, laid out like the Excel Summary sheet.</div>'; return; }
+  wrap.innerHTML=buildSheetTable();
 }
 function sheetUpdate(i,f,v){
   if(!selected[i])return;
@@ -4175,6 +3564,72 @@ function copyJobToExcel(i){
 }
 
 // ── COPY FOR EXCEL ────────────────────────────────────────────────────────────
+// ── POP-OUT SELECTED ITEMS WINDOW ────────────────────────────────────────
+// Opens the selected-items list in its own browser window so it can live on a
+// second monitor while you browse the Library here. Fully two-way: edits in
+// either window update both instantly (the popup forwards every change back
+// through window.opener).
+let selWin=null, selWinHooked=false;
+
+function buildExcelForPopup(){
+  if(selected.length===0)return null;
+  const grouped={};
+  selected.forEach(it=>{if(!grouped[it.cat])grouped[it.cat]=[];grouped[it.cat].push(it);});
+  return buildExcelContent(grouped);
+}
+
+function popOutSelected(){
+  if(selWin&&!selWin.closed){selWin.focus();renderSelWin();return;}
+  selWin=window.open("","tkSelectedWin","width=1100,height=860,resizable=yes,scrollbars=yes");
+  if(!selWin){toast("Pop-up blocked — allow pop-ups for this page and try again","err");return;}
+  const heads=[...document.querySelectorAll('head link[rel="preconnect"],head link[rel="stylesheet"],head style')].map(n=>n.outerHTML).join("\n");
+  selWin.document.open();
+  selWin.document.write(`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>TurnKey — Selected items</title>${heads}
+<style>
+html,body{height:100%;overflow:hidden}
+body{display:flex;flex-direction:column;background:var(--surf)}
+.sheet-wrap{flex:1;overflow:auto}
+.popout-note{font-size:10.5px;color:var(--mu);padding:0 14px 8px;background:var(--surf2);border-bottom:1px solid var(--bdr)}
+</style></head><body>
+<div class="sheet-toolbar"><div class="sheet-title" id="sheet-title">Selected Items</div><button class="btn sm" onclick="copyForExcel()">⧉ Copy for Excel</button></div>
+<div class="popout-note">Live view — edits here and in the main window stay in sync. Closing this window loses nothing.</div>
+<div class="sheet-wrap" id="sheet-wrap"></div>
+<script>
+  // Shims — forward every edit back to the main window, which re-renders both.
+  function sheetUpdate(i,f,v){opener&&opener.sheetUpdate(i,f,v)}
+  async function copyForExcel(){
+    const r=opener&&opener.buildExcelForPopup&&opener.buildExcelForPopup(); if(!r)return;
+    try{
+      if(navigator.clipboard&&window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({"text/plain":new Blob([r.text],{type:"text/plain"}),"text/html":new Blob([r.html],{type:"text/html"})})]);
+      }else{
+        const ta=document.createElement("textarea");ta.value=r.text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();
+      }
+      alert("\u2713 "+r.count+" rows copied — paste into Excel with Ctrl+V");
+    }catch(e){alert("Copy failed — use Copy for Excel in the main window instead.");}
+  }
+<\/script>
+</body></html>`);
+  selWin.document.close();
+  renderSelWin();
+  if(!selWinHooked){
+    selWinHooked=true;
+    window.addEventListener("pagehide",()=>{try{if(selWin&&!selWin.closed)selWin.close();}catch(_){}});
+  }
+  toast("Popped out — drag the window to your other monitor","ok");
+}
+
+function renderSelWin(){
+  if(!selWin||selWin.closed)return;
+  try{
+    const d=selWin.document;
+    const wrap=d.getElementById("sheet-wrap"); if(!wrap)return;
+    const title=d.getElementById("sheet-title");
+    if(title)title.textContent=`Selected Items (${selected.length})`;
+    wrap.innerHTML=selected.length?buildSheetTable():'<div class="sheet-empty">No items selected yet — tick items in the Library and they appear here instantly.</div>';
+  }catch(_){}
+}
+
 function copyForExcel(){
   if(selected.length===0)return;
   const grouped={};
@@ -4207,6 +3662,105 @@ function getAllCompanies(){
   return out;
 }
 
+// ── STENCILS ──────────────────────────────────────────────────────────────────
+// A stencil = a building type's standard set of inspection items. Picking one on
+// New Job replaces the current selection with the stencil's items — a starting
+// point that stays fully editable. Manage stencils in the 🧩 Stencils tab.
+function stencilById(id){return stencils.find(s=>s.id===id);}
+
+function onStencilPick(id){
+  const m=jobMeta();
+  if(!id){ m["__stencilId"]=""; m["js-stencil"]=""; saveJobMeta(); return; }
+  const st=stencilById(id); if(!st) return;
+  const items=st.itemIds.map(i=>library.find(l=>l.id===i)).filter(Boolean);
+  if(selected.length>0 && !confirm(`Replace the ${selected.length} currently selected item(s) with the "${st.name}" stencil (${items.length} items)?`)){
+    const el=document.getElementById("js-stencil"); if(el) el.value=m["__stencilId"]||"";
+    return;
+  }
+  m["__stencilId"]=id; m["js-stencil"]=st.name; saveJobMeta();
+  selected=items.map(it=>({...it}));
+  sortSelectedByCat(); persistLocal();
+  if(typeof renderLibrary==="function")renderLibrary();
+  if(typeof renderSelected==="function")renderSelected();
+  updateBadges();
+  toast(`"${st.name}" stencil — ${items.length} items selected`,"ok");
+}
+
+function openStencilEditor(){ if(isMobile) showView("stencils"); else switchDesktopLeft("stencils"); }
+
+function renderStencils(){
+  const pick=document.getElementById("st-picker"); if(!pick) return;
+  if(!stEditId||!stencilById(stEditId)) stEditId=stencils.length?stencils[0].id:null;
+  pick.innerHTML=stencils.map(s=>`<option value="${s.id}"${s.id===stEditId?" selected":""}>${escHtml(s.name)} — ${s.itemIds.length} items</option>`).join("")||'<option value="">No stencils yet — press ＋ New</option>';
+  const se=document.getElementById("st-search"); if(se&&se.value.toLowerCase().trim()!==stSearchQ) se.value=stSearchQ;
+  renderStencilItems();
+}
+function stPick(id){stEditId=id;renderStencilItems();}
+function stSearchInput(v){stSearchQ=v.toLowerCase().trim();renderStencilItems();}
+function stAdd(){
+  const name=prompt("New stencil name (building type):"); if(!name||!name.trim())return;
+  const s={id:uid(),name:name.trim(),itemIds:[]}; stencils.push(s); stEditId=s.id;
+  scheduleSyncPush(); renderStencils(); toast(`Added "${s.name}" — tick items to build it`,"ok");
+}
+function stRename(){
+  const st=stencilById(stEditId); if(!st)return;
+  const name=prompt("Rename stencil:",st.name); if(!name||!name.trim())return;
+  st.name=name.trim(); scheduleSyncPush(); renderStencils();
+}
+function stDuplicate(){
+  const st=stencilById(stEditId); if(!st)return;
+  const s={id:uid(),name:st.name+" (copy)",itemIds:[...st.itemIds]}; stencils.push(s); stEditId=s.id;
+  scheduleSyncPush(); renderStencils(); toast(`Duplicated as "${s.name}"`,"ok");
+}
+function stDelete(){
+  const st=stencilById(stEditId); if(!st)return;
+  if(!confirm(`Delete the "${st.name}" stencil? Jobs that already used it keep their items.`))return;
+  stencils=stencils.filter(s=>s.id!==st.id); stEditId=null;
+  scheduleSyncPush(); renderStencils();
+}
+function stToggle(itemId){
+  const st=stencilById(stEditId); if(!st)return;
+  const i=st.itemIds.indexOf(itemId);
+  if(i>=0)st.itemIds.splice(i,1); else st.itemIds.push(itemId);
+  scheduleSyncPush(); renderStencils();
+}
+function stFilteredCatItems(cat){
+  return library.filter(l=>l.cat===cat&&(!stSearchQ||l.scope.toLowerCase().includes(stSearchQ)||(l.desc&&l.desc.toLowerCase().includes(stSearchQ))));
+}
+function stToggleCat(cat){
+  const st=stencilById(stEditId); if(!st)return;
+  const ids=stFilteredCatItems(cat).map(l=>l.id);
+  const allIn=ids.every(id=>st.itemIds.includes(id));
+  if(allIn) st.itemIds=st.itemIds.filter(id=>!ids.includes(id));
+  else ids.forEach(id=>{if(!st.itemIds.includes(id))st.itemIds.push(id);});
+  scheduleSyncPush(); renderStencils();
+}
+function renderStencilItems(){
+  const box=document.getElementById("st-items"); if(!box)return;
+  const st=stencilById(stEditId);
+  const cnt=document.getElementById("st-count");
+  if(!st){ box.innerHTML='<div class="sheet-empty">No stencil selected — create one with ＋ New.</div>'; if(cnt)cnt.textContent=""; return; }
+  const inSet=new Set(st.itemIds);
+  const val=st.itemIds.reduce((a,id)=>{const it=library.find(l=>l.id===id);return a+(it?Math.round(Number(it.qty)*Number(it.rate)):0);},0);
+  if(cnt)cnt.innerHTML=`<strong>${st.itemIds.length}</strong> items in "${escHtml(st.name)}" · default value ≈ <strong>$${val.toLocaleString()}</strong>`;
+  let html="";
+  CATS.forEach(cat=>{
+    const items=stFilteredCatItems(cat);
+    if(!items.length)return;
+    const selN=items.filter(it=>inSet.has(it.id)).length;
+    const allIn=items.every(it=>inSet.has(it.id));
+    html+=`<div class="cat-head" style="cursor:default"><span>${cat}</span><button class="cat-addall" onclick="stToggleCat('${cat.replace(/'/g,"\\'")}')">${allIn?"− remove all":"+ all"}</button><span class="cat-count">${selN>0?selN+" in stencil · ":""}${items.length}</span></div>`;
+    items.forEach(it=>{
+      const s=inSet.has(it.id);
+      html+=`<label style="display:grid;grid-template-columns:40px 1fr;align-items:center;padding:8px 12px;border-bottom:1px solid var(--bdr);cursor:pointer;background:${s?"var(--sel)":"transparent"}">
+        <span class="chk-wrap"><input type="checkbox" class="chk" ${s?"checked":""} onchange="stToggle('${it.id}')"></span>
+        <span><span style="font-size:13px;line-height:1.35;display:block">${escHtml(it.scope)}</span><span style="font-size:11px;color:var(--mu)">${it.qty} ${escHtml(it.unit)} · $${Number(it.rate).toLocaleString()}/${escHtml(it.unit)} · life ${it.tl}yr</span></span>
+      </label>`;
+    });
+  });
+  box.innerHTML=html||'<div class="sheet-empty">No items match your search.</div>';
+}
+
 function renderJobSetup(){
   const sel=document.getElementById("js-company");
   if(!sel)return;
@@ -4222,6 +3776,12 @@ function renderJobSetup(){
   else if(!prev&&lastSetup.company)sel.value=lastSetup.company;
   const wEl=document.getElementById("js-weather");if(wEl&&!wEl.value&&lastSetup.weather)wEl.value=lastSetup.weather;
   const pEl=document.getElementById("js-preparedby");if(pEl&&lastSetup.preparedBy)pEl.value=lastSetup.preparedBy;
+  const stSel=document.getElementById("js-stencil");
+  if(stSel){
+    stSel.innerHTML='<option value="">— None / manual selection —</option>'+stencils.map(s=>`<option value="${s.id}">${escHtml(s.name)} (${s.itemIds.length} items)</option>`).join("");
+    stSel.value=jobMeta()["__stencilId"]||"";
+    if(stSel.selectedIndex<0)stSel.value="";
+  }
   updateGenReadout();
   wireProjectionLink();
 }
@@ -4816,7 +4376,9 @@ function projInputs(){
     closeBal: m["js-closebal"]||"",
     contrib:  m["js-cwfcontrib"]||"",
     le:       m["js-le"]||"",
-    goal:     (m["__goal"]!=null && m["__goal"]!=="") ? m["__goal"] : "95000",
+    // Goal defaults to the Current Closing Balance (live) until the user types
+    // their own goal; clearing the goal field reverts to following the balance.
+    goal:     (m["__goal"]!=null && m["__goal"]!=="") ? m["__goal"] : (sumNum(m["js-closebal"]||"")>0 ? m["js-closebal"] : "95000"),
     overrides: overrides
   };
 }
@@ -5073,6 +4635,7 @@ function renderReport(){
   if(H) H.innerHTML='<h2>'+escHtml(bname)+'</h2><div class="rep-sub">'+escHtml(m["js-address"]||"Capital Works Fund — 10-year forecast")+'</div>'+
     '<div class="rep-meta">'+pair("Strata Plan", sp?("SP "+sp):"—")+pair("Prepared for", m["js-company"]||"—")+
     pair("Prepared by", m["js-preparedby"]||"—")+pair("Date of inspection", today)+
+    pair("Building type", m["js-stencil"]||"—")+
     pair("Registered", m["js-regdate"]||"—")+pair("Financial year start", m["js-yearstart"]||"—")+'</div>';
   const A=document.getElementById("rep-assume");
   if(A) A.innerHTML='<div class="rep-meta">'+pair("Unit entitlements", R.UE.toLocaleString())+
