@@ -133,6 +133,7 @@ html,body{height:100%;overflow:hidden;font-family:'IBM Plex Sans',-apple-system,
 .setup-copy-btns{display:flex;flex-direction:column;gap:8px}
 .setup-hint{font-size:11px;color:var(--mu);margin-top:4px;line-height:1.5}
 /* ── SITE PHOTOS ── */
+.jp-thumb .jp-wait{display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:var(--mu);font-size:14px}
 .jp-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;min-height:62px;padding:10px 12px;border:1.5px dashed var(--bdr2);border-radius:9px;background:var(--surf2);font-size:12.5px;color:var(--navy-md);cursor:pointer;box-sizing:border-box;transition:border-color .12s,background .12s}
 .jp-drop:hover,.jp-drop.over{border-color:var(--navy-md);background:var(--surf)}
 .jp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:10px}
@@ -4530,15 +4531,45 @@ function wDateShort(d){ if(!(d instanceof Date)||isNaN(d))return""; return Strin
 let jobPhotos=[]; const _jpUrls={};
 function jpDb(){ return new Promise((res,rej)=>{ const r=indexedDB.open("tk_photos",1); r.onupgradeneeded=()=>{ r.result.createObjectStore("photos",{keyPath:"id"}); }; r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
 function jpTx(mode,fn){ return jpDb().then(db=>new Promise((res,rej)=>{ const tx=db.transaction("photos",mode); const req=fn(tx.objectStore("photos")); tx.oncomplete=()=>res(req?req.result:undefined); tx.onerror=()=>rej(tx.error); })); }
-async function jpLoad(){ try{ const rows=await jpTx("readonly",st=>st.getAll()); jobPhotos=(rows||[]); jpSort(); }catch(e){ console.warn("photo store:",e); } renderJobPhotos(); }
+async function jpLoad(){ try{ const rows=await jpTx("readonly",st=>st.getAll()); jobPhotos=(rows||[]); jpSort();
+    const stale=jobPhotos.filter(p=>!p.thumb);
+    if(stale.length) setTimeout(async()=>{
+      for(const p of stale){ p.thumb=await jpThumb(p.blob); await new Promise(r=>setTimeout(r,0)); }
+      try{ await jpTx("readwrite",st=>{ stale.forEach(p=>st.put(p)); return null; }); }catch(e){}
+      renderJobPhotos();
+    },80); }catch(e){ console.warn("photo store:",e); } renderJobPhotos(); }
+// Phone photos are 10-12MP. Rendering the originals in the grid makes the browser
+// decode every one of them on every render, which is what made adding photos crawl.
+// Build a small JPEG thumbnail once, on add, and let the grid use only that — the
+// full-resolution original is kept untouched for the Word embed.
+const JP_THUMB_PX=260;
+async function jpThumb(file){
+  let bmp=null;
+  try{ bmp=await createImageBitmap(file); }catch(e){ return null; }
+  try{
+    const s=Math.min(1,JP_THUMB_PX/Math.max(bmp.width,bmp.height));
+    const w=Math.max(1,Math.round(bmp.width*s)), hh=Math.max(1,Math.round(bmp.height*s));
+    const cv=document.createElement("canvas"); cv.width=w; cv.height=hh;
+    cv.getContext("2d").drawImage(bmp,0,0,w,hh);
+    return await new Promise(r=>cv.toBlob(r,"image/jpeg",0.72));
+  }catch(e){ return null; }
+  finally{ if(bmp&&bmp.close){ try{bmp.close();}catch(_){} } }
+}
 async function jpAddFiles(files){
   const list=[...(files||[])].filter(f=>f&&f.size); if(!list.length)return;
   const base=Date.now();
   const added=list.map((f,i)=>({id:uid()+i,name:f.name||("photo"+(jobPhotos.length+i+1)),type:f.type||"",blob:f,ts:base+i}));
   jobPhotos=jobPhotos.concat(added);
   jpSort();
+  renderJobPhotos();                       // placeholders appear immediately
+  toast(`Adding ${added.length} photo${added.length>1?"s":""}…`);
+  for(const p of added){                   // one at a time, yielding between each
+    p.thumb=await jpThumb(p.blob);
+    await new Promise(r=>setTimeout(r,0));
+  }
   renderJobPhotos();
-  try{ for(const p of added) await jpTx("readwrite",st=>st.put(p)); }catch(e){ console.warn("photo save:",e); }
+  try{ await jpTx("readwrite",st=>{ added.forEach(p=>st.put(p)); return null; }); }
+  catch(e){ console.warn("photo save:",e); }
   toast(`Added ${added.length} photo${added.length>1?"s":""}`,"ok");
 }
 function jpDrag(e,on){ e.preventDefault(); const el=e.currentTarget; if(el&&el.classList)el.classList.toggle("over",!!on); }
@@ -4572,8 +4603,9 @@ function renderJobPhotos(){
   [...document.querySelectorAll('[id="jp-clear-wrap"]')].forEach(w=>w.style.display=jobPhotos.length?"":"none");
   grids.forEach(g=>{
     g.innerHTML=jobPhotos.map((p,i)=>{
-      if(!_jpUrls[p.id]){ try{ _jpUrls[p.id]=URL.createObjectURL(p.blob); }catch(e){ _jpUrls[p.id]=""; } }
-      return `<div class="jp-thumb"><img src="${_jpUrls[p.id]}" alt=""><button class="jp-x" onclick="jpRemove('${p.id}')" title="Remove photo">✕</button><span class="jp-n">${i+1}</span></div>`;
+      if(!_jpUrls[p.id]&&p.thumb){ try{ _jpUrls[p.id]=URL.createObjectURL(p.thumb); }catch(e){ _jpUrls[p.id]=""; } }
+      const src=_jpUrls[p.id]||"";
+      return `<div class="jp-thumb">${src?`<img src="${src}" alt="" loading="lazy" decoding="async">`:'<span class="jp-wait">…</span>'}<button class="jp-x" onclick="jpRemove('${p.id}')" title="Remove photo">✕</button><span class="jp-n">${i+1}</span></div>`;
     }).join("");
   });
 }
