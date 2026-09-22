@@ -4766,12 +4766,28 @@ function fillItemTables(doc,tbls,N,R,baseYear,trOf,tcOf,colCount,setCellText,cel
   R.perItem.forEach(pi=>{ const c=pi.it.cat||"Other"; (byCat[c]=byCat[c]||[]).push(pi); });
 
   // ---- Master itemised table: cols=13 ----
+  // Word repeats any row flagged <w:tblHeader/> at the top of every page the
+  // table spills onto, and <w:cantSplit/> stops a row breaking mid-height.
+  const kidOf=(el,n)=>[...el.childNodes].find(c=>c.localName===n);
+  function rowPr(tr){ let pr=kidOf(tr,"trPr"); if(!pr){ pr=doc.createElementNS(WNS,"w:trPr"); tr.insertBefore(pr,tr.firstChild); } return pr; }
+  // CT_TrPr order: cnfStyle, divId, gridBefore/After, wBefore/After, cantSplit, trHeight, tblHeader, …
+  function setRowFlag(tr,name,on){
+    const pr=rowPr(tr); const have=kidOf(pr,name);
+    if(!on){ if(have)have.remove(); return; }
+    if(have)return;
+    const el=doc.createElementNS(WNS,"w:"+name);
+    const after=name==="cantSplit"?["trHeight","tblHeader","tblCellSpacing","jc","hidden"]:["tblCellSpacing","jc","hidden"];
+    let ref=null; for(const b of after){ const c=kidOf(pr,b); if(c){ ref=c; break; } }
+    pr.insertBefore(el,ref);
+  }
   const master=tbls.find(t=>colCount(t)===13);
   if(master){
     const rws0=trOf(master); const headerRows=Math.min(3,rws0.length); // keep up to 3 header rows
     const tmpl=rws0[headerRows]||rws0[rws0.length-1];
     // set year headings on header row index1 (2nd header row), cols 3..12
     try{ const hr=rws0[1]; if(hr){ const hc=tcOf(hr); for(let y=0;y<10;y++){ const c=hc[y+3]; if(c){ const t=[...c.getElementsByTagNameNS(NS,'t')]; if(t.length)t[0].textContent=String(baseYear+y); } } } }catch(e){}
+    // repeat the 3 header rows on every page the table runs onto
+    for(let i=0;i<headerRows;i++){ const hr=rws0[i]; if(hr){ setRowFlag(hr,"tblHeader",true); setRowFlag(hr,"cantSplit",true); } }
     // remove everything after header rows
     let rws=trOf(master); for(let i=rws.length-1;i>=headerRows;i--) rws[i].remove();
     let lineNo=1;
@@ -4781,7 +4797,7 @@ function fillItemTables(doc,tbls,N,R,baseYear,trOf,tcOf,colCount,setCellText,cel
       const sub=tmpl.cloneNode(true); master.appendChild(sub); const sc=tcOf(sub);
       if(sc[1]){ setCellText(sc[1],cat); cellFmt(sc[1],{bold:true,underline:true,size:ITEM_DATA_PT}); }
       if(sc[0])setCellText(sc[0],"");
-      setRowHeight(sub,ITEM_ROW_TWIPS);
+      setRowHeight(sub,ITEM_ROW_TWIPS); setRowFlag(sub,"tblHeader",false); setRowFlag(sub,"cantSplit",true);
       items.forEach(pi=>{
         const r=tmpl.cloneNode(true); master.appendChild(r); const cs=tcOf(r);
         if(cs[0])setCellText(cs[0],String(lineNo++));
@@ -4789,7 +4805,7 @@ function fillItemTables(doc,tbls,N,R,baseYear,trOf,tcOf,colCount,setCellText,cel
         if(cs[2])setCellText(cs[2], pi.f.pv?wCur0(pi.f.pv):""); // Present Value column
         for(let y=1;y<=10;y++){ const c=cs[y+2]; if(c)setCellText(c, pi.f.arr[y]?wCur0(pi.f.arr[y]):""); }
         cs.forEach(c=>cellFmt(c,{bold:false,underline:false,size:ITEM_DATA_PT}));
-        setRowHeight(r,ITEM_ROW_TWIPS);
+        setRowHeight(r,ITEM_ROW_TWIPS); setRowFlag(r,"tblHeader",false); setRowFlag(r,"cantSplit",true);
       });
     });
     // totals row
@@ -4798,7 +4814,7 @@ function fillItemTables(doc,tbls,N,R,baseYear,trOf,tcOf,colCount,setCellText,cel
     if(tcs[1]){ setCellText(tcs[1],"Total Estimated Yearly Expenses With 3% CPI - Includes GST"); cellFmt(tcs[1],{bold:true,underline:true,size:ITEM_DATA_PT}); }
     if(tcs[2])setCellText(tcs[2],""); // clear stray inherited Present Value from the cloned template row
     for(let y=1;y<=10;y++){ const c=tcs[y+2]; if(c){ setCellText(c, R.works[y]?wCur0(R.works[y]):""); cellFmt(c,{bold:true,underline:true,size:ITEM_DATA_PT}); } }
-    setRowHeight(tot,ITEM_ROW_TWIPS);
+    setRowHeight(tot,ITEM_ROW_TWIPS); setRowFlag(tot,"tblHeader",false); setRowFlag(tot,"cantSplit",true);
     // equalize the 10 year columns (col0=Line, col1=Item, col2=Present Value untouched)
     try{ equalizeCols(master,3,10); }catch(e){}
   }
